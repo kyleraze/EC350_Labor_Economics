@@ -1,0 +1,833 @@
+---
+title: "What is Labor Economics?"
+subtitle: "EC 350: Labor Economics"
+author: "[Kyle Raze](https://kyleraze.com)"
+date: "Spring 2021"
+output:
+  xaringan::moon_reader:
+    css: ['default', 'metropolis', 'metropolis-fonts', 'my-css.css']
+    self_contained: false
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      beforeInit: "https://platform.twitter.com/widgets.js"
+      ratio: "16:9"
+---
+class: inverse, middle
+
+```{r Setup, include = F}
+options(htmltools.dir.version = FALSE)
+library(pacman)
+p_load(ggthemes, viridis, knitr, kableExtra, extrafont, fontawesome, tidyverse, magrittr, janitor)
+# Define colors
+red_pink <- "#e64173"
+met_slate <- "#272822" # metropolis font color 
+purple <- "#9370DB"
+green <- "#007935"
+light_green <- "#7DBA97"
+# Notes directory
+dir_slides <- "~/GitHub/Intro_Labor_S21/Lectures/01-Introduction/"
+# Knitr options
+opts_chunk$set(
+  comment = "#>",
+  fig.align = "center",
+  fig.height = 7,
+  fig.width = 10.5,
+  #dpi = 300,
+  #cache = T,
+  warning = F,
+  message = F
+)  
+theme_simple <- theme_bw() + theme(
+  axis.line = element_line(color = met_slate),
+  panel.grid = element_blank(),
+  rect = element_blank(),
+  strip.text = element_blank(),
+  text = element_text(family = "Fira Sans", color = met_slate, size = 17),
+  axis.text.x = element_text(size = 12),
+  axis.text.y = element_text(size = 12),
+  axis.ticks = element_blank()
+)
+wrapper <- function(x, ...) paste(strwrap(x, ...), collapse = "\n")
+```
+
+# Prologue
+
+---
+# About me
+
+## [**Kyle Raze**](https://kyleraze.com)
+
+- PhD candidate in economics
+- UO alumnus: BA '15, MS '17
+- Applied microeconomist and econometrician
+- Data science, causal inference, education, labor, and public policy
+
+--
+
+Where can you find me?
+
+&nbsp; &nbsp; `r fa("map-marker-alt", fill = "#A9A9A9")` &nbsp; [uoregon.zoom.us](https://uoregon.zoom.us/) via [canvas.uoregon.edu](https://canvas.uoregon.edu/) <br>
+&nbsp; &nbsp; `r fa("clock", fill = "#A9A9A9")` &nbsp; T 13:00-14:00, Th 10:00-11:00, or by appointment <br>
+&nbsp; &nbsp; `r fa("envelope", fill = "#A9A9A9")` &nbsp; [raze@uoregon.edu](mailto:raze@uoregon.edu) <br>
+&nbsp; &nbsp; `r fa("globe", fill = "#A9A9A9")` &nbsp; [kyleraze.com](https://kyleraze.com)
+
+---
+class: inverse, middle
+
+# What is labor economics?
+
+---
+# What is economics?
+
+According to [John Maynard Keynes](https://en.wikipedia.org/wiki/John_Maynard_Keynes),
+
+> The theory of economics does not furnish a body of settled conclusions immediately applicable to policy. It is **a method rather than a doctrine**, an apparatus of the mind, **a technique of thinking** which helps its possessor to draw correct conclusions.
+
+---
+# What is labor economics?
+
+According to [John Maynard Keynes](https://en.wikipedia.org/wiki/John_Maynard_Keynes),
+
+> The theory of economics does not furnish a body of settled conclusions immediately applicable to policy. It is **a method rather than a doctrine**, an apparatus of the mind, **a technique of thinking** which helps its possessor to draw correct conclusions.
+
+**Q:** Who benefits from a $15 minimum wage?
+
+--
+
+- **Q:** What are the tradeoffs?
+
+
+
+---
+# What is labor economics?
+
+According to [John Maynard Keynes](https://en.wikipedia.org/wiki/John_Maynard_Keynes),
+
+> The theory of economics does not furnish a body of settled conclusions immediately applicable to policy. It is **a method rather than a doctrine**, an apparatus of the mind, **a technique of thinking** which helps its possessor to draw correct conclusions.
+
+**Q:** Does immigration reduce wages for native workers?
+
+---
+# What is labor economics?
+
+According to [John Maynard Keynes](https://en.wikipedia.org/wiki/John_Maynard_Keynes),
+
+> The theory of economics does not furnish a body of settled conclusions immediately applicable to policy. It is **a method rather than a doctrine**, an apparatus of the mind, **a technique of thinking** which helps its possessor to draw correct conclusions.
+
+**Q:** Will robots displace humans in the workplace? 
+
+---
+# What is labor economics?
+
+According to [John Maynard Keynes](https://en.wikipedia.org/wiki/John_Maynard_Keynes),
+
+> The theory of economics does not furnish a body of settled conclusions immediately applicable to policy. It is **a method rather than a doctrine**, an apparatus of the mind, **a technique of thinking** which helps its possessor to draw correct conclusions.
+
+**Q:** Would scrapping admissions tests increase diversity on campus?  
+
+--
+
+- There are significant [race gaps in SAT scores](https://www.brookings.edu/research/race-gaps-in-sat-scores-highlight-inequality-and-hinder-upward-mobility/).
+--
+
+- But could there be race gaps in other admissions criteria, too?
+
+---
+# What is labor economics?
+
+According to [John Maynard Keynes](https://en.wikipedia.org/wiki/John_Maynard_Keynes),
+
+> The theory of economics does not furnish a body of settled conclusions immediately applicable to policy. It is **a method rather than a doctrine**, an apparatus of the mind, **a technique of thinking** which helps its possessor to draw correct conclusions.
+
+**Q:** Why does the economics department care so much about grade inflation? What are the consequences of grade inflation?
+
+--
+
+**Q:** Why does grade inflation exist?
+
+---
+# What is labor economics?
+
+According to [John Maynard Keynes](https://en.wikipedia.org/wiki/John_Maynard_Keynes),
+
+> The theory of economics does not furnish a body of settled conclusions immediately applicable to policy. It is **a method rather than a doctrine**, an apparatus of the mind, **a technique of thinking** which helps its possessor to draw correct conclusions.
+
+**Q:** Do employers favor White job applicants over Black job applicants?
+
+--
+
+- *Source:* Marianne Bertrand and Sendhil Mullainathan (2004), [Are Emily and Greg more employable than Lakisha and Jamal?](https://www.aeaweb.org/articles?id=10.1257/0002828042002561), *The American Economic Review*.
+
+---
+# What is labor economics?
+
+According to [John Maynard Keynes](https://en.wikipedia.org/wiki/John_Maynard_Keynes),
+
+> The theory of economics does not furnish a body of settled conclusions immediately applicable to policy. It is **a method rather than a doctrine**, an apparatus of the mind, **a technique of thinking** which helps its possessor to draw correct conclusions.
+
+**Q:** How does banning job-application questions about criminal records affect hiring decisions?
+
+--
+
+- *Source:* Amanda Agan and Sonja Starr (2018), [Ban the Box, Criminal Records, and Racial Discrimination: A Field Experiment](https://academic.oup.com/qje/article-abstract/133/1/191/4060073), *The Quarterly Journal of Economics*.
+
+---
+# Why study labor economics? 
+
+**1.** Develop **critical-thinking** (and marketable) **skills**.
+
+**2.** Cultivate **healthy skepticism** in an environment that integrates **data and theory**.
+
+**3.** Learn to navigate a diverse set of **policy-relevant** questions.
+
+--
+
+- **Q:** Why are there [fewer female CEOs than male CEOs named John?](https://www.nytimes.com/2015/03/03/upshot/fewer-women-run-big-companies-than-men-named-john.html) 
+--
+
+- **Q:** Who stays in the police force once we defund the police? Who leaves? Who enters?
+--
+
+- **Q:** Do charter schools improve outcomes for disadvantaged students?
+--
+
+- **Q:** Can labor unions decrease income inequality? 
+--
+
+- **Q:** Should teachers receive "performance pay" for improvements in their students' test scores?
+--
+
+- **Q:** Where does the "college premium" come from?
+--
+
+- **Q:** How will the rise of big tech affect wages and working conditions?
+
+---
+class: clear-slide
+
+**Q:** Under the No Child Left Behind Act, state and federal authorities would impose sanctions on low-performing schools that had failed to improve standardized test scores. **What strategies could school officials pursue to avoid sanctions?**
+
+--
+
+- Substitute instructional time toward tested subjects?
+- "Teach to the test?"
+
+--
+- Artificially boost test scores by increasing the caloric content of school lunches on testing days?.super[.hi-pink[1]]
+- Give longer suspensions to low-performing students during the testing window?.super[.hi-pink[2]]
+- Have teachers cheat for students on standardized tests?.super[.hi-pink[3]]
+
+.footnote[.super[.hi-pink[1]] David N. Figlio (2006), [Testing, Crime and Punishment](https://doi.org/10.1016/j.jpubeco.2005.01.003), *Journal of Public Economics*.
+
+.super[.hi-pink[2]] David N. Figlio and Joshua Winicki (2005), [Food for Thought: The Effects of School Accountability Plans on School Nutrition](https://doi.org/10.1016/j.jpubeco.2003.10.007), *Journal of Public Economics*.
+
+.super[.hi-pink[3]] Brian A. Jacob and Steven D. Levit (2018), [Rotten Apples: An Investigation of the Prevalence and Predictors of Teacher Cheating](https://doi.org/10.1162/00335530360698441), *The Quarterly Journal of Economics*.]
+
+---
+class: clear-slide
+
+.bigger[**Q:** Why do orchestras employ many more male musicians than female musicians?]
+
+```{r, fig.retina = 2.75, echo = FALSE}
+include_graphics("symphony.png")
+```
+
+.bigger[**Q:** Do they .hi[discriminate] against women? How would you know?]
+
+--
+
+**Natural experiment:** In the 1950s, American orchestras introduced "blind" auditions.
+
+- With this innovation, women were **50% more likely to make it through the first cut** and several times more likely to make the final cut.
+--
+
+- **A takeaway?** We don't know if they were discriminating, but we can/should conclude that "the evidence is **consistent with discrimination**."
+
+---
+class: clear-slide
+
+**Q:** You plan to hire one person from a pool of five finalists. Which of the following is discriminatory?
+
+> **A.** Hire the finalist with the highest GPA.
+
+> **B.** Hire the finalist who performs best in the interview.
+
+> **C.** Hire the finalist who would contribute the most to diversity and inclusion. 
+
+> **D.** Hire the finalist who most looks like you.
+
+> **E.** Pick a finalist using a random number generator.
+
+> **F.** All of the above.
+
+---
+class: clear-slide
+count: false
+
+**Q:** You plan to hire one person from a pool of five finalists. Which of the following is discriminatory?
+
+> **A.** Hire the finalist with the highest GPA.
+
+> **B.** Hire the finalist who performs best in the interview.
+
+> **C.** Hire the finalist who would contribute the most to diversity and inclusion. 
+
+> **D.** Hire the finalist who most looks like you.
+
+> **E.** Pick a finalist using a random number generator.
+
+> .hi-pink[F.] .pink[All of the above.]
+
+--
+
+Allocating a scarce resource will .hi[always] require discrimination.
+
+- It's not about **whether** we discriminate, it's about **which forms** of discrimination we encourage and which we discourage!
+
+---
+# What is labor economics?
+
+## Some uninspired textbook definitions
+
+According to the [Institute of Labor Economics (IZA)](https://www.iza.org/),
+
+> Labor economics is the study of the labor force as an element in the process of production.
+
+--
+
+According to your textbook,
+
+> Labor economics studies how labor markets work.
+
+--
+
+Or, according to some guy on the internet,
+
+> Labor economics is the study of how employers and employees respond to changes in prices, profits, wages, and working conditions.
+
+--
+
+Narrow-sounding definitions notwithstanding, **the scope of labor economics is extraordinarily broad!**
+
+---
+# Flavors of labor
+
+## Micro labor
+
+The **micro** approach focuses on the causes and consequences of the choices that **individual agents**.super[.hi-pink[<span>&#8224;</span>]] make.
+
+.footnote[.super[.hi-pink[<span>&#8224;</span>]] *e.g.,* workers, employers, students, teachers, stay-at-home-dads, *etc.*]
+- What factors constrain the choices of individuals? How do people respond when we relax those constraints or impose new ones? Do we like the consequences?
+
+## Macro labor 
+
+The **macro** approach focuses on the **collective implications** of those choices.
+
+- What do different forms of unemployment tell us about the economy? Is there a tradeoff between unemployment and inflation? How do we grow the economy and avoid recessions?
+
+---
+# Labor economics, the science?
+
+**Economics** (of any form) seeks to explain real-world events by way of:
+
+> **Observation** .mono[->] **Hypothesis** .mono[->] **Prediction** .mono[->] **Experimentation** .mono[->] **Conclusion**
+
+--
+
+Yes...the **scientific method**.
+
+That we focus on **human** behavior picks up the "social" modifier..super[.hi-pink[<span>&#8224;</span>]]
+
+.footnote[.super[.hi-pink[<span>&#8224;</span>]] The other core fields of social science (psychology, political science, sociology, anthropology) also attempt to explain human behavior, but differ in the questions they pose and in their frameworks and toolkits.]
+
+--
+
+"But, isn't it **difficult to conduct controlled experiments** in the social sciences?"
+
+- We do perform randomized control trials, and lab experiments, but we also exploit natural experiments, and are active in the development of new methods in econometrics and data science.
+
+---
+# Example: Card and Krueger (1994)
+
+.bigger[**Research Question:** Do increases in the minimum wage reduce employment opportunities for low-skill workers?]
+
+**Motivation**
+
+- How can we improve living standards for the least well-off?
+- Policy lever: Impose a binding wage floor?
+- Concern: Employers could respond by laying off workers
+
+--
+
+**Approach** 
+
+- Survey fast-food restaurants in a state that increased its minimum wage and a neighboring state that did not, before and after the change
+
+---
+# Example: Card and Krueger (1994)
+
+## Natural Experiment
+
+New Jersey increased its hourly minimum wage from &#36;4.25 to &#36;5.05.super[.hi-pink[<span>&#8224;</span>]] in 1992, but neighboring Pennsylvania did not change.
+
+- .hi-pink[Treatment group:] Fast-food restaurants in New Jersey
+- .hi-purple[Control group:] Fast-food restaurants in Pennsylvania
+
+.footnote[.super[.hi-pink[<span>&#8224;</span>]] At the time, New Jersey's new minimum wage was the highest in the country.]
+
+--
+
+**Q:** What is the point of having a control group? Why not just calculate the before-and-after change in New Jersey's employment levels?
+
+--
+
+**Q:** What is the point having data before the wage increase? Why not just compare New Jersey's employment levels with Pennsylvania's after the minimum wage increase? 
+
+---
+# Example: Card and Krueger (1994)
+
+## Natural Experiment
+
+Measure the causal effect of the minimum wage increase by comparing fast-food employment in New Jersey and Pennsylvania, before and after New Jersey increased its minimum wage.
+
+- .hi-pink[Assumption:] .pink[If New Jersey hadn't increased its minimum wage, New Jersey's fast-food employment would have continued on the same trend as fast-food employment in Pennsylvania.] 
+
+---
+count: false
+# Example: Card and Krueger (1994)
+
+## Natural Experiment
+
+Measure the causal effect of the minimum wage increase by comparing fast-food employment in New Jersey and Pennsylvania, before and after New Jersey increased its minimum wage.
+
+- .hi-pink[Assumption:] .pink[If New Jersey hadn't increased its minimum wage, New Jersey's fast-food employment would have continued on the same trend as fast-food employment in Pennsylvania.] 
+
+
+- If we believe this assumption, then the observed "difference-in-differences" supports a causal interpretation.
+
+
+- If not, then the change could reflect other factors and thus fail to isolate the causal effect of the minimum wage increase.
+
+---
+# Example: Card and Krueger (1994)
+
+## Results
+
+.pull-left[
+```{r, echo=FALSE, dev = "svg", fig.height = 5, fig.width = 5}
+data <- tibble(
+  t = c(0, 1), 
+) %>% 
+  mutate(control = 23.33 - 2.16 * t,
+         counterfactual = control + (20.44 - 23.33),
+         treatment = case_when(t == 0 ~ counterfactual, TRUE ~ counterfactual + 2.75 * t))
+data %>% 
+  ggplot() +
+  #scale_y_continuous(breaks = NULL) +
+  scale_x_continuous(breaks = c(0.25, 0.75), labels = c("Before", "After")) +
+  geom_vline(xintercept = 0.5, color = met_slate, size = 1, linetype = "dashed") +
+  # difference-in-differences line
+  geom_segment(aes(x = 1, xend = 1, y = 18.28, yend = 18.28 + 2.75), color = met_slate, size = 1, linetype = "solid", alpha = 0) +
+  annotate( "text", x = 0.96, y = (18.28 + 18.28 + 2.75) / 2, label = "Difference-in-differences", angle = 90, color = met_slate, size = 4, family = "Fira Sans", alpha = 0) +
+  # counterfactual NJ
+  geom_line(aes(x = t, y = counterfactual), color = red_pink, size = 1, linetype = "dashed", alpha = 0) +
+  geom_point(aes(x = 1, y = 18.28), color = red_pink, size = 2, shape = 24, fill = "white", stroke = 1.5, alpha = 0) +
+  # annotate("label", x = 0.3, y = 19.75, label = "Counterfactual", color = red_pink, size = 4, family = "Fira Sans") +
+  # NJ
+  geom_line(aes(x = t, y = treatment), color = red_pink, size = 1, linetype = "solid") +
+  geom_point(aes(x = t, y = treatment), color = red_pink, size = 2, shape = 21, fill = "white", stroke = 1.5) +
+  annotate("label", x = 0.3, y = 20.65, label = "New Jersey", color = red_pink, size = 4, family = "Fira Sans") +
+  # PA
+  geom_line(aes(x = t, y = control), color = purple, size = 1, linetype = "solid") +
+  geom_point(aes(x = t, y = control), color = purple, size = 2, shape = 21, fill = "white", stroke = 1.5) +
+  annotate("label", x = 0.3, y = 22.75, label = "Pennsylvania", color = purple, size = 4, family = "Fira Sans") +
+  # labels
+  annotate("label", x = 0.5, y = 23.5, label = "Minimum wage increase", color = met_slate, size = 4, family = "Fira Sans") +
+  theme_simple + xlab("") + ylab("Average employment per store")
+```
+]
+.pull-right[
+```{R, echo = F, escape = F}
+tab <- data.frame(
+  v1 = c(".pink[Treatment (NJ)]", ".purple[Control (PA)]"),
+  v2 = c(21.03, 21.17),
+  v3 = c(20.44, 23.33),
+  v4 = c("", "")
+) %>% kable(
+  escape = F,
+  col.names = c("Group", "After", "Before", "Difference"),
+  align = c("l", "c", "c", "c"),
+  caption = "Average employment per store"
+) %>%
+  kable_styling() %>% 
+  row_spec(1:2, extra_css = "line-height: 110%;")
+tab 
+```
+]
+
+---
+count: false
+# Example: Card and Krueger (1994)
+
+## Results
+
+.pull-left[
+```{r, echo=FALSE, dev = "svg", fig.height = 5, fig.width = 5}
+data %>% 
+  ggplot() +
+  #scale_y_continuous(breaks = NULL) +
+  scale_x_continuous(breaks = c(0.25, 0.75), labels = c("Before", "After")) +
+  geom_vline(xintercept = 0.5, color = met_slate, size = 1, linetype = "dashed") +
+  # difference-in-differences line
+  geom_segment(aes(x = 1, xend = 1, y = 18.28, yend = 18.28 + 2.75), color = met_slate, size = 1, linetype = "solid", alpha = 0) +
+  annotate( "text", x = 0.96, y = (18.28 + 18.28 + 2.75) / 2, label = "Difference-in-differences", angle = 90, color = met_slate, size = 4, family = "Fira Sans", alpha = 0) +
+  # counterfactual NJ
+  geom_line(aes(x = t, y = counterfactual), color = red_pink, size = 1, linetype = "dashed", alpha = 0) +
+  geom_point(aes(x = 1, y = 18.28), color = red_pink, size = 2, shape = 24, fill = "white", stroke = 1.5, alpha = 0) +
+  # annotate("label", x = 0.3, y = 19.75, label = "Counterfactual", color = red_pink, size = 4, family = "Fira Sans") +
+  # NJ
+  geom_line(aes(x = t, y = treatment), color = red_pink, size = 1, linetype = "solid") +
+  geom_point(aes(x = t, y = treatment), color = red_pink, size = 2, shape = 21, fill = "white", stroke = 1.5) +
+  annotate("label", x = 0.3, y = 20.65, label = "New Jersey", color = red_pink, size = 4, family = "Fira Sans") +
+  # PA
+  geom_line(aes(x = t, y = control), color = purple, size = 1, linetype = "solid") +
+  geom_point(aes(x = t, y = control), color = purple, size = 2, shape = 21, fill = "white", stroke = 1.5) +
+  annotate("label", x = 0.3, y = 22.75, label = "Pennsylvania", color = purple, size = 4, family = "Fira Sans") +
+  # labels
+  annotate("label", x = 0.5, y = 23.5, label = "Minimum wage increase", color = met_slate, size = 4, family = "Fira Sans") +
+  theme_simple + xlab("") + ylab("Average employment per store")
+```
+]
+.pull-right[
+```{R, echo = F, escape = F}
+tab <- data.frame(
+  v1 = c(".pink[Treatment (NJ)]", ".purple[Control (PA)]"),
+  v2 = c(21.03, 21.17),
+  v3 = c(20.44, 23.33),
+  v4 = c(0.59, "")
+) %>% kable(
+  escape = F,
+  col.names = c("Group", "After", "Before", "Difference"),
+  align = c("l", "c", "c", "c"),
+  caption = "Average employment per store"
+) %>%
+  kable_styling() %>% 
+  row_spec(1:2, extra_css = "line-height: 110%;")
+tab 
+```
+]
+
+---
+count: false
+# Example: Card and Krueger (1994)
+
+## Results
+
+.pull-left[
+```{r, echo=FALSE, dev = "svg", fig.height = 5, fig.width = 5}
+data %>% 
+  ggplot() +
+  #scale_y_continuous(breaks = NULL) +
+  scale_x_continuous(breaks = c(0.25, 0.75), labels = c("Before", "After")) +
+  geom_vline(xintercept = 0.5, color = met_slate, size = 1, linetype = "dashed") +
+  # difference-in-differences line
+  geom_segment(aes(x = 1, xend = 1, y = 18.28, yend = 18.28 + 2.75), color = met_slate, size = 1, linetype = "solid", alpha = 0) +
+  annotate( "text", x = 0.96, y = (18.28 + 18.28 + 2.75) / 2, label = "Difference-in-differences", angle = 90, color = met_slate, size = 4, family = "Fira Sans", alpha = 0) +
+  # counterfactual NJ
+  geom_line(aes(x = t, y = counterfactual), color = red_pink, size = 1, linetype = "dashed", alpha = 0) +
+  geom_point(aes(x = 1, y = 18.28), color = red_pink, size = 2, shape = 24, fill = "white", stroke = 1.5, alpha = 0) +
+  # annotate("label", x = 0.3, y = 19.75, label = "Counterfactual", color = red_pink, size = 4, family = "Fira Sans") +
+  # NJ
+  geom_line(aes(x = t, y = treatment), color = red_pink, size = 1, linetype = "solid") +
+  geom_point(aes(x = t, y = treatment), color = red_pink, size = 2, shape = 21, fill = "white", stroke = 1.5) +
+  annotate("label", x = 0.3, y = 20.65, label = "New Jersey", color = red_pink, size = 4, family = "Fira Sans") +
+  # PA
+  geom_line(aes(x = t, y = control), color = purple, size = 1, linetype = "solid") +
+  geom_point(aes(x = t, y = control), color = purple, size = 2, shape = 21, fill = "white", stroke = 1.5) +
+  annotate("label", x = 0.3, y = 22.75, label = "Pennsylvania", color = purple, size = 4, family = "Fira Sans") +
+  # labels
+  annotate("label", x = 0.5, y = 23.5, label = "Minimum wage increase", color = met_slate, size = 4, family = "Fira Sans") +
+  theme_simple + xlab("") + ylab("Average employment per store")
+```
+]
+.pull-right[
+```{R, echo = F, escape = F}
+tab <- data.frame(
+  v1 = c(".pink[Treatment (NJ)]", ".purple[Control (PA)]"),
+  v2 = c(21.03, 21.17),
+  v3 = c(20.44, 23.33),
+  v4 = c(0.59, -2.16)
+) %>% kable(
+  escape = F,
+  col.names = c("Group", "After", "Before", "Difference"),
+  align = c("l", "c", "c", "c"),
+  caption = "Average employment per store"
+) %>%
+  kable_styling() %>% 
+  row_spec(1:2, extra_css = "line-height: 110%;")
+tab 
+```
+]
+
+---
+count: false
+# Example: Card and Krueger (1994)
+
+## Results
+
+.pull-left[
+```{r, echo=FALSE, dev = "svg", fig.height = 5, fig.width = 5}
+data %>% 
+  ggplot() +
+  #scale_y_continuous(breaks = NULL) +
+  scale_x_continuous(breaks = c(0.25, 0.75), labels = c("Before", "After")) +
+  geom_vline(xintercept = 0.5, color = met_slate, size = 1, linetype = "dashed") +
+  # difference-in-differences line
+  geom_segment(aes(x = 1, xend = 1, y = 18.28, yend = 18.28 + 2.75), color = met_slate, size = 1, linetype = "solid", alpha = 0) +
+  annotate( "text", x = 0.96, y = (18.28 + 18.28 + 2.75) / 2, label = "Difference-in-differences", angle = 90, color = met_slate, size = 4, family = "Fira Sans", alpha = 0) +
+  # counterfactual NJ
+  geom_line(aes(x = t, y = counterfactual), color = red_pink, size = 1, linetype = "dashed", alpha = 0) +
+  geom_point(aes(x = 1, y = 18.28), color = red_pink, size = 2, shape = 24, fill = "white", stroke = 1.5, alpha = 0) +
+  # annotate("label", x = 0.3, y = 19.75, label = "Counterfactual", color = red_pink, size = 4, family = "Fira Sans") +
+  # NJ
+  geom_line(aes(x = t, y = treatment), color = red_pink, size = 1, linetype = "solid") +
+  geom_point(aes(x = t, y = treatment), color = red_pink, size = 2, shape = 21, fill = "white", stroke = 1.5) +
+  annotate("label", x = 0.3, y = 20.65, label = "New Jersey", color = red_pink, size = 4, family = "Fira Sans") +
+  # PA
+  geom_line(aes(x = t, y = control), color = purple, size = 1, linetype = "solid") +
+  geom_point(aes(x = t, y = control), color = purple, size = 2, shape = 21, fill = "white", stroke = 1.5) +
+  annotate("label", x = 0.3, y = 22.75, label = "Pennsylvania", color = purple, size = 4, family = "Fira Sans") +
+  # labels
+  annotate("label", x = 0.5, y = 23.5, label = "Minimum wage increase", color = met_slate, size = 4, family = "Fira Sans") +
+  theme_simple + xlab("") + ylab("Average employment per store")
+```
+]
+.pull-right[
+```{R, echo = F, escape = F}
+tab 
+```
+
+Difference-in-differences .mono[=] .pink[0.59] .mono[-] .purple[-2.16]
+]
+
+---
+count: false
+# Example: Card and Krueger (1994)
+
+## Results
+
+.pull-left[
+```{r, echo=FALSE, dev = "svg", fig.height = 5, fig.width = 5}
+data %>% 
+  ggplot() +
+  #scale_y_continuous(breaks = NULL) +
+  scale_x_continuous(breaks = c(0.25, 0.75), labels = c("Before", "After")) +
+  geom_vline(xintercept = 0.5, color = met_slate, size = 1, linetype = "dashed") +
+  # difference-in-differences line
+  geom_segment(aes(x = 1, xend = 1, y = 18.28, yend = 18.28 + 2.75), color = met_slate, size = 1, linetype = "solid", alpha = 0) +
+  annotate( "text", x = 0.96, y = (18.28 + 18.28 + 2.75) / 2, label = "Difference-in-differences", angle = 90, color = met_slate, size = 4, family = "Fira Sans", alpha = 0) +
+  # counterfactual NJ
+  geom_line(aes(x = t, y = counterfactual), color = red_pink, size = 1, linetype = "dashed", alpha = 1) +
+  geom_point(aes(x = 1, y = 18.28), color = red_pink, size = 2, shape = 24, fill = "white", stroke = 1.5, alpha = 1) +
+  annotate("label", x = 0.3, y = 19.75, label = "Counterfactual", color = red_pink, size = 4, family = "Fira Sans", alpha = 1) +
+  # NJ
+  geom_line(aes(x = t, y = treatment), color = red_pink, size = 1, linetype = "solid") +
+  geom_point(aes(x = t, y = treatment), color = red_pink, size = 2, shape = 21, fill = "white", stroke = 1.5) +
+  annotate("label", x = 0.3, y = 20.65, label = "New Jersey", color = red_pink, size = 4, family = "Fira Sans") +
+  # PA
+  geom_line(aes(x = t, y = control), color = purple, size = 1, linetype = "solid") +
+  geom_point(aes(x = t, y = control), color = purple, size = 2, shape = 21, fill = "white", stroke = 1.5) +
+  annotate("label", x = 0.3, y = 22.75, label = "Pennsylvania", color = purple, size = 4, family = "Fira Sans") +
+  # labels
+  annotate("label", x = 0.5, y = 23.5, label = "Minimum wage increase", color = met_slate, size = 4, family = "Fira Sans") +
+  theme_simple + xlab("") + ylab("Average employment per store")
+```
+]
+.pull-right[
+```{R, echo = F, escape = F}
+tab 
+```
+
+Difference-in-differences .mono[=] .pink[0.59] .mono[-] .purple[-2.16] .mono[=] 2.75
+]
+
+---
+count: false
+# Example: Card and Krueger (1994)
+
+## Results
+
+.pull-left[
+```{r, echo=FALSE, dev = "svg", fig.height = 5, fig.width = 5}
+plot <- data %>% 
+  ggplot() +
+  #scale_y_continuous(breaks = NULL) +
+  scale_x_continuous(breaks = c(0.25, 0.75), labels = c("Before", "After")) +
+  geom_vline(xintercept = 0.5, color = met_slate, size = 1, linetype = "dashed") +
+  # difference-in-differences line
+  geom_segment(aes(x = 1, xend = 1, y = 18.28, yend = 18.28 + 2.75), color = met_slate, size = 1, linetype = "solid", alpha = 1) +
+  annotate( "text", x = 0.96, y = (18.28 + 18.28 + 2.75) / 2, label = "Difference-in-differences", angle = 90, color = met_slate, size = 4, family = "Fira Sans", alpha = 1) +
+  # counterfactual NJ
+  geom_line(aes(x = t, y = counterfactual), color = red_pink, size = 1, linetype = "dashed", alpha = 1) +
+  geom_point(aes(x = 1, y = 18.28), color = red_pink, size = 2, shape = 24, fill = "white", stroke = 1.5, alpha = 1) +
+  annotate("label", x = 0.3, y = 19.75, label = "Counterfactual", color = red_pink, size = 4, family = "Fira Sans", alpha = 1) +
+  # NJ
+  geom_line(aes(x = t, y = treatment), color = red_pink, size = 1, linetype = "solid") +
+  geom_point(aes(x = t, y = treatment), color = red_pink, size = 2, shape = 21, fill = "white", stroke = 1.5) +
+  annotate("label", x = 0.3, y = 20.65, label = "New Jersey", color = red_pink, size = 4, family = "Fira Sans") +
+  # PA
+  geom_line(aes(x = t, y = control), color = purple, size = 1, linetype = "solid") +
+  geom_point(aes(x = t, y = control), color = purple, size = 2, shape = 21, fill = "white", stroke = 1.5) +
+  annotate("label", x = 0.3, y = 22.75, label = "Pennsylvania", color = purple, size = 4, family = "Fira Sans") +
+  # labels
+  annotate("label", x = 0.5, y = 23.5, label = "Minimum wage increase", color = met_slate, size = 4, family = "Fira Sans") +
+  theme_simple + xlab("") + ylab("Average employment per store")
+plot
+```
+]
+.pull-right[
+```{R, echo = F, escape = F}
+tab 
+```
+
+Difference-in-differences .mono[=] .pink[0.59] .mono[-] .purple[-2.16] .mono[=] 2.75
+]
+
+---
+count: false
+# Example: Card and Krueger (1994)
+
+## Results
+
+.pull-left[
+```{r, echo=FALSE, dev = "svg", fig.height = 5, fig.width = 5}
+plot
+```
+]
+.pull-right[
+```{R, echo = F, escape = F}
+tab 
+```
+
+Difference-in-differences .mono[=] .pink[0.59] .mono[-] .purple[-2.16] .mono[=] 2.75
+
+Increasing the minimum wage did not reduce employment!
+
+If anything, New Jersey's minimum wage increase is associated with an **increase** in employment!
+]
+
+
+---
+# Example: Card and Krueger (1994)
+
+In this case, the data provide evidence that is **inconsistent** with the predictions of the conventional model.super[.hi-pink[<span>&#8224;</span>]] of the labor market.
+
+.footnote[.super[.hi-pink[<span>&#8224;</span>]] *i.e.,* an abstract market featuring undifferentiated labor, perfect competition, perfect information, and well-defined property rights.]
+
+- Perhaps the conventional model fails to account for an important aspect of the labor market? (We will revisit this later.)
+
+**Q:** Does the evidence *prove* that minimum wage increases have no negative impact on employment?
+
+--
+
+- **A:** No!
+
+> **Science does not prove.** Science **falsifies** hypotheses or **fails to** falsify hypotheses.
+
+---
+# Example: Card and Krueger (1994)
+
+## Policy implications?
+
+- Perhaps minimum wages can increase wages for those in low-skill occupations without reducing employment?
+
+.footnote[*Source:* David Card and Alan Krueger (1994), [Minimum Wages and Employment: A Case Study of the Fast-Food Industry in New Jersey and Pennsylvania](https://davidcard.berkeley.edu/papers/njmin-aer.pdf), *The American Economic Review*.]
+
+---
+count: false
+# Example: Card and Krueger (1994)
+
+## Policy implications?
+
+- Perhaps minimum wages can increase wages for those in low-skill occupations without reducing employment?
+
+That said, **the jury is still out** on how minimum wage laws affect employment.
+
+- There is a vast empirical literature on minimum wages.
+
+
+- Some studies do find negative effects on employment while others find null or even positive effects.
+
+
+.footnote[*Source:* David Card and Alan Krueger (1994), [Minimum Wages and Employment: A Case Study of the Fast-Food Industry in New Jersey and Pennsylvania](https://davidcard.berkeley.edu/papers/njmin-aer.pdf), *The American Economic Review*.]
+
+---
+# Remember...
+
+## All causal statements rest on an assumption
+
+**The fundamental econometric problem:** During the treatment period, the treated group is never seen without the effect of treatment.
+
+--
+
+- We do not see the version of New Jersey after 1992 without the 1992 policy change.
+- One must assume something about what New Jersey's labor market **would have looked like** had New Jersey not increased its minimum wage.
+- That is, one must assume a *counterfactual*.
+
+As with any assumption, **it is not testable.**
+
+--
+
+- Our failure to falsify a hypothesis does not imply that the assumption is true!
+
+---
+# The big, not-so-dismal question
+
+.bigger[**Q:** Given inclinations toward **self-interest**, how do we make decisions to **promote social welfare?**]
+
+--
+
+- Or, more dismally, how do we make decisions to advance our own interest despite the welfare consequences?
+
+
+--
+
+If not making policy yourself, **how do you evaluate the policies of others?**
+
+- In what ways are incentives *aligned* with what is socially desirable?
+- In what ways are they *misaligned?*
+
+---
+# Housekeeping
+
+## Slides
+
+I will post slides **after** each lecture.
+
+--
+
+You will notice **two files** for each slide deck:
+
+- **HTML:** Features the same animations and interactive features as those in lecture, but requires an internet connection to view.
+- **PDF:** Does not feature any animations or interactive features, but you can download the file and view it without an internet connection.
+
+
+---
+# Housekeeping
+
+## Reading quizzes 
+
+You will take one online quiz for each required reading.
+
+- Two randomly selected questions
+- Five minutes to complete once you begin
+- No late submissions
+
+
+--
+
+The first quiz is due by **Wednesday, March 31st at 16:00**.
+
+To account for technical difficulties, **I will drop your lowest three scores** at the end of the quarter.

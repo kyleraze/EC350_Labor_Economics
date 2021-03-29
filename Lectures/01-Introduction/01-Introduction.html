@@ -1,0 +1,893 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>What is Labor Economics?</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Kyle Raze" />
+    <script src="01-Introduction_files/header-attrs/header-attrs.js"></script>
+    <link href="01-Introduction_files/remark-css/default.css" rel="stylesheet" />
+    <link href="01-Introduction_files/remark-css/metropolis.css" rel="stylesheet" />
+    <link href="01-Introduction_files/remark-css/metropolis-fonts.css" rel="stylesheet" />
+    <script src="01-Introduction_files/kePrint/kePrint.js"></script>
+    <link href="01-Introduction_files/lightable/lightable.css" rel="stylesheet" />
+    <link rel="stylesheet" href="my-css.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# What is Labor Economics?
+## EC 350: Labor Economics
+### <a href="https://kyleraze.com">Kyle Raze</a>
+### Spring 2021
+
+---
+
+class: inverse, middle
+
+
+
+# Prologue
+
+---
+# About me
+
+## [**Kyle Raze**](https://kyleraze.com)
+
+- PhD candidate in economics
+- UO alumnus: BA '15, MS '17
+- Applied microeconomist and econometrician
+- Data science, causal inference, education, labor, and public policy
+
+--
+
+Where can you find me?
+
+&amp;nbsp; &amp;nbsp; &lt;svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" class="rfa" style="height:0.75em;fill:#A9A9A9;position:relative;"&gt;&lt;path d="M172.268 501.67C26.97 291.031 0 269.413 0 192 0 85.961 85.961 0 192 0s192 85.961 192 192c0 77.413-26.97 99.031-172.268 309.67-9.535 13.774-29.93 13.773-39.464 0zM192 272c44.183 0 80-35.817 80-80s-35.817-80-80-80-80 35.817-80 80 35.817 80 80 80z"/&gt;&lt;/svg&gt; &amp;nbsp; [uoregon.zoom.us](https://uoregon.zoom.us/) via [canvas.uoregon.edu](https://canvas.uoregon.edu/) &lt;br&gt;
+&amp;nbsp; &amp;nbsp; &lt;svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="rfa" style="height:0.75em;fill:#A9A9A9;position:relative;"&gt;&lt;path d="M256,8C119,8,8,119,8,256S119,504,256,504,504,393,504,256,393,8,256,8Zm92.49,313h0l-20,25a16,16,0,0,1-22.49,2.5h0l-67-49.72a40,40,0,0,1-15-31.23V112a16,16,0,0,1,16-16h32a16,16,0,0,1,16,16V256l58,42.5A16,16,0,0,1,348.49,321Z"/&gt;&lt;/svg&gt; &amp;nbsp; T 13:00-14:00, Th 10:00-11:00, or by appointment &lt;br&gt;
+&amp;nbsp; &amp;nbsp; &lt;svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="rfa" style="height:0.75em;fill:#A9A9A9;position:relative;"&gt;&lt;path d="M502.3 190.8c3.9-3.1 9.7-.2 9.7 4.7V400c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V195.6c0-5 5.7-7.8 9.7-4.7 22.4 17.4 52.1 39.5 154.1 113.6 21.1 15.4 56.7 47.8 92.2 47.6 35.7.3 72-32.8 92.3-47.6 102-74.1 131.6-96.3 154-113.7zM256 320c23.2.4 56.6-29.2 73.4-41.4 132.7-96.3 142.8-104.7 173.4-128.7 5.8-4.5 9.2-11.5 9.2-18.9v-19c0-26.5-21.5-48-48-48H48C21.5 64 0 85.5 0 112v19c0 7.4 3.4 14.3 9.2 18.9 30.6 23.9 40.7 32.4 173.4 128.7 16.8 12.2 50.2 41.8 73.4 41.4z"/&gt;&lt;/svg&gt; &amp;nbsp; [raze@uoregon.edu](mailto:raze@uoregon.edu) &lt;br&gt;
+&amp;nbsp; &amp;nbsp; &lt;svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512" class="rfa" style="height:0.75em;fill:#A9A9A9;position:relative;"&gt;&lt;path d="M336.5 160C322 70.7 287.8 8 248 8s-74 62.7-88.5 152h177zM152 256c0 22.2 1.2 43.5 3.3 64h185.3c2.1-20.5 3.3-41.8 3.3-64s-1.2-43.5-3.3-64H155.3c-2.1 20.5-3.3 41.8-3.3 64zm324.7-96c-28.6-67.9-86.5-120.4-158-141.6 24.4 33.8 41.2 84.7 50 141.6h108zM177.2 18.4C105.8 39.6 47.8 92.1 19.3 160h108c8.7-56.9 25.5-107.8 49.9-141.6zM487.4 192H372.7c2.1 21 3.3 42.5 3.3 64s-1.2 43-3.3 64h114.6c5.5-20.5 8.6-41.8 8.6-64s-3.1-43.5-8.5-64zM120 256c0-21.5 1.2-43 3.3-64H8.6C3.2 212.5 0 233.8 0 256s3.2 43.5 8.6 64h114.6c-2-21-3.2-42.5-3.2-64zm39.5 96c14.5 89.3 48.7 152 88.5 152s74-62.7 88.5-152h-177zm159.3 141.6c71.4-21.2 129.4-73.7 158-141.6h-108c-8.8 56.9-25.6 107.8-50 141.6zM19.3 352c28.6 67.9 86.5 120.4 158 141.6-24.4-33.8-41.2-84.7-50-141.6h-108z"/&gt;&lt;/svg&gt; &amp;nbsp; [kyleraze.com](https://kyleraze.com)
+
+---
+class: inverse, middle
+
+# What is labor economics?
+
+---
+# What is economics?
+
+According to [John Maynard Keynes](https://en.wikipedia.org/wiki/John_Maynard_Keynes),
+
+&gt; The theory of economics does not furnish a body of settled conclusions immediately applicable to policy. It is **a method rather than a doctrine**, an apparatus of the mind, **a technique of thinking** which helps its possessor to draw correct conclusions.
+
+---
+# What is labor economics?
+
+According to [John Maynard Keynes](https://en.wikipedia.org/wiki/John_Maynard_Keynes),
+
+&gt; The theory of economics does not furnish a body of settled conclusions immediately applicable to policy. It is **a method rather than a doctrine**, an apparatus of the mind, **a technique of thinking** which helps its possessor to draw correct conclusions.
+
+**Q:** Who benefits from a $15 minimum wage?
+
+--
+
+- **Q:** What are the tradeoffs?
+
+
+
+---
+# What is labor economics?
+
+According to [John Maynard Keynes](https://en.wikipedia.org/wiki/John_Maynard_Keynes),
+
+&gt; The theory of economics does not furnish a body of settled conclusions immediately applicable to policy. It is **a method rather than a doctrine**, an apparatus of the mind, **a technique of thinking** which helps its possessor to draw correct conclusions.
+
+**Q:** Does immigration reduce wages for native workers?
+
+---
+# What is labor economics?
+
+According to [John Maynard Keynes](https://en.wikipedia.org/wiki/John_Maynard_Keynes),
+
+&gt; The theory of economics does not furnish a body of settled conclusions immediately applicable to policy. It is **a method rather than a doctrine**, an apparatus of the mind, **a technique of thinking** which helps its possessor to draw correct conclusions.
+
+**Q:** Will robots displace humans in the workplace? 
+
+---
+# What is labor economics?
+
+According to [John Maynard Keynes](https://en.wikipedia.org/wiki/John_Maynard_Keynes),
+
+&gt; The theory of economics does not furnish a body of settled conclusions immediately applicable to policy. It is **a method rather than a doctrine**, an apparatus of the mind, **a technique of thinking** which helps its possessor to draw correct conclusions.
+
+**Q:** Would scrapping admissions tests increase diversity on campus?  
+
+--
+
+- There are significant [race gaps in SAT scores](https://www.brookings.edu/research/race-gaps-in-sat-scores-highlight-inequality-and-hinder-upward-mobility/).
+--
+
+- But could there be race gaps in other admissions criteria, too?
+
+---
+# What is labor economics?
+
+According to [John Maynard Keynes](https://en.wikipedia.org/wiki/John_Maynard_Keynes),
+
+&gt; The theory of economics does not furnish a body of settled conclusions immediately applicable to policy. It is **a method rather than a doctrine**, an apparatus of the mind, **a technique of thinking** which helps its possessor to draw correct conclusions.
+
+**Q:** Why does the economics department care so much about grade inflation? What are the consequences of grade inflation?
+
+--
+
+**Q:** Why does grade inflation exist?
+
+---
+# What is labor economics?
+
+According to [John Maynard Keynes](https://en.wikipedia.org/wiki/John_Maynard_Keynes),
+
+&gt; The theory of economics does not furnish a body of settled conclusions immediately applicable to policy. It is **a method rather than a doctrine**, an apparatus of the mind, **a technique of thinking** which helps its possessor to draw correct conclusions.
+
+**Q:** Do employers favor White job applicants over Black job applicants?
+
+--
+
+- *Source:* Marianne Bertrand and Sendhil Mullainathan (2004), [Are Emily and Greg more employable than Lakisha and Jamal?](https://www.aeaweb.org/articles?id=10.1257/0002828042002561), *The American Economic Review*.
+
+---
+# What is labor economics?
+
+According to [John Maynard Keynes](https://en.wikipedia.org/wiki/John_Maynard_Keynes),
+
+&gt; The theory of economics does not furnish a body of settled conclusions immediately applicable to policy. It is **a method rather than a doctrine**, an apparatus of the mind, **a technique of thinking** which helps its possessor to draw correct conclusions.
+
+**Q:** How does banning job-application questions about criminal records affect hiring decisions?
+
+--
+
+- *Source:* Amanda Agan and Sonja Starr (2018), [Ban the Box, Criminal Records, and Racial Discrimination: A Field Experiment](https://academic.oup.com/qje/article-abstract/133/1/191/4060073), *The Quarterly Journal of Economics*.
+
+---
+# Why study labor economics? 
+
+**1.** Develop **critical-thinking** (and marketable) **skills**.
+
+**2.** Cultivate **healthy skepticism** in an environment that integrates **data and theory**.
+
+**3.** Learn to navigate a diverse set of **policy-relevant** questions.
+
+--
+
+- **Q:** Why are there [fewer female CEOs than male CEOs named John?](https://www.nytimes.com/2015/03/03/upshot/fewer-women-run-big-companies-than-men-named-john.html) 
+--
+
+- **Q:** Who stays in the police force once we defund the police? Who leaves? Who enters?
+--
+
+- **Q:** Do charter schools improve outcomes for disadvantaged students?
+--
+
+- **Q:** Can labor unions decrease income inequality? 
+--
+
+- **Q:** Should teachers receive "performance pay" for improvements in their students' test scores?
+--
+
+- **Q:** Where does the "college premium" come from?
+--
+
+- **Q:** How will the rise of big tech affect wages and working conditions?
+
+---
+class: clear-slide
+
+**Q:** Under the No Child Left Behind Act, state and federal authorities would impose sanctions on low-performing schools that had failed to improve standardized test scores. **What strategies could school officials pursue to avoid sanctions?**
+
+--
+
+- Substitute instructional time toward tested subjects?
+- "Teach to the test?"
+
+--
+- Artificially boost test scores by increasing the caloric content of school lunches on testing days?.super[.hi-pink[1]]
+- Give longer suspensions to low-performing students during the testing window?.super[.hi-pink[2]]
+- Have teachers cheat for students on standardized tests?.super[.hi-pink[3]]
+
+.footnote[.super[.hi-pink[1]] David N. Figlio (2006), [Testing, Crime and Punishment](https://doi.org/10.1016/j.jpubeco.2005.01.003), *Journal of Public Economics*.
+
+.super[.hi-pink[2]] David N. Figlio and Joshua Winicki (2005), [Food for Thought: The Effects of School Accountability Plans on School Nutrition](https://doi.org/10.1016/j.jpubeco.2003.10.007), *Journal of Public Economics*.
+
+.super[.hi-pink[3]] Brian A. Jacob and Steven D. Levit (2018), [Rotten Apples: An Investigation of the Prevalence and Predictors of Teacher Cheating](https://doi.org/10.1162/00335530360698441), *The Quarterly Journal of Economics*.]
+
+---
+class: clear-slide
+
+.bigger[**Q:** Why do orchestras employ many more male musicians than female musicians?]
+
+&lt;img src="symphony.png" width="384" style="display: block; margin: auto;" /&gt;
+
+.bigger[**Q:** Do they .hi[discriminate] against women? How would you know?]
+
+--
+
+**Natural experiment:** In the 1950s, American orchestras introduced "blind" auditions.
+
+- With this innovation, women were **50% more likely to make it through the first cut** and several times more likely to make the final cut.
+--
+
+- **A takeaway?** We don't know if they were discriminating, but we can/should conclude that "the evidence is **consistent with discrimination**."
+
+---
+class: clear-slide
+
+**Q:** You plan to hire one person from a pool of five finalists. Which of the following is discriminatory?
+
+&gt; **A.** Hire the finalist with the highest GPA.
+
+&gt; **B.** Hire the finalist who performs best in the interview.
+
+&gt; **C.** Hire the finalist who would contribute the most to diversity and inclusion. 
+
+&gt; **D.** Hire the finalist who most looks like you.
+
+&gt; **E.** Pick a finalist using a random number generator.
+
+&gt; **F.** All of the above.
+
+---
+class: clear-slide
+count: false
+
+**Q:** You plan to hire one person from a pool of five finalists. Which of the following is discriminatory?
+
+&gt; **A.** Hire the finalist with the highest GPA.
+
+&gt; **B.** Hire the finalist who performs best in the interview.
+
+&gt; **C.** Hire the finalist who would contribute the most to diversity and inclusion. 
+
+&gt; **D.** Hire the finalist who most looks like you.
+
+&gt; **E.** Pick a finalist using a random number generator.
+
+&gt; .hi-pink[F.] .pink[All of the above.]
+
+--
+
+Allocating a scarce resource will .hi[always] require discrimination.
+
+- It's not about **whether** we discriminate, it's about **which forms** of discrimination we encourage and which we discourage!
+
+---
+# What is labor economics?
+
+## Some uninspired textbook definitions
+
+According to the [Institute of Labor Economics (IZA)](https://www.iza.org/),
+
+&gt; Labor economics is the study of the labor force as an element in the process of production.
+
+--
+
+According to your textbook,
+
+&gt; Labor economics studies how labor markets work.
+
+--
+
+Or, according to some guy on the internet,
+
+&gt; Labor economics is the study of how employers and employees respond to changes in prices, profits, wages, and working conditions.
+
+--
+
+Narrow-sounding definitions notwithstanding, **the scope of labor economics is extraordinarily broad!**
+
+---
+# Flavors of labor
+
+## Micro labor
+
+The **micro** approach focuses on the causes and consequences of the choices that **individual agents**.super[.hi-pink[&lt;span&gt;&amp;#8224;&lt;/span&gt;]] make.
+
+.footnote[.super[.hi-pink[&lt;span&gt;&amp;#8224;&lt;/span&gt;]] *e.g.,* workers, employers, students, teachers, stay-at-home-dads, *etc.*]
+- What factors constrain the choices of individuals? How do people respond when we relax those constraints or impose new ones? Do we like the consequences?
+
+## Macro labor 
+
+The **macro** approach focuses on the **collective implications** of those choices.
+
+- What do different forms of unemployment tell us about the economy? Is there a tradeoff between unemployment and inflation? How do we grow the economy and avoid recessions?
+
+---
+# Labor economics, the science?
+
+**Economics** (of any form) seeks to explain real-world events by way of:
+
+&gt; **Observation** .mono[-&gt;] **Hypothesis** .mono[-&gt;] **Prediction** .mono[-&gt;] **Experimentation** .mono[-&gt;] **Conclusion**
+
+--
+
+Yes...the **scientific method**.
+
+That we focus on **human** behavior picks up the "social" modifier..super[.hi-pink[&lt;span&gt;&amp;#8224;&lt;/span&gt;]]
+
+.footnote[.super[.hi-pink[&lt;span&gt;&amp;#8224;&lt;/span&gt;]] The other core fields of social science (psychology, political science, sociology, anthropology) also attempt to explain human behavior, but differ in the questions they pose and in their frameworks and toolkits.]
+
+--
+
+"But, isn't it **difficult to conduct controlled experiments** in the social sciences?"
+
+- We do perform randomized control trials, and lab experiments, but we also exploit natural experiments, and are active in the development of new methods in econometrics and data science.
+
+---
+# Example: Card and Krueger (1994)
+
+.bigger[**Research Question:** Do increases in the minimum wage reduce employment opportunities for low-skill workers?]
+
+**Motivation**
+
+- How can we improve living standards for the least well-off?
+- Policy lever: Impose a binding wage floor?
+- Concern: Employers could respond by laying off workers
+
+--
+
+**Approach** 
+
+- Survey fast-food restaurants in a state that increased its minimum wage and a neighboring state that did not, before and after the change
+
+---
+# Example: Card and Krueger (1994)
+
+## Natural Experiment
+
+New Jersey increased its hourly minimum wage from &amp;#36;4.25 to &amp;#36;5.05.super[.hi-pink[&lt;span&gt;&amp;#8224;&lt;/span&gt;]] in 1992, but neighboring Pennsylvania did not change.
+
+- .hi-pink[Treatment group:] Fast-food restaurants in New Jersey
+- .hi-purple[Control group:] Fast-food restaurants in Pennsylvania
+
+.footnote[.super[.hi-pink[&lt;span&gt;&amp;#8224;&lt;/span&gt;]] At the time, New Jersey's new minimum wage was the highest in the country.]
+
+--
+
+**Q:** What is the point of having a control group? Why not just calculate the before-and-after change in New Jersey's employment levels?
+
+--
+
+**Q:** What is the point having data before the wage increase? Why not just compare New Jersey's employment levels with Pennsylvania's after the minimum wage increase? 
+
+---
+# Example: Card and Krueger (1994)
+
+## Natural Experiment
+
+Measure the causal effect of the minimum wage increase by comparing fast-food employment in New Jersey and Pennsylvania, before and after New Jersey increased its minimum wage.
+
+- .hi-pink[Assumption:] .pink[If New Jersey hadn't increased its minimum wage, New Jersey's fast-food employment would have continued on the same trend as fast-food employment in Pennsylvania.] 
+
+---
+count: false
+# Example: Card and Krueger (1994)
+
+## Natural Experiment
+
+Measure the causal effect of the minimum wage increase by comparing fast-food employment in New Jersey and Pennsylvania, before and after New Jersey increased its minimum wage.
+
+- .hi-pink[Assumption:] .pink[If New Jersey hadn't increased its minimum wage, New Jersey's fast-food employment would have continued on the same trend as fast-food employment in Pennsylvania.] 
+
+
+- If we believe this assumption, then the observed "difference-in-differences" supports a causal interpretation.
+
+
+- If not, then the change could reflect other factors and thus fail to isolate the causal effect of the minimum wage increase.
+
+---
+# Example: Card and Krueger (1994)
+
+## Results
+
+.pull-left[
+&lt;img src="01-Introduction_files/figure-html/unnamed-chunk-2-1.svg" style="display: block; margin: auto;" /&gt;
+]
+.pull-right[
+&lt;table class="table" style="margin-left: auto; margin-right: auto;"&gt;
+&lt;caption&gt;Average employment per store&lt;/caption&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; Group &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; After &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; Before &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; Difference &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;line-height: 110%;"&gt; .pink[Treatment (NJ)] &lt;/td&gt;
+   &lt;td style="text-align:center;line-height: 110%;"&gt; 21.03 &lt;/td&gt;
+   &lt;td style="text-align:center;line-height: 110%;"&gt; 20.44 &lt;/td&gt;
+   &lt;td style="text-align:center;line-height: 110%;"&gt;  &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;line-height: 110%;"&gt; .purple[Control (PA)] &lt;/td&gt;
+   &lt;td style="text-align:center;line-height: 110%;"&gt; 21.17 &lt;/td&gt;
+   &lt;td style="text-align:center;line-height: 110%;"&gt; 23.33 &lt;/td&gt;
+   &lt;td style="text-align:center;line-height: 110%;"&gt;  &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+]
+
+---
+count: false
+# Example: Card and Krueger (1994)
+
+## Results
+
+.pull-left[
+&lt;img src="01-Introduction_files/figure-html/unnamed-chunk-4-1.svg" style="display: block; margin: auto;" /&gt;
+]
+.pull-right[
+&lt;table class="table" style="margin-left: auto; margin-right: auto;"&gt;
+&lt;caption&gt;Average employment per store&lt;/caption&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; Group &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; After &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; Before &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; Difference &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;line-height: 110%;"&gt; .pink[Treatment (NJ)] &lt;/td&gt;
+   &lt;td style="text-align:center;line-height: 110%;"&gt; 21.03 &lt;/td&gt;
+   &lt;td style="text-align:center;line-height: 110%;"&gt; 20.44 &lt;/td&gt;
+   &lt;td style="text-align:center;line-height: 110%;"&gt; 0.59 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;line-height: 110%;"&gt; .purple[Control (PA)] &lt;/td&gt;
+   &lt;td style="text-align:center;line-height: 110%;"&gt; 21.17 &lt;/td&gt;
+   &lt;td style="text-align:center;line-height: 110%;"&gt; 23.33 &lt;/td&gt;
+   &lt;td style="text-align:center;line-height: 110%;"&gt;  &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+]
+
+---
+count: false
+# Example: Card and Krueger (1994)
+
+## Results
+
+.pull-left[
+&lt;img src="01-Introduction_files/figure-html/unnamed-chunk-6-1.svg" style="display: block; margin: auto;" /&gt;
+]
+.pull-right[
+&lt;table class="table" style="margin-left: auto; margin-right: auto;"&gt;
+&lt;caption&gt;Average employment per store&lt;/caption&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; Group &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; After &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; Before &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; Difference &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;line-height: 110%;"&gt; .pink[Treatment (NJ)] &lt;/td&gt;
+   &lt;td style="text-align:center;line-height: 110%;"&gt; 21.03 &lt;/td&gt;
+   &lt;td style="text-align:center;line-height: 110%;"&gt; 20.44 &lt;/td&gt;
+   &lt;td style="text-align:center;line-height: 110%;"&gt; 0.59 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;line-height: 110%;"&gt; .purple[Control (PA)] &lt;/td&gt;
+   &lt;td style="text-align:center;line-height: 110%;"&gt; 21.17 &lt;/td&gt;
+   &lt;td style="text-align:center;line-height: 110%;"&gt; 23.33 &lt;/td&gt;
+   &lt;td style="text-align:center;line-height: 110%;"&gt; -2.16 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+]
+
+---
+count: false
+# Example: Card and Krueger (1994)
+
+## Results
+
+.pull-left[
+&lt;img src="01-Introduction_files/figure-html/unnamed-chunk-8-1.svg" style="display: block; margin: auto;" /&gt;
+]
+.pull-right[
+&lt;table class="table" style="margin-left: auto; margin-right: auto;"&gt;
+&lt;caption&gt;Average employment per store&lt;/caption&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; Group &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; After &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; Before &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; Difference &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;line-height: 110%;"&gt; .pink[Treatment (NJ)] &lt;/td&gt;
+   &lt;td style="text-align:center;line-height: 110%;"&gt; 21.03 &lt;/td&gt;
+   &lt;td style="text-align:center;line-height: 110%;"&gt; 20.44 &lt;/td&gt;
+   &lt;td style="text-align:center;line-height: 110%;"&gt; 0.59 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;line-height: 110%;"&gt; .purple[Control (PA)] &lt;/td&gt;
+   &lt;td style="text-align:center;line-height: 110%;"&gt; 21.17 &lt;/td&gt;
+   &lt;td style="text-align:center;line-height: 110%;"&gt; 23.33 &lt;/td&gt;
+   &lt;td style="text-align:center;line-height: 110%;"&gt; -2.16 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+Difference-in-differences .mono[=] .pink[0.59] .mono[-] .purple[-2.16]
+]
+
+---
+count: false
+# Example: Card and Krueger (1994)
+
+## Results
+
+.pull-left[
+&lt;img src="01-Introduction_files/figure-html/unnamed-chunk-10-1.svg" style="display: block; margin: auto;" /&gt;
+]
+.pull-right[
+&lt;table class="table" style="margin-left: auto; margin-right: auto;"&gt;
+&lt;caption&gt;Average employment per store&lt;/caption&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; Group &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; After &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; Before &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; Difference &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;line-height: 110%;"&gt; .pink[Treatment (NJ)] &lt;/td&gt;
+   &lt;td style="text-align:center;line-height: 110%;"&gt; 21.03 &lt;/td&gt;
+   &lt;td style="text-align:center;line-height: 110%;"&gt; 20.44 &lt;/td&gt;
+   &lt;td style="text-align:center;line-height: 110%;"&gt; 0.59 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;line-height: 110%;"&gt; .purple[Control (PA)] &lt;/td&gt;
+   &lt;td style="text-align:center;line-height: 110%;"&gt; 21.17 &lt;/td&gt;
+   &lt;td style="text-align:center;line-height: 110%;"&gt; 23.33 &lt;/td&gt;
+   &lt;td style="text-align:center;line-height: 110%;"&gt; -2.16 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+Difference-in-differences .mono[=] .pink[0.59] .mono[-] .purple[-2.16] .mono[=] 2.75
+]
+
+---
+count: false
+# Example: Card and Krueger (1994)
+
+## Results
+
+.pull-left[
+&lt;img src="01-Introduction_files/figure-html/unnamed-chunk-12-1.svg" style="display: block; margin: auto;" /&gt;
+]
+.pull-right[
+&lt;table class="table" style="margin-left: auto; margin-right: auto;"&gt;
+&lt;caption&gt;Average employment per store&lt;/caption&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; Group &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; After &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; Before &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; Difference &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;line-height: 110%;"&gt; .pink[Treatment (NJ)] &lt;/td&gt;
+   &lt;td style="text-align:center;line-height: 110%;"&gt; 21.03 &lt;/td&gt;
+   &lt;td style="text-align:center;line-height: 110%;"&gt; 20.44 &lt;/td&gt;
+   &lt;td style="text-align:center;line-height: 110%;"&gt; 0.59 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;line-height: 110%;"&gt; .purple[Control (PA)] &lt;/td&gt;
+   &lt;td style="text-align:center;line-height: 110%;"&gt; 21.17 &lt;/td&gt;
+   &lt;td style="text-align:center;line-height: 110%;"&gt; 23.33 &lt;/td&gt;
+   &lt;td style="text-align:center;line-height: 110%;"&gt; -2.16 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+Difference-in-differences .mono[=] .pink[0.59] .mono[-] .purple[-2.16] .mono[=] 2.75
+]
+
+---
+count: false
+# Example: Card and Krueger (1994)
+
+## Results
+
+.pull-left[
+&lt;img src="01-Introduction_files/figure-html/unnamed-chunk-14-1.svg" style="display: block; margin: auto;" /&gt;
+]
+.pull-right[
+&lt;table class="table" style="margin-left: auto; margin-right: auto;"&gt;
+&lt;caption&gt;Average employment per store&lt;/caption&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; Group &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; After &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; Before &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; Difference &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;line-height: 110%;"&gt; .pink[Treatment (NJ)] &lt;/td&gt;
+   &lt;td style="text-align:center;line-height: 110%;"&gt; 21.03 &lt;/td&gt;
+   &lt;td style="text-align:center;line-height: 110%;"&gt; 20.44 &lt;/td&gt;
+   &lt;td style="text-align:center;line-height: 110%;"&gt; 0.59 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;line-height: 110%;"&gt; .purple[Control (PA)] &lt;/td&gt;
+   &lt;td style="text-align:center;line-height: 110%;"&gt; 21.17 &lt;/td&gt;
+   &lt;td style="text-align:center;line-height: 110%;"&gt; 23.33 &lt;/td&gt;
+   &lt;td style="text-align:center;line-height: 110%;"&gt; -2.16 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+Difference-in-differences .mono[=] .pink[0.59] .mono[-] .purple[-2.16] .mono[=] 2.75
+
+Increasing the minimum wage did not reduce employment!
+
+If anything, New Jersey's minimum wage increase is associated with an **increase** in employment!
+]
+
+
+---
+# Example: Card and Krueger (1994)
+
+In this case, the data provide evidence that is **inconsistent** with the predictions of the conventional model.super[.hi-pink[&lt;span&gt;&amp;#8224;&lt;/span&gt;]] of the labor market.
+
+.footnote[.super[.hi-pink[&lt;span&gt;&amp;#8224;&lt;/span&gt;]] *i.e.,* an abstract market featuring undifferentiated labor, perfect competition, perfect information, and well-defined property rights.]
+
+- Perhaps the conventional model fails to account for an important aspect of the labor market? (We will revisit this later.)
+
+**Q:** Does the evidence *prove* that minimum wage increases have no negative impact on employment?
+
+--
+
+- **A:** No!
+
+&gt; **Science does not prove.** Science **falsifies** hypotheses or **fails to** falsify hypotheses.
+
+---
+# Example: Card and Krueger (1994)
+
+## Policy implications?
+
+- Perhaps minimum wages can increase wages for those in low-skill occupations without reducing employment?
+
+.footnote[*Source:* David Card and Alan Krueger (1994), [Minimum Wages and Employment: A Case Study of the Fast-Food Industry in New Jersey and Pennsylvania](https://davidcard.berkeley.edu/papers/njmin-aer.pdf), *The American Economic Review*.]
+
+---
+count: false
+# Example: Card and Krueger (1994)
+
+## Policy implications?
+
+- Perhaps minimum wages can increase wages for those in low-skill occupations without reducing employment?
+
+That said, **the jury is still out** on how minimum wage laws affect employment.
+
+- There is a vast empirical literature on minimum wages.
+
+
+- Some studies do find negative effects on employment while others find null or even positive effects.
+
+
+.footnote[*Source:* David Card and Alan Krueger (1994), [Minimum Wages and Employment: A Case Study of the Fast-Food Industry in New Jersey and Pennsylvania](https://davidcard.berkeley.edu/papers/njmin-aer.pdf), *The American Economic Review*.]
+
+---
+# Remember...
+
+## All causal statements rest on an assumption
+
+**The fundamental econometric problem:** During the treatment period, the treated group is never seen without the effect of treatment.
+
+--
+
+- We do not see the version of New Jersey after 1992 without the 1992 policy change.
+- One must assume something about what New Jersey's labor market **would have looked like** had New Jersey not increased its minimum wage.
+- That is, one must assume a *counterfactual*.
+
+As with any assumption, **it is not testable.**
+
+--
+
+- Our failure to falsify a hypothesis does not imply that the assumption is true!
+
+---
+# The big, not-so-dismal question
+
+.bigger[**Q:** Given inclinations toward **self-interest**, how do we make decisions to **promote social welfare?**]
+
+--
+
+- Or, more dismally, how do we make decisions to advance our own interest despite the welfare consequences?
+
+
+--
+
+If not making policy yourself, **how do you evaluate the policies of others?**
+
+- In what ways are incentives *aligned* with what is socially desirable?
+- In what ways are they *misaligned?*
+
+---
+# Housekeeping
+
+## Slides
+
+I will post slides **after** each lecture.
+
+--
+
+You will notice **two files** for each slide deck:
+
+- **HTML:** Features the same animations and interactive features as those in lecture, but requires an internet connection to view.
+- **PDF:** Does not feature any animations or interactive features, but you can download the file and view it without an internet connection.
+
+
+---
+# Housekeeping
+
+## Reading quizzes 
+
+You will take one online quiz for each required reading.
+
+- Two randomly selected questions
+- Five minutes to complete once you begin
+- No late submissions
+
+
+--
+
+The first quiz is due by **Wednesday, March 31st at 16:00**.
+
+To account for technical difficulties, **I will drop your lowest three scores** at the end of the quarter.
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="https://platform.twitter.com/widgets.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

@@ -1,0 +1,5 @@
+"0","p_load(ggthemes, viridis, knitr, kableExtra, extrafont, fontawesome, tidyverse, magrittr, janitor)
+"
+"2","Error in p_load(ggthemes, viridis, knitr, kableExtra, extrafont, fontawesome,  : 
+  could not find function ""p_load""
+"

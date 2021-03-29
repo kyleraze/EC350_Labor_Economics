@@ -1,0 +1,249 @@
+% !TEX program = XeLaTex
+\documentclass[11pt]{article}
+%\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{setspace, titling}
+\newcommand{\subtitle}[1]{%
+  \posttitle{%
+    \par\end{center}
+    \begin{center}\large#1\end{center}
+    \vskip0.5em}%
+}
+\usepackage{pdflscape}
+\usepackage[round]{natbib}
+\bibliographystyle{unsrtnat}
+\renewcommand{\refname}{Required Readings}
+
+
+%% FONTS
+\usepackage{fontspec}
+% See: https://tex.stackexchange.com/a/50593
+\setmainfont[
+BoldFont       = FiraSans-SemiBold.otf,
+ItalicFont     = FiraSans-Italic.otf,
+BoldItalicFont = FiraSans-SemiBoldItalic.otf
+]{FiraSans-Regular.otf} %
+\setmonofont[
+BoldFont       = FiraCode-Bold.ttf
+]{FiraCode-Regular.ttf}
+\usepackage{marvosym} % For cool symbols.
+\usepackage{fontawesome} % Ditto
+%\usepackage{libertine}
+
+\usepackage[normalem]{ulem} %% For strikeout font: \sout()
+
+\usepackage[dvipsnames]{xcolor}
+\definecolor{uo_green}{HTML}{154733}
+\definecolor{forest_green}{HTML}{006241}
+\definecolor{pine_green}{HTML}{007935}
+\definecolor{grass_green}{HTML}{62A70F}
+\definecolor{golden_yellow}{HTML}{FFD200}
+\definecolor{cool_gray}{HTML}{54565B}
+\definecolor{light_cool_gray}{HTML}{A8A8AA}
+
+\usepackage[colorlinks = true,
+linkcolor = pine_green,
+urlcolor  = pine_green,
+citecolor = pine_green,
+anchorcolor = black]{hyperref}
+\usepackage{graphicx}
+
+% For table formatting:
+\usepackage{array, booktabs, caption, siunitx, multirow, float}
+\newcommand{\ra}[1]{\renewcommand{\arraystretch}{#1}}
+\newcolumntype{d}[1]{D{.}{.}{#1}}
+
+\begin{document}
+
+\title{
+	\texttt{\textbf{Labor Economics} [EC 350]}\\[1em]
+	\large Spring 2021 Syllabus
+}
+\author{\textbf{Kyle Raze} \\ Department of Economics \\ University of Oregon}
+%\date{}  % Toggle commenting to test
+\date{\vspace{-1ex}}
+
+\maketitle
+
+%\section*{Course at a glance}
+
+\begin{table}[!h]
+	\ra{1.1}
+\begin{tabular}{l @{\hspace{1.25\tabcolsep}} l l l @{\hspace{1.25\tabcolsep}} l @{}}
+	& \textbf{{Lecture}} & & & \textbf{{Materials}} \\
+	\faMapMarker & Remote & & \faLaptop & Assigned readings (on Canvas) \\
+	\faClockO & M \& W 16:15--17:45 & & \faBook & \href{https://www.amazon.com/Labor-Economics-George-J-Borjas/dp/007802188X}{Labor Economics, 7\textsuperscript{th} ed.} \\
+	& & & & \\
+	& \textbf{{Instructor}} & & & \textbf{Grader} \\
+	\faUser & Kyle Raze & & \faUser & Emily Arnesen \\
+	\faPaperPlaneO & \href{mailto:raze@uoregon.edu}{raze@uoregon.edu} & & \faPaperPlaneO & \href{mailto:earnesen@uoregon.edu}{earnesen@uoregon.edu} \\
+	\faMapMarker & Remote & & \faMapMarker & Remote  \\ %\href{https://map.uoregon.edu/fae79fcfd}{PLC 522}
+	\faClockO & T 13:00--14:00, Th 10:00--11:00, or by appointment & & \faClockO & By appointment \\
+	\faGlobe & \href{https://kyleraze.com}{kyleraze.com} & & &  \\	
+\end{tabular}
+\end{table}
+
+\section*{Course Summary}
+
+This course applies insights from economic theory and real-world data to explore the causes of inequality in the labor market. Building upon concepts from introductory microeconomics, we will analyze the responses of workers and employers to changes in incentives, and consider the roles of policy, institutions, and other social phenomena in shaping labor market outcomes. As part of this line of inquiry, we will develop a toolkit that integrates theory and data, paying special attention to the ways in which we can identify---or fail to identify---causal relationships from data. Beyond refining their understanding of mechanisms that drive income inequality, successful students will leave the course with a framework for evaluating evidence and policy.
+
+\subsection*{Prerequisites} 
+
+The only formal prerequisite course is EC 201 (Principles of Microeconomics). Calculus is recommended, but not essential.
+
+\section*{Course Structure}
+
+\subsection*{Materials} 
+
+\paragraph*{Assigned readings:} Labor economics is a data-driven discipline. To expose you to empirical research in economics, I will assign up to 14 required readings over the course of the quarter (see the tentative schedule further below). Unless otherwise noted, you should complete each reading assignment \textit{before} lecture. You can find the readings on Canvas.
+
+\paragraph*{Textbook:} The course textbook is \href{https://www.amazon.com/Labor-Economics-George-J-Borjas/dp/007802188X}{\textbf{Labor Economics}, 7\textsuperscript{th} ed.} by George Borjas (2015). You can purchase it at the Duck Store or your preferred online bookseller. While I do not assign problems or required readings from the textbook, it can nevertheless provide a useful resource for the theoretical component of the course.
+
+\subsection*{Grading}
+
+I will award grades based on your relative performance in the class, as determined by the following weights:
+
+\begin{table}[!h]
+	\ra{1.2}
+	\centering
+	\begin{tabular}{@{\extracolsep{1cm}}ll@{}}
+		\textbf{Exams} (midterm + final) & 70\% (35\% each) \\
+		\textbf{Problem sets} (up to 4) & 15\% \\
+		\textbf{Reading quizzes} (up to 14) & 15\% \\
+		\textbf{Optional short essays} (up to 4) & up to 4\% extra credit
+	\end{tabular}
+\end{table}
+
+\noindent Economics department policy stipulates that roughly 65\% of students in an upper division class should earn grades in the A or B range, including +/- distinctions. I will follow this policy by curving the class \textit{at the end of the quarter}.
+
+\subsection*{Exams} 
+
+You will take a midterm exam and a final exam on Canvas. Both exams are open-note, but you must complete them \textbf{on your own}. I do not give makeup exams. See the course policy on makeup assignments for more information.  
+
+\subsection*{Problem sets} 
+
+I will assign \textbf{four} problem sets throughout the quarter. Each problem set will consist of a computer-graded section (\textit{e.g.}, multiple choice, matching, fill-in-the-blank, true/false, \textit{etc}.) and a hand-graded section (mostly graphing and short answer).
+\begin{itemize}
+	\setlength{\itemsep}{0pt}
+	\item I will announce due dates in class. 
+	\item You will submit all components of each problem set on Canvas.
+	\item I will drop your lowest score at the end of the quarter.
+\end{itemize}
+I encourage you to work together on the problem sets, but \textbf{each student is required to write and submit independent answers}. I will take word-for-word copies as evidence of academic dishonesty. If you work with others, list their names where indicated on the assignment. If you fail to list your collaborators, you will receive a score of zero.
+
+\subsection*{Reading quizzes} 
+
+I will assign a short, two-question quiz for each assigned reading. You can expect \textbf{between 10 and 14 quizzes} throughout the quarter.
+\begin{itemize}
+	\setlength{\itemsep}{0pt}
+	\item I will announce due dates in class. 
+	\item You must complete each quiz \textbf{on your own} through Canvas.
+	\item I will drop your lowest three scores at the end of the quarter.
+\end{itemize}
+
+
+
+
+\subsection*{Optional short essays}
+
+You may submit up to four optional short essays that connect reputable sources to course concepts (\textit{e.g.,} selection bias, work incentives, monopsony, discrimination, \textit{etc.}). A successful submission is a 400-word essay that summarizes a source of your choice and demonstrates how the source is relevant to the course. Each submission is worth up to 1\% extra credit. To earn credit, you must submit your short essays on Canvas before 10:00 on Monday of Week 10. You have three options for each short essay:
+
+\begin{enumerate}
+	\setlength{\itemsep}{0pt}
+	\item \textbf{Article Summary:} Pick an article from a reputable outlet (\textit{e.g.,} \href{https://www.nytimes.com/}{\textit{The New York Times}}, \href{https://www.wsj.com/}{\textit{The Wall Street Journal}}, \href{https://www.vox.com/}{\textit{Vox}}, \href{https://slate.com/}{\textit{Slate}}, \href{https://www.economist.com/}{\textit{The Economist}}, \textit{etc.}), summarize it, and connect it to at least one concept from the course.
+	\item \textbf{Podcast Summary:} Pick an episode from a relevant podcast (\textit{e.g.,} \href{https://www.npr.org/sections/money/}{\textit{Planet Money}}, \href{https://www.npr.org/podcasts/452538045/freakonomics-radio}{\textit{Freakonomics Radio}}, \href{https://www.econtalk.org/}{\textit{EconTalk}}, \href{https://www.vox.com/the-weeds}{\textit{The Weeds}}, \href{https://www.npr.org/podcasts/381444600/marketplace}{\textit{Marketplace}}, \textit{etc.}), summarize it, and connect it to at least one concept from the course.
+	\item \textbf{Data Analysis:} Analyze a dataset and describe your findings. This rigorous option involves using \texttt{R}, a statistical programming language. Learning \texttt{R} will give you a head start in upper-division economics courses and help you develop a marketable skill that employers value. If you want to pursue this challenge, please see me in office hours.
+\end{enumerate}
+
+
+
+\newpage
+
+\section*{Course Policies}
+
+\subsection*{Email} 
+
+When you send me an email, please include ``EC 350'' in the subject line. You should expect a response within two business days with the understanding that immediate responses are rare. 
+
+\subsection*{Makeup Assignments} 
+
+I do not give makeup assignments. In extreme circumstances that lead you to miss the midterm exam---such as death in the family or grave illness or injury---I will consider re-weighting your grade toward the final. To qualify for re-weighting, you will need to notify me no later than two days after the exam, provide documentation that your absence was due to extreme circumstances, and complete a qualifying assignment.
+
+\subsection*{Grade Appeals} 
+
+You must submit any request for re-grading in writing within one week of the day grades are posted for the problem set or exam in question. Your request should include a cogent argument explaining why your responses warrant full credit.
+
+\subsection*{Zoom Etiquette} 
+
+Please respect those around you by muting yourself when appropriate. I also ask that you try to 1) keep your camera on during lecture and 2) actively participate in breakout room discussions. \href{https://www.youtube.com/watch?v=TDNP-SWgn2w}{Cat filters} welcome. 
+
+%Please respect those around you by turning off your phone and other potentially distracting devices. I ask that you stay for the entire lecture: getting up and leaving distracts your fellow classmates. If you must leave early, please position yourself near the door when you get to class. As a final note, a growing body of evidence suggests that \href{https://www.theverge.com/2017/11/27/16703904/laptop-learning-lecture}{using laptops in lecture reduces comprehension and recollection}. In light of this evidence, I ask that you refrain from using your laptop during lecture. As a practical matter, it is much easier to draw graphs by hand than it is to describe them with typed text. 
+
+\subsection*{Academic Integrity} 
+
+I will not tolerate cheating, plagiarism, and other violations of the \href{https://studentlife.uoregon.edu/conduct}{Student Conduct Code}. If I catch you cheating or plagiarizing on any component of this course, you will receive a failing grade for the term and I will report your offense to the university. 
+
+\subsection*{Accommodations} 
+
+Notify me if there are aspects of this course that pose disability-related barriers to your participation. If you require special accommodations for a documented disability, you will need to provide me a letter from the \href{https://aec.uoregon.edu/}{Accessible Education Center} (AEC) that verifies your need and details the appropriate accommodations. Please make arrangements with the AEC by the end of Week 1. %If your accommodations include exam proctoring at the AEC, then you are responsible for scheduling those exams with the AEC \textit{at least seven days in advance}.
+
+\newpage
+
+\bibliography{references}
+
+\newpage
+
+\begin{landscape}
+\begin{table}[H]
+	\caption*{\Large\textbf{Tentative Schedule}}
+	\centering
+	\small
+  \ra{1.5}
+  \begin{tabular}{@{\extracolsep{0.25cm}} c c l l l @{}} % >{\raggedright\arraybackslash}p{4.5cm}<{}
+    \toprule
+    \textbf{Week} & \textbf{Date} & \textbf{Topic} & \textbf{Required reading} & \textbf{Optional reading} \\ \toprule
+    01 & 3/29 & What is Labor Economics? & & Ch. 1 of Borjas (2015) \\
+    01 & 3/31 & Inequality, Opportunity, and Science & \cite{chetty2018race} & \\ % executive summary of Chetty et al. (2018): https://opportunityinsights.org/wp-content/uploads/2018/04/race_summary.pdf
+    % Music: Mathematics (Mos Def)
+    02 & 4/05 & Data and Causation & \cite{heller2017thinking} & \\ % https://academic.oup.com/qje/article-abstract/132/1/1/2724542
+    02 & 4/07 & Learning from Observational Data & \cite{tuttle2019snapping} &\\ % https://www.aeaweb.org/articles?id=10.1257/pol.20170490
+    03 & 4/12 & The Worker's Dilemma & & Ch. 2 of Borjas (2015) \\
+    03 & 4/14 & Welfare and Work Incentives & \cite{hoynes2018effective} & Ch. 2 of Borjas (2015) \\ % https://www.hilaryhoynes.com/s/Hoynes-Patel-EITC-Income-11-30-16.pdf
+    % Music: clip from "work makes the difference" (Uncertain Hour podcast)
+    04 & 4/19 & The Employer's Dilemma & & Ch. 3 of Borjas (2015) \\
+    04 & 4/21 & Robots and Taxes & \cite{autor2015why} & Ch. 3 of Borjas (2015) \\ % Autor (2015): https://pubs.aeaweb.org/doi/pdfplus/10.1257/jep.29.3.3
+    05 & 4/26 & Labor Markets & \cite{peri2020economic} & Ch. 4 of Borjas (2015) \\ % https://www.nber.org/system/files/working_papers/w27718/w27718.pdf
+    \midrule
+    05 & 4/28 & \textbf{Midterm Exam} (16:15--17:45 on Canvas) \\ \midrule
+    06 & 5/03 & Monopsony & \cite{azar2020labor} & Ch. 4 of Borjas (2015) \\ % http://jhr.uwpress.org/content/early/2020/05/04/jhr.monopsony.1218-9914R1.full.pdf
+    % Music: 16 Tons (Tom Morello)
+    06 & 5/05 & The Great Minimum Wage Debate & \cite{jardim2017minimum} & \\ % https://evans.uw.edu/wp-content/uploads/files/w23532_0.pdf
+    07 & 5/10 & Compensating Wage Differentials & & Ch. 5 of Borjas (2015) \\
+    07 & 5/12 & Human Capital & \cite{arteaga2018effect} & Ch. 6 of Borjas (2015) \\ % https://www.sciencedirect.com/science/article/pii/S0047272717301809?casa_token=KaDKgep9CV0AAAAA:c30eYIEkUuQJcr4B9-7eY1LTVEC_9K8eBcPfFEtN4uxxg0l9mUa9PfRnxqQw-Gb3F_Zs-N9jIw
+    08 & 5/17 & Signaling & \cite{lee2021diversity} & Ch. 6 of Borjas (2015) \\ % https://pages.uoregon.edu/waddell/papers/WaddellLee_PreferenceHiring_202011.pdf
+    08 & 5/19 & Discrimination & \cite{bertrand2004emily} & Ch. 9 of Borjas (2015) \\
+    09 & 5/24 & Statistical Discrimination & \cite{agan2018ban} & Ch. 9 of Borjas (2015) \\
+    09 & 5/26 & Unions and Collective Bargaining & \cite{lovenheim2019long} & Ch. 10 of Borjas (2015) \\ % https://www.aeaweb.org/articles?id=10.1257/pol.20170570
+    % Music: Take 'Em Down (Dropkick Murphys)
+    10 & 6/02 & The Union Strikes Back? & \cite{farber2018unions} & Ch. 10 of Borjas (2015) \\ % https://www.nber.org/system/files/working_papers/w24587/w24587.pdf
+    % Music: Solidarity Forever (Tom Morello)
+    \midrule
+    11 & 6/09 & \textbf{Final Exam} (14:45--16:45 on Canvas)  \\
+    % (see \href{https://registrar.uoregon.edu/calendars/examinations#complete-final-exam-schedule}{final exam schedule})
+    \bottomrule 
+  \end{tabular}
+\end{table}
+\end{landscape}
+
+
+% https://www.aeaweb.org/journals/jep/classroom/labor-economics
+
+% https://opportunityinsights.org/wp-content/uploads/2020/04/Econ50_syllabus_spring20_forweb.pdf
+
+%\begin{center}
+%	\textbf{Subject to change!}
+%\end{center}
+
+\end{document}

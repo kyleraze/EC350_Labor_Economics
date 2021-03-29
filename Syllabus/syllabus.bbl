@@ -1,0 +1,101 @@
+ \newcommand{\noop}[1]{}
+\begin{thebibliography}{14}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Chetty et~al.(2018)Chetty, Hendren, Jones, and Porter]{chetty2018race}
+Raj Chetty, Nathaniel Hendren, Maggie~R Jones, and Sonya~R Porter.
+\newblock Race and economic opportunity in the {U}nited {S}tates (non-technical
+  summary).
+\newblock \emph{NBER Working Paper 24441}, 2018.
+
+\bibitem[Heller et~al.(2017)Heller, Shah, Guryan, Ludwig, Mullainathan, and
+  Pollack]{heller2017thinking}
+Sara~B Heller, Anuj~K Shah, Jonathan Guryan, Jens Ludwig, Sendhil Mullainathan,
+  and Harold~A Pollack.
+\newblock Thinking, fast and slow? {S}ome field experiments to reduce crime and
+  dropout in {C}hicago.
+\newblock \emph{The Quarterly Journal of Economics}, 132\penalty0 (1):\penalty0
+  1--54, 2017.
+
+\bibitem[Tuttle(2019)]{tuttle2019snapping}
+Cody Tuttle.
+\newblock Snapping back: Food stamp bans and criminal recidivism.
+\newblock \emph{American Economic Journal: Economic Policy}, 11\penalty0
+  (2):\penalty0 301--27, 2019.
+
+\bibitem[Hoynes and Patel(2018)]{hoynes2018effective}
+Hilary~W Hoynes and Ankur~J Patel.
+\newblock Effective policy for reducing poverty and inequality? {The Earned
+  Income Tax Credit} and the distribution of income.
+\newblock \emph{Journal of Human Resources}, 53\penalty0 (4):\penalty0
+  859--890, 2018.
+
+\bibitem[Autor(2015)]{autor2015why}
+David Autor.
+\newblock Why are there still so many jobs? {T}he history and future of
+  workplace automation.
+\newblock \emph{Journal of Economic Perspectives}, 29\penalty0 (3):\penalty0
+  3--30, 2015.
+
+\bibitem[Peri et~al.(2020)Peri, Rury, and Wiltshire]{peri2020economic}
+Giovanni Peri, Derek Rury, and Justin~C Wiltshire.
+\newblock The economic impact of migrants from {H}urricane {M}aria.
+\newblock \emph{NBER Working Paper 27718}, 2020.
+
+\bibitem[Azar et~al.(2020)Azar, Marinescu, and Steinbaum]{azar2020labor}
+Jos{\'e} Azar, Ioana Marinescu, and Marshall Steinbaum.
+\newblock Labor market concentration.
+\newblock \emph{Journal of Human Resources}, pages 1218--9914R1, 2020.
+
+\bibitem[Jardim et~al.(2017)Jardim, Long, Plotnick, Van~Inwegen, Vigdor, and
+  Wething]{jardim2017minimum}
+Ekaterina Jardim, Mark~C Long, Robert Plotnick, Emma Van~Inwegen, Jacob Vigdor,
+  and Hilary Wething.
+\newblock Minimum wage increases, wages, and low-wage employment: Evidence from
+  {S}eattle.
+\newblock \emph{NBER Working Paper 23532}, 2017.
+
+\bibitem[Arteaga(2018)]{arteaga2018effect}
+Carolina Arteaga.
+\newblock The effect of human capital on earnings: Evidence from a reform at
+  {C}olombia's top university.
+\newblock \emph{Journal of Public Economics}, 157:\penalty0 212--225, 2018.
+
+\bibitem[Lee and Waddell(2021)]{lee2021diversity}
+Logan~M Lee and Glen~R Waddell.
+\newblock Diversity and the timing of preference in hiring decisions.
+\newblock \emph{Journal of Economic Behavior \& Organization}, 184:\penalty0
+  432--459, 2021.
+
+\bibitem[Bertrand and Mullainathan(2004)]{bertrand2004emily}
+Marianne Bertrand and Sendhil Mullainathan.
+\newblock Are {E}mily and {G}reg more employable than {L}akisha and {J}amal?
+  {A} field experiment on labor market discrimination.
+\newblock \emph{American Economic Review}, 94\penalty0 (4):\penalty0 991--1013,
+  2004.
+
+\bibitem[Agan and Starr(2018)]{agan2018ban}
+Amanda Agan and Sonja Starr.
+\newblock Ban the box, criminal records, and racial discrimination: {A} field
+  experiment.
+\newblock \emph{The Quarterly Journal of Economics}, 133\penalty0 (1):\penalty0
+  191--235, 2018.
+
+\bibitem[Lovenheim and Will{\'e}n(2019)]{lovenheim2019long}
+Michael~F Lovenheim and Alexander Will{\'e}n.
+\newblock The long-run effects of teacher collective bargaining.
+\newblock \emph{American Economic Journal: Economic Policy}, 11\penalty0
+  (3):\penalty0 292--324, 2019.
+
+\bibitem[Farber et~al.(2018)Farber, Herbst, Kuziemko, and
+  Naidu]{farber2018unions}
+Henry~S Farber, Daniel Herbst, Ilyana Kuziemko, and Suresh Naidu.
+\newblock Unions and inequality over the twentieth century: New evidence from
+  survey data.
+\newblock \emph{NBER Working Paper 24587}, 2018.
+
+\end{thebibliography}
