@@ -1,5 +1,5 @@
-remotes::install_github("jhelvy/xaringanBuilder")
-remotes::install_github('rstudio/chromote')
+# remotes::install_github("jhelvy/xaringanBuilder")
+# remotes::install_github('rstudio/chromote')
 
 library(xaringanBuilder)
 
