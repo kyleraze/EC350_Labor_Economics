@@ -1,0 +1,990 @@
+---
+title: "Inequality, Opportunity, and Science"
+subtitle: "EC 350: Labor Economics"
+author: "[Kyle Raze](https://kyleraze.com)"
+date: "Spring 2021"
+output:
+  xaringan::moon_reader:
+    css: ['default', 'metropolis', 'metropolis-fonts', 'my-css.css']
+    self_contained: false
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      beforeInit: "https://platform.twitter.com/widgets.js"
+      ratio: "16:9"
+---
+class: inverse, middle
+
+```{r Setup, include = F}
+options(htmltools.dir.version = FALSE)
+library(pacman)
+p_load(ggthemes, viridis, knitr, kableExtra, extrafont, webshot, fontawesome, tidyverse, magrittr, janitor)
+# Define colors
+red_pink <- "#e64173"
+met_slate <- "#272822" # metropolis font color 
+purple <- "#9370DB"
+green <- "#007935"
+light_green <- "#7DBA97"
+# Notes directory
+dir_slides <- "~/GitHub/Intro_Labor_S21/Lectures/01-Introduction/"
+# Knitr options
+opts_chunk$set(
+  comment = "#>",
+  fig.align = "center",
+  fig.height = 7,
+  fig.width = 10.5,
+  #dpi = 300,
+  #cache = T,
+  warning = F,
+  message = F
+)  
+theme_simple <- theme_bw() + theme(
+  axis.line = element_line(color = met_slate),
+  panel.grid = element_blank(),
+  rect = element_blank(),
+  strip.text = element_blank(),
+  text = element_text(family = "Fira Sans", color = met_slate, size = 17),
+  axis.text.x = element_text(size = 12),
+  axis.text.y = element_text(size = 12),
+  axis.ticks = element_blank()
+)
+wrapper <- function(x, ...) paste(strwrap(x, ...), collapse = "\n")
+```
+
+# Prologue
+
+---
+# Inequality, Opportunity, and Science
+
+1. What role should economists play?
+    - Positive analysis
+    - Supportable normative beliefs
+2. Inequality and Opportunity
+    - Income inequality
+    - Intergenerational mobility
+3. Theory in a data-driven world?
+
+---
+class: inverse, middle
+
+# What role should economists play?
+
+---
+# What role should economists play?
+
+It will be important for us to separate our beliefs about **what is desirable** from what we believe to be **true or false**.
+
+A proper economic analysis consists of **positive statements**.
+
+- Statements that can be classified as **either true or false**
+
+
+--
+
+Economists try to avoid **normative statements** in their analysis.
+
+- Statements that express a value judgment or *what ought to be*
+- No matter how widely shared, value judgments are untestable&mdash;not scientifically justifiable.
+
+
+--
+
+**Q:** Is there ever a role for the normative?
+
+--
+
+**A: Yes, of course**, but only to the extent that it is supported by positive statements.
+
+
+---
+class: clear-slide
+
+***"The unemployment rate is 5.8 percent."***
+
+--
+
+- This is a .pink[positive statement]. The unemployment rate is either 5.8 percent or it is not 5.8 percent. <br>
+
+
+--
+
+***"The federal government should forgive all student loan debt."***
+
+--
+
+- This is a .purple[normative statement]. It expresses an opinion, and is not classifiable as true or false. <br>
+
+
+--
+
+***"By removing discriminatory barriers that had prevented Black citizens from voting, the Voting Rights Act facilitated an increase in public investment directed toward Black communities."***
+
+--
+
+- This is a .pink[positive statement].
+- For related evidence: Elizabeth U. Cascio and Ebonya Washington (2014), [Valuing the Vote: The Redistribution of Voting Rights and State Funds following the Voting Rights Act of 1965](https://doi.org/10.1093/qje/qjt028), *The Quarterly Journal of Economics*
+
+---
+# Positive or normative?
+
+<blockquote class="twitter-tweet tw-align-center"><p lang="en" dir="ltr">The 50 wealthiest people in America today own more wealth than the bottom half of our people. Let me repeat that, because it is almost too absurd to believe: the 50 wealthiest people in this country own more wealth than some 165 MILLION Americans.<br><br>That is a moral obscenity.</p>&mdash; Bernie Sanders (@BernieSanders) <a href="https://twitter.com/BernieSanders/status/1375126581752963073?ref_src=twsrc%5Etfw">March 25, 2021</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+<br>
+
+--
+
+.center[This is a .hi-purple[normative statement] (about a .pink[postive statement]).]
+
+---
+# Positive or normative?
+
+<blockquote class="twitter-tweet tw-align-center" data-twitter-extracted-i1616733451888434256="true">
+<p lang="en" dir="ltr">I won the Election!</p>— Donald J. Trump (@realDonaldTrump) <a href="https://twitter.com/realDonaldTrump/status/1328334945148952576?ref_src=twsrc%5Etfw">November 16, 2020</a>
+</blockquote>
+<br>
+
+--
+
+.center[This is a .hi-pink[positive statement].]
+
+--
+
+.center[In case you missed it, the statement is [false](https://www.archives.gov/electoral-college/2020).]
+
+---
+class: inverse, middle
+
+# Inequality and Opportunity
+
+---
+class: clear-slide
+
+.center[**Income inequality is rising in the United States**]
+```{R, echo = F, dev = "svg", fig.height = 5.5}
+p_load(readxl)
+
+data <- read_excel("us_income_inequality.xlsx") %>% 
+  pivot_longer(!measure, names_to = "year", values_to = "income") %>% 
+  mutate(year = as.numeric(year))
+
+data75 <- data %>% 
+  filter(year == 1975) %>% 
+  mutate(income75 = income) %>% 
+  select(measure, income75)
+
+data <- data %>%
+  left_join(data75, by = "measure") %>% 
+  mutate(rel_income = (income / income75) * 100)
+
+data %>% 
+  filter(measure %in% c("20th percentile", "50th percentile", "80th percentile", "95th percentile")) %>%  
+  ggplot(aes(x = year, y = income, group = measure, color = measure)) +
+  geom_line(size = 1) +
+  annotate("text", x = 2015, y = 205000, label = "95th percentile", color = red_pink, size = 4, family = "Fira Sans", alpha = 1) +
+  annotate("text", x = 2015, y = 110000, label = "80th percentile", color = green, size = 4, family = "Fira Sans", alpha = 1) +
+  annotate("text", x = 2015, y = 50000, label = "50th percentile", color = purple, size = 4, family = "Fira Sans", alpha = 1) +
+  annotate("text", x = 2015, y = 15000, label = "20th percentile", color = "darkgrey", size = 4, family = "Fira Sans", alpha = 1) +
+
+  scale_y_continuous(breaks = scales::pretty_breaks(), labels = scales::dollar) +
+  scale_x_continuous(breaks = scales::pretty_breaks()) +
+  scale_color_manual(values = c("darkgrey", purple, green, red_pink)) +
+  guides(color = F) +
+  labs(y = "Household income (2019 dollars)") +
+  theme_simple +
+  theme(axis.title.x = element_blank())
+```
+.footnote[*Source:* US Census Bureau. (2017), [Historical Income Tables: Income Inequality](https://www.census.gov/data/tables/time-series/demo/income-poverty/historical-income-inequality.html).]
+
+---
+class: clear-slide
+
+.center[**Income inequality is rising in the United States**]
+```{R, echo = F, dev = "svg", fig.height = 5.5}
+data %>% 
+  filter(measure %in% c("20th percentile", "50th percentile", "80th percentile", "95th percentile")) %>%  
+  ggplot(aes(x = year, y = rel_income, group = measure, color = measure)) +
+  geom_hline(yintercept = 100, color = met_slate) +
+  geom_line(size = 1) +
+  annotate("text", x = 2010, y = 165, label = "95th percentile", color = red_pink, size = 4, family = "Fira Sans", alpha = 1) +
+  annotate("text", x = 2010, y = 145, label = "80th percentile", color = green, size = 4, family = "Fira Sans", alpha = 1) +
+  annotate("text", x = 2010, y = 125, label = "50th percentile", color = purple, size = 4, family = "Fira Sans", alpha = 1) +
+  annotate("text", x = 2010, y = 104, label = "20th percentile", color = "darkgrey", size = 4, family = "Fira Sans", alpha = 1) +
+
+  scale_y_continuous(breaks = scales::pretty_breaks()) +
+  scale_x_continuous(breaks = scales::pretty_breaks()) +
+  scale_color_manual(values = c("darkgrey", purple, green, red_pink)) +
+  guides(color = F) +
+  labs(y = "Household income (% of 1975 income)") +
+  theme_simple +
+  theme(axis.title.x = element_blank())
+```
+.footnote[*Source:* US Census Bureau. (2017), [Historical Income Tables: Income Inequality](https://www.census.gov/data/tables/time-series/demo/income-poverty/historical-income-inequality.html).]
+
+---
+class: clear-slide
+
+.center[**The fading *American dream***]
+```{R, echo = F, dev = "svg", fig.height = 5.5}
+data <- read_csv("fading_american_dream.csv")
+
+data %>% 
+  ggplot(aes(x = cohort, y = cohort_mean)) +
+  geom_point(size = 2, color = red_pink) +
+  geom_line(size = 1, color = red_pink) +
+  scale_y_continuous(labels = scales::percent) +
+  labs(x = "Child's birth cohort", y = "Children earning more than their parents") +
+  theme_simple
+```
+
+.footnote[*Source:* Raj Chetty et al. (2017), [The fading American dream: Trends in absolute income mobility since 1940](https://science.sciencemag.org/content/356/6336/398.abstract), *Science*.]
+
+---
+class: clear-slide
+
+.center[**Where is the land of opportunity?**<br>.slate[% of low-income children earning top 20% incomes as adults]]
+```{R, echo = F, dev = "svg", fig.height = 5.5}
+p_load(mapproj, maps, usmap)
+
+mobility <- read_csv("social_mobility.csv") %>%
+  filter(parent_inc == "Low") %>% 
+  mutate(hh_income_t20 = hh_income_t20 * 100)
+
+county_df <- us_map(regions = "counties") %>% 
+  mutate(fips = as.numeric(fips))
+
+mobility <- left_join(county_df, mobility, by = "fips")
+
+state_df <- us_map("state")
+
+
+mobility %>% 
+  ggplot(aes(x = x, y = y, group = group, fill = hh_income_t20)) +
+  geom_polygon(color = "white", size = 0.01) +
+  # coord_map(projection = "albers", lat0 = 39, lat1 = 45) +
+  scale_fill_viridis(option = "inferno", na.value = "white", direction = -1) +
+  labs(fill = NULL) +
+  geom_polygon(data = state_df, color = "white", fill = NA, size = 0.65) +
+  theme_map() +
+  theme(text = element_text(family = "Fira Sans", color = met_slate, size = 17),
+        legend.position = "right", legend.justification = "center",
+        plot.margin = unit(c(-0.5, 0, -0.50, -0.5), "cm"))
+```
+
+.footnote[*Source:* Raj Chetty et al. (2018), [The Opportunity Atlas: Mapping the Childhood Roots of Social Mobility](https://www.nber.org/papers/w25147), *NBER Working Paper 25147*.]
+
+---
+# Race and Economic Opportunity
+
+.bigger[**Research question:** Do Black children have lower incomes than White children who grew up in households with the same income?]
+
+- If so, what can policymakers do about it?
+
+
+.footnote[*Source:* Raj Chetty et al. (2020), [Race and Economic Opportunity in the United States: An Intergenerational Perspective](https://academic.oup.com/qje/article/135/2/711/5687353), *The Quarterly Journal of Economics*.]
+
+
+--
+
+**Motivation:** Large income disparities between Black and White Americans have persisted throughout US history.
+
+- Why aren't gaps closing over time?
+
+
+--
+
+**Approach:** Use administrative data on children and their parents to compare adult outcomes for children who grew up in the same part of the income distribution.
+
+
+---
+# Race and Economic Opportunity
+
+## Data
+
+**Source:** Administrative records from the IRS and the Census Bureau (1989-2015) on 20 million children born between 1978 and 1983
+
+- Individual-level data on race, income, marital status, incarceration, geographic location, *etc.*
+- Ability to follow the same individuals over time and link them with their parents
+
+
+--
+
+**Main variables of interest:** Household income percentile ranks for .pink[children] and their .purple[parents]
+
+- .pink[Child income rank] relative to other children in the same birth cohort
+    - Measured when child is in their mid-30s
+- .purple[Parent income rank] relative to other parents with children in the same birth cohort
+    - Measured when child is between 11 and 22
+
+---
+# Race and Economic Opportunity
+
+## Intergenerational mobility
+
+.more-left[
+```{R, echo = F, dev = "svg", fig.height = 7}
+df <- tibble(parent = seq(0, 100, 1),
+             child = 32.5 + 0.35 * parent,
+             line_45_degree = parent)
+
+rank <- function(x) 32.5 + 0.35 * x
+
+df %>% 
+  ggplot(aes(x = parent, y = child)) +
+  geom_line(aes(x = parent, y = line_45_degree), color = "lightgrey", size = 1, linetype = "dashed") +
+  geom_line(size = 1, color = red_pink) +
+  scale_y_continuous(breaks = c(0, 20, 40, 60, 80, 100), labels = c(0, 20, 40, 60, 80, 100), limits = c(0, 105), expand = c(0, 0)) +
+  annotate("text", x = 70, y = 20, label = "Absolute~mobility==32.5", hjust = 0, parse = T, color = met_slate, size = 5, family = "Fira Sans") +
+  annotate("text", x = 70, y = 15, label = "Relative~mobility==0.35", hjust = 0, parse = T, color = met_slate, size = 5, family = "Fira Sans") +
+  annotate("text", x = 6, y = 4, label = "45° line", hjust = 0, color = "lightgrey", size = 5, family = "Fira Sans") +
+  scale_x_continuous(breaks = seq(0, 100, 20), limits = c(0, 105), expand = c(0, 0)) +
+  labs(x = "Parent rank (percentile)", y = "Expected child rank (percentile)") +
+  theme_simple
+```
+]
+.less-right[
+The .hi-pink[relationship] between a parent's rank in the income distribution and her child's eventual rank is .pink[approximately linear].
+]
+
+---
+count:false
+# Race and Economic Opportunity
+
+## Intergenerational mobility
+
+.more-left[
+```{R, echo = F, dev = "svg", fig.height = 7}
+df <- tibble(parent = seq(0, 100, 1),
+             child = 32.5 + 0.35 * parent,
+             line_45_degree = parent)
+
+rank <- function(x) 32.5 + 0.35 * x
+
+df %>% 
+  ggplot(aes(x = parent, y = child)) +
+  geom_line(aes(x = parent, y = line_45_degree), color = "lightgrey", size = 1, linetype = "dashed") +
+  geom_line(size = 1, color = red_pink) +
+  scale_y_continuous(breaks = c(0, 20, 40, 60, 80, 100), labels = c(0, 20, 40, 60, 80, 100), limits = c(0, 105), expand = c(0, 0)) +
+  annotate("text", x = 70, y = 20, label = "Absolute~mobility==32.5", hjust = 0, parse = T, color = met_slate, size = 5, family = "Fira Sans") +
+  annotate("text", x = 70, y = 15, label = "Relative~mobility==0.35", hjust = 0, parse = T, color = met_slate, size = 5, family = "Fira Sans") +
+  annotate("text", x = 6, y = 4, label = "45° line", hjust = 0, color = "lightgrey", size = 5, family = "Fira Sans") +
+  scale_x_continuous(breaks = seq(0, 100, 20), limits = c(0, 105), expand = c(0, 0)) +
+  labs(x = "Parent rank (percentile)", y = "Expected child rank (percentile)") +
+  theme_simple
+```
+]
+.less-right[
+The .hi-pink[relationship] between a parent's rank in the income distribution and her child's eventual rank is .pink[approximately linear].
+
+Intercept .mono[=] **absolute mobility** 
+
+Slope .mono[=] **relative mobility**
+]
+
+---
+# Race and Economic Opportunity
+
+## Intergenerational mobility
+
+.more-left[
+```{R, echo = F, dev = "svg", fig.height = 7}
+df <- tibble(parent = seq(0, 100, 1),
+             child = 32.5 + 0.35 * parent,
+             line_45_degree = parent)
+
+rank <- function(x) 32.5 + 0.35 * x
+
+child_gap <- + rank(55) - rank(35)
+
+df %>% 
+  ggplot(aes(x = parent, y = child)) +
+  geom_line(aes(x = parent, y = line_45_degree), color = "lightgrey", size = 1, linetype = "dashed") +
+  geom_line(size = 1, color = red_pink) +
+  annotate("text", x = 70, y = 20, label = "Absolute~mobility==32.5", hjust = 0, parse = T, color = met_slate, size = 5, family = "Fira Sans") +
+  annotate("text", x = 70, y = 15, label = "Relative~mobility==0.35", hjust = 0, parse = T, color = met_slate, size = 5, family = "Fira Sans") +
+  annotate("text", x = 6, y = 4, label = "45° line", hjust = 0, color = "lightgrey", size = 5, family = "Fira Sans") +
+  # parent gap
+  geom_segment(aes(x = 35, xend = 35, y = 0, yend = rank(35)), color = green, size = 1, linetype = "dashed") +
+  geom_segment(aes(x = 55, xend = 55, y = 0, yend = rank(55)), color = purple, size = 1, linetype = "dashed") +
+  annotate("text", x = 45, y = 18, label = "Gap==20", parse = T, color = met_slate, size = 5, family = "Fira Sans") +
+  geom_segment(aes(x = 45, y = 15, xend = 35 + 0.2, yend = 15), arrow = arrow(angle = 20, length = unit(0.3,"cm"), type = "closed"), color = met_slate, size = 1) + 
+  geom_segment(aes(x = 45, y = 15, xend = 55 - 0.2, yend = 15), arrow = arrow(angle = 20, length = unit(0.3,"cm"), type = "closed"), color = met_slate, size = 1) + 
+  # child gap
+  # geom_segment(aes(x = 0, xend = 35, y = rank(35), yend = rank(35)), color = green, size = 1, linetype = "dashed") +
+  # geom_segment(aes(x = 0, xend = 55, y = rank(55), yend = rank(55)), color = purple, size = 1, linetype = "dashed") +
+  # 
+  # geom_segment(aes(x = 15, y = (rank(35) + rank(55)) / 2, xend = 15, yend = rank(55) - 0.4), arrow = arrow(angle = 20, length = unit(0.3,"cm"), type = "closed"), color = met_slate, size = 1) + 
+  # geom_segment(aes(x = 15, y = (rank(35) + rank(55)) / 2, xend = 15, yend = rank(35) + 0.4), arrow = arrow(angle = 20, length = unit(0.3,"cm"), type = "closed"), color = met_slate, size = 1) + 
+  # annotate("text", x = 16, y = (rank(35) + rank(55)) / 2, label = "Gap==7", hjust = 0, parse = T, color = met_slate, size = 5, family = "Fira Sans") +
+  # geom_point(aes(x = 35, y = rank(35)), color = green, size = 2) +
+  # geom_point(aes(x = 55, y = rank(55)), color = purple, size = 2) +
+  
+  # steady state
+  # geom_point(aes(x = 50, y = 50), size = 2, color = red_pink) +
+  # geom_segment(aes(x = 50, y = 60, xend = 50, yend = 51), arrow = arrow(angle = 20, length = unit(0.3,"cm"), type = "closed"), color = met_slate, size = 1) + 
+  # annotate("text", x = 50, y = 63, label = "Steady state", color = met_slate, size = 5, family = "Fira Sans") +
+  # style
+  scale_y_continuous(breaks = c(0, 20, 40, 60, 80, 100), labels = c(0, 20, 40, 60, 80, 100), limits = c(0, 105), expand = c(0, 0)) +
+  scale_x_continuous(breaks = seq(0, 100, 20), limits = c(0, 105), expand = c(0, 0)) +
+  labs(x = "Parent rank (percentile)", y = "Expected child rank (percentile)") +
+  theme_simple
+```
+]
+.less-right[
+No racial disparities in .hi-pink[intergenerational mobility]<br>.mono[-->] Income disparities between .hi-green[Black] and .hi-purple[White] Americans vanish over time. 
+]
+
+---
+count: false
+# Race and Economic Opportunity
+
+## Intergenerational mobility
+
+.more-left[
+```{R, echo = F, dev = "svg", fig.height = 7}
+df <- tibble(parent = seq(0, 100, 1),
+             child = 32.5 + 0.35 * parent,
+             line_45_degree = parent)
+
+rank <- function(x) 32.5 + 0.35 * x
+
+df %>% 
+  ggplot(aes(x = parent, y = child)) +
+  geom_line(aes(x = parent, y = line_45_degree), color = "lightgrey", size = 1, linetype = "dashed") +
+  geom_line(size = 1, color = red_pink) +
+  annotate("text", x = 70, y = 20, label = "Absolute~mobility==32.5", hjust = 0, parse = T, color = met_slate, size = 5, family = "Fira Sans") +
+  annotate("text", x = 70, y = 15, label = "Relative~mobility==0.35", hjust = 0, parse = T, color = met_slate, size = 5, family = "Fira Sans") +
+  annotate("text", x = 6, y = 4, label = "45° line", hjust = 0, color = "lightgrey", size = 5, family = "Fira Sans") +
+  # parent gap
+  geom_segment(aes(x = 35, xend = 35, y = 0, yend = rank(35)), color = green, size = 1, linetype = "dashed") +
+  geom_segment(aes(x = 55, xend = 55, y = 0, yend = rank(55)), color = purple, size = 1, linetype = "dashed") +
+  annotate("text", x = 45, y = 18, label = "Gap==20", parse = T, color = met_slate, size = 5, family = "Fira Sans") +
+  geom_segment(aes(x = 45, y = 15, xend = 35 + 0.2, yend = 15), arrow = arrow(angle = 20, length = unit(0.3,"cm"), type = "closed"), color = met_slate, size = 1) + 
+  geom_segment(aes(x = 45, y = 15, xend = 55 - 0.2, yend = 15), arrow = arrow(angle = 20, length = unit(0.3,"cm"), type = "closed"), color = met_slate, size = 1) + 
+  # child gap
+  geom_segment(aes(x = 0, xend = 35, y = rank(35), yend = rank(35)), color = green, size = 1, linetype = "dashed") +
+  geom_segment(aes(x = 0, xend = 55, y = rank(55), yend = rank(55)), color = purple, size = 1, linetype = "dashed") +
+  geom_point(aes(x = 35, y = rank(35)), color = green, size = 2) +
+  geom_point(aes(x = 55, y = rank(55)), color = purple, size = 2) +
+  scale_y_continuous(breaks = c(0, 20, 40, 60, 80, 100), labels = c(0, 20, 40, 60, 80, 100), limits = c(0, 105), expand = c(0, 0)) +
+  scale_x_continuous(breaks = seq(0, 100, 20), limits = c(0, 105), expand = c(0, 0)) +
+  labs(x = "Parent rank (percentile)", y = "Expected child rank (percentile)") +
+  theme_simple
+```
+]
+.less-right[
+No racial disparities in .hi-pink[intergenerational mobility]<br>.mono[-->] Income disparities between .hi-green[Black] and .hi-purple[White] Americans vanish over time. 
+]
+
+---
+count: false
+# Race and Economic Opportunity
+
+## Intergenerational mobility
+
+.more-left[
+```{R, echo = F, dev = "svg", fig.height = 7}
+df <- tibble(parent = seq(0, 100, 1),
+             child = 32.5 + 0.35 * parent,
+             line_45_degree = parent)
+
+rank <- function(x) 32.5 + 0.35 * x
+
+df %>% 
+  ggplot(aes(x = parent, y = child)) +
+  geom_line(aes(x = parent, y = line_45_degree), color = "lightgrey", size = 1, linetype = "dashed") +
+  geom_line(size = 1, color = red_pink) +
+  annotate("text", x = 70, y = 20, label = "Absolute~mobility==32.5", hjust = 0, parse = T, color = met_slate, size = 5, family = "Fira Sans") +
+  annotate("text", x = 70, y = 15, label = "Relative~mobility==0.35", hjust = 0, parse = T, color = met_slate, size = 5, family = "Fira Sans") +
+  annotate("text", x = 6, y = 4, label = "45° line", hjust = 0, color = "lightgrey", size = 5, family = "Fira Sans") +
+  # parent gap
+  geom_segment(aes(x = 35, xend = 35, y = 0, yend = rank(35)), color = green, size = 1, linetype = "dashed") +
+  geom_segment(aes(x = 55, xend = 55, y = 0, yend = rank(55)), color = purple, size = 1, linetype = "dashed") +
+  annotate("text", x = 45, y = 18, label = "Gap==20", parse = T, color = met_slate, size = 5, family = "Fira Sans") +
+  geom_segment(aes(x = 45, y = 15, xend = 35 + 0.2, yend = 15), arrow = arrow(angle = 20, length = unit(0.3,"cm"), type = "closed"), color = met_slate, size = 1) + 
+  geom_segment(aes(x = 45, y = 15, xend = 55 - 0.2, yend = 15), arrow = arrow(angle = 20, length = unit(0.3,"cm"), type = "closed"), color = met_slate, size = 1) + 
+  # child gap
+  geom_segment(aes(x = 0, xend = 35, y = rank(35), yend = rank(35)), color = green, size = 1, linetype = "dashed") +
+  geom_segment(aes(x = 0, xend = 55, y = rank(55), yend = rank(55)), color = purple, size = 1, linetype = "dashed") +
+  geom_segment(aes(x = 15, y = (rank(35) + rank(55)) / 2, xend = 15, yend = rank(55) - 0.4), arrow = arrow(angle = 20, length = unit(0.3,"cm"), type = "closed"), color = met_slate, size = 1) +
+  geom_segment(aes(x = 15, y = (rank(35) + rank(55)) / 2, xend = 15, yend = rank(35) + 0.4), arrow = arrow(angle = 20, length = unit(0.3,"cm"), type = "closed"), color = met_slate, size = 1) +
+  annotate("text", x = 16, y = (rank(35) + rank(55)) / 2, label = "Gap==7", hjust = 0, parse = T, color = met_slate, size = 5, family = "Fira Sans") +
+  geom_point(aes(x = 35, y = rank(35)), color = green, size = 2) +
+  geom_point(aes(x = 55, y = rank(55)), color = purple, size = 2) +
+  # style
+  scale_y_continuous(breaks = c(0, 20, 40, 60, 80, 100), labels = c(0, 20, 40, 60, 80, 100), limits = c(0, 105), expand = c(0, 0)) +
+  scale_x_continuous(breaks = seq(0, 100, 20), limits = c(0, 105), expand = c(0, 0)) +
+  labs(x = "Parent rank (percentile)", y = "Expected child rank (percentile)") +
+  theme_simple
+```
+]
+.less-right[
+No racial disparities in .hi-pink[intergenerational mobility]<br>.mono[-->] Income disparities between .hi-green[Black] and .hi-purple[White] Americans vanish over time. 
+]
+
+---
+count: false
+# Race and Economic Opportunity
+
+## Intergenerational mobility
+
+.more-left[
+```{R, echo = F, dev = "svg", fig.height = 7}
+df <- tibble(parent = seq(0, 100, 1),
+             child = 32.5 + 0.35 * parent,
+             line_45_degree = parent)
+
+rank <- function(x) 32.5 + 0.35 * x
+
+df %>% 
+  ggplot(aes(x = parent, y = child)) +
+  geom_line(aes(x = parent, y = line_45_degree), color = "lightgrey", size = 1, linetype = "dashed") +
+  geom_line(size = 1, color = red_pink) +
+  annotate("text", x = 70, y = 20, label = "Absolute~mobility==32.5", hjust = 0, parse = T, color = met_slate, size = 5, family = "Fira Sans") +
+  annotate("text", x = 70, y = 15, label = "Relative~mobility==0.35", hjust = 0, parse = T, color = met_slate, size = 5, family = "Fira Sans") +
+  annotate("text", x = 6, y = 4, label = "45° line", hjust = 0, color = "lightgrey", size = 5, family = "Fira Sans") +
+  # parent gap
+  geom_segment(aes(x = 35, xend = 35, y = 0, yend = rank(35)), color = green, size = 1, linetype = "dashed") +
+  geom_segment(aes(x = 55, xend = 55, y = 0, yend = rank(55)), color = purple, size = 1, linetype = "dashed") +
+  annotate("text", x = 45, y = 18, label = "Gap==20", parse = T, color = met_slate, size = 5, family = "Fira Sans") +
+  geom_segment(aes(x = 45, y = 15, xend = 35 + 0.2, yend = 15), arrow = arrow(angle = 20, length = unit(0.3,"cm"), type = "closed"), color = met_slate, size = 1) + 
+  geom_segment(aes(x = 45, y = 15, xend = 55 - 0.2, yend = 15), arrow = arrow(angle = 20, length = unit(0.3,"cm"), type = "closed"), color = met_slate, size = 1) + 
+  # child gap
+  geom_segment(aes(x = 0, xend = 35, y = rank(35), yend = rank(35)), color = green, size = 1, linetype = "dashed") +
+  geom_segment(aes(x = 0, xend = 55, y = rank(55), yend = rank(55)), color = purple, size = 1, linetype = "dashed") +
+  geom_segment(aes(x = 15, y = (rank(35) + rank(55)) / 2, xend = 15, yend = rank(55) - 0.4), arrow = arrow(angle = 20, length = unit(0.3,"cm"), type = "closed"), color = met_slate, size = 1) +
+  geom_segment(aes(x = 15, y = (rank(35) + rank(55)) / 2, xend = 15, yend = rank(35) + 0.4), arrow = arrow(angle = 20, length = unit(0.3,"cm"), type = "closed"), color = met_slate, size = 1) +
+  annotate("text", x = 16, y = (rank(35) + rank(55)) / 2, label = "Gap==7", hjust = 0, parse = T, color = met_slate, size = 5, family = "Fira Sans") +
+  geom_point(aes(x = 35, y = rank(35)), color = green, size = 2) +
+  geom_point(aes(x = 55, y = rank(55)), color = purple, size = 2) +
+  
+  # steady state
+  geom_point(aes(x = 50, y = 50), size = 2, color = red_pink) +
+  geom_segment(aes(x = 50, y = 60, xend = 50, yend = 52), arrow = arrow(angle = 20, length = unit(0.3,"cm"), type = "closed"), color = met_slate, size = 1) +
+  annotate("text", x = 50, y = 63, label = "Steady state", color = met_slate, size = 5, family = "Fira Sans") +
+  # style
+  scale_y_continuous(breaks = c(0, 20, 40, 60, 80, 100), labels = c(0, 20, 40, 60, 80, 100), limits = c(0, 105), expand = c(0, 0)) +
+  scale_x_continuous(breaks = seq(0, 100, 20), limits = c(0, 105), expand = c(0, 0)) +
+  labs(x = "Parent rank (percentile)", y = "Expected child rank (percentile)") +
+  theme_simple
+```
+]
+.less-right[
+No racial disparities in .hi-pink[intergenerational mobility]<br>.mono[-->] Income disparities between .hi-green[Black] and .hi-purple[White] Americans vanish over time. 
+
+Across many generations, average ranks for .green[Black] and .purple[White] Americans would converge toward a .pink[steady state].
+]
+
+---
+count: false
+# Race and Economic Opportunity
+
+## Intergenerational mobility
+
+.more-left[
+```{R, echo = F, dev = "svg", fig.height = 7}
+df <- tibble(parent = seq(0, 100, 1),
+             child = 32.5 + 0.35 * parent,
+             line_45_degree = parent)
+
+rank <- function(x) 32.5 + 0.35 * x
+
+df %>% 
+  ggplot(aes(x = parent, y = child)) +
+  geom_line(aes(x = parent, y = line_45_degree), color = "lightgrey", size = 1, linetype = "dashed") +
+  geom_line(size = 1, color = red_pink) +
+  annotate("text", x = 70, y = 20, label = "Absolute~mobility==32.5", hjust = 0, parse = T, color = met_slate, size = 5, family = "Fira Sans") +
+  annotate("text", x = 70, y = 15, label = "Relative~mobility==0.35", hjust = 0, parse = T, color = met_slate, size = 5, family = "Fira Sans") +
+  annotate("text", x = 6, y = 4, label = "45° line", hjust = 0, color = "lightgrey", size = 5, family = "Fira Sans") +
+  # parent gap
+  geom_segment(aes(x = 35, xend = 35, y = 0, yend = rank(35)), color = green, size = 1, linetype = "dashed") +
+  geom_segment(aes(x = 55, xend = 55, y = 0, yend = rank(55)), color = purple, size = 1, linetype = "dashed") +
+  annotate("text", x = 45, y = 18, label = "Gap==20", parse = T, color = met_slate, size = 5, family = "Fira Sans") +
+  geom_segment(aes(x = 45, y = 15, xend = 35 + 0.2, yend = 15), arrow = arrow(angle = 20, length = unit(0.3,"cm"), type = "closed"), color = met_slate, size = 1) + 
+  geom_segment(aes(x = 45, y = 15, xend = 55 - 0.2, yend = 15), arrow = arrow(angle = 20, length = unit(0.3,"cm"), type = "closed"), color = met_slate, size = 1) + 
+  # child gap
+  geom_segment(aes(x = 0, xend = 35, y = rank(35), yend = rank(35)), color = green, size = 1, linetype = "dashed") +
+  geom_segment(aes(x = 0, xend = 55, y = rank(55), yend = rank(55)), color = purple, size = 1, linetype = "dashed") +
+  geom_segment(aes(x = 15, y = (rank(35) + rank(55)) / 2, xend = 15, yend = rank(55) - 0.4), arrow = arrow(angle = 20, length = unit(0.3,"cm"), type = "closed"), color = met_slate, size = 1) +
+  geom_segment(aes(x = 15, y = (rank(35) + rank(55)) / 2, xend = 15, yend = rank(35) + 0.4), arrow = arrow(angle = 20, length = unit(0.3,"cm"), type = "closed"), color = met_slate, size = 1) +
+  annotate("text", x = 16, y = (rank(35) + rank(55)) / 2, label = "Gap==7", hjust = 0, parse = T, color = met_slate, size = 5, family = "Fira Sans") +
+  geom_point(aes(x = 35, y = rank(35)), color = green, size = 2) +
+  geom_point(aes(x = 55, y = rank(55)), color = purple, size = 2) +
+  
+  # steady state
+  geom_point(aes(x = 50, y = 50), size = 2, color = red_pink) +
+  geom_segment(aes(x = 50, y = 60, xend = 50, yend = 52), arrow = arrow(angle = 20, length = unit(0.3,"cm"), type = "closed"), color = met_slate, size = 1) +
+  annotate("text", x = 50, y = 63, label = "Steady state", color = met_slate, size = 5, family = "Fira Sans") +
+  # style
+  scale_y_continuous(breaks = c(0, 20, 40, 60, 80, 100), labels = c(0, 20, 40, 60, 80, 100), limits = c(0, 105), expand = c(0, 0)) +
+  scale_x_continuous(breaks = seq(0, 100, 20), limits = c(0, 105), expand = c(0, 0)) +
+  labs(x = "Parent rank (percentile)", y = "Expected child rank (percentile)") +
+  theme_simple
+```
+]
+.less-right[
+No racial disparities in .hi-pink[intergenerational mobility]<br>.mono[-->] Income disparities between .hi-green[Black] and .hi-purple[White] Americans vanish over time. 
+
+Across many generations, average ranks for .green[Black] and .purple[White] Americans would converge toward a .pink[steady state].
+
+**But gaps aren't closing this fast!**
+]
+
+---
+# Race and Economic Opportunity
+
+## Intergenerational mobility
+
+.more-left[
+```{R, echo = F, dev = "svg", fig.height = 7}
+df <- tibble(parent = seq(0, 100, 1),
+             child = 32.5 + 0.35 * parent,
+             black = 25.4 + 0.28 * parent,
+             white = 36.8 + 0.32 * parent,
+             line_45_degree = parent)
+
+rank_black <- function(x) 25.4 + 0.28 * x
+rank_white <- function(x) 36.8 + 0.32 * x
+
+df %>% 
+  ggplot(aes(x = parent, y = child)) +
+  geom_line(aes(x = parent, y = line_45_degree), color = "lightgrey", size = 1, linetype = "dashed") +
+  geom_line(aes(x = parent, y = black), size = 1, color = green) +
+  geom_line(aes(x = parent, y = white), size = 1, color = purple) +
+  annotate("text", x = 6, y = 4, label = "45° line", hjust = 0, color = "lightgrey", size = 5, family = "Fira Sans") +
+  # style
+  scale_y_continuous(breaks = c(0, 20, 40, 60, 80, 100), labels = c(0, 20, 40, 60, 80, 100), limits = c(0, 105), expand = c(0, 0)) +
+  scale_x_continuous(breaks = seq(0, 100, 20), limits = c(0, 105), expand = c(0, 0)) +
+  labs(x = "Parent rank (percentile)", y = "Expected child rank (percentile)") +
+  theme_simple
+```
+]
+.less-right[
+Intergenerational mobility does, in fact, differ between .hi-green[Black] and .hi-purple[White] Americans.
+]
+
+---
+count: false
+# Race and Economic Opportunity
+
+## Intergenerational mobility
+
+.more-left[
+```{R, echo = F, dev = "svg", fig.height = 7}
+df <- tibble(parent = seq(0, 100, 1),
+             child = 32.5 + 0.35 * parent,
+             black = 25.4 + 0.28 * parent,
+             white = 36.8 + 0.32 * parent,
+             line_45_degree = parent)
+
+rank_black <- function(x) 25.4 + 0.28 * x
+rank_white <- function(x) 36.8 + 0.32 * x
+
+df %>% 
+  ggplot(aes(x = parent, y = child)) +
+  geom_line(aes(x = parent, y = line_45_degree), color = "lightgrey", size = 1, linetype = "dashed") +
+  geom_line(aes(x = parent, y = black), size = 1, color = green) +
+  geom_line(aes(x = parent, y = white), size = 1, color = purple) +
+  annotate("text", x = 6, y = 4, label = "45° line", hjust = 0, color = "lightgrey", size = 5, family = "Fira Sans") +
+  # steady state gap
+  geom_segment(aes(x = 35.2, xend = 35.2, y = 0, yend = rank_black(35.2)), color = green, size = 1, linetype = "dashed") +
+  geom_segment(aes(x = 54.5, xend = 54.5, y = 0, yend = rank_white(54.5)), color = purple, size = 1, linetype = "dashed") +
+  annotate("text", x = (54.5 + 35.2) / 2, y = 18, label = "`Long-run`~gap==19.2", parse = T, color = met_slate, size = 4.5, family = "Fira Sans") +
+  geom_segment(aes(x = (54.5 + 35.2) / 2, y = 15, xend = 35.2 + 0.2, yend = 15), arrow = arrow(angle = 20, length = unit(0.3,"cm"), type = "closed"), color = met_slate, size = 1) + 
+  geom_segment(aes(x = (54.5 + 35.2) / 2, y = 15, xend = 54.5 - 0.2, yend = 15), arrow = arrow(angle = 20, length = unit(0.3,"cm"), type = "closed"), color = met_slate, size = 1) + 
+  geom_point(aes(x = 35.2, y = rank_black(35.2)), color = green, size = 2) +
+  geom_point(aes(x = 54.5, y = rank_white(54.5)), color = purple, size = 2) +
+  # style
+  scale_y_continuous(breaks = c(0, 20, 40, 60, 80, 100), labels = c(0, 20, 40, 60, 80, 100), limits = c(0, 105), expand = c(0, 0)) +
+  scale_x_continuous(breaks = seq(0, 100, 20), limits = c(0, 105), expand = c(0, 0)) +
+  labs(x = "Parent rank (percentile)", y = "Expected child rank (percentile)") +
+  theme_simple
+```
+]
+.less-right[
+Intergenerational mobility does, in fact, differ between .hi-green[Black] and .hi-purple[White] Americans.
+
+**Implication:** Without intervention, racial disparities in income will not vanish in the long-run. 
+
+]
+
+---
+# Race and Economic Opportunity
+
+## Discussion
+
+**Q.sub[1]:** Whose experiences contribute most to the Black-White mobility gap? 
+
+**Q.sub[2]:** How much can differences in family characteristics explain the Black-White mobility gap?
+
+**Q.sub[3]:** How do neighborhoods shape differences in mobility across generations?
+
+**Q.sub[4]:** What should we take away from the research?
+
+---
+class: clear-slide
+
+<iframe 
+  src="https://www.opportunityatlas.org/"
+  style="
+    position: fixed;
+    top: 0px;
+    bottom: 0px;
+    right: 0px;
+    width: 100%;
+    border: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    z-index: 999999;
+    height: 100%;
+  ">
+  </iframe>
+
+---
+class: inverse, middle
+
+# Theory in a data-driven world?
+
+---
+class: clear-slide
+
+.center[**Economics is becoming more data-driven** <br>.slate[Empirical articles in the top three economics journals].super[.hi-pink[<span>&#8224;</span>]] .slate[over time]]
+```{R, echo = F, dev = "svg", fig.height = 3.35}
+data <- tibble(
+  percent = c(38.4, 60.3, 60.0, 72.1),
+  year = c("1983", "1993", "2003", "2011")
+)
+
+data %>% 
+  ggplot(aes(x = year, y = percent, label = percent)) +
+  scale_y_continuous(breaks = seq(0, 80, 10), expand = c(0, 0)) +
+  geom_col(size = 2, fill = red_pink) +
+  geom_text(size = 5, position = position_stack(vjust = 0.5), color = "white", family = "Fira Sans") +
+  labs(y = "Empirical articles (% of total)") +
+  theme_simple +
+  theme(axis.title.x = element_blank())
+```
+
+Economists are conducting **more experiments** and analyzing **more natural experiments**.
+
+.footnote[.super[.hi-pink[<span>&#8224;</span>]] The top three journals are [*The Quarterly Journal of Economics*](https://academic.oup.com/qje), [*The American Economic Review*](https://www.aeaweb.org/journals/aer), and the [*Journal of Political Economy*](https://www.journals.uchicago.edu/loi/jpe). <br> *Source:* Daniel S. Hamermesh (2013), [Six Decades of Top Economics Publishing: Who and How?](https://www.aeaweb.org/articles?id=10.1257/jel.51.1.162) *Journal of Economic Literature*.
+]
+
+--
+
+**Q:** So...what is the value of **theory** in an increasingly data-driven world?
+
+
+---
+# Theory in a data-driven world?
+
+> **The theory of economics** does not furnish a body of settled conclusions immediately applicable to policy. It is **a method rather than a doctrine**, an apparatus of the mind, **a technique of thinking** which helps its possessor to draw correct conclusions. <br> .right[&mdash; John Maynard Keynes]
+
+.bigger[**We value what is useful. And theory is useful.**]
+
+---
+# Theory in a data-driven world?
+
+> **The theory of economics** does not furnish a body of settled conclusions immediately applicable to policy. It is **a method rather than a doctrine**, an apparatus of the mind, **a technique of thinking** which helps its possessor to draw correct conclusions. <br> .right[&mdash; John Maynard Keynes]
+
+.bigger[**We value what is useful. And theory is useful.**]
+
+.hi-pink[Theory can be a substitute for data]
+
+- The absence of a counterfactual is fundamental to the challenge in identifying causal relationships. 
+- Theory can provide structure to our guess work.
+
+---
+# Theory in a data-driven world?
+
+> **The theory of economics** does not furnish a body of settled conclusions immediately applicable to policy. It is **a method rather than a doctrine**, an apparatus of the mind, **a technique of thinking** which helps its possessor to draw correct conclusions. <br> .right[&mdash; John Maynard Keynes]
+
+.bigger[**We value what is useful. And theory is useful.**]
+
+.hi-pink[Theory can inform us of important parameters and their roles]
+
+- What to look for, what to ask, what margins to follow up on?
+- Particular elasticities? Interactions? Non-linearities?
+
+---
+# Theory in a data-driven world?
+
+> **The theory of economics** does not furnish a body of settled conclusions immediately applicable to policy. It is **a method rather than a doctrine**, an apparatus of the mind, **a technique of thinking** which helps its possessor to draw correct conclusions. <br> .right[&mdash; John Maynard Keynes]
+
+.bigger[**We value what is useful. And theory is useful.**]
+
+.hi-pink[Theory relates seemingly disparate problems]
+
+- Abstract theory&mdash;stripping away the "irrelevant" details&mdash;makes it apparent when the same choice problem is being implicated.
+- The language of your "problems" may differ, but the underlying tradeoffs might be...identical!
+
+---
+# Theory in a data-driven world?
+
+> **The theory of economics** does not furnish a body of settled conclusions immediately applicable to policy. It is **a method rather than a doctrine**, an apparatus of the mind, **a technique of thinking** which helps its possessor to draw correct conclusions. <br> .right[&mdash; John Maynard Keynes]
+
+.bigger[**We value what is useful. And theory is useful.**]
+
+.hi-pink[Theory provides a method for solving problems]
+
+1. Examine an individual's optimization problem
+2. Look at the optimal equilibrium configuration of individual choices
+3. See how the equilibrium changes as policy variables change
+
+--
+
+Even when we have weak predictive power,
+
+> *More truth arises through error than confusion.* &mdash; [Roger Bacon](https://en.wikipedia.org/wiki/Roger_Bacon)
+
+---
+# Theory in a data-driven world?
+
+> **The theory of economics** does not furnish a body of settled conclusions immediately applicable to policy. It is **a method rather than a doctrine**, an apparatus of the mind, **a technique of thinking** which helps its possessor to draw correct conclusions. <br> .right[&mdash; John Maynard Keynes]
+
+.bigger[**We value what is useful. And theory is useful.**]
+
+.hi-pink[Theory is an antidote to introspection]
+
+- Most people get their economic beliefs from introspection and their personal experience&mdash;the same place that they get their beliefs about most things.
+- Economic theory&mdash;and indeed science in general&mdash;can serve as an antidote to this kind of introspection.
+
+---
+# Theory in a data-driven world?
+
+> **The theory of economics** does not furnish a body of settled conclusions immediately applicable to policy. It is **a method rather than a doctrine**, an apparatus of the mind, **a technique of thinking** which helps its possessor to draw correct conclusions. <br> .right[&mdash; John Maynard Keynes]
+
+.bigger[**We value what is useful. And theory is useful.**]
+
+.hi-pink[Economics is amenable to experimental verification]
+
+> *I expect that the interaction between theory and experimentation will continue to grow in the future. As economists become more comfortable with experimentation in the laboratory, they will also become better at identifying 'natural experiments' in real-world data. Such developments can only lead to better models of economic behavior.* <br> .right[&mdash; Hal Varian (now Chief Economist at Google, writing as an economics professor in 1989)]
+
+---
+# Theory in a data-driven world?
+
+> **The theory of economics** does not furnish a body of settled conclusions immediately applicable to policy. It is **a method rather than a doctrine**, an apparatus of the mind, **a technique of thinking** which helps its possessor to draw correct conclusions. <br> .right[&mdash; John Maynard Keynes]
+
+
+Arguably, **we want to** be able to **identify which margins matter** and **identify their importance** when we can.
+
+**We should therefore be comfortable with the following structure:**
+
+&nbsp; &nbsp; &nbsp; **Q:** .ul[&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;]**?**
+
+&nbsp; &nbsp; &nbsp; **A:** .pink[It depends.] In particular, it depends on .ul[&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;], .ul[&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;], and .ul[&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;].
+
+---
+# Theory in a data-driven world?
+
+## Theory itself has a structure, though:
+
+.bigger[**If "**.hi-purple[some postulate]**" then "**.hi-pink[some event]**."**]
+
+- If .purple[you attend class regularly] then .pink[you will earn a higher grade].
+
+
+- If .purple[monitoring workers is costly] then .pink[firms will compensate workers based on performance].
+
+
+- If .purple[the risk of dying from an overdose decreases] then .pink[the number of overdoses will increase]..super[.hi-pink[<span>&#8224;</span>]]
+
+
+- If .purple[working conditions improve] then .pink[labor supply will increase].
+
+.footnote[.super[.hi-pink[<span>&#8224;</span>]] For related evidence: Jennifer L. Doleac and Anita Mukherjee (2018), [The Moral Hazard of Lifesaving Innovations: Naloxone Access, Opioid Abuse, and Crime](https://www.iza.org/publications/dp/11489/the-moral-hazard-of-lifesaving-innovations-naloxone-access-opioid-abuse-and-crime), *IZA Discussion Paper No. 11489*]
+
+---
+# Theory in a data-driven world?
+
+## By definition:
+
+> **An explanation** for some phenomenon that is based on observation, experimentation, and reasoning.
+
+> A logical statement or **a testable model** of the manner in which phenomena interact.
+
+> A structured prediction that is capable of being tested through experimentation or otherwise **falsifiable through empirical observation**.
+
+---
+# Theory in a data-driven world?
+
+## What makes theory valuable?
+
+**Q:** What do we mean by "good in theory, but lousy in practice?"
+
+--
+
+- Such statements are misplaced, as theory's only value is in **how well it works in practice!**
+- Let's not say this anymore?
+
+
+--
+
+## Factors to consider?
+
+**Refutability** 
+
+- The theory could, in principle, be wrong. Otherwise, it is without value.
+- Economists/scientists seek to make statements that could be wrong, but are repeatedly shown to be consistent with the facts.
+
+---
+# Theory in a data-driven world?
+
+## What makes theory valuable?
+
+**Q:** What do we mean by "good in theory, but lousy in practice?"
+
+- Such statements are misplaced, as theory's only value is in **how well it works in practice!**
+- Let's not say this anymore?
+
+## Factors to consider?
+
+**Predictive power** 
+
+- A theory is valuable insofar as it predicts behavior well.
+
+---
+# Theory in a data-driven world?
+
+## What makes theory valuable?
+
+**Q:** What do we mean by "good in theory, but lousy in practice?"
+
+- Such statements are misplaced, as theory's only value is in **how well it works in practice!**
+- Let's not say this anymore?
+
+## Factors to consider?
+
+**Simplicity** 
+
+- *All else equal*, simpler theory is more valuable.
+
+---
+# Theory in a data-driven world?
+
+**Caveat 1: A theory does not imply its converse.**
+
+Observing **B** does not guarantee that **A** is true. **Something else could have caused B.**
+
+- Example: More people catch colds in winter months than in summer months, but low temperatures do not cause colds.
+- Example: Indoor temperatures are negatively correlated with the running time on furnaces, but furnaces do not cool houses. <br>
+    
+
+--
+
+**Caveat 2: Science cannot prove that a theory is true.**
+
+At best, science fails to refute a theory's postulates or predictions.
+
+- Example: We will not prove that social assistance programs ("welfare") are good. Nor will we prove that social assistance programs are bad.
+
+---
+# Housekeeping
+
+**Assigned reading for Monday:** [Thinking, Fast and Slow? Some Field Experiments to Reduce Crime and Dropout in Chicago](https://academic.oup.com/qje/article-abstract/132/1/1/2724542?redirectedFrom=fulltext) by Heller et al. (2017).
+
+- I will post the paper on Canvas tonight!
+- Read the **abstract**, the **introduction**, the section called "**intervention strategy**," and the **conclusion**.
+- The two results sections ("**Evidence from...**" and "**Mechanisms**") are optional (we will discuss them in class).
+- Reading Quiz 2 is due by **Monday, April 5th at 16:00**.
+
