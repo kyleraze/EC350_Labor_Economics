@@ -12,3 +12,6 @@ The HTML versions of the lecture slides allow you to view animations and interac
 1. **What is Labor Economics?** <br> [.html](https://raw.githack.com/kyleraze/EC350_Labor_Economics/master/Lectures/01-Introduction/01-Introduction.html) | [.pdf](https://raw.githack.com/kyleraze/EC350_Labor_Economics/master/Lectures/01-Introduction/01-Introduction.pdf)
 
 2. **Inequality, Opportunity, and Science** <br> [.html](https://raw.githack.com/kyleraze/EC350_Labor_Economics/master/Lectures/02-Inequality_Opportunity_Science/02-Inequality_Opportunity_Science.html) | [.pdf](https://raw.githack.com/kyleraze/EC350_Labor_Economics/master/Lectures/02-Inequality_Opportunity_Science/02-Inequality_Opportunity_Science.pdf)
+
+
+3. **Data and Causation** <br> [.html](https://raw.githack.com/kyleraze/EC350_Labor_Economics/master/Lectures/03-Data_Causation/03-Data_Causation.html) | [.pdf](https://raw.githack.com/kyleraze/EC350_Labor_Economics/master/Lectures/03-Data_Causation/03-Data_Causation.pdf)

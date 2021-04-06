@@ -1,0 +1,955 @@
+---
+title: "Data and Causation"
+subtitle: "EC 350: Labor Economics"
+author: "[Kyle Raze](https://kyleraze.com)"
+date: "Spring 2021"
+output:
+  xaringan::moon_reader:
+    css: ['default', 'metropolis', 'metropolis-fonts', 'my-css.css']
+    self_contained: false
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      beforeInit: "https://platform.twitter.com/widgets.js"
+      ratio: "16:9"
+---
+class: inverse, middle
+
+```{r Setup, include = F}
+options(htmltools.dir.version = FALSE, knitr.table.format = "html")
+library(pacman)
+p_load(ggthemes, viridis, knitr, emoGG, kableExtra, gridExtra, extrafont, webshot, fontawesome, tidyverse, magrittr, janitor, wooldridge)
+# Define colors
+red_pink <- "#e64173"
+met_slate <- "#272822" # metropolis font color 
+purple <- "#9370DB"
+green <- "#007935"
+light_green <- "#7DBA97"
+# Notes directory
+dir_slides <- "~/GitHub/Intro_Labor_S21/Lectures/03-Data_Causation/"
+# Knitr options
+opts_chunk$set(
+  comment = "#>",
+  fig.align = "center",
+  fig.height = 7,
+  fig.width = 10.5,
+  #dpi = 300,
+  #cache = T,
+  warning = F,
+  message = F
+)  
+theme_simple <- theme_bw() + theme(
+  axis.line = element_line(color = met_slate),
+  panel.grid = element_blank(),
+  rect = element_blank(),
+  strip.text = element_blank(),
+  text = element_text(family = "Fira Sans", color = met_slate, size = 17),
+  axis.text.x = element_text(size = 12),
+  axis.text.y = element_text(size = 12),
+  axis.ticks = element_blank()
+)
+wrapper <- function(x, ...) paste(strwrap(x, ...), collapse = "\n")
+```
+
+# Prologue
+
+---
+# Data and Causation
+
+1. The rise of empirical evidence
+2. Making *other-things-equal* comparisons
+3. What do "data" look like?
+4. Causal identification
+    - Average treatment effects
+    - Selection bias
+5. Randomized control trials
+6. *Thinking Fast and Slow*, Chicago edition
+
+---
+class: inverse, middle
+
+# The rise of empirical evidence
+
+---
+class: clear-slide
+
+.center[**The fading *American dream***]
+```{R, echo = F, dev = "svg", fig.height = 5.5}
+data <- read_csv("fading_american_dream.csv")
+
+data %>% 
+  ggplot(aes(x = cohort, y = cohort_mean)) +
+  geom_point(size = 2, color = red_pink) +
+  geom_line(size = 1, color = red_pink) +
+  scale_y_continuous(labels = scales::percent) +
+  labs(x = "Child's birth cohort", y = "Children earning more than their parents") +
+  theme_simple
+```
+
+.footnote[*Source:* Raj Chetty et al. (2017), [The fading American dream: Trends in absolute income mobility since 1940](https://science.sciencemag.org/content/356/6336/398.abstract), *Science*.]
+
+---
+# Why is the *American dream* fading?
+
+**Policy Question:** Why is a child's chance of climbing the income ladder decreasing in the United States?
+
+- What can we do to reverse this trend?
+
+Difficult to answer with historical data on macroeconomic trends.
+
+- **That other things change over time makes it difficult** to separately identify the roles of alternative explanations
+
+---
+# Theoretical social science
+
+Historically, the social sciences had **limited data** to study policy questions.
+
+**The result?** Social sciences were .pink[theoretical] fields
+
+- Some researchers developed .pink[mathematical models]
+- Some developed .pink[qualitative theories]
+- Both used their theories to make policy recommendations (*e.g.,* to improve upward mobility)
+
+--
+
+**The problem?** Without data, even falsifiable theories are never tested!
+
+- Five researchers could have five different answers to the same question
+- Can lead to a politicization of questions that, in principle, have scientific answers (*e.g.,* do minimum wage laws reduce employment?)
+
+---
+class: clear-slide
+
+.center[**Economics is becoming more data-driven** <br>.slate[Empirical articles in the top three economics journals over time]]
+```{R, echo = F, dev = "svg", fig.height = 5}
+data <- tibble(
+  percent = c(38.4, 60.3, 60.0, 72.1),
+  year = c("1983", "1993", "2003", "2011")
+)
+
+data %>% 
+  ggplot(aes(x = year, y = percent, label = percent)) +
+  scale_y_continuous(breaks = seq(0, 80, 10), expand = c(0, 0)) +
+  geom_col(size = 2, fill = red_pink) +
+  geom_text(size = 5, position = position_stack(vjust = 0.5), color = "white", family = "Fira Sans") +
+  labs(y = "Empirical articles (% of total)") +
+  theme_simple +
+  theme(axis.title.x = element_blank())
+```
+
+.footnote[*Source:* Daniel S. Hamermesh (2013), [Six Decades of Top Economics Publishing: Who and How?](https://www.aeaweb.org/articles?id=10.1257/jel.51.1.162) *Journal of Economic Literature*.]
+
+---
+# The rise of empirical evidence
+
+Today, the social sciences are increasingly **empirical** thanks to the growing availability of data and computational power.
+
+- Gives us **the ability to test** existing theories
+- Gives us **the ability to refine** theory to (i) better explain decision making and (ii) better fit real-world data
+
+--
+
+The social sciences have caught up to the natural sciences in terms of scientific rigor, arguably surpassing the natural sciences in sophistication.
+
+- Given the complexity of human decision making, inability to experiment in controlled environments, *etc.*?
+
+---
+class: inverse, middle
+
+# Making *other-things-equal* comparisons
+
+---
+# *Other-things-equal* comparisons
+
+**The policy?** In 2017, the University of Oregon started requiring first-year students to live on campus.
+
+**The rationale?** First-year students who live on campus outperform those who live off campus.
+
+- Average 2.super[nd]-year retention rate _5 percentage points higher_
+- _80 percent more likely to graduate_ in four years
+- GPA _0.13 points higher_
+
+--
+
+**Q:** Do these comparisons suggest that the policy will improve student outcomes?
+
+--
+
+**Q:** Do they describe the effect of living on campus?
+
+**Q:** Do they describe *something else?*
+
+---
+# *Other-things-equal* comparisons
+
+**Healthy skepticism** should leave us questioning the UO's interpretation.
+
+- The **decision** to live on campus is likely related to family wealth and interest in school.
+- Family wealth and interest in school are also related to academic achievement.
+
+
+--
+
+
+
+**The difference in outcomes** between those on and off campus **does not offer an *other-things-equal* comparison**.
+
+- Without further evidence, one should not attribute the difference in outcomes to living on campus.
+    - Not without considering those things that both (i) correlate with living on campus (*e.g.,* family wealth) and (ii) correlate with outcomes (*e.g.,* graduation)
+
+---
+# *Other-things-equal* comparisons
+
+Statistical comparisons can only identify causal relationships between variables **when all other factors are "held constant."** 
+
+- *Causal* relationship .mono[=] How a change in one variable *induces* a change in another
+
+--
+
+Economists have developed a *comparative advantage*.super[.hi-pink[<span>&#8224;</span>]] in understanding where **other-things-equal** comparisons can (and cannot) be made.
+
+.footnote[.super[.hi-pink[<span>&#8224;</span>]] *Comparative advantage* .mono[=] Ability of an individual or group to perform an activity at lower cost relative to another individual or group.]
+
+- Anyone can retort "_correlation doesn't imply causation!_"
+--
+
+- Understanding why it doesn't? The conditions under which it actually does imply causality?
+    - Difficult, but necessary for learning from data!
+
+---
+class: inverse, middle
+
+# What do "data" look like?
+
+---
+# What do "data" look like?
+
+.more-left[
+
+```{r, echo=FALSE}
+data(wage1)
+wage1 <- select(wage1, wage, educ, female) %>%
+  mutate(wage = round(wage, 2))
+DT::datatable(
+  wage1,
+  caption = c("Sample of US workers (1976)"),
+  colnames = c('<span style="color: #007935 !important">Wage</span>', '<span style="color: #007935 !important">Education</span>', '<span style="color: #007935 !important">Female?</span>'),
+  fillContainer = FALSE, options = list(pageLength = 5, lengthChange = FALSE, searching = FALSE), escape = FALSE) %>%
+  # DT::formatStyle('wage', color = '#9370DB') %>%
+  # DT::formatStyle('educ', color = '#9370DB') %>%
+  # DT::formatStyle('female', color = '#9370DB') %>%
+  DT::formatStyle(0, color = '#e64173')
+```
+
+]
+
+.less-right[
+
+.hi-pink[Rows] represent .hi-pink[observations].
+
+.hi-green[Columns] represent .hi-green[variables].
+
+Each value is associated with an .hi-pink[observation] and a .hi-green[variable].
+
+]
+
+
+---
+class: inverse, middle
+
+# Causal identification
+
+---
+# Causal identification
+
+## The objective
+
+Identify the effect of a .hi[treatment] on an .hi[outcome].
+
+--
+
+## The ideal comparison
+
+Ideally, we could calculate the **treatment effect** *for each individual* as
+
+$$Y_{1,i} - Y_{0,i}$$
+
+- $Y_{1,i}$ is the outcome for person $i$ when $i$ receives the treatment
+- $Y_{0,i}$ is the outcome for person $i$ when $i$ does not receive the treatment
+- Known as **potential outcomes**
+
+---
+# Causal identification
+
+The **ideal data** for 10 people
+
+.pull-left[
+```{R, ideal_data, echo = F}
+set.seed(3)
+ideal_df <- data.frame(
+  i = 1:10,
+  treat = rep(c(1, 0), each = 5),
+  Y_1i = c(runif(10, 4, 10) %>% round(2)),
+  Y_0i = c(runif(10, 0, 5) %>% round(2))
+) %>% 
+  mutate(Y_0i = case_when(treat == 1 ~ Y_0i + 2, TRUE ~ Y_0i),
+         Y_1i = case_when(treat == 0 ~ Y_1i, TRUE ~ Y_1i))
+ideal_df
+```
+]
+
+--
+
+.pull-right[
+We could calculate the treatment effect for each individual $i$,
+$$
+\begin{align}
+  \tau_i = Y_{1,i} -  Y_{0,i}~,
+\end{align}
+$$
+and we would be inclined to think of it as the causal effect.
+]
+
+---
+count: false
+# Causal identification
+
+The **ideal data** for 10 people
+
+.pull-left[
+```{R, ideal_data_trt, echo = F}
+ideal_df %>% mutate(effect_i = Y_1i - Y_0i)
+```
+]
+
+.pull-right[
+We could calculate the treatment effect for each individual $i$,
+$$
+\begin{align}
+  \tau_i = Y_{1,i} -  Y_{0,i}~,
+\end{align}
+$$
+and we would be inclined to think of it as the causal effect.
+]
+
+---
+count: false
+# Causal identification
+
+The **ideal data** for 10 people
+
+.pull-left[
+```{R, ideal_data_trt2, echo = F}
+ideal_df %>% mutate(effect_i = Y_1i - Y_0i)
+```
+]
+
+.pull-right[
+We could calculate the treatment effect for each individual $i$,
+$$
+\begin{align}
+  \tau_i = Y_{1,i} -  Y_{0,i}~,
+\end{align}
+$$
+and we would be inclined to think of it as the causal effect.
+
+]
+
+The mean of these individual treatment effects .mono[=] `r transmute(ideal_df, effect_i = Y_1i - Y_0i) %>% unlist %>% mean %>% round(2)`
+
+- We call this the .hi-green[average treatment effect] (ATE)
+
+---
+# Causal identification
+
+## The fundamental problem of causal inference
+
+While the ideal comparison is
+$$
+\begin{align}
+  \tau_i = \color{#e64173}{Y_{1,i}} &- \color{#9370DB}{Y_{0,i}}~,
+\end{align}
+$$
+this comparison is fundamentally challenged!
+
+--
+
+- If we observe $\color{#e64173}{Y_{1}}$ for $i$, then we cannot observe $\color{#9370DB}{Y_{0}}$ for $i$
+- If we observe $\color{#9370DB}{Y_{0}}$ for $i$, then we cannot observe $\color{#e64173}{Y_{1}}$ for $i$
+- We only observe what *actually* happened&mdash;we cannot observe the **counterfactual**
+
+--
+
+**The implication?** .hi-pink[ALL] .pink[causal inference is] .hi-pink[by assumption!]
+
+---
+# Causal identification
+
+The data we *actually* see for these 10 people?
+.pull-left[
+```{R, ideal_data_obs, echo = F}
+obs_df <- ideal_df
+obs_df$Y_0i[1:5] <- NA
+obs_df$Y_1i[6:10] <- NA
+obs_df
+```
+]
+
+--
+
+.pull-right[
+We only observe $\color{#e64173}{Y_{1}}$ for $i \in \{1, ..., 5\}$
+
+We only observe $\color{#9370DB}{Y_{0}}$ for $i \in \{6, ..., 10\}$
+ 
+We do not observe both $\color{#e64173}{Y_{1,i}}$ and $\color{#9370DB}{Y_{0,i}}$ for anyone
+
+]
+
+--
+
+**Q:** How can we estimate the average treatment effect when we cannot observe individual treatment effects?
+
+---
+# Causal identification
+
+Can we **compare the mean outcomes** of each group?
+
+- Take the average of $\color{#e64173}{Y_{1}}$ for those who received the treatment (*i.e.,* the .pink[treatment-group mean])
+- Take the average of $\color{#9370DB}{Y_{0}}$ for those who didn't receive the treatment (*i.e.,* the .purple[control-group mean])
+
+--
+
+**Q:** Does .pink[treatment-group mean] .mono[-] .purple[control-group mean] isolate the causal effect of the treatment?
+
+---
+# Causal identification
+
+.pull-left[
+```{R, ideal_data_obs_2, echo = F}
+obs_df <- ideal_df
+obs_df$Y_0i[1:5] <- NA
+obs_df$Y_1i[6:10] <- NA
+obs_df
+```
+]
+
+.pull-right[
+.pink[Treatment group mean] .mono[=] `r round(mean(obs_df$Y_1i[1:5]), 2)`
+
+.purple[Control group mean] .mono[=] `r round(mean(obs_df$Y_0i[6:10]), 2)`
+
+Difference-in-means .mono[=] `r round(mean(obs_df$Y_1i[1:5]) - mean(obs_df$Y_0i[6:10]), 2)`
+]
+
+--
+
+Difference-in-means .mono[=] .hi-green[average treatment effect] .mono[+] .hi-orange[selection bias]
+--
+<br> $\quad$ .mono[=] .green[`r transmute(ideal_df, effect_i = Y_1i - Y_0i) %>% unlist %>% mean %>% round(2)`] .mono[+] .orange[(`r round(mean(obs_df$Y_1i[1:5]) - mean(obs_df$Y_0i[6:10]), 2)` .mono[-] `r transmute(ideal_df, effect_i = Y_1i - Y_0i) %>% unlist %>% mean %>% round(2)`)]
+--
+ .mono[=] .green[`r transmute(ideal_df, effect_i = Y_1i - Y_0i) %>% unlist %>% mean %>% round(2)`] .mono[+] .orange[`r round(mean(obs_df$Y_1i[1:5]) - mean(obs_df$Y_0i[6:10]), 2) - transmute(ideal_df, effect_i = Y_1i - Y_0i) %>% unlist %>% mean %>% round(2)`]
+
+--
+
+.orange[Selection bias] .mono[!=] 0 .mono[==>] people who "select into" treatment are different
+
+---
+class: inverse, middle
+
+# Randomized control trials 
+
+---
+# Randomized control trials 
+
+## Overcoming selection bias
+
+**The problem?** The existence of selection bias precludes making *other-things-equal* comparisons.
+
+- To make valid comparisons that identify causal effects, we need to shut down the bias coming from selection.
+
+--
+
+**The solution?** Conduct an experiment!
+
+- How? Assign treatment .hi-pink[randomly]
+- Hence the name, .hi-pink[*randomized* control trial] (RCT)
+
+---
+# Randomized control trials 
+
+## Example: Effect of de-worming on attendance
+
+**Motivation:** Intestinal worms are common among children in less-developed countries. The symptoms of these parasites can keep school-aged children at home, disrupting human capital accumulation.
+
+**Policy question:** Do school-based de-worming interventions provide a cost-effective way to increase school attendance? 
+
+---
+# Randomized control trials 
+
+## Example: Effect of de-worming on attendance
+
+**Research question:** How much do de-worming interventions increase school attendance?
+
+**Q:** **Could we simply compare average attendance** among children with and without access to de-worming medication?
+
+--
+
+- **A:** If we're after the causal effect, probably not. (Why not?)
+
+
+--
+
+**Selection bias:** Families with access to de-worming medication probably have healthier children for other reasons, too (wealth, access to clean drinking water, *etc.*).
+
+- **We can't make an *all-else-equal* comparison** .mono[-->] in expectation, observed differences will deviate *systematically* from the ATE!
+
+---
+# Randomized control trials 
+
+## Example: Effect of de-worming on attendance
+
+**Solution:** Run an experiment.
+
+--
+
+Imagine an RCT where we have two groups:
+
+- .hi-slate[Treatment:] Villages where children get de-worming medication in school.
+- .hi-slate[Control:] Villages where children don't get de-worming medication in school (status quo).
+
+--
+
+By randomizing villages into .hi-slate[treatment] or .hi-slate[control], we will, on average, include all kinds of villages (poor _vs._ less poor, access to clean water _vs._ contaminated water, hospital _vs._ no hospital, *etc.*) in both groups.
+
+--
+
+*All else equal*!
+
+---
+class: clear-slide
+
+.hi-slate[72 villages] 
+```{R, plot1, echo = F, dev = "svg", fig.height = 5.5}
+xd <- 12
+yd <- 6
+set.seed(123)
+med_df <- expand.grid(x = 1:xd, y = 1:yd) %>%
+  mutate(
+    q = x + y + 1.25 * rnorm(xd*yd),
+    trt = sample(x = c(T, F), size = xd*yd, replace = T, prob = c(0.51, 0.49)),
+  ) %>%
+  arrange(-y, x) %>%
+  mutate(id = 1:(xd*yd) %>% str_pad(2, "left", "0")) %>%
+  arrange(y, x)
+ggplot(data = med_df, aes(x, y)) +
+geom_tile(color = "grey40", fill = "grey93", size = 0.2) +
+geom_text(aes(label = id), color = "grey45", size = 5, family = "Roboto Mono") +
+theme_void() +
+coord_equal()
+```
+---
+class: clear-slide
+count: false
+
+.hi-slate[72 villages] .hi[of varying levels of development]
+```{R, plot2, echo = F, dev = "svg", fig.height = 5.5}
+ggplot(data = med_df,
+  aes(x, y)
+) +
+geom_tile(aes(fill = q), color = "white", size = 0.2) +
+scale_fill_viridis(option = "magma", direction = -1) +
+theme_void() +
+theme(legend.position = "none") +
+coord_equal()
+```
+---
+class: clear-slide
+count: false
+
+.hi-slate[72 villages] .hi[of varying levels of development] .mono[+] .hi-orange[randomly assigned treatment]
+```{R, plot3_1, echo = F, dev = "svg", fig.height = 5.5}
+set.seed(246)
+ggplot(data = med_df,
+  aes(x, y)
+) +
+geom_tile(aes(fill = q), color = "white", size = 0.2) +
+geom_emoji(data = sample_n(med_df, 1), emoji = "1f48a") +
+scale_fill_viridis(option = "magma", direction = -1) +
+theme_void() +
+theme(legend.position = "none") +
+coord_equal()
+```
+---
+class: clear-slide
+count: false
+
+.hi-slate[72 villages] .hi[of varying levels of development] .mono[+] .hi-orange[randomly assigned treatment]
+```{R, plot3_2, echo = F, dev = "svg", fig.height = 5.5}
+set.seed(246)
+ggplot(data = med_df,
+  aes(x, y)
+) +
+geom_tile(aes(fill = q), color = "white", size = 0.2) +
+geom_emoji(data = sample_n(med_df, 2), emoji = "1f48a") +
+scale_fill_viridis(option = "magma", direction = -1) +
+theme_void() +
+theme(legend.position = "none") +
+coord_equal()
+```
+---
+class: clear-slide
+count: false
+
+.hi-slate[72 villages] .hi[of varying levels of development] .mono[+] .hi-orange[randomly assigned treatment]
+```{R, plot3_3, echo = F, dev = "svg", fig.height = 5.5}
+set.seed(246)
+ggplot(data = med_df,
+  aes(x, y)
+) +
+geom_tile(aes(fill = q), color = "white", size = 0.2) +
+geom_emoji(data = sample_n(med_df, 3), emoji = "1f48a") +
+scale_fill_viridis(option = "magma", direction = -1) +
+theme_void() +
+theme(legend.position = "none") +
+coord_equal()
+```
+---
+class: clear-slide
+count: false
+
+.hi-slate[72 villages] .hi[of varying levels of development] .mono[+] .hi-orange[randomly assigned treatment]
+```{R, plot3_4, echo = F, dev = "svg", fig.height = 5.5}
+set.seed(246)
+ggplot(data = med_df,
+  aes(x, y)
+) +
+geom_tile(aes(fill = q), color = "white", size = 0.2) +
+geom_emoji(data = sample_n(med_df, 4), emoji = "1f48a") +
+scale_fill_viridis(option = "magma", direction = -1) +
+theme_void() +
+theme(legend.position = "none") +
+coord_equal()
+```
+---
+class: clear-slide
+count: false
+
+.hi-slate[72 villages] .hi[of varying levels of development] .mono[+] .hi-orange[randomly assigned treatment]
+```{R, plot3_5, echo = F, dev = "svg", fig.height = 5.5}
+set.seed(246)
+ggplot(data = med_df,
+  aes(x, y)
+) +
+geom_tile(aes(fill = q), color = "white", size = 0.2) +
+geom_emoji(data = sample_n(med_df, 5), emoji = "1f48a") +
+scale_fill_viridis(option = "magma", direction = -1) +
+theme_void() +
+theme(legend.position = "none") +
+coord_equal()
+```
+---
+class: clear-slide
+count: false
+
+.hi-slate[72 villages] .hi[of varying levels of development] .mono[+] .hi-orange[randomly assigned treatment]
+```{R, plot3_6, echo = F, dev = "svg", fig.height = 5.5}
+set.seed(246)
+ggplot(data = med_df,
+  aes(x, y)
+) +
+geom_tile(aes(fill = q), color = "white", size = 0.2) +
+geom_emoji(data = sample_n(med_df, 6), emoji = "1f48a") +
+scale_fill_viridis(option = "magma", direction = -1) +
+theme_void() +
+theme(legend.position = "none") +
+coord_equal()
+```
+---
+class: clear-slide
+count: false
+
+.hi-slate[72 villages] .hi[of varying levels of development] .mono[+] .hi-orange[randomly assigned treatment]
+```{R, plot3_7, echo = F, dev = "svg", fig.height = 5.5}
+set.seed(246)
+ggplot(data = med_df,
+  aes(x, y)
+) +
+geom_tile(aes(fill = q), color = "white", size = 0.2) +
+# geom_text(aes(label = trt)) +
+geom_emoji(data = sample_n(med_df, 7), emoji = "1f48a") +
+scale_fill_viridis(option = "magma", direction = -1) +
+theme_void() +
+theme(legend.position = "none") +
+coord_equal()
+```
+---
+class: clear-slide
+count: false
+
+.hi-slate[72 villages] .hi[of varying levels of development] .mono[+] .hi-orange[randomly assigned treatment]
+```{R, plot3_8, echo = F, dev = "svg", fig.height = 5.5}
+set.seed(246)
+ggplot(data = med_df,
+  aes(x, y)
+) +
+geom_tile(aes(fill = q), color = "white", size = 0.2) +
+# geom_text(aes(label = trt)) +
+geom_emoji(data = sample_n(med_df, 8), emoji = "1f48a") +
+scale_fill_viridis(option = "magma", direction = -1) +
+theme_void() +
+theme(legend.position = "none") +
+coord_equal()
+```
+---
+class: clear-slide
+count: false
+
+.hi-slate[72 villages] .hi[of varying levels of development] .mono[+] .hi-orange[randomly assigned treatment]
+```{R, plot3_9, echo = F, dev = "svg", fig.height = 5.5}
+set.seed(246)
+ggplot(data = med_df,
+  aes(x, y)
+) +
+geom_tile(aes(fill = q), color = "white", size = 0.2) +
+# geom_text(aes(label = trt)) +
+geom_emoji(data = sample_n(med_df, 9), emoji = "1f48a") +
+scale_fill_viridis(option = "magma", direction = -1) +
+theme_void() +
+theme(legend.position = "none") +
+coord_equal()
+```
+---
+class: clear-slide
+count: false
+
+.hi-slate[72 villages] .hi[of varying levels of development] .mono[+] .hi-orange[randomly assigned treatment]
+```{R, plot3_10, echo = F, dev = "svg", fig.height = 5.5}
+set.seed(246)
+ggplot(data = med_df,
+  aes(x, y)
+) +
+geom_tile(aes(fill = q), color = "white", size = 0.2) +
+# geom_text(aes(label = trt)) +
+geom_emoji(data = sample_n(med_df, round(xd * yd / 2, 0)), emoji = "1f48a") +
+scale_fill_viridis(option = "magma", direction = -1) +
+theme_void() +
+theme(legend.position = "none") +
+coord_equal()
+```
+---
+class: clear-slide
+count: false
+
+.hi-slate[72 villages] .hi[of varying levels of development] .mono[+] .hi-orange[randomly assigned treatment]
+```{R, plot3_11, echo = F, dev = "svg", fig.height = 5.5}
+set.seed(248)
+ggplot(data = med_df,
+  aes(x, y)
+) +
+geom_tile(aes(fill = q), color = "white", size = 0.2) +
+# geom_text(aes(label = trt)) +
+geom_emoji(data = sample_n(med_df, round(xd * yd / 2, 0)), emoji = "1f48a") +
+scale_fill_viridis(option = "magma", direction = -1) +
+theme_void() +
+theme(legend.position = "none") +
+coord_equal()
+```
+---
+class: clear-slide
+count: false
+
+.hi-slate[72 villages] .hi[of varying levels of development] .mono[+] .hi-orange[randomly assigned treatment]
+```{R, plot3_12, echo = F, dev = "svg", fig.height = 5.5}
+set.seed(250)
+ggplot(data = med_df,
+  aes(x, y)
+) +
+geom_tile(aes(fill = q), color = "white", size = 0.2) +
+# geom_text(aes(label = trt)) +
+geom_emoji(data = sample_n(med_df, round(xd * yd / 2, 0)), emoji = "1f48a") +
+scale_fill_viridis(option = "magma", direction = -1) +
+theme_void() +
+theme(legend.position = "none") +
+coord_equal()
+```
+
+---
+# Randomized control trials 
+
+## Example: Effect of de-worming on attendance
+
+We can estimate the **causal effect** of de-worming on school attendance by **comparing the average attendance rates** in the .hi-pink[treatment group] (💊) with those in the .hi-purple[control group] (no 💊):
+
+.center[.hi-pink[Treatment group attendance rate] .mono[-] .hi-purple[Control group attendance rate]]
+
+
+--
+
+**Result:** This was done in Kenya, where [attendance increased](https://www.povertyactionlab.org/case-study/deworming-schools-improves-attendance-and-benefits-communities-over-long-term) with the random assignment of treatment.
+
+- 25-percent decrease in absenteeism at a cost of $0.60 per child
+- Long term cost effectiveness: Additional 11.91 years of schooling per $100 spent on de-worming
+
+.footnote[*Source:* [Deworming to increase school attendance](https://www.povertyactionlab.org/case-study/deworming-increase-school-attendance), *Abdul Latif Jameel Poverty Action Lab*.]
+
+---
+# Randomized control trials 
+
+## Example: Effect of de-worming on attendance
+
+We can estimate the **causal effect** of de-worming on school attendance by **comparing the average attendance rates** in the .hi-pink[treatment group] (💊) with those in the .hi-purple[control group] (no 💊):
+
+.center[.hi-pink[Treatment group attendance rate] .mono[-] .hi-purple[Control group attendance rate]]
+
+**Q:** Should we trust the results of the comparison? 
+
+--
+
+**A:** Even with healthy skepticism, we probably should? On average, randomly assigning treatment balances the treatment and control groups across other dimensions that could explain school attendance.
+
+---
+class: clear-slide
+
+Balance ***on average*** .mono[!=] Balance ***every time***
+```{R, fertilizer_plot3_bad, echo = F, dev = "svg", fig.height = 5.5}
+ggplot(data = med_df,
+  aes(x, y)
+) +
+geom_tile(aes(fill = q), color = "white", size = 0.2) +
+# geom_text(aes(label = trt)) +
+geom_emoji(data = filter(med_df, x < xd/3 | y <= yd/3), emoji = "1f48a") + #  | (x == xd & y == yd)
+scale_fill_viridis(option = "magma", direction = -1) +
+theme_void() +
+theme(legend.position = "none") +
+coord_equal()
+```
+
+---
+# Interpreting results
+
+## Internal validity
+
+Addresses the question, ***should we believe the study?***
+
+A study has high **internal validity** if, within the context of the study, we are confident that one variable has a **causal** influence on the outcome of interest (*e.g.,*  there's **no selection bias**).
+
+--
+
+## External validity
+
+Addresses the question, ***how far can we generalize the results of the study?***
+
+A study has high **external validity** to the extent that the results **apply to other contexts** (not just the local environment that generated the results).
+
+---
+class: inverse, middle
+
+# *Thinking Fast and Slow*, Chicago edition
+
+---
+# *Thinking Fast and Slow*, Chicago edition
+
+## Background
+
+**Policy question:** How can we reduce violent crime among young men? 
+
+**Research agenda:** What factors influence an individual's proclivity toward violent crime? 
+
+- Self control? Social skills? Grit?
+- Economic hardship?
+- Police presesnce?
+- Early chilhood education?
+- Something else?
+
+---
+# *Thinking Fast and Slow*, Chicago edition
+
+**Research question:** Can cognitive-behavioral therapy keep young men in school and out of trouble?
+
+- Proposed mechanism: Automaticity.
+
+.footnote[*Source:* Sara B Heller et al. (2017), [Thinking, Fast and Slow? Some Field Experiments to Reduce Crime and Dropout in Chicago](https://academic.oup.com/qje/article-abstract/132/1/1/2724542?redirectedFrom=fulltext), *The Quarterly Journal of Economics*.]
+
+--
+
+**Experiment:** *Becoming a Man*
+
+4804 young men in Chicago Public Schools randomly assigned to one of two groups:
+
+- .hi-pink[Treatment group:] Group cognitive-behavioral therapy program during school (once per week for 1-2 school years)
+- .hi-purple[Control group:] No intervention
+
+--
+
+A similar experiment was also conducted in the Cook County Juvenile Temporary Detention Center.
+
+---
+class: clear-slide
+
+.center[***Becoming a Man*: Experimental results**]
+```{R, echo = F, escape = F}
+tab <- data.frame(
+  v1 = c(
+    "School engagement index",
+    "",
+    "Total arrests per youth per year",
+    "",
+    "&nbsp;&nbsp;&nbsp; Violent",
+    "",
+    "&nbsp;&nbsp;&nbsp; Property",
+    "",
+    "&nbsp;&nbsp;&nbsp; Drug",
+    "",
+    "&nbsp;&nbsp;&nbsp; Other",
+    ""
+  ),
+  v2 = rbind(
+    c(0, 0.603, 0.136, 0.069, 0.132, 0.266),
+    c("", "", "", "", "", "")
+  ) %>% as.vector(),
+  v3 = rbind(
+    c(0.040, 0.53, 0.109, 0.072, 0.127, 0.222),
+    c("", "", "", "", "", "")
+  ) %>% as.vector(),
+  v4 = rbind(
+    c(0.040, -0.073, -0.027, 0.003, -0.005, -0.044),
+    c("(0.016)", "(0.031)", "(0.011)", "(0.008)", "(0.012)", "(0.019)")
+  ) %>% as.vector(),
+  v5 = rbind(
+    c(0.088, -0.161, -0.060, 0.006, -0.011, -0.097),
+    c("(0.034)", "(0.068)", "(0.024)", "(0.018)", "(0.027)", "(0.040)")
+  ) %>% as.vector()
+) %>% kable(
+  escape = F,
+  col.names = c(
+    "Outcome",
+    "Control mean",
+    "Treatment mean",
+    "Effect of treatment assignment",
+    "Effect of participation"
+  ),
+  align = c("l", rep("c", 4)),
+) %>%
+  row_spec(1:12, color = met_slate) %>%
+  row_spec(seq(2,12,2), color = "#c2bebe") %>%
+  row_spec(1:12, extra_css = "line-height: 110%;") %>%
+  column_spec(1, color = "black", italic = T) %>% 
+  kable_styling(font_size = 20.5, bootstrap_options = "hover") #%>% 
+  # footnote(general = "4804 observations from study 1 and study 2 pooled together. Standard errors in parentheses.",
+  #          general_title = "Notes:",
+  #          title_format = "italic",
+  #          footnote_as_chunk = T)
+tab
+```
+.smallest[*Notes:* 4804 observations. Standard errors in parentheses.]
+
+---
+# Housekeeping
+
+**Assigned reading for ~~Wednesday~~ Friday:** [Snapping back: Food stamp bans and criminal recidivism](https://www.aeaweb.org/articles?id=10.1257/pol.20170490) by Cody Tuttle (2019).
+
+- I will post the paper on Canvas tonight!
+- Reading Quiz 3 will be due this Friday.
+- Details to follow!
