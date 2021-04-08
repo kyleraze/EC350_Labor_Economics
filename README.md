@@ -15,3 +15,5 @@ The HTML versions of the lecture slides allow you to view animations and interac
 
 
 3. **Data and Causation** <br> [.html](https://raw.githack.com/kyleraze/EC350_Labor_Economics/master/Lectures/03-Data_Causation/03-Data_Causation.html) | [.pdf](https://raw.githack.com/kyleraze/EC350_Labor_Economics/master/Lectures/03-Data_Causation/03-Data_Causation.pdf)
+
+4. **Learning from Observational Data** <br> [.html](https://raw.githack.com/kyleraze/EC350_Labor_Economics/master/Lectures/04-Observational_Data/04-Observational_Data.html) | [.pdf](https://raw.githack.com/kyleraze/EC350_Labor_Economics/master/Lectures/04-Observational_Data/04-Observational_Data.pdf)

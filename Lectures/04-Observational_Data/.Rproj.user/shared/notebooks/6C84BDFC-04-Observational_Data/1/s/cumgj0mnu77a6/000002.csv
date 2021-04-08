@@ -1,0 +1,4 @@
+"0","# Define functions"
+"0","y0 <- function(x) 0.7 / (1 + exp(-3 * x))"
+"0","y1 <- function(x) 0.85 / (1 + exp(-4 * x)) + 0.1"
+"0","gg_df <- data.frame(x = c(-1, 1))"
