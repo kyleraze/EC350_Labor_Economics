@@ -21,3 +21,5 @@ The HTML versions of the lecture slides allow you to view animations and interac
 5. **The Worker's Dilemma** <br> [.html](https://raw.githack.com/kyleraze/EC350_Labor_Economics/master/Lectures/05-Workers/05-Workers.html) | [.pdf](https://raw.githack.com/kyleraze/EC350_Labor_Economics/master/Lectures/05-Workers/05-Workers.pdf)
 
 6. **Welfare and Work Incentives** <br> [.html](https://raw.githack.com/kyleraze/EC350_Labor_Economics/master/Lectures/06-Work_Incentives/06-Work_Incentives.html) | [.pdf](https://raw.githack.com/kyleraze/EC350_Labor_Economics/master/Lectures/06-Work_Incentives/06-Work_Incentives.pdf)
+
+7. **The Employer's Dilemma** <br> [.html](https://raw.githack.com/kyleraze/EC350_Labor_Economics/master/Lectures/07-Employers/07-Employers.html) | [.pdf](https://raw.githack.com/kyleraze/EC350_Labor_Economics/master/Lectures/07-Employers/07-Employers.pdf)

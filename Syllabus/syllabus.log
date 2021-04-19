@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999992 (MiKTeX 20.6.29) (preloaded format=xelatex 2020.10.9)  26 MAR 2021 18:25
+This is XeTeX, Version 3.14159265-2.6-0.999992 (MiKTeX 20.6.29) (preloaded format=xelatex 2020.10.9)  19 APR 2021 13:44
 entering extended mode
 **./syllabus.tex
 (syllabus.tex
@@ -782,19 +782,19 @@ he quarter. Each problem set will consist of a computer-
 [2] [3] [4] (syllabus.bbl) [5] [6
 
 ]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 249.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 249.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 250.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 250.
  (syllabus.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 249.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 249.
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 250.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 250.
 Package rerunfilecheck Info: File `syllabus.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 249.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 250.
  ) 
 Here is how much of TeX's memory you used:
  18973 strings out of 414071
  360979 string characters out of 2894591
- 657789 words of memory out of 3000000
+ 656789 words of memory out of 3000000
  36373 multiletter control sequences out of 15000+200000
  541072 words of font info for 105 fonts, out of 3000000 for 9000
  1348 hyphenation exceptions out of 8191
