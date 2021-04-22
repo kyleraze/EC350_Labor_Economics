@@ -1,5 +1,5 @@
 ---
-title: "The Employer's Dilemma"
+title: "Robots and Taxes"
 subtitle: "EC 350: Labor Economics"
 author: "[Kyle Raze](https://kyleraze.com)"
 date: "Spring 2021"
@@ -88,498 +88,19 @@ xaringanExtra::use_scribble()
 
 # Agenda
 
-1. Difference-in-differences, revisited
-    - Card and Krueger (1994)
-    - Difference-in-differences with regression
-    - Parallel trends assumption 
-    - Discuss Hoynes and Patel (2018)
-2. The Employer's Dilemma
-    - Labor demand
-    - Profit maximization
-    - Production technology
-    - Short-run demand curve
+1. Production technology
+    - Review
+    - Valuing production
+2. Factor demand
+    - Hiring in the short run
+    - Hiring in the long run
+    - Labor demand curve
+3. Robot tax, featuring Bill Gates
 
 ---
 class: inverse, middle
 
-# Difference-in-differences, revisited
-
----
-# Card and Krueger (1994), revisited
-
-.pull-left[
-### **Raw data comparison** 
-
-Difference-in-differences .mono[=] .pink[0.59] .mono[-] .purple[-2.16] .mono[=] 2.75
-
-```{R, echo = F, escape = F}
-tab <- data.frame(
-  v1 = c(".pink[Treatment (NJ)]", ".purple[Control (PA)]"),
-  v2 = c(21.03, 21.17),
-  v3 = c(20.44, 23.33),
-  v4 = c(0.59, -2.16)
-) %>% kable(
-  escape = F,
-  col.names = c("Group", "After", "Before", "Difference"),
-  align = c("l", "c", "c", "c"),
-  caption = "Average employment per store"
-) %>%
-  kable_styling() %>% 
-  row_spec(1:2, extra_css = "line-height: 110%;")
-tab 
-```
-]
-.pull-right[
-```{r, echo=FALSE, dev = "svg", fig.height = 5, fig.width = 5}
-tibble(t = c(0, 1)) %>%
-  mutate(
-    control = 23.33 - 2.16 * t,
-    counterfactual = control + (20.44 - 23.33),
-    treatment = case_when(t == 0 ~ counterfactual, TRUE ~ counterfactual + 2.75 * t)
-  ) %>%
-  ggplot() +
-  #scale_y_continuous(breaks = NULL) +
-  scale_x_continuous(breaks = c(0.25, 0.75), labels = c("Before", "After")) +
-  geom_vline(xintercept = 0.5, color = met_slate, size = 1, linetype = "dashed") +
-  # difference-in-differences line
-  geom_segment(aes(x = 1, xend = 1, y = 18.28, yend = 18.28 + 2.75), color = met_slate, size = 1, linetype = "solid", alpha = 1) +
-  annotate( "text", x = 0.96, y = (18.28 + 18.28 + 2.75) / 2, label = "Difference-in-differences", angle = 90, color = met_slate, size = 4, family = "Fira Sans", alpha = 1) +
-  # counterfactual NJ
-  geom_line(aes(x = t, y = counterfactual), color = red_pink, size = 1, linetype = "dashed", alpha = 1) +
-  geom_point(aes(x = 1, y = 18.28), color = red_pink, size = 2, shape = 24, fill = "white", stroke = 1.5, alpha = 1) +
-  annotate("label", x = 0.3, y = 19.75, label = "Counterfactual", color = red_pink, size = 4, family = "Fira Sans") +
-  # NJ
-  geom_line(aes(x = t, y = treatment), color = red_pink, size = 1, linetype = "solid") +
-  geom_point(aes(x = t, y = treatment), color = red_pink, size = 2, shape = 21, fill = "white", stroke = 1.5) +
-  annotate("label", x = 0.3, y = 20.65, label = "New Jersey", color = red_pink, size = 4, family = "Fira Sans") +
-  # PA
-  geom_line(aes(x = t, y = control), color = purple, size = 1, linetype = "solid") +
-  geom_point(aes(x = t, y = control), color = purple, size = 2, shape = 21, fill = "white", stroke = 1.5) +
-  annotate("label", x = 0.3, y = 22.75, label = "Pennsylvania", color = purple, size = 4, family = "Fira Sans") +
-  # labels
-  annotate("label", x = 0.5, y = 23.5, label = "Minimum wage increase", color = met_slate, size = 4, family = "Fira Sans") +
-  theme_simple + xlab("") + ylab("Average employment per store")
-```
-]
-
----
-# Card and Krueger (1994), revisited
-
-.pull-left[
-### **Raw data comparison** 
-
-Difference-in-differences .mono[=] .pink[0.59] .mono[-] .purple[-2.16] .mono[=] 2.75
-
-```{R, echo = F, escape = F}
-tab <- data.frame(
-  v1 = c(".pink[Treatment (NJ)]", ".purple[Control (PA)]"),
-  v2 = c(21.03, 21.17),
-  v3 = c(20.44, 23.33),
-  v4 = c(0.59, -2.16)
-) %>% kable(
-  escape = F,
-  col.names = c("Group", "After", "Before", "Difference"),
-  align = c("l", "c", "c", "c"),
-  caption = "Average employment per store"
-) %>%
-  kable_styling() %>% 
-  row_spec(1:2, extra_css = "line-height: 110%;")
-tab 
-```
-]
-.pull-right[
-### **Regression comparison** 
-
-$$\begin{align} \text{Employment}_{it} = \alpha &+ \beta ~ \text{NJ}_i + \gamma ~ \text{After}_t \\ &+ \delta ~ \text{NJ}_i \times \text{After}_t + \varepsilon_{it} \end{align}$$
-
-```{R, echo = F, escape = F}
-# results from https://towardsdatascience.com/does-minimum-wage-decrease-employment-a-difference-in-differences-approach-cb208ed07327
-data.frame(
-  v1 = c("Intercept", "", "NJ", "", "After", "", "NJ × After", ""),
-  v2 = rbind(c(23.33, -2.89, -2.16, # making a rounding error on purpose to match the corresponding value in the raw data comparison table (should be -2.17)
-               2.75),
-             c("(1.07)", "(1.19)", "(1.52)", "(1.69)")) %>% as.vector()
-) %>% kable(
-  escape = F,
-  col.names = c("Parameter", "(1)"),
-  align = c("l", "c")
-) %>%
-row_spec(1:8, color = met_slate) %>%
-row_spec(seq(2,8,2), color = "#c2bebe") %>%
-row_spec(1:8, extra_css = "line-height: 110%;") %>%
-column_spec(1, color = met_slate, italic = F)
-```
-]
-
----
-# Card and Krueger (1994), revisited
-
-### **Regression .mono[-->] raw data averages** 
-
-**Step 1:** Specify the regression model.
-
-$$\text{Employment}_{it} = \alpha + \beta ~ \text{NJ}_i + \gamma ~ \text{After}_t + \delta ~ \text{NJ}_i \times \text{After}_t + \varepsilon_{it}$$
-
---
-
-**Step 2:** Find the expected value of the model for each state and period.
-
-- Average employment in **Pennsylvania** restaurants **before** New Jersey's wage increase 
---
-<br> $\quad = E\left[\text{Employment}_{it} ~|~ \text{NJ}_i = 0~\wedge~\text{After}_t = 0 \right]$
---
-<br> $\quad = \alpha + \beta ~ (0) + \gamma ~ (0) + \delta ~ (0) \times (0) + (0)$
---
-<br> $\quad = \alpha$
---
-<br> $\quad = 23.33$
-
----
-# Card and Krueger (1994), revisited
-
-### **Regression .mono[-->] raw data averages** 
-
-**Step 1:** Specify the regression model.
-
-$$\text{Employment}_{it} = \alpha + \beta ~ \text{NJ}_i + \gamma ~ \text{After}_t + \delta ~ \text{NJ}_i \times \text{After}_t + \varepsilon_{it}$$
-
-**Step 2:** Find the expected value of the model for each state and period.
-
-- Average employment in **Pennsylvania** restaurants **after** New Jersey's wage increase 
---
-<br> $\quad = E\left[\text{Employment}_{it} ~|~ \text{NJ}_i = 0~\wedge~\text{After}_t = 1 \right]$
---
-<br> $\quad = \alpha + \beta ~ (0) + \gamma ~ (1) + \delta ~ (0) \times (1) + (0)$
---
-<br> $\quad = \alpha + \gamma$
---
-<br> $\quad = 23.33 - 2.16$
---
-<br> $\quad = 21.17$
-
----
-# Card and Krueger (1994), revisited
-
-### **Regression .mono[-->] raw data averages** 
-
-**Step 1:** Specify the regression model.
-
-$$\text{Employment}_{it} = \alpha + \beta ~ \text{NJ}_i + \gamma ~ \text{After}_t + \delta ~ \text{NJ}_i \times \text{After}_t + \varepsilon_{it}$$
-
-**Step 2:** Find the expected value of the model for each state and period.
-
-- Average employment in **New Jersey** restaurants **before** New Jersey's wage increase 
---
-<br> $\quad = E\left[\text{Employment}_{it} ~|~ \text{NJ}_i = 1~\wedge~\text{After}_t = 0 \right]$
---
-<br> $\quad = \alpha + \beta ~ (1) + \gamma ~ (0) + \delta ~ (1) \times (0) + (0)$
---
-<br> $\quad = \alpha + \beta$
---
-<br> $\quad = 23.33 - 2.89$
---
-<br> $\quad = 20.44$
-
----
-# Card and Krueger (1994), revisited
-
-### **Regression .mono[-->] raw data averages** 
-
-**Step 1:** Specify the regression model.
-
-$$\text{Employment}_{it} = \alpha + \beta ~ \text{NJ}_i + \gamma ~ \text{After}_t + \delta ~ \text{NJ}_i \times \text{After}_t + \varepsilon_{it}$$
-
-**Step 2:** Find the expected value of the model for each state and period.
-
-- Average employment in **New Jersey** restaurants **after** New Jersey's wage increase 
---
-<br> $\quad = E\left[\text{Employment}_{it} ~|~ \text{NJ}_i = 1~\wedge~\text{After}_t = 1 \right]$
---
-<br> $\quad = \alpha + \beta ~ (1) + \gamma ~ (1) + \delta ~ (1) \times (1) + (0)$
---
-<br> $\quad = \alpha + \beta + \gamma + \delta$
---
-<br> $\quad = 23.33 - 2.89 - 2.16 + 2.75$
---
-<br> $\quad = 21.03$
-
----
-# Card and Krueger (1994), revisited
-
-## **Parallel trends assumption**
-
-> If New Jersey hadn't increased its minimum wage, New Jersey's fast-food employment would have continued on the same trend as fast-food employment in Pennsylvania.
-
---
-
-.pull-left[
-```{r, dev = "svg", echo = F, fig.width = 5.5, fig.height = 3.5}
-set.seed(1229)
-did <-
-  dagify(Y ~ D + `T` + S + U,
-         D ~ `T` + S,
-         exposure = "D",
-         outcome = "Y") %>%
-  ggplot(aes(
-    x = x,
-    y = y,
-    xend = xend,
-    yend = yend
-  )) +
-  geom_dag_point(color = red_pink) +
-  geom_dag_edges_link(arrow = grid::arrow(length = grid::unit(10, "pt"), type = "closed")) +
-  geom_dag_text(family = "Fira Sans", size = 10) +
-  theme_dag()
-did
-```
-]
-.pull-right[
-**Variables**
-- .hi[D] .mono[=] Minimum wage
-- .hi[Y] .mono[=] Fast-food employment
-- .hi[S] .mono[=] State (NJ or PA)
-- .hi[T] .mono[=] Time (before or after)
-- .hi[U] .mono[=] Unobserved changes within each state
-
-A difference-in-differences comparison explicitly controls for .hi[S] and .hi[T].
-]
-
----
-# Card and Krueger (1994), revisited
-
-## **Parallel trends assumption**
-
-**Q:** Why is it important to articulate this assumption?
-
---
-
-**A:** Allows us to **direct our skepticism** toward variables that confound the effects of treatment!
-
---
-
-.pull-left[
-.center[**Valid difference-in-differences**]
-```{r, dev = "svg", echo = F, fig.width = 5.5, fig.height = 3.25}
-did
-```
-]
-.pull-right[
-.center[**Invalid difference-in-differences**]
-```{r, dev = "svg", echo = F, fig.width = 5.5, fig.height = 3.25}
-set.seed(1229)
-dagify(Y ~ D + `T` + S + U,
-       D ~ `T` + S + U,
-       exposure = "D",
-       outcome = "Y") %>%
-  ggplot(aes(
-    x = x,
-    y = y,
-    xend = xend,
-    yend = yend
-  )) +
-  geom_dag_point(color = red_pink) +
-  geom_dag_edges_link(arrow = grid::arrow(length = grid::unit(10, "pt"), type = "closed")) +
-  geom_dag_text(family = "Fira Sans", size = 10) +
-  theme_dag()
-```
-]
-
----
-# Card and Krueger (1994), revisited
-
-## **Parallel trends assumption**
-
-Fundamentally **untestable**, but **falsifiable** with additional years of data.
-
---
-
-**Best-case scenario?** Parallel trends before treatment .mono[-->] **fail to reject** parallel trends.
-
-```{r, echo=FALSE, dev = "svg", fig.height = 3.8, fig.width = 12}
-tibble(t = c(-2, -1, 0, 1)) %>%
-  mutate(
-    control = 23.33 - 2.16 * t,
-    counterfactual = control + (20.44 - 23.33),
-    treatment = case_when(t == 0 ~ counterfactual, t == 1 ~ counterfactual + 2.75 * t, T ~ control - 2.89)
-    # treatment = case_when(t == 0 ~ counterfactual, T ~ counterfactual + 2.75 * t),
-    # counterfactual = case_when(t < 0 ~ NA_real_, T ~ counterfactual)
-  ) %>%
-  ggplot() +
-  geom_vline(xintercept = 0.5, color = met_slate, size = 1, linetype = "dashed") +
-  # difference-in-differences line
-  geom_segment(aes(x = 1, xend = 1, y = 18.28, yend = 18.28 + 2.75), color = met_slate, size = 1, linetype = "solid", alpha = 0) +
-  annotate( "text", x = 0.96, y = (18.28 + 18.28 + 2.75) / 2, label = "Difference-in-differences", angle = 90, color = met_slate, size = 4, family = "Fira Sans", alpha = 0) +
-  # counterfactual NJ
-  geom_line(aes(x = t, y = counterfactual), color = red_pink, size = 1, linetype = "dashed", alpha = 1) +
-  geom_point(aes(x = 1, y = 18.28), color = red_pink, size = 2, shape = 24, fill = "white", stroke = 1.5, alpha = 1) +
-  annotate("label", x = 0.3, y = 19.75, label = "Counterfactual", color = red_pink, size = 4, family = "Fira Sans") +
-  # NJ
-  geom_line(aes(x = t, y = treatment), color = red_pink, size = 1, linetype = "solid") +
-  geom_point(aes(x = t, y = treatment), color = red_pink, size = 2, shape = 21, fill = "white", stroke = 1.5) +
-  annotate("label", x = 0.3, y = 20.65, label = "New Jersey", color = red_pink, size = 4, family = "Fira Sans") +
-  # PA
-  geom_line(aes(x = t, y = control), color = purple, size = 1, linetype = "solid") +
-  geom_point(aes(x = t, y = control), color = purple, size = 2, shape = 21, fill = "white", stroke = 1.5) +
-  annotate("label", x = 0.3, y = 22.75, label = "Pennsylvania", color = purple, size = 4, family = "Fira Sans") +
-  # labels
-  annotate("label", x = 0.5, y = 27.5, label = "Minimum wage increase", color = met_slate, size = 4, family = "Fira Sans") +
-  scale_y_continuous(limits = c(18, 29), expand = c(0, 0)) +
-  scale_x_continuous(breaks = c(-2, -1, 0, 1), labels = c("Before - 2", "Before - 1", "Before", "After")) +
-  theme_simple + xlab("Period") + ylab("Employment per store")
-```
-
----
-# Card and Krueger (1994), revisited
-
-## **Parallel trends assumption**
-
-Fundamentally **untestable**, but **falsifiable** with additional years of data.
-
-**Worst-case scenario?** Differential trends before treatment .mono[-->] **reject** parallel trends.
-
-```{r, echo=FALSE, dev = "svg", fig.height = 3.8, fig.width = 12}
-tibble(t = c(-2, -1, 0, 1)) %>%
-  mutate(
-    control = 23.33 - 2.16 * t,
-    counterfactual = control + (20.44 - 23.33),
-    # treatment = case_when(t == 0 ~ counterfactual, t == 1 ~ counterfactual + 2.75 * t, T ~ control - 2.89)
-    treatment = case_when(t == 0 ~ counterfactual, T ~ counterfactual + 2.75 * t),
-    counterfactual = case_when(t < 0 ~ NA_real_, T ~ counterfactual)
-  ) %>%
-  ggplot() +
-  geom_vline(xintercept = 0.5, color = met_slate, size = 1, linetype = "dashed") +
-  # difference-in-differences line
-  geom_segment(aes(x = 1, xend = 1, y = 18.28, yend = 18.28 + 2.75), color = met_slate, size = 1, linetype = "solid", alpha = 0) +
-  annotate( "text", x = 0.96, y = (18.28 + 18.28 + 2.75) / 2, label = "Difference-in-differences", angle = 90, color = met_slate, size = 4, family = "Fira Sans", alpha = 0) +
-  # counterfactual NJ
-  geom_line(aes(x = t, y = counterfactual), color = red_pink, size = 1, linetype = "dashed", alpha = 1) +
-  geom_point(aes(x = 1, y = 18.28), color = red_pink, size = 2, shape = 24, fill = "white", stroke = 1.5, alpha = 1) +
-  annotate("label", x = 0.3, y = 19.75, label = "Counterfactual", color = red_pink, size = 4, family = "Fira Sans") +
-  # NJ
-  geom_line(aes(x = t, y = treatment), color = red_pink, size = 1, linetype = "solid") +
-  geom_point(aes(x = t, y = treatment), color = red_pink, size = 2, shape = 21, fill = "white", stroke = 1.5) +
-  annotate("label", x = 0.3, y = 20.65, label = "New Jersey", color = red_pink, size = 4, family = "Fira Sans") +
-  # PA
-  geom_line(aes(x = t, y = control), color = purple, size = 1, linetype = "solid") +
-  geom_point(aes(x = t, y = control), color = purple, size = 2, shape = 21, fill = "white", stroke = 1.5) +
-  annotate("label", x = 0.3, y = 22.75, label = "Pennsylvania", color = purple, size = 4, family = "Fira Sans") +
-  # labels
-  annotate("label", x = 0.5, y = 27.5, label = "Minimum wage increase", color = met_slate, size = 4, family = "Fira Sans") +
-  scale_y_continuous(limits = c(18, 29), expand = c(0, 0)) +
-  scale_x_continuous(breaks = c(-2, -1, 0, 1), labels = c("Before - 2", "Before - 1", "Before", "After")) +
-  theme_simple + xlab("Period") + ylab("Employment per store")
-```
-
----
-# Hoynes and Patel (2018)
-
-## Discussion
-
-**Q.sub[1]:** What comparisons does the study make?
-
-**Q.sub[2]:** What do those comparisons suggest about the effect of the Earned Income Tax Credit on poverty?
-
-**Q.sub[3]:** What do we need to believe to interpret the results as causal?
-
-**Q.sub[4]:** What are the policy implications?
-
----
-class: inverse, middle
-
-# The Employer's Dilemma
-
----
-# The Employer's Dilemma
-
-**Q:** How do employers make decisions about hiring (and firing) workers?
-
-- What tradeoffs do employers face in competitive markets?
-
-**Q:** Why should we care?
-
---
-
-- **A:** Labor market outcomes ultimately depend on **interactions** between workers *and* employers!
-
---
-
-Before modeling interactions between workers and employers, we will first develop a model of **labor demand**.
-
-
----
-# Labor demand
-
-**Q:** How is labor different from the goods and services that consumers demand?
-
---
-
-**A:** Labor is a **derived demand**.
-
-- Consumers don't demand labor itself, but rather the goods that labor producers.
-
---
-
-**Q:** In what ways is labor different from other factors of production?
-
---
-
-**A:** Many!
-
---
-
-- **You can't own a worker!** Rather, you can only rent a worker's services.
-- **Workers need motivation!** Office supplies don't get bored and browse Reddit, but people do.
-- **Workers care about working conditions!** Most robots can handle a 95-degree warehouse, but many people would struggle.
-
----
-# Profit maximization
-
-## **Objective function**
-
-We assume that the employer seeks to maximize profit: $$\begin{align} \Pi &= \text{TR} - \text{TC} \\ &= pq - (wE + rK) \\ &= pq - wE - rK \end{align}$$
-
---
-
-- $\Pi$ represents profit, measured in dollars.
-- $pq$ represents total revenue, where $p$ is the output price and $q$ is the quantity of output.
-- $wE$ represents the wage bill, where $w$ is the market wage and $E$ is the number of full-time equivalent workers.
-- $rK$ represents capital expenses, where $r$ is the rental rate of capital and $K$ is the amount of capital.
-
---
-
-The employer will choose a **profit-maximizing** level of output to be produced by a **cost-minimizing** bundle of labor and capital.
-
----
-# Profit maximization
-
-## **Objective function**
-
-We assume that the employer seeks to maximize profit: $$\begin{align} \Pi &= pq - wE - rK \end{align}$$
-
-We will also assume that the employer is a **price-taker**.
-
-- The **choices** of the employer **have no impact on market prices** for the output good, labor, or capital.
-- In other words, the market for the output good is **perfectly competitive**, as are the markets for labor and capital.
-
----
 # Production technology
-
-## **Production function**
-
-> A mathematical description of the relationship between inputs and output in an employer's production process.
-
-> .center[Inputs .mono[-->] production technology .mono[-->] output]
-
---
-
-We will make **three main assumptions** about the **production technology** used by the employer:
-
-1. Labor and capital are the only inputs (*i.e.,* $q = f(E, K)$)
-
-2. Workers are homogeneous
-
-3. Marginal productivity eventually decreases
-
 
 ---
 # Production technology
@@ -608,189 +129,6 @@ plot <- ggplot() +
   theme(axis.title.x = element_text(margin = margin(t = 10)),
         axis.title.y = element_text(margin = margin(r = 10)))
 plot
-```
-]
-.pull-right[
-## .hi-purple[Total product of labor]
-
-> The amount of output from a given quantity of labor, *holding the amount of capital and other inputs constant*.
-
-]
-
----
-count: false
-# Production technology
-
-.pull-left[
-```{r, echo = FALSE, fig.height = 5.5, fig.width = 5.5, dev = "svg"}
-plot +
-  annotate(geom = "segment", x = 0, y = total_product(1), xend = 1, yend = total_product(1),
-           linetype = "dashed", color = met_slate, alpha = 1) +
-  annotate(geom = "segment", x = 1, y = 0, xend = 1, yend = total_product(1),
-           linetype = "dashed", color = met_slate, alpha = 1) +
-  annotate(geom = "point", x = 1, y = total_product(1), size = 2, color = met_slate, alpha = 1)
-```
-]
-.pull-right[
-## .hi-purple[Total product of labor]
-
-> The amount of output from a given quantity of labor, *holding the amount of capital and other inputs constant*.
-
-]
-
----
-count: false
-# Production technology
-
-.pull-left[
-```{r, echo = FALSE, fig.height = 5.5, fig.width = 5.5, dev = "svg"}
-plot <- plot +
-  annotate(geom = "segment", x = 0, y = total_product(1), xend = 1, yend = total_product(1),
-           linetype = "dashed", color = met_slate, alpha = 0.5) +
-  annotate(geom = "segment", x = 1, y = 0, xend = 1, yend = total_product(1),
-           linetype = "dashed", color = met_slate, alpha = 0.5) +
-  annotate(geom = "point", x = 1, y = total_product(1), size = 2, color = met_slate, alpha = 0.5)
-plot +
-  annotate(geom = "segment", x = 0, y = total_product(2), xend = 2, yend = total_product(2),
-           linetype = "dashed", color = met_slate, alpha = 1) +
-  annotate(geom = "segment", x = 2, y = 0, xend = 2, yend = total_product(2),
-           linetype = "dashed", color = met_slate, alpha = 1) +
-  annotate(geom = "point", x = 2, y = total_product(2), size = 2, color = met_slate, alpha = 1)
-```
-]
-.pull-right[
-## .hi-purple[Total product of labor]
-
-> The amount of output from a given quantity of labor, *holding the amount of capital and other inputs constant*.
-
-]
-
----
-count: false
-# Production technology
-
-.pull-left[
-```{r, echo = FALSE, fig.height = 5.5, fig.width = 5.5, dev = "svg"}
-plot <- plot +
-  annotate(geom = "segment", x = 0, y = total_product(2), xend = 2, yend = total_product(2),
-           linetype = "dashed", color = met_slate, alpha = 0.5) +
-  annotate(geom = "segment", x = 2, y = 0, xend = 2, yend = total_product(2),
-           linetype = "dashed", color = met_slate, alpha = 0.5) +
-  annotate(geom = "point", x = 2, y = total_product(2), size = 2, color = met_slate, alpha = 0.5)
-plot +
-  annotate(geom = "segment", x = 0, y = total_product(3), xend = 3, yend = total_product(3),
-           linetype = "dashed", color = met_slate, alpha = 1) +
-  annotate(geom = "segment", x = 3, y = 0, xend = 3, yend = total_product(3),
-           linetype = "dashed", color = met_slate, alpha = 1) +
-  annotate(geom = "point", x = 3, y = total_product(3), size = 2, color = met_slate, alpha = 1)
-```
-]
-.pull-right[
-## .hi-purple[Total product of labor]
-
-> The amount of output from a given quantity of labor, *holding the amount of capital and other inputs constant*.
-
-]
-
----
-count: false
-# Production technology
-
-.pull-left[
-```{r, echo = FALSE, fig.height = 5.5, fig.width = 5.5, dev = "svg"}
-plot <- plot +
-  annotate(geom = "segment", x = 0, y = total_product(3), xend = 3, yend = total_product(3),
-           linetype = "dashed", color = met_slate, alpha = 0.5) +
-  annotate(geom = "segment", x = 3, y = 0, xend = 3, yend = total_product(3),
-           linetype = "dashed", color = met_slate, alpha = 0.5) +
-  annotate(geom = "point", x = 3, y = total_product(3), size = 2, color = met_slate, alpha = 0.5)
-plot +
-  annotate(geom = "segment", x = 0, y = total_product(4), xend = 4, yend = total_product(4),
-           linetype = "dashed", color = met_slate, alpha = 1) +
-  annotate(geom = "segment", x = 4, y = 0, xend = 4, yend = total_product(4),
-           linetype = "dashed", color = met_slate, alpha = 1) +
-  annotate(geom = "point", x = 4, y = total_product(4), size = 2, color = met_slate, alpha = 1)
-```
-]
-.pull-right[
-## .hi-purple[Total product of labor]
-
-> The amount of output from a given quantity of labor, *holding the amount of capital and other inputs constant*.
-
-]
-
----
-count: false
-# Production technology
-
-.pull-left[
-```{r, echo = FALSE, fig.height = 5.5, fig.width = 5.5, dev = "svg"}
-plot <- plot +
-  annotate(geom = "segment", x = 0, y = total_product(4), xend = 4, yend = total_product(4),
-           linetype = "dashed", color = met_slate, alpha = 0.5) +
-  annotate(geom = "segment", x = 4, y = 0, xend = 4, yend = total_product(4),
-           linetype = "dashed", color = met_slate, alpha = 0.5) +
-  annotate(geom = "point", x = 4, y = total_product(4), size = 2, color = met_slate, alpha = 0.5)
-plot +
-  annotate(geom = "segment", x = 0, y = total_product(5), xend = 5, yend = total_product(5),
-           linetype = "dashed", color = met_slate, alpha = 1) +
-  annotate(geom = "segment", x = 5, y = 0, xend = 5, yend = total_product(5),
-           linetype = "dashed", color = met_slate, alpha = 1) +
-  annotate(geom = "point", x = 5, y = total_product(5), size = 2, color = met_slate, alpha = 1)
-```
-]
-.pull-right[
-## .hi-purple[Total product of labor]
-
-> The amount of output from a given quantity of labor, *holding the amount of capital and other inputs constant*.
-
-]
-
----
-count: false
-# Production technology
-
-.pull-left[
-```{r, echo = FALSE, fig.height = 5.5, fig.width = 5.5, dev = "svg"}
-plot <- plot +
-  annotate(geom = "segment", x = 0, y = total_product(5), xend = 5, yend = total_product(5),
-           linetype = "dashed", color = met_slate, alpha = 0.5) +
-  annotate(geom = "segment", x = 5, y = 0, xend = 5, yend = total_product(5),
-           linetype = "dashed", color = met_slate, alpha = 0.5) +
-  annotate(geom = "point", x = 5, y = total_product(5), size = 2, color = met_slate, alpha = 0.5)
-plot +
-  annotate(geom = "segment", x = 0, y = total_product(6), xend = 6, yend = total_product(6),
-           linetype = "dashed", color = met_slate, alpha = 1) +
-  annotate(geom = "segment", x = 6, y = 0, xend = 6, yend = total_product(6),
-           linetype = "dashed", color = met_slate, alpha = 1) +
-  annotate(geom = "point", x = 6, y = total_product(6), size = 2, color = met_slate, alpha = 1)
-```
-]
-.pull-right[
-## .hi-purple[Total product of labor]
-
-> The amount of output from a given quantity of labor, *holding the amount of capital and other inputs constant*.
-
-]
-
----
-count: false
-# Production technology
-
-.pull-left[
-```{r, echo = FALSE, fig.height = 5.5, fig.width = 5.5, dev = "svg"}
-plot <- plot +
-  annotate(geom = "segment", x = 0, y = total_product(6), xend = 6, yend = total_product(6),
-           linetype = "dashed", color = met_slate, alpha = 0.5) +
-  annotate(geom = "segment", x = 6, y = 0, xend = 6, yend = total_product(6),
-           linetype = "dashed", color = met_slate, alpha = 0.5) +
-  annotate(geom = "point", x = 6, y = total_product(6), size = 2, color = met_slate, alpha = 0.5)
-plot +
-  annotate(geom = "segment", x = 0, y = total_product(7), xend = 7, yend = total_product(7),
-           linetype = "dashed", color = met_slate, alpha = 1) +
-  annotate(geom = "segment", x = 7, y = 0, xend = 7, yend = total_product(7),
-           linetype = "dashed", color = met_slate, alpha = 1) +
-  annotate(geom = "point", x = 7, y = total_product(7), size = 2, color = met_slate, alpha = 1)
 ```
 ]
 .pull-right[
@@ -1363,6 +701,11 @@ row_spec(1:8, extra_css = "line-height: 110%;")
 ```
 
 ---
+class: inverse, middle
+
+# Factor demand
+
+---
 # Short run *vs.* long run
 
 ## **Short run**
@@ -1657,21 +1000,358 @@ The portion of the MRP curve below the VAP curve traces out the .hi-purple[short
 ]
 
 ---
+# Hiring in the long run
+
+## **Profit maximization**
+
+In the long run, employers have the flexibility to adjust both labor and capital.
+
+**Q:** How does the intuition for long-run factor demand compare to the intuition for the short run?
+
+--
+
+**A:** Employers will still make decisions ***at the margin*!**
+
+- The underlying model is more elaborate and **our time is scarce**, so we will forgo a full derivation of the long-run profit maximization conditions.
+
+---
+# Hiring in the long run
+
+## **Profit maximization**
+
+As in the short run, an employer will choose the profit-maximizing level of employment $E^*$ such that $$\begin{align} w &= \text{MRP}_E \\ &= p \times \text{MP}_E \end{align}$$
+
+--
+
+- The employer will keep hiring until the **marginal cost** of the last worker **equals** the **marginal benefit** of the last worker.
+
+
+--
+
+Likewise, an employer will choose the profit-maximizing quantity of capital $K^*$ such that $$\begin{align} r &= \text{MRP}_K \\ &= p \times \text{MP}_K \end{align}$$
+
+--
+
+- The employer will keep purchasing capital until the **marginal cost** of the last unit of capital **equals** the **marginal benefit** of the last unit of capital.
+
+---
+# Hiring in the long run
+
+## **Intuition?**
+
+At the optimal, profit-maximizing bundle of labor and capital, we have $$\begin{align} w = p \times \text{MP}_E && r = p \times \text{MP}_K \end{align}$$
+
+--
+
+Dividing by marginal product, we obtain $$\begin{align} p = \dfrac{w}{\text{MP}_E} && p = \dfrac{r}{\text{MP}_K} \end{align}$$
+
+--
+
+Now we can equate both conditions to obtain the **long-run profit maximization condition** $$\begin{align} \dfrac{w}{\text{MP}_E} = \dfrac{r}{\text{MP}_K} \end{align}$$
+
+---
+# Hiring in the long run
+
+## **Intuition?**
+
+**Q:** What can we learn from the long-run profit maximization condition? $$\begin{align} \dfrac{w}{\text{MP}_E} = \dfrac{r}{\text{MP}_K} \end{align}$$
+
+- $\dfrac{w}{\text{MP}_E}$ represents the cost of producing one more unit of output using labor.
+- $\dfrac{r}{\text{MP}_K}$ represents the cost of producing one more unit of output using capital.
+
+
+--
+
+**A:** At the profit-maximizing bundle, it would **not** be **cheaper to switch** from one input to the other.
+
+- If it were cheaper to switch from labor to capital, then a **profit-maximizing employer would have already made the switch** (in the long run).
+
+---
+# Hiring in the long run
+
+## **Intuition?**
+
+Suppose that $w = 10$, $\text{MP}_E = 15$, $r = 5$, and $\text{MP}_K = 10$. Then $$\dfrac{w}{\text{MP}_E} = \dfrac{r}{\text{MP}_K} \implies \dfrac{10}{15} = \dfrac{5}{10} \implies \dfrac{2}{3} \neq \dfrac{1}{2}$$
+
+--
+
+This employer is not profit maximizing!
+
+- The cost of producing one more unit of output using labor exceeds the cost of producing one more unit using capital.
+- It would be **more profitable to switch**, at the margin, from labor to capital!
+
+---
+# Hiring in the long run
+
+**Q:** How does an employer respond to an increase in the market wage?
+
+--
+
+- **A.sub[1]:** The employer will respond by hiring fewer workers.
+
+--
+
+
+- **A.sub[2]:** The employer will adjust the level of capital, but the direction is theoretically ambiguous.
+    - When the number of workers decreases, there are fewer people on each machine, which can reduce $\text{MP}_K$.
+    - The direction of the response will depends on the **scale** and **substitution** effects.
+
+---
+# Hiring in the long run
+
+## **Scale effect**
+
+Other things being equal, a **decrease** in the **price** of an input will **increase** the **quantity demanded** of that input.
+
+- If the cost of production decreases, the employer will want to "scale up" production of the output good.
+- Conversely, if the cost of production increases, the employer will "scale back" production.
+--
+
+- Analogous to the wealth effect for a worker..super[.hi-pink[<span>&#8224;</span>]]
+
+.footnote[.super[.hi-pink[<span>&#8224;</span>]] We assume that labor and capital are "normal" inputs&mdash;production increases as the amount of labor and capital increase.]
+
+
+---
+# Hiring in the long run
+
+## **Substitution effect**
+
+Other things being equal, if the price of an input increases, **demand for the other input increases.**
+
+- If labor becomes **relatively more expensive** than capital, then the employer will want to **substitute away** from labor and toward capital.
+- If labor becomes **relatively cheaper** than capital, then the employer will want to **substitute toward** labor and away from capital.
+--
+
+- Analogous to the substitution effect for the worker.
+
+---
+# Hiring in the long run
+
+## **Scale and substitution effects**
+
+**Q:** How would a employer respond to an increase in the market wage?
+
+
+|                     | Scale effect | Substitution effect |
+|:-------------------:|:------------:|:-------------------:|
+| $\Delta$ in labor   | $-$          | $-$                 |
+| $\Delta$ in capital | $-$          | $+$                 |
+
+--
+
+**A.sub[K]:** For capital, it depends.
+
+- If the scale effect dominates the substitution effect, then capital will eventually decrease.
+
+--
+
+**A.sub[E]:** For labor, the effect is unambiguous.
+
+- The scale effect and substitution effect will move in the same direction for the input that undergoes a change in price.
+
+---
+# Hiring in the long run
+
+## **Scale and substitution effects**
+
+**Q:** What determines whether the scale or substitution effect dominates?
+
+--
+
+**A:** Whether labor and capital are .hi-pink[substitutes] or .hi-purple[complements].
+
+--
+
+- .hi-pink[Substitutes:] Inputs used in place of one another.
+    - Self-checkout kiosk *vs.* cashier
+    - Tax prep software *vs.* accountant
+    - Robot *vs.* low-skill worker?
+- .hi-purple[Complements:] Inputs used together.
+    - Carpenter and hammer
+    - Mail carrier and mail truck
+    - Robot and high-skill worker?
+
+
+---
+# Hiring in the long run
+
+### .hi-pink[Substitutes]
+
+> Inputs used in place of one another.
+
+Two inputs are said to be substitutes if the price of one input changes the demand of the other input .hi-pink[in the same direction.]
+
+- Substitution effect outweighs the scale effect.
+
+### .hi-purple[Complements]
+
+> Inputs used together.
+
+Two inputs are said to be complements if the price of one input changes the demand of the other input .hi-purple[in the opposite direction.]
+
+- Scale effect outweighs the substitution effect.
+
+---
+# Hiring in the long run
+
+### **Cross-elasticity of factor demand**
+
+> A unit-free measure of the responsiveness of demand for one input to a change in the price of the other. 
+
+**Labor responsiveness** to a change in the price of capital: $$\eta = \dfrac{\%\Delta E}{\%\Delta r} = \dfrac{(E_2 - E_1) / E_1}{(r_2 - r_1) / r_1}$$
+
+**Capital responsiveness** to a change in the price of labor: $$\eta = \dfrac{\%\Delta K}{\%\Delta w} = \dfrac{(K_2 - K_1) / K_1}{(w_2 - w_1) / w_1}$$
+
+--
+
+$\eta > 0$ .mono[-->] substitutes .mono[-->] substitution effect dominates. <br>
+$\eta < 0$ .mono[-->] complements .mono[-->] scale effect dominates.
+
+---
+# Market labor demand curve
+
+.pull-left[
+```{r, dev = "svg", echo = F, fig.height = 5.5, fig.width = 5.5}
+sr_demand <- function(x) 50 - 0.75 * x
+lr_demand <- function(x) 25 - 0.25 * x
+  
+plot <- ggplot() + 
+  stat_function(
+    data = tibble(x = 0:100),
+    xlim = c(0, 100),
+    aes(x = x),
+    fun = lr_demand,
+    color = purple,
+    size = 1
+  ) +
+  annotate(
+    "label",
+    label = expression(D[LR]),
+    x = 10,
+    y = lr_demand(x = 10),
+    color = purple,
+    family = "Fira Sans",
+    size = 5
+  ) +
+  stat_function(
+    data = tibble(x = 0:100),
+    xlim = c(0, 100),
+    aes(x = x),
+    fun = sr_demand,
+    color = purple,
+    size = 1
+  ) +
+  annotate(
+    "label",
+    label = expression(D[SR]),
+    x = 10,
+    y = sr_demand(x = 10),
+    color = purple,
+    family = "Fira Sans",
+    size = 5
+  ) +
+  # appearance
+  labs(x = "Units of labor (E)", y = "Wage (w)") +
+  scale_x_continuous(expand = c(0, 0), breaks = seq(0, 100, 20), limits = c(0, 110)) +
+  scale_y_continuous(expand = c(0, 0), breaks = seq(0, 50, 10), labels = scales::dollar, limits = c(0, 55)) +
+  theme_simple +
+  theme(axis.title.x = element_text(margin = margin(t = 10)),
+        axis.title.y = element_text(margin = margin(r = 10)))
+
+plot
+```
+]
+.pull-right[
+
+**Q:** Why is the short-run labor demand curve (.hi-purple[D.sub[SR]]) steeper than the short-run labor demand curve (.hi-purple[D.sub[LR]])?
+
+
+]
+
+---
+count: false
+# Market labor demand curve
+
+.pull-left[
+```{r, dev = "svg", echo = F, fig.height = 5.5, fig.width = 5.5}
+plot
+```
+]
+.pull-right[
+
+**Q:** Why is the short-run labor demand curve (.hi-purple[D.sub[SR]]) steeper than the short-run labor demand curve (.hi-purple[D.sub[LR]])?
+
+**A:** Firms have fewer alternatives to labor in the short run .mono[-->] less responsive to changes in the wage.
+]
+
+---
+# Responsiveness
+
+### **Labor demand elasticity**
+
+> A unit-free measure of the responsiveness of the quantity of labor demanded to changes in the wage. 
+
+$$\epsilon_d = \dfrac{\%\Delta E}{\%\Delta w} = \dfrac{(E_2 - E_1) / E_1}{(w_2 - w_1) / w_1} \leq 0$$
+
+
+---
+class: inverse, middle
+
+# Robot tax, featuring Bill Gates
+
+---
+class: clear-slide
+
+<iframe 
+  src="https://www.youtube.com/embed/nccryZOcrUg" frameborder="0"  allowfullscreen
+  allow="
+    accelerometer; 
+    autoplay; 
+    clipboard-write; 
+    encrypted-media; 
+    gyroscope; 
+    picture-in-picture
+  "
+  style="
+    position: fixed;
+    top: 0px;
+    bottom: 0px;
+    right: 0px;
+    width: 100%;
+    border: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    z-index: 999999;
+    height: 100%;
+  ">
+  </iframe>
+
+---
+# Robot tax, featuring Bill Gates
+
+## Discussion
+
+**Q:** How would a robot tax affect... 
+
+- The price of capital?
+- The employment of capital in the long run?
+- The employment of labor in the long run?
+    - Low-skill labor?
+    - High-skill labor?
+- Tax revenue?
+
+
+--
+
+**Q:** Should we do it?
+
+---
 # Housekeeping
 
-**Midterm** scheduled for Wednesday, April 28th during class time.
+**Midterm exam** scheduled for Wednesday, April 28th during class time.
 
-- I will discuss details this Wednesday.
+**Midterm review session** during class on Monday, April 26th.
 
 **Problem Set 2** due Monday, April 26th by 4:00pm PDT.
-
-- I will post it by tomorrow morning.
-- Covers material from weeks 3 and 4.
-
-The **syllabus** has changed!
-
-- No reading this week; review session during class next Monday; lectures will resume week 6.
-- The cost? One lecture on unions.
-
-**I have jury duty this Wednesday:** No email from me .mono[=] business as usual.
-
