@@ -1,0 +1,1095 @@
+---
+title: "Labor Markets"
+subtitle: "EC 350: Labor Economics"
+author: "[Kyle Raze](https://kyleraze.com)"
+date: "Spring 2021"
+output:
+  xaringan::moon_reader:
+    css: ['default', 'metropolis', 'metropolis-fonts', 'my-css.css']
+    self_contained: false
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      beforeInit: "https://platform.twitter.com/widgets.js"
+      ratio: "16:9"
+---
+
+```{r Setup, include = F}
+options(htmltools.dir.version = FALSE)
+library(pacman)
+p_load(ggthemes, xaringanExtra, ggdag, viridis, knitr, dslabs, gapminder, extrafont, Ecdat, wooldridge, tidyverse, magrittr, janitor, kableExtra)
+# Define colors
+red_pink <- "#e64173"
+met_slate <- "#272822" # metropolis font color 
+purple <- "#9370DB"
+green <- "#007935"
+light_green <- "#7DBA97"
+orange <- "#FD5F00"
+turquoise <- "#44C1C4"
+# knitr options
+opts_chunk$set(
+  comment = "#>",
+  fig.align = "center",
+  fig.height = 7,
+  fig.width = 10.5,
+  #dpi = 300,
+  #cache = T,
+  warning = F,
+  message = F
+)  
+theme_simple <- theme_bw() + theme(
+  axis.line = element_line(color = met_slate),
+  panel.grid = element_blank(),
+  rect = element_blank(),
+  strip.text = element_blank(),
+  text = element_text(family = "Fira Sans", color = met_slate, size = 17),
+  axis.text.x = element_text(size = 12),
+  axis.text.y = element_text(size = 12),
+  axis.ticks = element_blank()
+)
+theme_market <- theme_bw() + theme(
+  axis.line = element_line(color = met_slate),
+  panel.grid = element_blank(),
+  rect = element_blank(),
+  strip.text = element_blank(),
+  text = element_text(family = "Fira Sans", color = met_slate, size = 17),
+  axis.title.x = element_text(hjust = 1, size = 17),
+  axis.title.y = element_text(hjust = 1, angle = 0, size = 17),
+  # axis.text.x = element_text(size = 12),
+  # axis.text.y = element_text(size = 12),
+  axis.ticks = element_blank()
+)
+theme_gif <- theme_bw() + theme(
+  axis.line = element_line(color = met_slate),
+  panel.grid = element_blank(),
+  rect = element_blank(),
+  text = element_text(family = "Fira Sans", color = met_slate, size = 17),
+  axis.text.x = element_text(size = 12),
+  axis.text.y = element_text(size = 12),
+  axis.ticks = element_blank()
+)
+wrapper <- function(x, ...) paste(strwrap(x, ...), collapse = "\n")
+shift_axis <- function(p, y=0){
+  g <- ggplotGrob(p)
+  dummy <- data.frame(y=y)
+  ax <- g[["grobs"]][g$layout$name == "axis-b"][[1]]
+  p + annotation_custom(grid::grobTree(ax, vp = grid::viewport(y=1, height=sum(ax$height))), 
+                        ymax=y, ymin=y) +
+    geom_hline(aes(yintercept=y), data = dummy, size = 0.5, color = met_slate) +
+    theme(axis.text.x = element_blank(), 
+          axis.ticks.x = element_blank())
+}
+
+xaringanExtra::use_scribble()
+```
+
+# Discussion
+
+In the early 2000s, the French government shortened the work week from 39 to 35 hours, arguing that there would be work left over for the unemployed. 
+
+- **Q:** Would you expect employment to increase, as the French government predicted? Why or why not?
+
+---
+# Lump of labor fallacy
+
+--
+
+**Q:** What is the fallacy?
+
+**A:** The notion that **the amount of work** to be done in an economy **is fixed**, with the implication that increasing productivity or the pool of qualified workers will necessarily reduce job opportunities.
+
+
+--
+
+**Q:** Why this unnecessarily pessimistic view of the world incorrect?
+
+--
+
+**A:** The amount of work to to be done isn't fixed! Not all economic interactions are zero-sum!
+
+- Job losses from automation can support the creation of new jobs in other industries. 
+- As the population increases, demand for goods/services increases, which then increases demand for labor.
+
+
+---
+class: inverse, middle
+
+# Supply and demand
+
+---
+# Supply and demand
+
+## **Assumptions**
+
+We will continue to make all of the same assumptions as we did when we modeled the "dilemmas" faced by workers and employers.
+
+- Perfect competition in input and output markets
+- Homogeneous workers within a market
+- Various assumptions about preferences and production technology
+- Perfect information and complete contracts
+
+
+--
+
+**Q:** Do these assumptions actually describe any real-world markets?
+
+--
+
+**A:** Strictly speaking, probably not. But they do allow us to make testable predictions!
+
+> All models are wrong, but some are useful. &nbsp;&nbsp; &mdash; [George Box](https://en.wikipedia.org/wiki/George_E._P._Box)?
+
+---
+# Labor supply
+
+.pull-left[
+```{r, echo = FALSE, fig.height = 5.5, fig.width = 5.5, dev = "svg"}
+supply <- function(x) 1 + (4/5)*x
+
+ggplot(data = data.frame(x = 0), mapping = aes(x = x)) +
+  scale_x_continuous(limits = c(0, 10.5), expand = c(0, 0), breaks = seq(0, 10, 1)) +
+  scale_y_continuous(limits = c(0, 10.5), expand = c(0, 0), breaks = seq(0, 10, 1)) +
+  theme_market +
+  labs(x = "L", y = "w") +
+  stat_function(fun = supply, color = red_pink, size = 1) +
+  annotate("label", label = "S", x = 9, y = supply(9), color = red_pink, family = "Fira Sans", size = 5)
+```
+]
+.pull-right[
+## .hi-pink[Market labor supply curve]
+
+Shows the number of .pink[workers] who are willing to work at specified wages, other things being equal.
+
+- Or, alternatively, the amount of time .pink[workers] are willing to work at specified wages, other things being equal.
+
+.pink[Upward sloping:] As w increases, L.sub[S] increases.
+]
+
+---
+# Labor demand
+
+.pull-left[
+```{r, echo = FALSE, fig.height = 5.5, fig.width = 5.5, dev = "svg"}
+demand <- function(x) 10 - x
+
+ggplot(data = data.frame(x = 0), mapping = aes(x = x)) +
+  scale_x_continuous(limits = c(0, 10.5), expand = c(0, 0), breaks = seq(0, 10, 1)) +
+  scale_y_continuous(limits = c(0, 10.5), expand = c(0, 0), breaks = seq(0, 10, 1)) +
+  theme_market +
+  labs(x = "L", y = "w") +
+  stat_function(fun = demand, color = purple, size = 1) +
+  annotate("label", label = "D", x = 9, y = demand(9), color = purple, family = "Fira Sans", size = 5)
+```
+]
+.pull-right[
+## .hi-purple[Market labor demand curve]
+
+Shows the number of workers .purple[employers] are willing to hire at specified wages, other things being equal.
+
+- Or, alternatively, the amount of labor .purple[employers] are willing to employ at specified wages, other things being equal.
+
+.purple[Downward sloping:] As w increases, L.sub[D] decreases.
+]
+
+---
+# Equilibrium
+
+.pull-left[
+```{r, echo = FALSE, fig.height = 5.5, fig.width = 5.5, dev = "svg"}
+market <- ggplot(data = data.frame(x = 0), mapping = aes(x = x)) +
+  scale_x_continuous(limits = c(0, 10.5), expand = c(0, 0), breaks = seq(0, 10, 1)) +
+  scale_y_continuous(limits = c(0, 10.5), expand = c(0, 0), breaks = seq(0, 10, 1)) +
+  theme_market +
+  labs(x = "L", y = "w") +
+  stat_function(fun = supply, color = red_pink, size = 1) +
+  annotate("label", label = "S", x = 9, y = supply(9), color = red_pink, family = "Fira Sans", size = 5) +
+  stat_function(fun = demand, color = purple, size = 1) +
+  annotate("label", label = "D", x = 9, y = demand(9), color = purple, family = "Fira Sans", size = 5)
+market
+```
+]
+.pull-right[
+## **Market clearing**
+
+The quantity of labor supplied equals the quantity of labor demanded: L.sub[S] .mono[=] L.sub[D].
+
+No tendency for real wages to change.
+]
+
+---
+count: false
+# Equilibrium
+
+.pull-left[
+```{r, echo = FALSE, fig.height = 5.5, fig.width = 5.5, dev = "svg"}
+market + 
+  geom_point(aes(x = 5, y = 5), color = met_slate, size = 2) +
+  geom_segment(aes(x = 5, y = 0, xend = 5, yend = 5), linetype  = "dashed", color = met_slate) + 
+  geom_segment(aes(x = 0, y = 5, xend = 5, yend = 5), linetype  = "dashed", color = met_slate)
+```
+]
+.pull-right[
+## **Market clearing**
+
+The quantity of labor supplied equals the quantity of labor demanded: L.sub[S] .mono[=] L.sub[D].
+
+No tendency for real wages to change.
+]
+
+---
+# Disequilibrium
+
+.pull-left[
+```{r, echo = FALSE, fig.height = 5.5, fig.width = 5.5, dev = "svg"}
+market + geom_hline(yintercept = 3, linetype  = "dashed", color = met_slate) 
+```
+]
+.pull-right[
+## **Labor shortage**
+
+The quantity of labor supplied is less than the quantity of labor demanded: L.sub[S] .mono[<] L.sub[D].
+
+Real wages tend to rise.
+]
+
+---
+count: false
+# Disequilibrium
+
+.pull-left[
+```{r, echo = FALSE, fig.height = 5.5, fig.width = 5.5, dev = "svg"}
+market + geom_hline(yintercept = 3, linetype  = "dashed", color = met_slate) +
+  geom_segment(aes(x = 7, y = 0, xend = 7, yend = 3), linetype  = "dashed", color = met_slate) + 
+  geom_point(aes(x = 7, y = 3), color = met_slate, size = 2) +
+  geom_segment(aes(x = 2.5, y = 0, xend = 2.5, yend = 3), linetype  = "dashed", color = met_slate) + 
+  geom_point(aes(x = 2.5, y = 3), color = met_slate, size = 2)
+```
+]
+.pull-right[
+## **Labor shortage**
+
+The quantity of labor supplied is less than the quantity of labor demanded: L.sub[S] .mono[<] L.sub[D].
+
+Real wages tend to rise.
+]
+
+---
+# Disequilibrium
+
+.pull-left[
+```{r, echo = FALSE, fig.height = 5.5, fig.width = 5.5, dev = "svg"}
+market + geom_hline(yintercept = 7, linetype  = "dashed", color = met_slate) 
+```
+]
+.pull-right[
+## **Unemployment**
+
+The quantity of labor supplied is greater than the quantity of labor demanded: L.sub[S] .mono[>] L.sub[D].
+
+Real wages tend to fall.
+]
+
+---
+count: false
+# Disequilibrium
+
+.pull-left[
+```{r, echo = FALSE, fig.height = 5.5, fig.width = 5.5, dev = "svg"}
+market + geom_hline(yintercept = 7, linetype  = "dashed", color = met_slate) +
+  geom_segment(aes(x = 3, y = 0, xend = 3, yend = 7), linetype  = "dashed", color = met_slate) + 
+  geom_point(aes(x = 3, y = 7), color = met_slate, size = 2) +
+  geom_segment(aes(x = 7.5, y = 0, xend = 7.5, yend = 7), linetype  = "dashed", color = met_slate) + 
+  geom_point(aes(x = 7.5, y = 7), color = met_slate, size = 2) 
+```
+]
+.pull-right[
+## **Unemployment**
+
+The quantity of labor supplied is greater than the quantity of labor demanded: L.sub[S] .mono[>] L.sub[D].
+
+Real wages tend to fall.
+]
+
+---
+# Unemployment
+
+## **Definitions**
+
+$\text{E}$ .mono[=] number of employed individuals
+
+--
+
+$\text{U}$ .mono[=] number of unemployed individuals
+
+- Being "unemployed" means that you 1) want a job and 2) are actively looking for work.
+
+
+--
+
+$\text{P}$ .mono[=] population of interest (*e.g.,* US residents between the ages of 24 and 64)
+
+
+--
+
+Labor force $\text{LF}$ .mono[=] total number of individuals who want a job: $$\text{LF} = \text{E} + \text{U}$$
+
+--
+
+Labor force participation rate $\text{LFPR}$ .mono[=] percentage of the population in the labor force: $$\text{LFPR} = \dfrac{\text{LF}}{\text{P}} \times 100$$
+
+---
+# Unemployment rate
+
+## **Definition**
+
+> The unemployment rate $\text{UR}$ measures the percentage of the labor force that is unemployed: $$\text{UR} = \dfrac{\text{U}}{\text{LF}} \times 100$$
+
+--
+
+## **Caveats**
+
+The unemployment rate you see in the news can give a misleading impression about the true extent of unemployment!
+
+- Does not include **discouraged workers** who want a job, but stopped looking for work
+- Does not include **underemployed workers** who are working part-time, but want to work full-time
+
+
+--
+
+Changes in economic conditions can also affect both the numerator and the denominator!
+
+---
+# Unemployment
+
+Macroeconomists distinguish between three main types of unemployment:
+
+1. **Frictional:** Unemployment caused by job search (*e.g.,* you after graduation).
+
+2. **Structural:** Unemployment caused by mismatch between jobs and workers (*e.g.,* layoffs from technological change).
+
+3. **Cyclical:** Unemployment caused by variations in the business cycle (*e.g.,* recessions).
+
+---
+# Determinants of labor supply
+
+**Q:** What determines market labor supply?.super[.hi-pink[<span>&#8224;</span>]]
+
+.footnote[.super[.hi-pink[<span>&#8224;</span>]] *Supply* .mono[=] Entire relationship between *wage* and the *quantity of labor supplied.*]
+
+--
+
+- Wages in other labor markets
+- Non-labor income
+- Preferences over work and leisure
+- Working conditions
+- "Fringe" benefits
+- Number of qualified workers
+
+
+--
+
+**Changing the determinants** of supply **shifts** the entire supply curve.
+
+**Changing the wage** results in **movement along** the supply curve. 
+
+---
+# Changes in labor supply
+
+.pull-left[
+```{r, echo = FALSE, fig.height = 5.5, fig.width = 5.5, dev = "svg"}
+x <- 0:10
+demand <- function(x) 10 - x
+supply <- function(x) 1 + x
+supply_2 <- function(x) -1 + x
+
+q_1 <- uniroot(function(x) demand(x) - supply(x), range(x))$root
+p_1 <- demand(q_1)
+
+q_2 <- uniroot(function(x) demand(x) - supply_2(x), range(x))$root
+p_2 <- demand(q_2)
+
+base_2 <- ggplot(data = data.frame(x = 0), mapping = aes(x = x)) +
+  scale_x_continuous(limits = c(0, 10.5), expand = c(0, 0), breaks = c(q_1), labels = c(expression(L^"*"))) +
+  scale_y_continuous(limits = c(0, 10.5), expand = c(0, 0), breaks = c(p_1), labels = c(expression(w^"*"))) +
+  theme_market +
+  labs(x = "L", y = "w") +
+  stat_function(fun = demand, color = purple, size = 1) +
+  stat_function(fun = supply, color = red_pink, size = 1) +
+  geom_point(x = q_1, y = p_1, color = met_slate, size = 2) +
+  geom_segment(x = 0, xend = q_1, y = p_1, yend = p_1, color = met_slate, linetype = "dashed") +
+  geom_segment(x = q_1, xend = q_1, y = 0, yend = p_1, color = met_slate, linetype = "dashed") +
+  annotate("label", label = expression(S[1]), x = 8, y = supply(8), color = red_pink, family = "Fira Sans", size = 5) +
+  annotate("label", label = expression(D), x = 9, y = demand(9), color = purple, family = "Fira Sans", size = 5)
+
+base_2
+```
+]
+.pull-right[
+## .pink[Supply increase]
+
+At every wage, more people are willing to work than before.
+
+Equilibrium quantity of labor increases.
+
+Equilibrium wage decreases.
+]
+
+---
+count: false
+# Changes in labor supply
+
+.pull-left[
+```{r, echo = FALSE, fig.height = 5.5, fig.width = 5.5, dev = "svg"}
+x <- 0:10
+demand <- function(x) 10 - x
+supply <- function(x) 1 + x
+supply_2 <- function(x) -1 + x
+
+q_1 <- uniroot(function(x) demand(x) - supply(x), range(x))$root
+p_1 <- demand(q_1)
+
+q_2 <- uniroot(function(x) demand(x) - supply_2(x), range(x))$root
+p_2 <- demand(q_2)
+
+ggplot(data = data.frame(x = 0), mapping = aes(x = x)) +
+  scale_x_continuous(limits = c(0, 10.5), expand = c(0, 0), breaks = c(q_2), labels = c(expression(L^"*"))) +
+  scale_y_continuous(limits = c(0, 10.5), expand = c(0, 0), breaks = c(p_2), labels = c(expression(w^"*"))) +
+  theme_market +
+  labs(x = "L", y = "w") +
+  stat_function(fun = demand, color = purple, size = 1) +
+  stat_function(fun = supply, color = red_pink, size = 1, alpha = 0.5) +
+  stat_function(fun = supply_2, color = red_pink, size = 1) +
+  geom_point(x = q_1, y = p_1, color = met_slate, size = 2, alpha = 0.5) +
+  geom_point(x = q_2, y = p_2, color = met_slate, size = 2) +
+  geom_segment(x = 0, xend = q_1, y = p_1, yend = p_1, color = met_slate, linetype = "dashed", alpha = 0.5) +
+  geom_segment(x = q_1, xend = q_1, y = 0, yend = p_1, color = met_slate, linetype = "dashed", alpha = 0.5) +
+  geom_segment(x = 0, xend = q_2, y = p_2, yend = p_2, color = met_slate, linetype = "dashed") +
+  geom_segment(x = q_2, xend = q_2, y = 0, yend = p_2, color = met_slate, linetype = "dashed") +
+  geom_segment(aes(x = 6 + 0.2, y = 7, xend = 8 - 0.2, yend = 7), arrow = arrow(angle = 20, length = unit(0.2, "cm"), type = "closed"), color = met_slate) + 
+  annotate("label", label = expression(S[1]), x = 8, y = supply(8), color = red_pink, family = "Fira Sans", size = 5) +
+  annotate("label", label = expression(S[2]), x = 9, y = supply_2(9), color = red_pink, family = "Fira Sans", size = 5) +
+  annotate("label", label = expression(D), x = 9, y = demand(9), color = purple, family = "Fira Sans", size = 5)
+```
+]
+.pull-right[
+## .pink[Supply increase]
+
+At every wage, more people are willing to work than before.
+
+Equilibrium quantity of labor increases.
+
+Equilibrium wage decreases.
+]
+
+---
+# Changes in labor supply
+
+.pull-left[
+```{r, echo = FALSE, fig.height = 5.5, fig.width = 5.5, dev = "svg"}
+base_2
+```
+]
+.pull-right[
+## .pink[Supply decrease]
+
+At every wage, fewer people are willing to work than before.
+
+Equilibrium quantity of labor decreases.
+
+Equilibrium wage increases.
+]
+
+---
+count: false
+# Changes in labor supply
+
+.pull-left[
+```{r, echo = FALSE, fig.height = 5.5, fig.width = 5.5, dev = "svg"}
+x <- 0:10
+demand <- function(x) 10 - x
+supply <- function(x) 1 + x
+supply_2 <- function(x) 3 + x
+
+q_1 <- uniroot(function(x) demand(x) - supply(x), range(x))$root
+p_1 <- demand(q_1)
+
+q_2 <- uniroot(function(x) demand(x) - supply_2(x), range(x))$root
+p_2 <- demand(q_2)
+
+ggplot(data = data.frame(x = 0), mapping = aes(x = x)) +
+  scale_x_continuous(limits = c(0, 10.5), expand = c(0, 0), breaks = c(q_2), labels = c(expression(L^"*"))) +
+  scale_y_continuous(limits = c(0, 10.5), expand = c(0, 0), breaks = c(p_2), labels = c(expression(w^"*"))) +
+  theme_market +
+  labs(x = "L", y = "w") +
+  stat_function(fun = demand, color = purple, size = 1) +
+  stat_function(fun = supply, color = red_pink, size = 1, alpha = 0.5) +
+  stat_function(fun = supply_2, color = red_pink, size = 1) +
+  geom_point(x = q_1, y = p_1, color = met_slate, size = 2, alpha = 0.5) +
+  geom_point(x = q_2, y = p_2, color = met_slate, size = 2) +
+  geom_segment(x = 0, xend = q_1, y = p_1, yend = p_1, color = met_slate, linetype = "dashed", alpha = 0.5) +
+  geom_segment(x = q_1, xend = q_1, y = 0, yend = p_1, color = met_slate, linetype = "dashed", alpha = 0.5) +
+  geom_segment(x = 0, xend = q_2, y = p_2, yend = p_2, color = met_slate, linetype = "dashed") +
+  geom_segment(x = q_2, xend = q_2, y = 0, yend = p_2, color = met_slate, linetype = "dashed") +
+  geom_segment(aes(x = 6 - 0.2, y = 7, xend = 4 + 0.2, yend = 7), arrow = arrow(angle = 20, length = unit(0.2, "cm"), type = "closed"), color = met_slate) + 
+  annotate("label", label = expression(S[1]), x = 8, y = supply(8), color = red_pink, family = "Fira Sans", size = 5) +
+  annotate("label", label = expression(S[2]), x = 7, y = supply_2(7), color = red_pink, family = "Fira Sans", size = 5) +
+  annotate("label", label = expression(D), x = 9, y = demand(9), color = purple, family = "Fira Sans", size = 5)
+```
+]
+.pull-right[
+## .pink[Supply decrease]
+
+At every wage, fewer people are willing to work than before.
+
+Equilibrium quantity of labor decreases.
+
+Equilibrium wage increases.
+]
+
+
+
+---
+# Determinants of labor demand
+
+**Q:** What determines market labor demand?.super[.hi-pink[<span>&#8224;</span>]]
+
+.footnote[.super[.hi-pink[<span>&#8224;</span>]] *Demand* .mono[=] Entire relationship between *wage* and the *quantity of labor demanded.*]
+
+--
+
+
+- Demand for the output good
+- Productivity of capital, labor, and other inputs
+- Prices of other inputs
+- Number of employers
+
+
+--
+
+**Changing the determinants** of demand **shifts** the entire demand curve.
+
+**Changing the wage** results in **movement along** the demand curve. 
+
+---
+# Changes in labor demand
+
+.pull-left[
+```{r, echo = FALSE, fig.height = 5.5, fig.width = 5.5, dev = "svg"}
+x <- 0:10
+demand <- function(x) 10 - x
+demand_2 <- function(x) 12 - x
+supply <- function(x) 1 + x
+
+q_1 <- uniroot(function(x) demand(x) - supply(x), range(x))$root
+p_1 <- demand(q_1)
+
+q_2 <- uniroot(function(x) demand_2(x) - supply(x), range(x))$root
+p_2 <- demand_2(q_2)
+
+base_1 <- ggplot(data = data.frame(x = 0), mapping = aes(x = x)) +
+  scale_x_continuous(limits = c(0, 10.5), expand = c(0, 0), breaks = c(q_1), labels = c(expression(L^"*"))) +
+  scale_y_continuous(limits = c(0, 10.5), expand = c(0, 0), breaks = c(p_1), labels = c(expression(w^"*"))) +
+  theme_market +
+  labs(x = "L", y = "w") +
+  stat_function(fun = demand, color = purple, size = 1) +
+  stat_function(fun = supply, color = red_pink, size = 1) +
+  geom_point(x = q_1, y = p_1, color = met_slate, size = 2) +
+  geom_segment(x = 0, xend = q_1, y = p_1, yend = p_1, color = met_slate, linetype = "dashed") +
+  geom_segment(x = q_1, xend = q_1, y = 0, yend = p_1, color = met_slate, linetype = "dashed") +
+  annotate("label", label = expression(S), x = 8, y = supply(8), color = red_pink, family = "Fira Sans", size = 5) +
+  annotate("label", label = expression(D[1]), x = 9, y = demand(9), color = purple, family = "Fira Sans", size = 5)
+
+base_1
+```
+]
+.pull-right[
+## .purple[Demand increase]
+
+At every wage, employers are willing to hire more workers than before.
+
+Equilibrium quantity of labor increases.
+
+Equilibrium wage increases.
+]
+
+---
+count: false
+# Changes in labor demand
+
+.pull-left[
+```{r, echo = FALSE, fig.height = 5.5, fig.width = 5.5, dev = "svg"}
+x <- 0:10
+demand <- function(x) 10 - x
+demand_2 <- function(x) 12 - x
+supply <- function(x) 1 + x
+
+q_1 <- uniroot(function(x) demand(x) - supply(x), range(x))$root
+p_1 <- demand(q_1)
+
+q_2 <- uniroot(function(x) demand_2(x) - supply(x), range(x))$root
+p_2 <- demand_2(q_2)
+
+ggplot(data = data.frame(x = 0), mapping = aes(x = x)) +
+  scale_x_continuous(limits = c(0, 10.5), expand = c(0, 0), breaks = c(q_2), labels = c(expression(L^"*"))) +
+  scale_y_continuous(limits = c(0, 10.5), expand = c(0, 0), breaks = c(p_2), labels = c(expression(w^"*"))) +
+  theme_market +
+  labs(x = "L", y = "w") +
+  stat_function(fun = demand, color = purple, size = 1, alpha = 0.5) +
+  stat_function(fun = demand_2, color = purple, size = 1) +
+  stat_function(fun = supply, color = red_pink, size = 1) +
+  geom_point(x = q_1, y = p_1, color = met_slate, size = 2, alpha = 0.5) +
+  geom_point(x = q_2, y = p_2, color = met_slate, size = 2) +
+  geom_segment(x = 0, xend = q_1, y = p_1, yend = p_1, color = met_slate, linetype = "dashed", alpha = 0.5) +
+  geom_segment(x = q_1, xend = q_1, y = 0, yend = p_1, color = met_slate, linetype = "dashed", alpha = 0.5) +
+  geom_segment(x = 0, xend = q_2, y = p_2, yend = p_2, color = met_slate, linetype = "dashed") +
+  geom_segment(x = q_2, xend = q_2, y = 0, yend = p_2, color = met_slate, linetype = "dashed") +
+  geom_segment(aes(x = 6 + 0.2, y = 4, xend = 8 - 0.2, yend = 4), arrow = arrow(angle = 20, length = unit(0.2,"cm"), type = "closed"), color = met_slate) + 
+  annotate("label", label = expression(S), x = 8, y = supply(8), color = red_pink, family = "Fira Sans", size = 5) +
+  annotate("label", label = expression(D[1]), x = 9, y = demand(9), color = purple, family = "Fira Sans", size = 5) +
+  annotate("label", label = expression(D[2]), x = 9, y = demand_2(9), color = purple, family = "Fira Sans", size = 5)
+```
+]
+.pull-right[
+## .purple[Demand increase]
+
+At every wage, employers are willing to hire more workers than before.
+
+Equilibrium quantity of labor increases.
+
+Equilibrium wage increases.
+]
+
+---
+# Changes in labor demand
+
+.pull-left[
+```{r, echo = FALSE, fig.height = 5.5, fig.width = 5.5, dev = "svg"}
+base_1
+```
+]
+.pull-right[
+## .purple[Demand decrease]
+
+At every wage, employers are willing to hire fewer workers than before.
+
+Equilibrium quantity of labor decreases.
+
+Equilibrium wage decreases.
+]
+
+---
+count: false
+# Changes in labor demand
+
+.pull-left[
+```{r, echo = FALSE, fig.height = 5.5, fig.width = 5.5, dev = "svg"}
+x <- 0:10
+demand <- function(x) 10 - x
+demand_2 <- function(x) 8 - x
+supply <- function(x) 1 + x
+
+q_1 <- uniroot(function(x) demand(x) - supply(x), range(x))$root
+p_1 <- demand(q_1)
+
+q_2 <- uniroot(function(x) demand_2(x) - supply(x), range(x))$root
+p_2 <- demand_2(q_2)
+
+ggplot(data = data.frame(x = 0), mapping = aes(x = x)) +
+  scale_x_continuous(limits = c(0, 10.5), expand = c(0, 0), breaks = c(q_2), labels = c(expression(L^"*"))) +
+  scale_y_continuous(limits = c(0, 10.5), expand = c(0, 0), breaks = c(p_2), labels = c(expression(w^"*"))) +
+  theme_market +
+  labs(x = "L", y = "w") +
+  stat_function(fun = demand, color = purple, size = 1, alpha = 0.5) +
+  stat_function(fun = demand_2, color = purple, size = 1) +
+  stat_function(fun = supply, color = red_pink, size = 1) +
+  geom_point(x = q_1, y = p_1, color = met_slate, size = 2, alpha = 0.5) +
+  geom_point(x = q_2, y = p_2, color = met_slate, size = 2) +
+  geom_segment(x = 0, xend = q_1, y = p_1, yend = p_1, color = met_slate, linetype = "dashed", alpha = 0.5) +
+  geom_segment(x = q_1, xend = q_1, y = 0, yend = p_1, color = met_slate, linetype = "dashed", alpha = 0.5) +
+  geom_segment(x = 0, xend = q_2, y = p_2, yend = p_2, color = met_slate, linetype = "dashed") +
+  geom_segment(x = q_2, xend = q_2, y = 0, yend = p_2, color = met_slate, linetype = "dashed") +
+  geom_segment(aes(x = 6 - 0.2, y = 4, xend = 4 + 0.2, yend = 4), arrow = arrow(angle = 20, length = unit(0.2,"cm"), type = "closed"), color = met_slate) + 
+  annotate("label", label = expression(S), x = 8, y = supply(8), color = red_pink, family = "Fira Sans", size = 5) +
+  annotate("label", label = expression(D[1]), x = 9, y = demand(9), color = purple, family = "Fira Sans", size = 5) +
+  annotate("label", label = expression(D[2]), x = 7, y = demand_2(7), color = purple, family = "Fira Sans", size = 5)
+```
+]
+.pull-right[
+## .purple[Demand decrease]
+
+At every wage, employers are willing to hire fewer workers than before.
+
+Equilibrium quantity of labor decreases.
+
+Equilibrium wage decreases.
+]
+
+---
+class: clear-slide
+
+**Q.sub[1]:** How would a construction boom in downtown Portland affect the market for welders in Portland?
+
+**Q.sub[2]:** How would a construction boom in downtown Portland affect the market for welders *in Eugene*?
+
+---
+class: inverse, middle
+
+# Immigration
+
+---
+class: clear-slide
+
+**Q:** How does immigration affect equilibrium wages and employment?
+
+- How might we model the effects of immigration? What determinants of labor supply or demand change?
+
+
+--
+
+**A.sub[1]:** If immigrant workers and native workers are **complements**, then they **do not compete in the same market.**
+
+--
+
+- An increase in immigrant labor would make native workers more productive .mono[-->] demand for native workers would increase!
+
+
+--
+
+**A.sub[2]:** If immigrant workers and native workers are **perfect substitutes**, then they **compete in the same market.**
+
+- Immigration would increase labor supply.
+
+--
+
+
+- However, **immigrant workers are also consumers** .mono[-->] demand for goods and services would increase .mono[-->] labor demand would increase!
+
+---
+class: clear-slide
+
+**Case 1:** Immigrant workers and native workers are complements.
+
+.pull-left[
+```{r, echo = FALSE, fig.height = 5.5, fig.width = 5.5, dev = "svg"}
+x <- 0:10
+demand <- function(x) 10 - x
+demand_2 <- function(x) 12 - x
+supply <- function(x) 3 + x
+
+q_1 <- uniroot(function(x) demand(x) - supply(x), range(x))$root
+p_1 <- demand(q_1)
+
+q_2 <- uniroot(function(x) demand_2(x) - supply(x), range(x))$root
+p_2 <- demand_2(q_2)
+
+base_3 <- ggplot(data = data.frame(x = 0), mapping = aes(x = x)) +
+  scale_x_continuous(limits = c(0, 10.5), expand = c(0, 0), breaks = c(q_1), labels = c(expression(L^"*"))) +
+  scale_y_continuous(limits = c(0, 10.5), expand = c(0, 0), breaks = c(p_1), labels = c(expression(w^"*"))) +
+  theme_market +
+  labs(x = "L", y = "w") +
+  stat_function(fun = demand, color = purple, size = 1) +
+  stat_function(fun = supply, color = red_pink, size = 1) +
+  geom_point(x = q_1, y = p_1, color = met_slate, size = 2) +
+  geom_segment(x = 0, xend = q_1, y = p_1, yend = p_1, color = met_slate, linetype = "dashed") +
+  geom_segment(x = q_1, xend = q_1, y = 0, yend = p_1, color = met_slate, linetype = "dashed") +
+  annotate("label", label = expression(S[1]), x = 6, y = supply(6), color = red_pink, family = "Fira Sans", size = 5) +
+  annotate("label", label = expression(D[1]), x = 9, y = demand(9), color = purple, family = "Fira Sans", size = 5)
+
+base_3
+```
+]
+.pull-right[
+
+Complements .mono[-->] productivity of native workers increases .mono[-->] demand increases.
+
+
+]
+
+---
+count: false
+class: clear-slide
+
+**Case 1:** Immigrant workers and native workers are complements.
+
+.pull-left[
+```{r, echo = FALSE, fig.height = 5.5, fig.width = 5.5, dev = "svg"}
+x <- 0:10
+demand <- function(x) 10 - x
+demand_2 <- function(x) 12 - x
+supply <- function(x) 3 + x
+
+q_1 <- uniroot(function(x) demand(x) - supply(x), range(x))$root
+p_1 <- demand(q_1)
+
+q_2 <- uniroot(function(x) demand_2(x) - supply(x), range(x))$root
+p_2 <- demand_2(q_2)
+
+ggplot(data = data.frame(x = 0), mapping = aes(x = x)) +
+  scale_x_continuous(limits = c(0, 10.5), expand = c(0, 0), breaks = c(q_2), labels = c(expression(L^"*"))) +
+  scale_y_continuous(limits = c(0, 10.5), expand = c(0, 0), breaks = c(p_2), labels = c(expression(w^"*"))) +
+  theme_market +
+  labs(x = "L", y = "w") +
+  stat_function(fun = demand, color = purple, size = 1, alpha = 0.5) +
+  stat_function(fun = supply, color = red_pink, size = 1) +
+  stat_function(fun = demand_2, color = purple, size = 1) +
+  geom_point(x = q_1, y = p_1, color = met_slate, size = 2, alpha = 0.5) +
+  geom_point(x = q_2, y = p_2, color = met_slate, size = 2) +
+  geom_segment(x = 0, xend = q_1, y = p_1, yend = p_1, color = met_slate, linetype = "dashed", alpha = 0.5) +
+  geom_segment(x = q_1, xend = q_1, y = 0, yend = p_1, color = met_slate, linetype = "dashed", alpha = 0.5) +
+  geom_segment(x = 0, xend = q_2, y = p_2, yend = p_2, color = met_slate, linetype = "dashed") +
+  geom_segment(x = q_2, xend = q_2, y = 0, yend = p_2, color = met_slate, linetype = "dashed") +
+  
+  geom_segment(aes(x = 6 + 0.2, y = 4, xend = 8 - 0.2, yend = 4), arrow = arrow(angle = 20, length = unit(0.2,"cm"), type = "closed"), color = met_slate) + 
+
+  annotate("label", label = expression(S[1]), x = 6, y = supply(6), color = red_pink, family = "Fira Sans", size = 5) +
+  annotate("label", label = expression(D[1]), x = 9, y = demand(9), color = purple, family = "Fira Sans", size = 5) +
+  annotate("label", label = expression(D[2]), x = 9, y = demand_2(9), color = purple, family = "Fira Sans", size = 5)
+```
+]
+.pull-right[
+
+Complements .mono[-->] productivity of native workers increases .mono[-->] demand increases.
+
+- Equilibrium employment of native workers increases.
+- Equilibrium wages increase.
+
+]
+
+---
+class: clear-slide
+
+**Case 2:** Immigrant workers and native workers are perfect substitutes.
+
+.pull-left[
+```{r, echo = FALSE, fig.height = 5.5, fig.width = 5.5, dev = "svg"}
+base_3
+```
+]
+.pull-right[
+
+**Supply shift .mono[>] demand shift**
+
+]
+
+---
+count: false
+class: clear-slide
+
+**Case 2:** Immigrant workers and native workers are perfect substitutes.
+
+.pull-left[
+```{r, echo = FALSE, fig.height = 5.5, fig.width = 5.5, dev = "svg"}
+x <- 0:10
+demand <- function(x) 10 - x
+demand_2 <- function(x) 12 - x
+supply <- function(x) 3 + x
+supply_2 <- function(x) x
+
+q_1 <- uniroot(function(x) demand(x) - supply(x), range(x))$root
+p_1 <- demand(q_1)
+
+q_2 <- uniroot(function(x) demand_2(x) - supply_2(x), range(x))$root
+p_2 <- demand_2(q_2)
+
+ggplot(data = data.frame(x = 0), mapping = aes(x = x)) +
+  scale_x_continuous(limits = c(0, 10.5), expand = c(0, 0), breaks = c(q_2), labels = c(expression(L^"*"))) +
+  scale_y_continuous(limits = c(0, 10.5), expand = c(0, 0), breaks = c(p_2), labels = c(expression(w^"*"))) +
+  theme_market +
+  labs(x = "L", y = "w") +
+  stat_function(fun = demand, color = purple, size = 1, alpha = 0.5) +
+  stat_function(fun = supply, color = red_pink, size = 1, alpha = 0.5) +
+  stat_function(fun = demand_2, color = purple, size = 1) +
+  stat_function(fun = supply_2, color = red_pink, size = 1) +
+  geom_point(x = q_1, y = p_1, color = met_slate, size = 2, alpha = 0.5) +
+  geom_point(x = q_2, y = p_2, color = met_slate, size = 2) +
+  geom_segment(x = 0, xend = q_1, y = p_1, yend = p_1, color = met_slate, linetype = "dashed", alpha = 0.5) +
+  geom_segment(x = q_1, xend = q_1, y = 0, yend = p_1, color = met_slate, linetype = "dashed", alpha = 0.5) +
+  geom_segment(x = 0, xend = q_2, y = p_2, yend = p_2, color = met_slate, linetype = "dashed") +
+  geom_segment(x = q_2, xend = q_2, y = 0, yend = p_2, color = met_slate, linetype = "dashed") +
+  
+  geom_segment(aes(x = 6 + 0.2, y = 4, xend = 8 - 0.2, yend = 4), arrow = arrow(angle = 20, length = unit(0.2,"cm"), type = "closed"), color = met_slate) + 
+  geom_segment(aes(x = 5 + 0.2, y = 8, xend = 8 - 0.2, yend = 8), arrow = arrow(angle = 20, length = unit(0.2,"cm"), type = "closed"), color = met_slate) + 
+  
+  annotate("label", label = expression(S[1]), x = 6, y = supply(6), color = red_pink, family = "Fira Sans", size = 5) +
+  annotate("label", label = expression(D[1]), x = 9, y = demand(9), color = purple, family = "Fira Sans", size = 5) +
+  annotate("label", label = expression(S[2]), x = 9, y = supply_2(9), color = red_pink, family = "Fira Sans", size = 5) +
+  annotate("label", label = expression(D[2]), x = 9, y = demand_2(9), color = purple, family = "Fira Sans", size = 5)
+```
+]
+.pull-right[
+
+**Supply shift .mono[>] demand shift**
+
+- Equilibrium employment increases.
+- Equilibrium wages decrease.
+
+]
+
+---
+class: clear-slide
+
+**Case 2:** Immigrant workers and native workers are perfect substitutes.
+
+.pull-left[
+```{r, echo = FALSE, fig.height = 5.5, fig.width = 5.5, dev = "svg"}
+base_3
+```
+]
+.pull-right[
+
+**Supply shift .mono[=] demand shift**
+]
+
+---
+count: false
+class: clear-slide
+
+**Case 2:** Immigrant workers and native workers are perfect substitutes.
+
+.pull-left[
+```{r, echo = FALSE, fig.height = 5.5, fig.width = 5.5, dev = "svg"}
+x <- 0:10
+demand <- function(x) 10 - x
+demand_2 <- function(x) 12 - x
+supply <- function(x) 3 + x
+supply_2 <- function(x) 1 + x
+
+q_1 <- uniroot(function(x) demand(x) - supply(x), range(x))$root
+p_1 <- demand(q_1)
+
+q_2 <- uniroot(function(x) demand_2(x) - supply_2(x), range(x))$root
+p_2 <- demand_2(q_2)
+
+ggplot(data = data.frame(x = 0), mapping = aes(x = x)) +
+  scale_x_continuous(limits = c(0, 10.5), expand = c(0, 0), breaks = c(q_2), labels = c(expression(L^"*"))) +
+  scale_y_continuous(limits = c(0, 10.5), expand = c(0, 0), breaks = c(p_2), labels = c(expression(w^"*"))) +
+  theme_market +
+  labs(x = "L", y = "w") +
+  stat_function(fun = demand, color = purple, size = 1, alpha = 0.5) +
+  stat_function(fun = supply, color = red_pink, size = 1, alpha = 0.5) +
+  stat_function(fun = demand_2, color = purple, size = 1) +
+  stat_function(fun = supply_2, color = red_pink, size = 1) +
+  geom_point(x = q_1, y = p_1, color = met_slate, size = 2, alpha = 0.5) +
+  geom_point(x = q_2, y = p_2, color = met_slate, size = 2) +
+  geom_segment(x = 0, xend = q_1, y = p_1, yend = p_1, color = met_slate, linetype = "dashed", alpha = 0.5) +
+  geom_segment(x = q_1, xend = q_1, y = 0, yend = p_1, color = met_slate, linetype = "dashed", alpha = 0.5) +
+  geom_segment(x = 0, xend = q_2, y = p_2, yend = p_2, color = met_slate, linetype = "dashed") +
+  geom_segment(x = q_2, xend = q_2, y = 0, yend = p_2, color = met_slate, linetype = "dashed") +
+  
+  geom_segment(aes(x = 5.5 + 0.2, y = 4.5, xend = 7.5 - 0.2, yend = 4.5), arrow = arrow(angle = 20, length = unit(0.2,"cm"), type = "closed"), color = met_slate) + 
+  geom_segment(aes(x = 5 + 0.2, y = 8, xend = 7 - 0.2, yend = 8), arrow = arrow(angle = 20, length = unit(0.2,"cm"), type = "closed"), color = met_slate) + 
+  
+  annotate("label", label = expression(S[1]), x = 6, y = supply(6), color = red_pink, family = "Fira Sans", size = 5) +
+  annotate("label", label = expression(D[1]), x = 9, y = demand(9), color = purple, family = "Fira Sans", size = 5) +
+  annotate("label", label = expression(S[2]), x = 8, y = supply_2(8), color = red_pink, family = "Fira Sans", size = 5) +
+  annotate("label", label = expression(D[2]), x = 9, y = demand_2(9), color = purple, family = "Fira Sans", size = 5)
+```
+]
+.pull-right[
+
+**Supply shift .mono[=] demand shift**
+
+- Equilibrium employment increases.
+- Equilibrium wages remain constant.
+
+]
+
+---
+class: clear-slide
+
+**Case 2:** Immigrant workers and native workers are perfect substitutes.
+
+.pull-left[
+```{r, echo = FALSE, fig.height = 5.5, fig.width = 5.5, dev = "svg"}
+base_3
+```
+]
+.pull-right[
+
+**Supply shift .mono[<] demand shift**
+
+]
+
+
+---
+count: false
+class: clear-slide
+
+**Case 2:** Immigrant workers and native workers are perfect substitutes.
+
+.pull-left[
+```{r, echo = FALSE, fig.height = 5.5, fig.width = 5.5, dev = "svg"}
+x <- 0:10
+demand <- function(x) 10 - x
+demand_2 <- function(x) 13 - x
+supply <- function(x) 3 + x
+supply_2 <- function(x) 2 + x
+
+q_1 <- uniroot(function(x) demand(x) - supply(x), range(x))$root
+p_1 <- demand(q_1)
+
+q_2 <- uniroot(function(x) demand_2(x) - supply_2(x), range(x))$root
+p_2 <- demand_2(q_2)
+
+ggplot(data = data.frame(x = 0), mapping = aes(x = x)) +
+  scale_x_continuous(limits = c(0, 10.5), expand = c(0, 0), breaks = c(q_2), labels = c(expression(L^"*"))) +
+  scale_y_continuous(limits = c(0, 10.5), expand = c(0, 0), breaks = c(p_2), labels = c(expression(w^"*"))) +
+  theme_market +
+  labs(x = "L", y = "w") +
+  stat_function(fun = demand, color = purple, size = 1, alpha = 0.5) +
+  stat_function(fun = supply, color = red_pink, size = 1, alpha = 0.5) +
+  stat_function(fun = demand_2, color = purple, size = 1) +
+  stat_function(fun = supply_2, color = red_pink, size = 1) +
+  geom_point(x = q_1, y = p_1, color = met_slate, size = 2, alpha = 0.5) +
+  geom_point(x = q_2, y = p_2, color = met_slate, size = 2) +
+  geom_segment(x = 0, xend = q_1, y = p_1, yend = p_1, color = met_slate, linetype = "dashed", alpha = 0.5) +
+  geom_segment(x = q_1, xend = q_1, y = 0, yend = p_1, color = met_slate, linetype = "dashed", alpha = 0.5) +
+  geom_segment(x = 0, xend = q_2, y = p_2, yend = p_2, color = met_slate, linetype = "dashed") +
+  geom_segment(x = q_2, xend = q_2, y = 0, yend = p_2, color = met_slate, linetype = "dashed") +
+  
+  geom_segment(aes(x = 5.5 + 0.2, y = 4.5, xend = 8.5 - 0.2, yend = 4.5), arrow = arrow(angle = 20, length = unit(0.2,"cm"), type = "closed"), color = met_slate) + 
+  geom_segment(aes(x = 5 + 0.2, y = 8, xend = 6 - 0.2, yend = 8), arrow = arrow(angle = 20, length = unit(0.2,"cm"), type = "closed"), color = met_slate) + 
+
+  annotate("label", label = expression(S[1]), x = 6, y = supply(6), color = red_pink, family = "Fira Sans", size = 5) +
+  annotate("label", label = expression(D[1]), x = 9, y = demand(9), color = purple, family = "Fira Sans", size = 5) +
+  annotate("label", label = expression(S[2]), x = 7, y = supply_2(7), color = red_pink, family = "Fira Sans", size = 5) +
+  annotate("label", label = expression(D[2]), x = 9, y = demand_2(9), color = purple, family = "Fira Sans", size = 5)
+```
+]
+.pull-right[
+
+**Supply shift .mono[<] demand shift**
+
+- Equilibrium employment increases.
+- Equilibrium wages increase.
+
+]
+
+---
+# Immigration
+
+**Q:** How does immigration affect equilibrium wages and employment?
+
+--
+
+**A:** Employment will increase, but the effect of immigration on wages is theoretically ambiguous.
+
+--
+
+- Whether immigration increases or decreases wages is an **empirical question!**
+
+
+---
+# Housekeeping
+
+**Assigned reading for Wednesday:** [The Economic Impact of Migrants from Hurricane Maria](https://www.nber.org/papers/w27718) by Giovanni Peri, Derek Rury, and Justin C. Wiltshire (2020).
+
+- I will post the paper and quiz tonight!
+- Read the non-technical sections and the first two figures (details in quiz instructions).
+- Reading Quiz 5 is due by **Wednesday, May 5th at 16:00**. 
+
+
+
+
+

@@ -13,7 +13,6 @@ The HTML versions of the lecture slides allow you to view animations and interac
 
 2. **Inequality, Opportunity, and Science** <br> [.html](https://raw.githack.com/kyleraze/EC350_Labor_Economics/master/Lectures/02-Inequality_Opportunity_Science/02-Inequality_Opportunity_Science.html) | [.pdf](https://raw.githack.com/kyleraze/EC350_Labor_Economics/master/Lectures/02-Inequality_Opportunity_Science/02-Inequality_Opportunity_Science.pdf)
 
-
 3. **Data and Causation** <br> [.html](https://raw.githack.com/kyleraze/EC350_Labor_Economics/master/Lectures/03-Data_Causation/03-Data_Causation.html) | [.pdf](https://raw.githack.com/kyleraze/EC350_Labor_Economics/master/Lectures/03-Data_Causation/03-Data_Causation.pdf)
 
 4. **Learning from Observational Data** <br> [.html](https://raw.githack.com/kyleraze/EC350_Labor_Economics/master/Lectures/04-Observational_Data/04-Observational_Data.html) | [.pdf](https://raw.githack.com/kyleraze/EC350_Labor_Economics/master/Lectures/04-Observational_Data/04-Observational_Data.pdf)
@@ -25,3 +24,5 @@ The HTML versions of the lecture slides allow you to view animations and interac
 7. **The Employer's Dilemma** <br> [.html](https://raw.githack.com/kyleraze/EC350_Labor_Economics/master/Lectures/07-Employers/07-Employers.html) | [.pdf](https://raw.githack.com/kyleraze/EC350_Labor_Economics/master/Lectures/07-Employers/07-Employers.pdf)
 
 8. **Robots and Taxes** <br> [.html](https://raw.githack.com/kyleraze/EC350_Labor_Economics/master/Lectures/08-Robots_Taxes/08-Robots_Taxes.html) | [.pdf](https://raw.githack.com/kyleraze/EC350_Labor_Economics/master/Lectures/08-Robots_Taxes/08-Robots_Taxes.pdf)
+
+9. **Labor Markets** <br> [.html](https://raw.githack.com/kyleraze/EC350_Labor_Economics/master/Lectures/09-Labor_Markets/09-Labor_Markets.html) | [.pdf](https://raw.githack.com/kyleraze/EC350_Labor_Economics/master/Lectures/09-Labor_Markets/09-Labor_Markets.pdf)
