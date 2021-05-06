@@ -1,0 +1,1287 @@
+---
+title: "Monopsony"
+subtitle: "EC 350: Labor Economics"
+author: "[Kyle Raze](https://kyleraze.com)"
+date: "Spring 2021"
+output:
+  xaringan::moon_reader:
+    css: ['default', 'metropolis', 'metropolis-fonts', 'my-css.css']
+    self_contained: false
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      beforeInit: "https://platform.twitter.com/widgets.js"
+      ratio: "16:9"
+---
+
+```{r Setup, include = F}
+options(htmltools.dir.version = FALSE)
+library(pacman)
+p_load(ggthemes, readxl, viridis, knitr, dslabs, gapminder, extrafont, Ecdat, wooldridge, tidyverse, magrittr, janitor, kableExtra)
+# Define colors
+red_pink <- "#e64173"
+met_slate <- "#272822" # metropolis font color 
+purple <- "#9370DB"
+green <- "#007935"
+light_green <- "#7DBA97"
+orange <- "#FD5F00"
+turquoise <- "#44C1C4"
+# Notes directory
+dir_slides <- "~/GitHub/Intro_Labor_S21/Lectures/05-Workers/"
+# Knitr options
+opts_chunk$set(
+  comment = "#>",
+  fig.align = "center",
+  fig.height = 7,
+  fig.width = 10.5,
+  #dpi = 300,
+  #cache = T,
+  warning = F,
+  message = F
+)  
+theme_simple <- theme_bw() + theme(
+  axis.line = element_line(color = met_slate),
+  panel.grid = element_blank(),
+  rect = element_blank(),
+  strip.text = element_blank(),
+  text = element_text(family = "Fira Sans", color = met_slate, size = 17),
+  axis.text.x = element_text(size = 12),
+  axis.text.y = element_text(size = 12),
+  axis.ticks = element_blank()
+)
+theme_market <- theme_bw() + theme(
+  axis.line = element_line(color = met_slate),
+  panel.grid = element_blank(),
+  rect = element_blank(),
+  strip.text = element_blank(),
+  text = element_text(family = "Fira Sans", color = met_slate, size = 17),
+  axis.title.x = element_text(hjust = 1, size = 17),
+  axis.title.y = element_text(hjust = 1, angle = 0, size = 17),
+  # axis.text.x = element_text(size = 12),
+  # axis.text.y = element_text(size = 12),
+  axis.ticks = element_blank()
+)
+theme_gif <- theme_bw() + theme(
+  axis.line = element_line(color = met_slate),
+  panel.grid = element_blank(),
+  rect = element_blank(),
+  text = element_text(family = "Fira Sans", color = met_slate, size = 17),
+  axis.text.x = element_text(size = 12),
+  axis.text.y = element_text(size = 12),
+  axis.ticks = element_blank()
+)
+
+xaringanExtra::use_scribble()
+```
+
+# Peri et al. (2020)
+
+## Discussion
+
+**Q.sub[1]:** What natural experiment did the authors use to measure the effect of immigration on wages and employment? Did you find it compelling?
+
+**Q.sub[2]:** What did the authors find?
+
+**Q.sub[3]:** Do you think their estimates are externally valid?
+
+**Q.sub[4]:** What are the implications for immigration policy?
+
+---
+class: inverse, middle
+
+# Monopsony
+
+---
+# Monopsony
+
+A **monopsony is a market** with a single buyer.
+
+- In a labor market, this would entail that there is only one employer, which we call a **monopsonist**.
+
+
+--
+
+**Why does this matter?** Monopsonies are inefficient!
+
+- In a monopsonistic labor market, workers **earn less** and there is **underemployment**.
+- Can exacerbate inequality!
+
+
+--
+
+Most labor markets are probably closer to monopsony than to perfect competition.
+
+- Employers with significant **market power**? Probably the norm rather than the exception.
+
+---
+# Monopsony
+
+## Discussion
+
+**Q:** Is Amazon a monopsonist? Why or why not?
+
+**Q:** Do large public research universities have monopsony power?
+
+**Q:** Is a sawmill in Eastern Oregon a monopsonist? What about a sawmill in Eugene?
+
+---
+# Monopsony
+
+## **Assumptions**
+
+We will continue to make most of the same assumptions as we did when we modeled supply and demand for a competitive market.
+
+- Perfect competition in capital and output markets
+- Homogeneous workers within a market
+- Various assumptions about preferences and production technology
+- Perfect information and complete contracts
+
+
+--
+
+We will now assume that there is **only one employer** whose hiring decisions can influence the market wage..super[.hi-pink[<span>&#8224;</span>]]
+
+.footnote[.super[.hi-pink[<span>&#8224;</span>]] We are still implicitly assuming that there is a single wage&mdash;the employer cannot "discriminate" by offering different wages to different workers.]
+
+
+---
+# Labor supply elasticity
+
+## **Definition**
+
+> A measure of the responsiveness of the quantity of labor supplied to changes in the wage
+
+> $$\sigma = \dfrac{\text{% change in quantity of labor supplied}}{\text{% change in wage}}$$
+
+
+--
+
+**Interpretation?** A one-percent increase in wages increases the quantity of labor supplied by $\sigma$ percent.
+
+- $\sigma > 1$ .mono[==>] labor supply is .pink[elastic] or .pink[sensitive] to changes in the wage.
+- $0 \leq \sigma < 1$ .mono[==>] labor supply is .pink[inelastic] or .pink[insensitive] to changes in the wage.
+
+---
+# Labor supply elasticity
+
+.pull-left[
+```{r, echo = FALSE, fig.height = 5.5, fig.width = 5.5, dev = "svg"}
+ggplot(data = data.frame(x = 0), mapping = aes(x = x)) +
+  scale_x_continuous(limits = c(0, 10.5), expand = c(0, 0), breaks = NULL) +
+  scale_y_continuous(limits = c(0, 10.5), expand = c(0, 0), breaks = NULL) +
+  theme_market +
+  labs(x = "E", y = "w") +
+  geom_hline(yintercept = 5, color = red_pink, size = 1) +
+  annotate("label", label = "S", x = 10, y = 5, color = red_pink, family = "Fira Sans", size = 5)
+```
+]
+.pull-right[
+### .pink[Perfectly elastic labor supply]
+
+Quantity of labor supplied falls to zero when the wage decreases and approaches infinity when the wage increases.
+
+$\sigma$ .mono[->] $\infty$
+
+]
+
+---
+# Labor supply elasticity
+
+.pull-left[
+```{r, echo = FALSE, fig.height = 5.5, fig.width = 5.5, dev = "svg"}
+ggplot(data = data.frame(x = 0), mapping = aes(x = x)) +
+  scale_x_continuous(limits = c(0, 10.5), expand = c(0, 0), breaks = NULL) +
+  scale_y_continuous(limits = c(0, 10.5), expand = c(0, 0), breaks = NULL) +
+  theme_market +
+    labs(x = "E", y = "w") +
+  geom_vline(xintercept = 5, color = red_pink, size = 1) +
+  annotate("label", label = "S", x = 5, y = 1, color = red_pink, family = "Fira Sans", size = 5)
+```
+]
+.pull-right[
+### .pink[Perfectly inelastic labor supply]
+
+Quantity of labor supplied does not change when the wage changes.
+
+$\sigma = 0$
+
+]
+
+---
+# Labor supply elasticity
+
+.pull-left[
+```{r, echo = FALSE, fig.height = 5.5, fig.width = 5.5, dev = "svg"}
+supply <- function(x) 4 + (1/5)*x
+ggplot(data = data.frame(x = 0), mapping = aes(x = x)) +
+  scale_x_continuous(limits = c(0, 10.5), expand = c(0, 0), breaks = NULL) +
+  scale_y_continuous(limits = c(0, 10.5), expand = c(0, 0), breaks = NULL) +
+  theme_market +
+  labs(x = "E", y = "w") +
+  geom_rect(aes(xmin = 0, xmax = 5, ymin = 0, ymax = 5), alpha = 0.2, fill = red_pink) +
+  geom_rect(aes(xmin = 5, xmax = 10.5, ymin = 5, ymax = 10.5), alpha = 0.2, fill = red_pink) +
+  geom_vline(xintercept = 5, color = red_pink, linetype = "dashed", size = 1) +
+  geom_hline(yintercept = 5, color = red_pink, linetype = "dashed", size = 1) +
+  stat_function(fun = supply, color = red_pink, size = 1) +
+  annotate("label", label = "S", x = 10, y = supply(10), color = red_pink, family = "Fira Sans", size = 5) 
+```
+]
+.pull-right[
+
+*All else being equal*, flatter supply curves are .pink[more elastic] than steeper supply curves.
+
+As $\sigma$ decreases, the same wage increase leads to smaller increases in the quantity of labor supplied.
+
+]
+
+---
+count: false
+# Labor supply elasticity
+
+.pull-left[
+```{r, echo = FALSE, fig.height = 5.5, fig.width = 5.5, dev = "svg"}
+supply <- function(x) 2 + (3 / 5) * x
+inv_supply <- function(x) (x - 2) / (3 / 5)
+p_1 <- 7
+p_2 <- 6
+q_1 <- inv_supply(p_1) 
+q_2 <- inv_supply(p_2)
+ggplot(data = data.frame(x = 0), mapping = aes(x = x)) +
+  scale_x_continuous(limits = c(0, 10.5), expand = c(0, 0), breaks = NULL) +
+  scale_y_continuous(limits = c(0, 10.5), expand = c(0, 0), breaks = NULL) +
+  theme_market +
+  labs(x = "E", y = "w") +
+  geom_rect(aes(xmin = 0, xmax = 5, ymin = 0, ymax = 5), alpha = 0.2, fill = red_pink) +
+  geom_rect(aes(xmin = 5, xmax = 10.5, ymin = 5, ymax = 10.5), alpha = 0.2, fill = red_pink) +
+  geom_vline(xintercept = 5, color = red_pink, linetype = "dashed", size = 1) +
+  geom_hline(yintercept = 5, color = red_pink, linetype = "dashed", size = 1) +
+  stat_function(fun = supply, color = red_pink, size = 1) +
+  annotate("label", label = "S", x = 10, y = supply(10), color = red_pink, family = "Fira Sans", size = 5) +
+  geom_point(x = q_1, y = p_1, color = met_slate, size = 2) +
+  geom_point(x = q_2, y = p_2, color = met_slate, size = 2) +
+  geom_segment(x = 0, xend = q_1, y = p_1, yend = p_1, color = met_slate, linetype = "dotted") +
+  geom_segment(x = 0, xend = q_2, y = p_2, yend = p_2, color = met_slate, linetype = "dotted") +
+  geom_segment(x = q_1, xend = q_1, y = 0, yend = p_1, color = met_slate, linetype = "dotted") +
+  geom_segment(x = q_2, xend = q_2, y = 0, yend = p_2, color = met_slate, linetype = "dotted")
+```
+]
+.pull-right[
+
+*All else being equal*, flatter supply curves are .pink[more elastic] than steeper supply curves.
+
+As $\sigma$ decreases, the same wage increase leads to smaller increases in the quantity of labor supplied.
+
+]
+
+---
+count: false
+# Labor supply elasticity
+
+.pull-left[
+```{r, echo = FALSE, fig.height = 5.5, fig.width = 5.5, dev = "svg"}
+supply <- function(x) 1 + (4 / 5) * x
+inv_supply <- function(x) (x - 1) / (4 / 5)
+p_1 <- 7
+p_2 <- 6
+q_1 <- inv_supply(p_1) 
+q_2 <- inv_supply(p_2)
+ggplot(data = data.frame(x = 0), mapping = aes(x = x)) +
+  scale_x_continuous(limits = c(0, 10.5), expand = c(0, 0), breaks = NULL) +
+  scale_y_continuous(limits = c(0, 10.5), expand = c(0, 0), breaks = NULL) +
+  theme_market +
+  labs(x = "E", y = "w") +
+  geom_rect(aes(xmin = 0, xmax = 5, ymin = 0, ymax = 5), alpha = 0.2, fill = red_pink) +
+  geom_rect(aes(xmin = 5, xmax = 10.5, ymin = 5, ymax = 10.5), alpha = 0.2, fill = red_pink) +
+  geom_vline(xintercept = 5, color = red_pink, linetype = "dashed", size = 1) +
+  geom_hline(yintercept = 5, color = red_pink, linetype = "dashed", size = 1) +
+  stat_function(fun = supply, color = red_pink, size = 1) +
+  annotate("label", label = "S", x = 10, y = supply(10), color = red_pink, family = "Fira Sans", size = 5) +
+  geom_point(x = q_1, y = p_1, color = met_slate, size = 2) +
+  geom_point(x = q_2, y = p_2, color = met_slate, size = 2) +
+  geom_segment(x = 0, xend = q_1, y = p_1, yend = p_1, color = met_slate, linetype = "dotted") +
+  geom_segment(x = 0, xend = q_2, y = p_2, yend = p_2, color = met_slate, linetype = "dotted") +
+  geom_segment(x = q_1, xend = q_1, y = 0, yend = p_1, color = met_slate, linetype = "dotted") +
+  geom_segment(x = q_2, xend = q_2, y = 0, yend = p_2, color = met_slate, linetype = "dotted")
+```
+]
+.pull-right[
+
+*All else being equal*, flatter supply curves are .pink[more elastic] than steeper supply curves.
+
+As $\sigma$ decreases, the same wage increase leads to smaller increases in the quantity of labor supplied.
+
+]
+
+---
+count: false
+# Labor supply elasticity
+
+.pull-left[
+```{r, echo = FALSE, fig.height = 5.5, fig.width = 5.5, dev = "svg"}
+supply <- function(x) x
+inv_supply <- function(x) x
+p_1 <- 7
+p_2 <- 6
+q_1 <- inv_supply(p_1) 
+q_2 <- inv_supply(p_2)
+ggplot(data = data.frame(x = 0), mapping = aes(x = x)) +
+  scale_x_continuous(limits = c(0, 10.5), expand = c(0, 0), breaks = NULL) +
+  scale_y_continuous(limits = c(0, 10.5), expand = c(0, 0), breaks = NULL) +
+  theme_market +
+  labs(x = "E", y = "w") +
+  geom_rect(aes(xmin = 0, xmax = 5, ymin = 0, ymax = 5), alpha = 0.2, fill = red_pink) +
+  geom_rect(aes(xmin = 5, xmax = 10.5, ymin = 5, ymax = 10.5), alpha = 0.2, fill = red_pink) +
+  geom_vline(xintercept = 5, color = red_pink, linetype = "dashed", size = 1) +
+  geom_hline(yintercept = 5, color = red_pink, linetype = "dashed", size = 1) +
+  stat_function(fun = supply, color = red_pink, size = 1) +
+  annotate("label", label = "S", x = 9, y = supply(9), color = red_pink, family = "Fira Sans", size = 5) +
+  geom_point(x = q_1, y = p_1, color = met_slate, size = 2) +
+  geom_point(x = q_2, y = p_2, color = met_slate, size = 2) +
+  geom_segment(x = 0, xend = q_1, y = p_1, yend = p_1, color = met_slate, linetype = "dotted") +
+  geom_segment(x = 0, xend = q_2, y = p_2, yend = p_2, color = met_slate, linetype = "dotted") +
+  geom_segment(x = q_1, xend = q_1, y = 0, yend = p_1, color = met_slate, linetype = "dotted") +
+  geom_segment(x = q_2, xend = q_2, y = 0, yend = p_2, color = met_slate, linetype = "dotted")
+```
+]
+.pull-right[
+
+*All else being equal*, flatter supply curves are .pink[more elastic] than steeper supply curves.
+
+As $\sigma$ decreases, the same wage increase leads to smaller increases in the quantity of labor supplied.
+
+]
+
+---
+count: false
+# Labor supply elasticity
+
+.pull-left[
+```{r, echo = FALSE, fig.height = 5.5, fig.width = 5.5, dev = "svg"}
+supply <- function(x) -2 + (7 / 5) * x
+inv_supply <- function(x) (x + 2) / (7 / 5)
+p_1 <- 7
+p_2 <- 6
+q_1 <- inv_supply(p_1) 
+q_2 <- inv_supply(p_2)
+ggplot(data = data.frame(x = 0), mapping = aes(x = x)) +
+  scale_x_continuous(limits = c(0, 10.5), expand = c(0, 0), breaks = NULL) +
+  scale_y_continuous(limits = c(0, 10.5), expand = c(0, 0), breaks = NULL) +
+  theme_market +
+  labs(x = "E", y = "w") +
+  geom_rect(aes(xmin = 0, xmax = 5, ymin = 0, ymax = 5), alpha = 0.2, fill = red_pink) +
+  geom_rect(aes(xmin = 5, xmax = 10.5, ymin = 5, ymax = 10.5), alpha = 0.2, fill = red_pink) +
+  geom_vline(xintercept = 5, color = red_pink, linetype = "dashed", size = 1) +
+  geom_hline(yintercept = 5, color = red_pink, linetype = "dashed", size = 1) +
+  stat_function(fun = supply, color = red_pink, size = 1) +
+  annotate("label", label = "S", x = 8, y = supply(8), color = red_pink, family = "Fira Sans", size = 5) +
+  geom_point(x = q_1, y = p_1, color = met_slate, size = 2) +
+  geom_point(x = q_2, y = p_2, color = met_slate, size = 2) +
+  geom_segment(x = 0, xend = q_1, y = p_1, yend = p_1, color = met_slate, linetype = "dotted") +
+  geom_segment(x = 0, xend = q_2, y = p_2, yend = p_2, color = met_slate, linetype = "dotted") +
+  geom_segment(x = q_1, xend = q_1, y = 0, yend = p_1, color = met_slate, linetype = "dotted") +
+  geom_segment(x = q_2, xend = q_2, y = 0, yend = p_2, color = met_slate, linetype = "dotted")
+```
+]
+.pull-right[
+
+*All else being equal*, flatter supply curves are .pink[more elastic] than steeper supply curves.
+
+As $\sigma$ decreases, the same wage increase leads to smaller increases in the quantity of labor supplied.
+
+]
+
+---
+# Monopsonist *vs.* competitive employer
+
+Workers have few employment opportunities in a monopsonistic labor market. <br> $\quad$ .mono[-->] A monopsonist faces the labor supply curve for the entire market.
+
+.pull-left[
+.center[**Monopsonist**]
+```{r, echo = FALSE, fig.height = 4, fig.width = 5.5, dev = "svg"}
+supply <- function(x) 2 + (3 / 4) * x
+
+ggplot(data = data.frame(x = 0), mapping = aes(x = x)) +
+  scale_x_continuous(limits = c(0, 10.5), expand = c(0, 0), breaks = NULL) +
+  scale_y_continuous(limits = c(0, 10.5), expand = c(0, 0), breaks = NULL) +
+  theme_market +
+  labs(x = "E", y = "w") +
+  stat_function(fun = supply, color = red_pink, size = 1) +
+  annotate("label", label = "S", x = 9, y = supply(9), color = red_pink, family = "Fira Sans", size = 5)
+```
+]
+.pull-right[
+.center[**Perfectly competitive employer**]
+```{r, echo = FALSE, fig.height = 4, fig.width = 5.5, dev = "svg"}
+ggplot(data = data.frame(x = 0), mapping = aes(x = x)) +
+  scale_x_continuous(limits = c(0, 10.5), expand = c(0, 0), breaks = NULL) +
+  scale_y_continuous(limits = c(0, 10.5), expand = c(0, 0), breaks = NULL) +
+  theme_market +
+  labs(x = "E", y = "w") +
+  geom_hline(yintercept = 5, color = red_pink, size = 1) +
+  annotate("label", label = "S", x = 10, y = 5, color = red_pink, family = "Fira Sans", size = 5)
+```
+]
+
+---
+# Monopsonist *vs.* competitive employer
+
+Workers have more employment opportunities in a competitive labor market. <br> $\quad$ .mono[-->] Individual employers face flat supply curves.
+
+.pull-left[
+.center[**Monopsonist**]
+```{r, echo = FALSE, fig.height = 4, fig.width = 5.5, dev = "svg"}
+supply <- function(x) 2 + (3 / 4) * x
+
+ggplot(data = data.frame(x = 0), mapping = aes(x = x)) +
+  scale_x_continuous(limits = c(0, 10.5), expand = c(0, 0), breaks = NULL) +
+  scale_y_continuous(limits = c(0, 10.5), expand = c(0, 0), breaks = NULL) +
+  theme_market +
+  labs(x = "E", y = "w") +
+  stat_function(fun = supply, color = red_pink, size = 1) +
+  annotate("label", label = "S", x = 9, y = supply(9), color = red_pink, family = "Fira Sans", size = 5)
+```
+]
+.pull-right[
+.center[**Perfectly competitive employer**]
+```{r, echo = FALSE, fig.height = 4, fig.width = 5.5, dev = "svg"}
+ggplot(data = data.frame(x = 0), mapping = aes(x = x)) +
+  scale_x_continuous(limits = c(0, 10.5), expand = c(0, 0), breaks = NULL) +
+  scale_y_continuous(limits = c(0, 10.5), expand = c(0, 0), breaks = NULL) +
+  theme_market +
+  labs(x = "E", y = "w") +
+  geom_hline(yintercept = 5, color = red_pink, size = 1) +
+  annotate("label", label = "S", x = 10, y = 5, color = red_pink, family = "Fira Sans", size = 5)
+```
+]
+
+---
+# Profit maximization
+
+## **Perfect competition**
+
+A competitive employer maximizes profit by hiring $E^*$ workers such that $w = \text{VMP}_E$ and $\text{VMP}_E$ is decreasing.
+
+- The employer keeps hiring until the **marginal cost** of the last worker equals the **marginal benefit** of the last worker.
+
+
+--
+
+## **Monopsony**
+
+A monopsonist maximizes profit maximizes profit by hiring $E^*$ workers such that $\text{MC}_E = \text{VMP}_E$ and $\text{VMP}_E$ is decreasing.
+
+- **The difference?** Marginal cost is no longer equal to the wage&mdash;the monopsonist has increase the wage to attract additional workers *and* pay this new wage to existing workers.
+
+
+---
+class: clear-slide
+
+**Q:** Given supply and demand for labor, how many workers would a monopsonist hire?
+
+```{R, echo = F, escape = F}
+tab <- data.frame(
+  v1 = c(0, 1, 2, 3, 4),
+  v2 = c("&mdash;", 70, 120, 95, 50),
+  v3 = c(80, 85, 90, 95, 100),
+  v4 = c(0, "", "", "", ""),
+  v5 = c(0, "", "", "", "")
+) %>% kable(
+  escape = F,
+  col.names = c("Workers (E)", "VMP (demand)", "Wage (supply)", "Wage × E", "Marginal cost"),
+  align = c("c", "c", "c", "c", "c"),
+) %>%
+row_spec(1:5, color = met_slate) %>%
+row_spec(1:5, extra_css = "line-height: 110%;")
+tab
+```
+
+---
+count: false
+class: clear-slide
+
+**Q:** Given supply and demand for labor, how many workers would a monopsonist hire?
+
+```{R, echo = F, escape = F}
+tab <- data.frame(
+  v1 = c(0, 1, 2, 3, 4),
+  v2 = c("&mdash;", 70, 120, 95, 50),
+  v3 = c(80, 85, 90, 95, 100),
+  v4 = c(0, 85, "", "", ""),
+  v5 = c(0, "", "", "", "")
+) %>% kable(
+  escape = F,
+  col.names = c("Workers (E)", "VMP (demand)", "Wage (supply)", "Wage × E", "Marginal cost"),
+  align = c("c", "c", "c", "c", "c"),
+) %>%
+row_spec(1:5, color = met_slate) %>%
+row_spec(1:5, extra_css = "line-height: 110%;")
+tab
+```
+
+---
+count: false
+class: clear-slide
+
+**Q:** Given supply and demand for labor, how many workers would a monopsonist hire?
+
+```{R, echo = F, escape = F}
+tab <- data.frame(
+  v1 = c(0, 1, 2, 3, 4),
+  v2 = c("&mdash;", 70, 120, 95, 50),
+  v3 = c(80, 85, 90, 95, 100),
+  v4 = c(0, 85, 180, "", ""),
+  v5 = c(0, "", "", "", "")
+) %>% kable(
+  escape = F,
+  col.names = c("Workers (E)", "VMP (demand)", "Wage (supply)", "Wage × E", "Marginal cost"),
+  align = c("c", "c", "c", "c", "c"),
+) %>%
+row_spec(1:5, color = met_slate) %>%
+row_spec(1:5, extra_css = "line-height: 110%;")
+tab
+```
+
+---
+count: false
+class: clear-slide
+
+**Q:** Given supply and demand for labor, how many workers would a monopsonist hire?
+
+```{R, echo = F, escape = F}
+tab <- data.frame(
+  v1 = c(0, 1, 2, 3, 4),
+  v2 = c("&mdash;", 70, 120, 95, 50),
+  v3 = c(80, 85, 90, 95, 100),
+  v4 = c(0, 85, 180, 285, 400),
+  v5 = c(0, "", "", "", "")
+) %>% kable(
+  escape = F,
+  col.names = c("Workers (E)", "VMP (demand)", "Wage (supply)", "Wage × E", "Marginal cost"),
+  align = c("c", "c", "c", "c", "c"),
+) %>%
+row_spec(1:5, color = met_slate) %>%
+row_spec(1:5, extra_css = "line-height: 110%;")
+tab
+```
+
+---
+count: false
+class: clear-slide
+
+**Q:** Given supply and demand for labor, how many workers would a monopsonist hire?
+
+```{R, echo = F, escape = F}
+tab <- data.frame(
+  v1 = c(0, 1, 2, 3, 4),
+  v2 = c("&mdash;", 70, 120, 95, 50),
+  v3 = c(80, 85, 90, 95, 100),
+  v4 = c(0, 85, 180, 285, 400),
+  v5 = c(0, 85, "", "", "")
+) %>% kable(
+  escape = F,
+  col.names = c("Workers (E)", "VMP (demand)", "Wage (supply)", "Wage × E", "Marginal cost"),
+  align = c("c", "c", "c", "c", "c"),
+) %>%
+row_spec(1:5, color = met_slate) %>%
+row_spec(1:5, extra_css = "line-height: 110%;")
+tab
+```
+
+---
+count: false
+class: clear-slide
+
+**Q:** Given supply and demand for labor, how many workers would a monopsonist hire?
+
+```{R, echo = F, escape = F}
+tab <- data.frame(
+  v1 = c(0, 1, 2, 3, 4),
+  v2 = c("&mdash;", 70, 120, 95, 50),
+  v3 = c(80, 85, 90, 95, 100),
+  v4 = c(0, 85, 180, 285, 400),
+  v5 = c(0, 85, 95, "", "")
+) %>% kable(
+  escape = F,
+  col.names = c("Workers (E)", "VMP (demand)", "Wage (supply)", "Wage × E", "Marginal cost"),
+  align = c("c", "c", "c", "c", "c"),
+) %>%
+row_spec(1:5, color = met_slate) %>%
+row_spec(1:5, extra_css = "line-height: 110%;")
+tab
+```
+
+---
+count: false
+class: clear-slide
+
+**Q:** Given supply and demand for labor, how many workers would a monopsonist hire?
+
+```{R, echo = F, escape = F}
+tab <- data.frame(
+  v1 = c(0, 1, 2, 3, 4),
+  v2 = c("&mdash;", 70, 120, 95, 50),
+  v3 = c(80, 85, 90, 95, 100),
+  v4 = c(0, 85, 180, 285, 400),
+  v5 = c(0, 85, 95, 105, "")
+) %>% kable(
+  escape = F,
+  col.names = c("Workers (E)", "VMP (demand)", "Wage (supply)", "Wage × E", "Marginal cost"),
+  align = c("c", "c", "c", "c", "c"),
+) %>%
+row_spec(1:5, color = met_slate) %>%
+row_spec(1:5, extra_css = "line-height: 110%;")
+tab
+```
+
+---
+count: false
+class: clear-slide
+
+**Q:** Given supply and demand for labor, how many workers would a monopsonist hire?
+
+```{R, echo = F, escape = F}
+tab <- data.frame(
+  v1 = c(0, 1, 2, 3, 4),
+  v2 = c("&mdash;", 70, 120, 95, 50),
+  v3 = c(80, 85, 90, 95, 100),
+  v4 = c(0, 85, 180, 285, 400),
+  v5 = c(0, 85, 95, 105, 115)
+) %>% kable(
+  escape = F,
+  col.names = c("Workers (E)", "VMP (demand)", "Wage (supply)", "Wage × E", "Marginal cost"),
+  align = c("c", "c", "c", "c", "c"),
+) %>%
+row_spec(1:5, color = met_slate) %>%
+row_spec(1:5, extra_css = "line-height: 110%;")
+tab
+```
+
+--
+
+**A:** A monopsonist would hire 2 workers.
+
+- As close to $\text{MC}_E = \text{VMP}_E$ as the employer can get.
+
+--
+
+
+**Q:** How many employees would a perfectly competitive employer hire?
+
+--
+
+**A:** A perfectly competitive employer would hire 3 workers.
+
+- Where $w = \text{VMP}_E$.
+
+---
+# Profit maximization
+
+.pull-left[
+```{r, dev = "svg", echo = F, fig.height = 5.5, fig.width = 5.5}
+x <- 0:10
+supply <- function(x) 1 + x
+demand <- function(x) 10 - x
+marginal_cost <- function(x) 1 + 2 * x
+l_m <- uniroot(function(x) demand(x) - marginal_cost(x), range(x))$root
+w_m <- supply(l_m)
+vmp_m <- demand(l_m)
+l_c <- uniroot(function(x) demand(x) - supply(x), range(x))$root
+w_c <- demand(l_c)
+
+base <- ggplot(data = data.frame(x = 0), mapping = aes(x = x)) +
+  scale_x_continuous(limits = c(0, 10.5), expand = c(0, 0), breaks = c(l_m), labels = c(expression(E[M]))) +
+  scale_y_continuous(limits = c(0, 10.5), expand = c(0, 0), breaks = c(w_m, vmp_m), labels = c(expression(w[M]), expression(VMP[M]))) +
+  theme_market +
+  labs(x = "E", y = "$") +
+  stat_function(aes(x), fun = marginal_cost, color = green, size = 1) +
+  annotate("label", label = expression(MC[E]), x = 4.5, y = marginal_cost(4.5), color = green, family = "Fira Sans", size = 5) +
+  stat_function(aes(x), fun = demand, color = purple, size = 1) +
+  stat_function(aes(x), fun = supply, color = red_pink, size = 1) +
+  annotate("label", label = expression(D==VMP[E]), x = 9, y = demand(9), color = purple, family = "Fira Sans", size = 5) +
+  annotate("label", label = "S", x = 9, y = supply(9), color = red_pink, family = "Fira Sans", size = 5)
+base
+```
+]
+.pull-right[
+**Q:** How does a monopsonist maximize profit?
+]
+
+---
+count: false
+# Profit maximization
+
+.pull-left[
+```{r, dev = "svg", echo = F, fig.height = 5.5, fig.width = 5.5}
+base
+```
+]
+.pull-right[
+**Q:** How does a monopsonist maximize profit?
+
+**A:** Two steps!
+]
+
+---
+count: false
+# Profit maximization
+
+.pull-left[
+```{r, dev = "svg", echo = F, fig.height = 5.5, fig.width = 5.5}
+base
+```
+]
+.pull-right[
+**Q:** How does a monopsonist maximize profit?
+
+**A:** Two steps!
+
+- **Step 1:** Hire E.sub[M] where .green[MC.sub[E]] .mono[=] .purple[VMP.sub[E]].
+
+]
+
+---
+count: false
+# Profit maximization
+
+.pull-left[
+```{r, dev = "svg", echo = F, fig.height = 5.5, fig.width = 5.5}
+base +
+  geom_point(aes(x = l_m, y = vmp_m), color = met_slate, size = 2) +
+  geom_segment(aes(x = l_m, xend = l_m, y = 0, yend = w_m), color = met_slate, linetype = "dashed") +
+  geom_segment(aes(x = l_m, xend = l_m, y = w_m, yend = vmp_m), color = met_slate, linetype = "dashed") +
+  geom_segment(aes(x = 0, xend = l_m, y = vmp_m, yend = vmp_m), color = met_slate, linetype = "dashed")
+```
+]
+.pull-right[
+**Q:** How does a monopsonist maximize profit?
+
+**A:** Two steps!
+
+- **Step 1:** Hire E.sub[M] where .green[MC.sub[E]] .mono[=] .purple[VMP.sub[E]].
+
+]
+
+
+---
+count: false
+# Profit maximization
+
+.pull-left[
+```{r, dev = "svg", echo = F, fig.height = 5.5, fig.width = 5.5}
+base  +
+  geom_point(aes(x = l_m, y = vmp_m), color = met_slate, size = 2) +
+  geom_segment(aes(x = l_m, xend = l_m, y = 0, yend = w_m), color = met_slate, linetype = "dashed") +
+  geom_segment(aes(x = l_m, xend = l_m, y = w_m, yend = vmp_m), color = met_slate, linetype = "dashed") +
+  geom_segment(aes(x = 0, xend = l_m, y = vmp_m, yend = vmp_m), color = met_slate, linetype = "dashed")
+```
+]
+.pull-right[
+**Q:** How does a monopsonist maximize profit?
+
+**A:** Two steps!
+
+- **Step 1:** Hire E.sub[M] where .green[MC.sub[E]] .mono[=] .purple[VMP.sub[E]].
+- **Step 2:** Set w.sub[M] on the .pink[supply curve].
+
+]
+
+---
+count: false
+# Profit maximization
+
+.pull-left[
+```{r, dev = "svg", echo = F, fig.height = 5.5, fig.width = 5.5}
+base  +
+  # geom_point(aes(x = l_c, y = w_c), color = met_slate, size = 2) +
+  # geom_segment(aes(x = 0, xend = l_c, y = w_c, yend = w_c), color = met_slate, linetype = "dashed") +
+  # geom_segment(aes(x = l_c, xend = l_c, y = 0, yend = w_c), color = met_slate, linetype = "dashed") +
+  geom_point(aes(x = l_m, y = w_m), color = met_slate, size = 2) +
+  geom_point(aes(x = l_m, y = vmp_m), color = met_slate, size = 2) +
+  geom_segment(aes(x = l_m, xend = l_m, y = 0, yend = w_m), color = met_slate, linetype = "dashed") +
+  geom_segment(aes(x = 0, xend = l_m, y = w_m, yend = w_m), color = met_slate, linetype = "dashed") +
+  geom_segment(aes(x = l_m, xend = l_m, y = w_m, yend = vmp_m), color = met_slate, linetype = "dashed") +
+  geom_segment(aes(x = 0, xend = l_m, y = vmp_m, yend = vmp_m), color = met_slate, linetype = "dashed")
+```
+]
+.pull-right[
+**Q:** How does a monopsonist maximize profit?
+
+**A:** Two steps!
+
+- **Step 1:** Hire E.sub[M] where .green[MC.sub[E]] .mono[=] .purple[VMP.sub[E]].
+- **Step 2:** Set w.sub[M] on the .pink[supply curve].
+
+]
+
+---
+count: false
+# Profit maximization
+
+.pull-left[
+```{r, dev = "svg", echo = F, fig.height = 5.5, fig.width = 5.5}
+base +
+  # geom_point(aes(x = l_c, y = w_c), color = met_slate, size = 2) +
+  # geom_segment(aes(x = 0, xend = l_c, y = w_c, yend = w_c), color = met_slate, linetype = "dashed") +
+  # geom_segment(aes(x = l_c, xend = l_c, y = 0, yend = w_c), color = met_slate, linetype = "dashed") +
+  geom_point(aes(x = l_m, y = w_m), color = met_slate, size = 2) +
+  geom_point(aes(x = l_m, y = vmp_m), color = met_slate, size = 2) +
+  geom_segment(aes(x = l_m, xend = l_m, y = 0, yend = w_m), color = met_slate, linetype = "dashed") +
+  geom_segment(aes(x = 0, xend = l_m, y = w_m, yend = w_m), color = met_slate, linetype = "dashed") +
+  geom_segment(aes(x = l_m, xend = l_m, y = w_m, yend = vmp_m), color = met_slate, linetype = "dashed") +
+  geom_segment(aes(x = 0, xend = l_m, y = vmp_m, yend = vmp_m), color = met_slate, linetype = "dashed")
+```
+]
+.pull-right[
+**Q:** How does a monopsonist maximize profit?
+
+**A:** Two steps!
+
+- **Step 1:** Hire E.sub[M] where .green[MC.sub[E]] .mono[=] .purple[VMP.sub[E]].
+- **Step 2:** Set w.sub[M] on the .pink[supply curve].
+
+The point (E.sub[M], w.sub[M]) characterizes the monopsony equilibrium.
+
+]
+
+---
+# Perfect competition *vs.* monpsony
+
+.pull-left[
+```{r, dev = "svg", echo = F, fig.height = 5.5, fig.width = 5.5}
+plot <- ggplot(data = data.frame(x = 0), mapping = aes(x = x)) +
+  scale_x_continuous(limits = c(0, 10.5), expand = c(0, 0), breaks = c(l_m, l_c), labels = c(expression(E[M]), expression(E[C]))) +
+  scale_y_continuous(limits = c(0, 10.5), expand = c(0, 0), breaks = c(w_m, w_c), labels = c(expression(w[M]), expression(w[C]))) +
+  theme_market +
+  labs(x = "E", y = "$") +
+  stat_function(aes(x), fun = marginal_cost, color = green, size = 1) +
+  annotate("label", label = expression(MC[E]), x = 4.5, y = marginal_cost(4.5), color = green, family = "Fira Sans", size = 5) +
+  stat_function(aes(x), fun = demand, color = purple, size = 1) +
+  stat_function(aes(x), fun = supply, color = red_pink, size = 1) +
+  annotate("label", label = expression(D==VMP[E]), x = 9, y = demand(9), color = purple, family = "Fira Sans", size = 5) +
+  annotate("label", label = "S", x = 9, y = supply(9), color = red_pink, family = "Fira Sans", size = 5) +
+  geom_point(aes(x = l_c, y = w_c), color = met_slate, size = 2) +
+  geom_segment(aes(x = 0, xend = l_c, y = w_c, yend = w_c), color = met_slate, linetype = "dashed") +
+  geom_segment(aes(x = l_c, xend = l_c, y = 0, yend = w_c), color = met_slate, linetype = "dashed") +
+  geom_point(aes(x = l_m, y = w_m), color = met_slate, size = 2) +
+  geom_segment(aes(x = l_m, xend = l_m, y = 0, yend = w_m), color = met_slate, linetype = "dashed") +
+  geom_segment(aes(x = 0, xend = l_m, y = w_m, yend = w_m), color = met_slate, linetype = "dashed")
+plot
+```
+]
+.pull-right[
+In a perfectly competitive market, the point<br>(E.sub[C], w.sub[C]) characterizes the market equilibrium.
+
+In a monopsony, the point (E.sub[M], w.sub[M]) characterizes the market equilibrium.
+
+]
+
+---
+count: false
+# Perfect competition *vs.* monpsony
+
+.pull-left[
+```{r, dev = "svg", echo = F, fig.height = 5.5, fig.width = 5.5}
+plot
+```
+]
+.pull-right[
+In a perfectly competitive market, the point<br>(E.sub[C], w.sub[C]) characterizes the market equilibrium.
+
+In a monopsony, the point (E.sub[M], w.sub[M]) characterizes the market equilibrium.
+
+**The takeaway?** Monopsonies generate lower wages and less employment than competitive markets.
+
+- **Q:** Why does this matter?
+
+]
+
+---
+# Perfect competition *vs.* monpsony
+
+.pull-left[
+```{r, dev = "svg", echo = F, fig.height = 5.5, fig.width = 5.5}
+plot <- ggplot(data = data.frame(x = 0), mapping = aes(x = x)) +
+  scale_x_continuous(limits = c(0, 10.5), expand = c(0, 0), breaks = c(l_c), labels = c(expression(E[C]))) +
+  scale_y_continuous(limits = c(0, 10.5), expand = c(0, 0), breaks = c(w_c), labels = c(expression(w[C]))) +
+  theme_market +
+  labs(x = "E", y = "$") +
+  stat_function(aes(x), fun = demand, color = purple, size = 1) +
+  stat_function(aes(x), fun = supply, color = red_pink, size = 1) +
+  # employer surplus
+  geom_ribbon(data = data.frame(z = seq(0, l_c, 0.01)), aes(x = z, ymin = w_c, ymax = demand(z)), fill = purple, alpha = 0.2, linetype = "blank") +
+  annotate("text", label = "Employer surplus", x = l_c / 2.75, y = w_c + 1, color = purple, family = "Fira Sans", size = 4) +
+  # worker surplus
+  geom_ribbon(data = data.frame(z = seq(0, l_c, 0.01)), aes(x = z, ymin = supply(z), ymax = w_c), fill = red_pink, alpha = 0.2, linetype = "blank") +
+  annotate("text", label = "Worker surplus", x = l_c / 2.75, y = w_c - 1, color = red_pink, family = "Fira Sans", size = 4) +
+  # labels
+  annotate("label", label = expression(D==VMP[E]), x = 9, y = demand(9), color = purple, family = "Fira Sans", size = 5) +
+  annotate("label", label = "S", x = 9, y = supply(9), color = red_pink, family = "Fira Sans", size = 5) +
+  geom_point(aes(x = l_c, y = w_c), color = met_slate, size = 2) +
+  geom_segment(aes(x = 0, xend = l_c, y = w_c, yend = w_c), color = met_slate, linetype = "dashed") +
+  geom_segment(aes(x = l_c, xend = l_c, y = 0, yend = w_c), color = met_slate, linetype = "dashed")
+plot
+```
+]
+.pull-right[
+## **Welfare analysis**
+
+**Total surplus** describes **mutual gains** from employment.
+
+- Workers experience monetary benefits from working (.pink[worker surplus]).
+- Employers experience monetary benefits from hiring (.purple[employer surplus]). 
+- Total surplus .mono[=] .pink[worker surplus] .mono[+] .purple[employer surplus].
+
+]
+
+---
+# Perfect competition *vs.* monpsony
+
+.pull-left[
+```{r, dev = "svg", echo = F, fig.height = 5.5, fig.width = 5.5}
+plot
+```
+]
+.pull-right[
+## **Welfare analysis**
+
+**Total surplus** describes **mutual gains** from employment.
+
+A perfectly competitive market **maximizes** total surplus!
+]
+
+---
+# Perfect competition *vs.* monpsony
+
+.pull-left[
+```{r, dev = "svg", echo = F, fig.height = 5.5, fig.width = 5.5}
+ggplot(data = data.frame(x = 0), mapping = aes(x = x)) +
+  scale_x_continuous(limits = c(0, 10.5), expand = c(0, 0), breaks = c(l_m, l_c), labels = c(expression(E[M]), expression(E[C]))) +
+  scale_y_continuous(limits = c(0, 10.5), expand = c(0, 0), breaks = c(w_m), labels = c(expression(w[M]))) +
+  theme_market +
+  labs(x = "E", y = "$") +
+  stat_function(aes(x), fun = marginal_cost, color = green, size = 1) +
+  annotate("label", label = expression(MC[E]), x = 4.5, y = marginal_cost(4.5), color = green, family = "Fira Sans", size = 5) +
+  stat_function(aes(x), fun = demand, color = purple, size = 1) +
+  stat_function(aes(x), fun = supply, color = red_pink, size = 1) +
+  # employer surplus
+  geom_ribbon(data = data.frame(z = seq(0, l_m, 0.01)), aes(x = z, ymin = vmp_m, ymax = demand(z)), fill = purple, alpha = 0.2, linetype = "blank") +
+  geom_ribbon(data = data.frame(z = seq(0, l_m, 0.01)), aes(x = z, ymin = w_m, ymax = vmp_m), fill = purple, alpha = 0.2, linetype = "blank") +
+
+  # worker surplus
+  geom_ribbon(data = data.frame(z = seq(0, l_m, 0.01)), aes(x = z, ymin = supply(z), ymax = w_m), fill = red_pink, alpha = 0.2, linetype = "blank") +
+  # deadweight loss
+  geom_ribbon(data = data.frame(z = seq(l_m, l_c, 0.01)), aes(x = z, ymin = supply(z), ymax = w_c), fill = orange, alpha = 0.2, linetype = "blank") +
+  geom_ribbon(data = data.frame(z = seq(l_m, l_c, 0.01)), aes(x = z, ymin = w_c, ymax = demand(z)), fill = orange, alpha = 0.2, linetype = "blank") +
+  annotate("text", label = "DWL", x = (l_c + l_m) / 2.1, y = w_c, color = orange, family = "Fira Sans", size = 4) +
+  # labels
+  annotate("label", label = expression(D==VMP[E]), x = 9, y = demand(9), color = purple, family = "Fira Sans", size = 5) +
+  annotate("label", label = "S", x = 9, y = supply(9), color = red_pink, family = "Fira Sans", size = 5) +
+  geom_point(aes(x = l_c, y = w_c), color = met_slate, size = 2) +
+  geom_point(aes(x = l_m, y = vmp_m), color = met_slate, size = 2) +
+  geom_segment(aes(x = l_m, xend = l_m, y = w_m, yend = vmp_m), color = met_slate, linetype = "dashed") +
+  geom_segment(aes(x = l_c, xend = l_c, y = 0, yend = w_c), color = met_slate, linetype = "dashed") +
+  geom_point(aes(x = l_m, y = w_m), color = met_slate, size = 2) +
+  geom_segment(aes(x = l_m, xend = l_m, y = 0, yend = w_m), color = met_slate, linetype = "dashed") +
+  geom_segment(aes(x = 0, xend = l_m, y = w_m, yend = w_m), color = met_slate, linetype = "dashed")
+```
+]
+.pull-right[
+## **Welfare analysis**
+
+**Total surplus** describes **mutual gains** from employment.
+
+A monopsony **fails to maximize** total surplus!
+
+- .orange[Deadweight loss (DWL)] represents unrealized mutual gains from employment.
+
+A monopsony **transfers** surplus **from workers to employers.**
+
+]
+
+---
+count: false
+# Perfect competition *vs.* monpsony
+
+.pull-left[
+```{r, dev = "svg", echo = F, fig.height = 5.5, fig.width = 5.5}
+ggplot(data = data.frame(x = 0), mapping = aes(x = x)) +
+  scale_x_continuous(limits = c(0, 10.5), expand = c(0, 0), breaks = c(l_m, l_c), labels = c(expression(E[M]), expression(E[C]))) +
+  scale_y_continuous(limits = c(0, 10.5), expand = c(0, 0), breaks = c(w_m), labels = c(expression(w[M]))) +
+  theme_market +
+  labs(x = "E", y = "$") +
+  stat_function(aes(x), fun = marginal_cost, color = green, size = 1) +
+  annotate("label", label = expression(MC[E]), x = 4.5, y = marginal_cost(4.5), color = green, family = "Fira Sans", size = 5) +
+  stat_function(aes(x), fun = demand, color = purple, size = 1) +
+  stat_function(aes(x), fun = supply, color = red_pink, size = 1) +
+  # deadweight loss
+  geom_ribbon(data = data.frame(z = seq(l_m, l_c, 0.01)), aes(x = z, ymin = supply(z), ymax = w_c), fill = orange, alpha = 0.2, linetype = "blank") +
+  geom_ribbon(data = data.frame(z = seq(l_m, l_c, 0.01)), aes(x = z, ymin = w_c, ymax = demand(z)), fill = orange, alpha = 0.2, linetype = "blank") +
+  annotate("text", label = "DWL", x = (l_c + l_m) / 2.1, y = w_c, color = orange, family = "Fira Sans", size = 4) +
+  # labels
+  annotate("label", label = expression(D==VMP[E]), x = 9, y = demand(9), color = purple, family = "Fira Sans", size = 5) +
+  annotate("label", label = "S", x = 9, y = supply(9), color = red_pink, family = "Fira Sans", size = 5) +
+  geom_point(aes(x = l_c, y = w_c), color = met_slate, size = 2) +
+  geom_point(aes(x = l_m, y = vmp_m), color = met_slate, size = 2) +
+  geom_segment(aes(x = l_m, xend = l_m, y = w_m, yend = vmp_m), color = met_slate, linetype = "dashed") +
+  geom_segment(aes(x = l_c, xend = l_c, y = 0, yend = w_c), color = met_slate, linetype = "dashed") +
+  geom_point(aes(x = l_m, y = w_m), color = met_slate, size = 2) +
+  geom_segment(aes(x = l_m, xend = l_m, y = 0, yend = w_m), color = met_slate, linetype = "dashed") +
+  geom_segment(aes(x = 0, xend = l_m, y = w_m, yend = w_m), color = met_slate, linetype = "dashed")
+```
+]
+.pull-right[
+## **Welfare analysis**
+
+**Total surplus** describes **mutual gains** from employment.
+
+A monopsony **fails to maximize** total surplus!
+
+- .orange[Deadweight loss (DWL)] represents unrealized mutual gains from employment.
+
+A monopsony **transfers** surplus **from workers to employers.**
+
+]
+
+---
+# Wage markdown
+
+.pull-left[
+```{r, dev = "svg", echo = F, fig.height = 5.5, fig.width = 5.5}
+x <- 0:10
+supply <- function(x) 1 + x
+demand <- function(x) 10 - x
+marginal_cost <- function(x) 1 + 2 * x
+l_m <- uniroot(function(x) demand(x) - marginal_cost(x), range(x))$root
+w_m <- supply(l_m)
+vmp_m <- demand(l_m)
+l_c <- uniroot(function(x) demand(x) - supply(x), range(x))$root
+w_c <- demand(l_c)
+
+base <- ggplot(data = data.frame(x = 0), mapping = aes(x = x)) +
+  scale_x_continuous(limits = c(0, 10.5), expand = c(0, 0), breaks = c(l_m), labels = c(expression(E[M]))) +
+  scale_y_continuous(limits = c(0, 10.5), expand = c(0, 0), breaks = c(w_m, vmp_m), labels = c(expression(w[M]), expression(VMP[M]))) +
+  theme_market +
+  labs(x = "E", y = "$") +
+  stat_function(aes(x), fun = marginal_cost, color = green, size = 1) +
+  annotate("label", label = expression(MC[E]), x = 4.5, y = marginal_cost(4.5), color = green, family = "Fira Sans", size = 5) +
+  stat_function(aes(x), fun = demand, color = purple, size = 1) +
+  stat_function(aes(x), fun = supply, color = red_pink, size = 1) +
+  annotate("label", label = expression(D==VMP[E]), x = 9, y = demand(9), color = purple, family = "Fira Sans", size = 5) +
+  annotate("label", label = "S", x = 9, y = supply(9), color = red_pink, family = "Fira Sans", size = 5) +
+  geom_point(aes(x = l_m, y = w_m), color = met_slate, size = 2) +
+  geom_point(aes(x = l_m, y = vmp_m), color = met_slate, size = 2) +
+  geom_segment(aes(x = l_m, xend = l_m, y = 0, yend = w_m), color = met_slate, linetype = "dashed") +
+  geom_segment(aes(x = 0, xend = l_m, y = w_m, yend = w_m), color = met_slate, linetype = "dashed") +
+  geom_segment(aes(x = l_m, xend = l_m, y = w_m, yend = vmp_m), color = met_slate, linetype = "solid", size = 1) +
+  geom_segment(aes(x = 0, xend = l_m, y = vmp_m, yend = vmp_m), color = met_slate, linetype = "dashed")
+base
+```
+]
+.pull-right[
+The **wage markdown** is the difference between VMP.sub[M] and w.sub[M].
+
+- The marginal worker is paid less than than her marginal contribution to the firm!
+]
+
+---
+count: false
+# Wage markdown
+
+.pull-left[
+```{r, dev = "svg", echo = F, fig.height = 5.5, fig.width = 5.5}
+base
+```
+]
+.pull-right[
+The **wage markdown** is the difference between VMP.sub[M] and w.sub[M].
+
+- The marginal worker is paid less than than her marginal contribution to the firm!
+
+The size of this markdown depends on the elasticity of labor supply.
+
+- As $\sigma$ increases, the markdown decreases.
+]
+
+---
+count: false
+# Wage markdown
+
+.pull-left[
+```{r, dev = "svg", echo = F, fig.height = 5.5, fig.width = 5.5}
+x <- 0:10
+supply <- function(x) 1 + 0.75 * x
+demand <- function(x) 10 - x
+marginal_cost <- function(x) 1 + 1.5 * x
+l_m <- uniroot(function(x) demand(x) - marginal_cost(x), range(x))$root
+w_m <- supply(l_m)
+vmp_m <- demand(l_m)
+l_c <- uniroot(function(x) demand(x) - supply(x), range(x))$root
+w_c <- demand(l_c)
+
+ggplot(data = data.frame(x = 0), mapping = aes(x = x)) +
+  scale_x_continuous(limits = c(0, 10.5), expand = c(0, 0), breaks = c(l_m), labels = c(expression(E[M]))) +
+  scale_y_continuous(limits = c(0, 10.5), expand = c(0, 0), breaks = c(w_m, vmp_m), labels = c(expression(w[M]), expression(VMP[M]))) +
+  theme_market +
+  labs(x = "E", y = "$") +
+  stat_function(aes(x), fun = marginal_cost, color = green, size = 1) +
+  annotate("label", label = expression(MC[E]), x = 4.5, y = marginal_cost(4.5), color = green, family = "Fira Sans", size = 5) +
+  stat_function(aes(x), fun = demand, color = purple, size = 1) +
+  stat_function(aes(x), fun = supply, color = red_pink, size = 1) +
+  annotate("label", label = expression(D==VMP[E]), x = 9, y = demand(9), color = purple, family = "Fira Sans", size = 5) +
+  annotate("label", label = "S", x = 9, y = supply(9), color = red_pink, family = "Fira Sans", size = 5) +
+  geom_point(aes(x = l_m, y = w_m), color = met_slate, size = 2) +
+  geom_point(aes(x = l_m, y = vmp_m), color = met_slate, size = 2) +
+  geom_segment(aes(x = l_m, xend = l_m, y = 0, yend = w_m), color = met_slate, linetype = "dashed") +
+  geom_segment(aes(x = 0, xend = l_m, y = w_m, yend = w_m), color = met_slate, linetype = "dashed") +
+  geom_segment(aes(x = l_m, xend = l_m, y = w_m, yend = vmp_m), color = met_slate, linetype = "solid", size = 1) +
+  geom_segment(aes(x = 0, xend = l_m, y = vmp_m, yend = vmp_m), color = met_slate, linetype = "dashed")
+```
+]
+.pull-right[
+The **wage markdown** is the difference between VMP.sub[M] and w.sub[M].
+
+- The marginal worker is paid less than than her marginal contribution to the firm!
+
+The size of this markdown depends on the elasticity of labor supply.
+
+- As $\sigma$ increases, the markdown decreases.
+]
+
+---
+count: false
+# Wage markdown
+
+.pull-left[
+```{r, dev = "svg", echo = F, fig.height = 5.5, fig.width = 5.5}
+x <- 0:10
+supply <- function(x) 1 + 0.5 * x
+demand <- function(x) 10 - x
+marginal_cost <- function(x) 1 + 1 * x
+l_m <- uniroot(function(x) demand(x) - marginal_cost(x), range(x))$root
+w_m <- supply(l_m)
+vmp_m <- demand(l_m)
+l_c <- uniroot(function(x) demand(x) - supply(x), range(x))$root
+w_c <- demand(l_c)
+
+ggplot(data = data.frame(x = 0), mapping = aes(x = x)) +
+  scale_x_continuous(limits = c(0, 10.5), expand = c(0, 0), breaks = c(l_m), labels = c(expression(E[M]))) +
+  scale_y_continuous(limits = c(0, 10.5), expand = c(0, 0), breaks = c(w_m, vmp_m), labels = c(expression(w[M]), expression(VMP[M]))) +
+  theme_market +
+  labs(x = "E", y = "$") +
+  stat_function(aes(x), fun = marginal_cost, color = green, size = 1) +
+  annotate("label", label = expression(MC[E]), x = 8, y = marginal_cost(8), color = green, family = "Fira Sans", size = 5) +
+  stat_function(aes(x), fun = demand, color = purple, size = 1) +
+  stat_function(aes(x), fun = supply, color = red_pink, size = 1) +
+  annotate("label", label = expression(D==VMP[E]), x = 9, y = demand(9), color = purple, family = "Fira Sans", size = 5) +
+  annotate("label", label = "S", x = 9, y = supply(9), color = red_pink, family = "Fira Sans", size = 5) +
+  geom_point(aes(x = l_m, y = w_m), color = met_slate, size = 2) +
+  geom_point(aes(x = l_m, y = vmp_m), color = met_slate, size = 2) +
+  geom_segment(aes(x = l_m, xend = l_m, y = 0, yend = w_m), color = met_slate, linetype = "dashed") +
+  geom_segment(aes(x = 0, xend = l_m, y = w_m, yend = w_m), color = met_slate, linetype = "dashed") +
+  geom_segment(aes(x = l_m, xend = l_m, y = w_m, yend = vmp_m), color = met_slate, linetype = "solid", size = 1) +
+  geom_segment(aes(x = 0, xend = l_m, y = vmp_m, yend = vmp_m), color = met_slate, linetype = "dashed")
+```
+]
+.pull-right[
+The **wage markdown** is the difference between VMP.sub[M] and w.sub[M].
+
+- The marginal worker is paid less than than her marginal contribution to the firm!
+
+The size of this markdown depends on the elasticity of labor supply.
+
+- As $\sigma$ increases, the markdown decreases.
+]
+
+---
+count: false
+# Wage markdown
+
+.pull-left[
+```{r, dev = "svg", echo = F, fig.height = 5.5, fig.width = 5.5}
+x <- 0:10
+supply <- function(x) 1 + 0.25 * x
+demand <- function(x) 10 - x
+marginal_cost <- function(x) 1 + 0.5 * x
+l_m <- uniroot(function(x) demand(x) - marginal_cost(x), range(x))$root
+w_m <- supply(l_m)
+vmp_m <- demand(l_m)
+l_c <- uniroot(function(x) demand(x) - supply(x), range(x))$root
+w_c <- demand(l_c)
+
+ggplot(data = data.frame(x = 0), mapping = aes(x = x)) +
+  scale_x_continuous(limits = c(0, 10.5), expand = c(0, 0), breaks = c(l_m), labels = c(expression(E[M]))) +
+  scale_y_continuous(limits = c(0, 10.5), expand = c(0, 0), breaks = c(w_m, vmp_m), labels = c(expression(w[M]), expression(VMP[M]))) +
+  theme_market +
+  labs(x = "E", y = "$") +
+  stat_function(aes(x), fun = marginal_cost, color = green, size = 1) +
+  annotate("label", label = expression(MC[E]), x = 9, y = marginal_cost(9), color = green, family = "Fira Sans", size = 5) +
+  stat_function(aes(x), fun = demand, color = purple, size = 1) +
+  stat_function(aes(x), fun = supply, color = red_pink, size = 1) +
+  annotate("label", label = expression(D==VMP[E]), x = 9, y = demand(9), color = purple, family = "Fira Sans", size = 5) +
+  annotate("label", label = "S", x = 9, y = supply(9), color = red_pink, family = "Fira Sans", size = 5) +
+  geom_point(aes(x = l_m, y = w_m), color = met_slate, size = 2) +
+  geom_point(aes(x = l_m, y = vmp_m), color = met_slate, size = 2) +
+  geom_segment(aes(x = l_m, xend = l_m, y = 0, yend = w_m), color = met_slate, linetype = "dashed") +
+  geom_segment(aes(x = 0, xend = l_m, y = w_m, yend = w_m), color = met_slate, linetype = "dashed") +
+  geom_segment(aes(x = l_m, xend = l_m, y = w_m, yend = vmp_m), color = met_slate, linetype = "solid", size = 1) +
+  geom_segment(aes(x = 0, xend = l_m, y = vmp_m, yend = vmp_m), color = met_slate, linetype = "dashed")
+```
+]
+.pull-right[
+The **wage markdown** is the difference between VMP.sub[M] and w.sub[M].
+
+- The marginal worker is paid less than than her marginal contribution to the firm!
+
+The size of this markdown depends on the elasticity of labor supply.
+
+- As $\sigma$ increases, the markdown decreases.
+]
+
+---
+# Perfect competition *vs.* monpsony
+
+.pull-left[
+## **Perfect competition**
+
+1. Many employers
+
+2. Each employer is a **price taker** in the labor market&mdash;the hiring decisions of an employer have no impact on the market wage<br>.mono[-->] no market power!
+
+3. The marginal worker receives a wage **equal to** the value of her marginal product.
+
+4. Efficient!
+]
+.pull-right[
+## **Monopsony**
+
+1. One employer
+
+2. Monopsonist is a **price maker** in the labor market&mdash;the hiring decisions of this employer affect the market wage<br>.mono[-->] significant market power!
+
+3. The marginal worker receives a wage **less than** the value of her marginal product.
+
+4. Inefficient!
+]
+
+---
+# Policy implications?
+
+**Q:** If monopsonistic labor markets are inefficient and perhaps inequitable, what can we do about it?
+
+- Perhaps we should extend anti-trust laws to employers?
+- Increase the minimum wage?
+- Unions?
+- Something else?
+
+---
+# Housekeeping
+
+**Assigned reading for Sunday:** [Labor Market Concentration](http://jhr.uwpress.org/content/early/2020/05/04/jhr.monopsony.1218-9914R1.abstract) by Jose Azar, Ioana Marinescu, and Marshall Steinbaum (2020).
+
+- I will post the paper tonight.
+- The quiz instructions will describe the sections I want you to read closely.
+- Reading Quiz 6 is due by **Sunday, May 9th at 23:59**. 
+
+
+

@@ -1,0 +1,1188 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Monopsony</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Kyle Raze" />
+    <script src="10-Monopsony_files/header-attrs/header-attrs.js"></script>
+    <link href="10-Monopsony_files/remark-css/default.css" rel="stylesheet" />
+    <link href="10-Monopsony_files/remark-css/metropolis.css" rel="stylesheet" />
+    <link href="10-Monopsony_files/remark-css/metropolis-fonts.css" rel="stylesheet" />
+    <script src="10-Monopsony_files/fabric/fabric.min.js"></script>
+    <link href="10-Monopsony_files/xaringanExtra-scribble/scribble.css" rel="stylesheet" />
+    <script src="10-Monopsony_files/xaringanExtra-scribble/scribble.js"></script>
+    <script>document.addEventListener('DOMContentLoaded', function() { window.xeScribble = new Scribble({"pen_color":["#FF0000"],"pen_size":3,"eraser_size":30}) })</script>
+    <script src="10-Monopsony_files/kePrint/kePrint.js"></script>
+    <link href="10-Monopsony_files/lightable/lightable.css" rel="stylesheet" />
+    <link rel="stylesheet" href="my-css.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Monopsony
+## EC 350: Labor Economics
+### <a href="https://kyleraze.com">Kyle Raze</a>
+### Spring 2021
+
+---
+
+
+
+
+# Peri et al. (2020)
+
+## Discussion
+
+**Q.sub[1]:** What natural experiment did the authors use to measure the effect of immigration on wages and employment? Did you find it compelling?
+
+**Q.sub[2]:** What did the authors find?
+
+**Q.sub[3]:** Do you think their estimates are externally valid?
+
+**Q.sub[4]:** What are the implications for immigration policy?
+
+---
+class: inverse, middle
+
+# Monopsony
+
+---
+# Monopsony
+
+A **monopsony is a market** with a single buyer.
+
+- In a labor market, this would entail that there is only one employer, which we call a **monopsonist**.
+
+
+--
+
+**Why does this matter?** Monopsonies are inefficient!
+
+- In a monopsonistic labor market, workers **earn less** and there is **underemployment**.
+- Can exacerbate inequality!
+
+
+--
+
+Most labor markets are probably closer to monopsony than to perfect competition.
+
+- Employers with significant **market power**? Probably the norm rather than the exception.
+
+---
+# Monopsony
+
+## Discussion
+
+**Q:** Is Amazon a monopsonist? Why or why not?
+
+**Q:** Do large public research universities have monopsony power?
+
+**Q:** Is a sawmill in Eastern Oregon a monopsonist? What about a sawmill in Eugene?
+
+---
+# Monopsony
+
+## **Assumptions**
+
+We will continue to make most of the same assumptions as we did when we modeled supply and demand for a competitive market.
+
+- Perfect competition in capital and output markets
+- Homogeneous workers within a market
+- Various assumptions about preferences and production technology
+- Perfect information and complete contracts
+
+
+--
+
+We will now assume that there is **only one employer** whose hiring decisions can influence the market wage..super[.hi-pink[&lt;span&gt;&amp;#8224;&lt;/span&gt;]]
+
+.footnote[.super[.hi-pink[&lt;span&gt;&amp;#8224;&lt;/span&gt;]] We are still implicitly assuming that there is a single wage&amp;mdash;the employer cannot "discriminate" by offering different wages to different workers.]
+
+
+---
+# Labor supply elasticity
+
+## **Definition**
+
+&gt; A measure of the responsiveness of the quantity of labor supplied to changes in the wage
+
+&gt; `$$\sigma = \dfrac{\text{% change in quantity of labor supplied}}{\text{% change in wage}}$$`
+
+
+--
+
+**Interpretation?** A one-percent increase in wages increases the quantity of labor supplied by `\(\sigma\)` percent.
+
+- `\(\sigma &gt; 1\)` .mono[==&gt;] labor supply is .pink[elastic] or .pink[sensitive] to changes in the wage.
+- `\(0 \leq \sigma &lt; 1\)` .mono[==&gt;] labor supply is .pink[inelastic] or .pink[insensitive] to changes in the wage.
+
+---
+# Labor supply elasticity
+
+.pull-left[
+&lt;img src="10-Monopsony_files/figure-html/unnamed-chunk-1-1.svg" style="display: block; margin: auto;" /&gt;
+]
+.pull-right[
+### .pink[Perfectly elastic labor supply]
+
+Quantity of labor supplied falls to zero when the wage decreases and approaches infinity when the wage increases.
+
+`\(\sigma\)` .mono[-&gt;] `\(\infty\)`
+
+]
+
+---
+# Labor supply elasticity
+
+.pull-left[
+&lt;img src="10-Monopsony_files/figure-html/unnamed-chunk-2-1.svg" style="display: block; margin: auto;" /&gt;
+]
+.pull-right[
+### .pink[Perfectly inelastic labor supply]
+
+Quantity of labor supplied does not change when the wage changes.
+
+`\(\sigma = 0\)`
+
+]
+
+---
+# Labor supply elasticity
+
+.pull-left[
+&lt;img src="10-Monopsony_files/figure-html/unnamed-chunk-3-1.svg" style="display: block; margin: auto;" /&gt;
+]
+.pull-right[
+
+*All else being equal*, flatter supply curves are .pink[more elastic] than steeper supply curves.
+
+As `\(\sigma\)` decreases, the same wage increase leads to smaller increases in the quantity of labor supplied.
+
+]
+
+---
+count: false
+# Labor supply elasticity
+
+.pull-left[
+&lt;img src="10-Monopsony_files/figure-html/unnamed-chunk-4-1.svg" style="display: block; margin: auto;" /&gt;
+]
+.pull-right[
+
+*All else being equal*, flatter supply curves are .pink[more elastic] than steeper supply curves.
+
+As `\(\sigma\)` decreases, the same wage increase leads to smaller increases in the quantity of labor supplied.
+
+]
+
+---
+count: false
+# Labor supply elasticity
+
+.pull-left[
+&lt;img src="10-Monopsony_files/figure-html/unnamed-chunk-5-1.svg" style="display: block; margin: auto;" /&gt;
+]
+.pull-right[
+
+*All else being equal*, flatter supply curves are .pink[more elastic] than steeper supply curves.
+
+As `\(\sigma\)` decreases, the same wage increase leads to smaller increases in the quantity of labor supplied.
+
+]
+
+---
+count: false
+# Labor supply elasticity
+
+.pull-left[
+&lt;img src="10-Monopsony_files/figure-html/unnamed-chunk-6-1.svg" style="display: block; margin: auto;" /&gt;
+]
+.pull-right[
+
+*All else being equal*, flatter supply curves are .pink[more elastic] than steeper supply curves.
+
+As `\(\sigma\)` decreases, the same wage increase leads to smaller increases in the quantity of labor supplied.
+
+]
+
+---
+count: false
+# Labor supply elasticity
+
+.pull-left[
+&lt;img src="10-Monopsony_files/figure-html/unnamed-chunk-7-1.svg" style="display: block; margin: auto;" /&gt;
+]
+.pull-right[
+
+*All else being equal*, flatter supply curves are .pink[more elastic] than steeper supply curves.
+
+As `\(\sigma\)` decreases, the same wage increase leads to smaller increases in the quantity of labor supplied.
+
+]
+
+---
+# Monopsonist *vs.* competitive employer
+
+Workers have few employment opportunities in a monopsonistic labor market. &lt;br&gt; `\(\quad\)` .mono[--&gt;] A monopsonist faces the labor supply curve for the entire market.
+
+.pull-left[
+.center[**Monopsonist**]
+&lt;img src="10-Monopsony_files/figure-html/unnamed-chunk-8-1.svg" style="display: block; margin: auto;" /&gt;
+]
+.pull-right[
+.center[**Perfectly competitive employer**]
+&lt;img src="10-Monopsony_files/figure-html/unnamed-chunk-9-1.svg" style="display: block; margin: auto;" /&gt;
+]
+
+---
+# Monopsonist *vs.* competitive employer
+
+Workers have more employment opportunities in a competitive labor market. &lt;br&gt; `\(\quad\)` .mono[--&gt;] Individual employers face flat supply curves.
+
+.pull-left[
+.center[**Monopsonist**]
+&lt;img src="10-Monopsony_files/figure-html/unnamed-chunk-10-1.svg" style="display: block; margin: auto;" /&gt;
+]
+.pull-right[
+.center[**Perfectly competitive employer**]
+&lt;img src="10-Monopsony_files/figure-html/unnamed-chunk-11-1.svg" style="display: block; margin: auto;" /&gt;
+]
+
+---
+# Profit maximization
+
+## **Perfect competition**
+
+A competitive employer maximizes profit by hiring `\(E^*\)` workers such that `\(w = \text{VMP}_E\)` and `\(\text{VMP}_E\)` is decreasing.
+
+- The employer keeps hiring until the **marginal cost** of the last worker equals the **marginal benefit** of the last worker.
+
+
+--
+
+## **Monopsony**
+
+A monopsonist maximizes profit maximizes profit by hiring `\(E^*\)` workers such that `\(\text{MC}_E = \text{VMP}_E\)` and `\(\text{VMP}_E\)` is decreasing.
+
+- **The difference?** Marginal cost is no longer equal to the wage&amp;mdash;the monopsonist has increase the wage to attract additional workers *and* pay this new wage to existing workers.
+
+
+---
+class: clear-slide
+
+**Q:** Given supply and demand for labor, how many workers would a monopsonist hire?
+
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:center;"&gt; Workers (E) &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; VMP (demand) &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; Wage (supply) &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; Wage × E &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; Marginal cost &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; — &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 80 &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 70 &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 85 &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt;  &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 120 &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 90 &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt;  &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 95 &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 95 &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt;  &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 4 &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 50 &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 100 &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt;  &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+---
+count: false
+class: clear-slide
+
+**Q:** Given supply and demand for labor, how many workers would a monopsonist hire?
+
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:center;"&gt; Workers (E) &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; VMP (demand) &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; Wage (supply) &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; Wage × E &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; Marginal cost &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; — &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 80 &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 70 &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 85 &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 85 &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt;  &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 120 &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 90 &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt;  &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 95 &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 95 &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt;  &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 4 &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 50 &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 100 &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt;  &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+---
+count: false
+class: clear-slide
+
+**Q:** Given supply and demand for labor, how many workers would a monopsonist hire?
+
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:center;"&gt; Workers (E) &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; VMP (demand) &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; Wage (supply) &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; Wage × E &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; Marginal cost &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; — &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 80 &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 70 &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 85 &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 85 &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt;  &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 120 &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 90 &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 180 &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt;  &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 95 &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 95 &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt;  &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 4 &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 50 &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 100 &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt;  &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+---
+count: false
+class: clear-slide
+
+**Q:** Given supply and demand for labor, how many workers would a monopsonist hire?
+
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:center;"&gt; Workers (E) &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; VMP (demand) &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; Wage (supply) &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; Wage × E &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; Marginal cost &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; — &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 80 &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 70 &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 85 &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 85 &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt;  &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 120 &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 90 &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 180 &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt;  &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 95 &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 95 &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 285 &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt;  &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 4 &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 50 &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 100 &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 400 &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt;  &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+---
+count: false
+class: clear-slide
+
+**Q:** Given supply and demand for labor, how many workers would a monopsonist hire?
+
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:center;"&gt; Workers (E) &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; VMP (demand) &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; Wage (supply) &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; Wage × E &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; Marginal cost &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; — &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 80 &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 70 &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 85 &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 85 &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 85 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 120 &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 90 &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 180 &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt;  &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 95 &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 95 &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 285 &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt;  &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 4 &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 50 &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 100 &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 400 &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt;  &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+---
+count: false
+class: clear-slide
+
+**Q:** Given supply and demand for labor, how many workers would a monopsonist hire?
+
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:center;"&gt; Workers (E) &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; VMP (demand) &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; Wage (supply) &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; Wage × E &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; Marginal cost &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; — &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 80 &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 70 &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 85 &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 85 &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 85 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 120 &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 90 &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 180 &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 95 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 95 &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 95 &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 285 &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt;  &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 4 &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 50 &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 100 &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 400 &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt;  &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+---
+count: false
+class: clear-slide
+
+**Q:** Given supply and demand for labor, how many workers would a monopsonist hire?
+
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:center;"&gt; Workers (E) &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; VMP (demand) &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; Wage (supply) &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; Wage × E &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; Marginal cost &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; — &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 80 &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 70 &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 85 &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 85 &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 85 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 120 &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 90 &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 180 &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 95 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 95 &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 95 &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 285 &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 105 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 4 &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 50 &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 100 &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 400 &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt;  &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+---
+count: false
+class: clear-slide
+
+**Q:** Given supply and demand for labor, how many workers would a monopsonist hire?
+
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:center;"&gt; Workers (E) &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; VMP (demand) &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; Wage (supply) &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; Wage × E &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; Marginal cost &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; — &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 80 &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 70 &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 85 &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 85 &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 85 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 120 &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 90 &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 180 &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 95 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 95 &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 95 &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 285 &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 105 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 4 &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 50 &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 100 &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 400 &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;line-height: 110%;"&gt; 115 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+--
+
+**A:** A monopsonist would hire 2 workers.
+
+- As close to `\(\text{MC}_E = \text{VMP}_E\)` as the employer can get.
+
+--
+
+
+**Q:** How many employees would a perfectly competitive employer hire?
+
+--
+
+**A:** A perfectly competitive employer would hire 3 workers.
+
+- Where `\(w = \text{VMP}_E\)`.
+
+---
+# Profit maximization
+
+.pull-left[
+&lt;img src="10-Monopsony_files/figure-html/unnamed-chunk-20-1.svg" style="display: block; margin: auto;" /&gt;
+]
+.pull-right[
+**Q:** How does a monopsonist maximize profit?
+]
+
+---
+count: false
+# Profit maximization
+
+.pull-left[
+&lt;img src="10-Monopsony_files/figure-html/unnamed-chunk-21-1.svg" style="display: block; margin: auto;" /&gt;
+]
+.pull-right[
+**Q:** How does a monopsonist maximize profit?
+
+**A:** Two steps!
+]
+
+---
+count: false
+# Profit maximization
+
+.pull-left[
+&lt;img src="10-Monopsony_files/figure-html/unnamed-chunk-22-1.svg" style="display: block; margin: auto;" /&gt;
+]
+.pull-right[
+**Q:** How does a monopsonist maximize profit?
+
+**A:** Two steps!
+
+- **Step 1:** Hire E.sub[M] where .green[MC.sub[E]] .mono[=] .purple[VMP.sub[E]].
+
+]
+
+---
+count: false
+# Profit maximization
+
+.pull-left[
+&lt;img src="10-Monopsony_files/figure-html/unnamed-chunk-23-1.svg" style="display: block; margin: auto;" /&gt;
+]
+.pull-right[
+**Q:** How does a monopsonist maximize profit?
+
+**A:** Two steps!
+
+- **Step 1:** Hire E.sub[M] where .green[MC.sub[E]] .mono[=] .purple[VMP.sub[E]].
+
+]
+
+
+---
+count: false
+# Profit maximization
+
+.pull-left[
+&lt;img src="10-Monopsony_files/figure-html/unnamed-chunk-24-1.svg" style="display: block; margin: auto;" /&gt;
+]
+.pull-right[
+**Q:** How does a monopsonist maximize profit?
+
+**A:** Two steps!
+
+- **Step 1:** Hire E.sub[M] where .green[MC.sub[E]] .mono[=] .purple[VMP.sub[E]].
+- **Step 2:** Set w.sub[M] on the .pink[supply curve].
+
+]
+
+---
+count: false
+# Profit maximization
+
+.pull-left[
+&lt;img src="10-Monopsony_files/figure-html/unnamed-chunk-25-1.svg" style="display: block; margin: auto;" /&gt;
+]
+.pull-right[
+**Q:** How does a monopsonist maximize profit?
+
+**A:** Two steps!
+
+- **Step 1:** Hire E.sub[M] where .green[MC.sub[E]] .mono[=] .purple[VMP.sub[E]].
+- **Step 2:** Set w.sub[M] on the .pink[supply curve].
+
+]
+
+---
+count: false
+# Profit maximization
+
+.pull-left[
+&lt;img src="10-Monopsony_files/figure-html/unnamed-chunk-26-1.svg" style="display: block; margin: auto;" /&gt;
+]
+.pull-right[
+**Q:** How does a monopsonist maximize profit?
+
+**A:** Two steps!
+
+- **Step 1:** Hire E.sub[M] where .green[MC.sub[E]] .mono[=] .purple[VMP.sub[E]].
+- **Step 2:** Set w.sub[M] on the .pink[supply curve].
+
+The point (E.sub[M], w.sub[M]) characterizes the monopsony equilibrium.
+
+]
+
+---
+# Perfect competition *vs.* monpsony
+
+.pull-left[
+&lt;img src="10-Monopsony_files/figure-html/unnamed-chunk-27-1.svg" style="display: block; margin: auto;" /&gt;
+]
+.pull-right[
+In a perfectly competitive market, the point&lt;br&gt;(E.sub[C], w.sub[C]) characterizes the market equilibrium.
+
+In a monopsony, the point (E.sub[M], w.sub[M]) characterizes the market equilibrium.
+
+]
+
+---
+count: false
+# Perfect competition *vs.* monpsony
+
+.pull-left[
+&lt;img src="10-Monopsony_files/figure-html/unnamed-chunk-28-1.svg" style="display: block; margin: auto;" /&gt;
+]
+.pull-right[
+In a perfectly competitive market, the point&lt;br&gt;(E.sub[C], w.sub[C]) characterizes the market equilibrium.
+
+In a monopsony, the point (E.sub[M], w.sub[M]) characterizes the market equilibrium.
+
+**The takeaway?** Monopsonies generate lower wages and less employment than competitive markets.
+
+- **Q:** Why does this matter?
+
+]
+
+---
+# Perfect competition *vs.* monpsony
+
+.pull-left[
+&lt;img src="10-Monopsony_files/figure-html/unnamed-chunk-29-1.svg" style="display: block; margin: auto;" /&gt;
+]
+.pull-right[
+## **Welfare analysis**
+
+**Total surplus** describes **mutual gains** from employment.
+
+- Workers experience monetary benefits from working (.pink[worker surplus]).
+- Employers experience monetary benefits from hiring (.purple[employer surplus]). 
+- Total surplus .mono[=] .pink[worker surplus] .mono[+] .purple[employer surplus].
+
+]
+
+---
+# Perfect competition *vs.* monpsony
+
+.pull-left[
+&lt;img src="10-Monopsony_files/figure-html/unnamed-chunk-30-1.svg" style="display: block; margin: auto;" /&gt;
+]
+.pull-right[
+## **Welfare analysis**
+
+**Total surplus** describes **mutual gains** from employment.
+
+A perfectly competitive market **maximizes** total surplus!
+]
+
+---
+# Perfect competition *vs.* monpsony
+
+.pull-left[
+&lt;img src="10-Monopsony_files/figure-html/unnamed-chunk-31-1.svg" style="display: block; margin: auto;" /&gt;
+]
+.pull-right[
+## **Welfare analysis**
+
+**Total surplus** describes **mutual gains** from employment.
+
+A monopsony **fails to maximize** total surplus!
+
+- .orange[Deadweight loss (DWL)] represents unrealized mutual gains from employment.
+
+A monopsony **transfers** surplus **from workers to employers.**
+
+]
+
+---
+count: false
+# Perfect competition *vs.* monpsony
+
+.pull-left[
+&lt;img src="10-Monopsony_files/figure-html/unnamed-chunk-32-1.svg" style="display: block; margin: auto;" /&gt;
+]
+.pull-right[
+## **Welfare analysis**
+
+**Total surplus** describes **mutual gains** from employment.
+
+A monopsony **fails to maximize** total surplus!
+
+- .orange[Deadweight loss (DWL)] represents unrealized mutual gains from employment.
+
+A monopsony **transfers** surplus **from workers to employers.**
+
+]
+
+---
+# Wage markdown
+
+.pull-left[
+&lt;img src="10-Monopsony_files/figure-html/unnamed-chunk-33-1.svg" style="display: block; margin: auto;" /&gt;
+]
+.pull-right[
+The **wage markdown** is the difference between VMP.sub[M] and w.sub[M].
+
+- The marginal worker is paid less than than her marginal contribution to the firm!
+]
+
+---
+count: false
+# Wage markdown
+
+.pull-left[
+&lt;img src="10-Monopsony_files/figure-html/unnamed-chunk-34-1.svg" style="display: block; margin: auto;" /&gt;
+]
+.pull-right[
+The **wage markdown** is the difference between VMP.sub[M] and w.sub[M].
+
+- The marginal worker is paid less than than her marginal contribution to the firm!
+
+The size of this markdown depends on the elasticity of labor supply.
+
+- As `\(\sigma\)` increases, the markdown decreases.
+]
+
+---
+count: false
+# Wage markdown
+
+.pull-left[
+&lt;img src="10-Monopsony_files/figure-html/unnamed-chunk-35-1.svg" style="display: block; margin: auto;" /&gt;
+]
+.pull-right[
+The **wage markdown** is the difference between VMP.sub[M] and w.sub[M].
+
+- The marginal worker is paid less than than her marginal contribution to the firm!
+
+The size of this markdown depends on the elasticity of labor supply.
+
+- As `\(\sigma\)` increases, the markdown decreases.
+]
+
+---
+count: false
+# Wage markdown
+
+.pull-left[
+&lt;img src="10-Monopsony_files/figure-html/unnamed-chunk-36-1.svg" style="display: block; margin: auto;" /&gt;
+]
+.pull-right[
+The **wage markdown** is the difference between VMP.sub[M] and w.sub[M].
+
+- The marginal worker is paid less than than her marginal contribution to the firm!
+
+The size of this markdown depends on the elasticity of labor supply.
+
+- As `\(\sigma\)` increases, the markdown decreases.
+]
+
+---
+count: false
+# Wage markdown
+
+.pull-left[
+&lt;img src="10-Monopsony_files/figure-html/unnamed-chunk-37-1.svg" style="display: block; margin: auto;" /&gt;
+]
+.pull-right[
+The **wage markdown** is the difference between VMP.sub[M] and w.sub[M].
+
+- The marginal worker is paid less than than her marginal contribution to the firm!
+
+The size of this markdown depends on the elasticity of labor supply.
+
+- As `\(\sigma\)` increases, the markdown decreases.
+]
+
+---
+# Perfect competition *vs.* monpsony
+
+.pull-left[
+## **Perfect competition**
+
+1. Many employers
+
+2. Each employer is a **price taker** in the labor market&amp;mdash;the hiring decisions of an employer have no impact on the market wage&lt;br&gt;.mono[--&gt;] no market power!
+
+3. The marginal worker receives a wage **equal to** the value of her marginal product.
+
+4. Efficient!
+]
+.pull-right[
+## **Monopsony**
+
+1. One employer
+
+2. Monopsonist is a **price maker** in the labor market&amp;mdash;the hiring decisions of this employer affect the market wage&lt;br&gt;.mono[--&gt;] significant market power!
+
+3. The marginal worker receives a wage **less than** the value of her marginal product.
+
+4. Inefficient!
+]
+
+---
+# Policy implications?
+
+**Q:** If monopsonistic labor markets are inefficient and perhaps inequitable, what can we do about it?
+
+- Perhaps we should extend anti-trust laws to employers?
+- Increase the minimum wage?
+- Unions?
+- Something else?
+
+---
+# Housekeeping
+
+**Assigned reading for Sunday:** [Labor Market Concentration](http://jhr.uwpress.org/content/early/2020/05/04/jhr.monopsony.1218-9914R1.abstract) by Jose Azar, Ioana Marinescu, and Marshall Steinbaum (2020).
+
+- I will post the paper tonight.
+- The quiz instructions will describe the sections I want you to read closely.
+- Reading Quiz 6 is due by **Sunday, May 9th at 23:59**. 
+
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="https://platform.twitter.com/widgets.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
