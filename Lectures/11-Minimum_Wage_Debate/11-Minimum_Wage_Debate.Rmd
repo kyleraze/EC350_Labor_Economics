@@ -563,7 +563,7 @@ ggplot(data = data.frame(x = 0), mapping = aes(x = x)) +
   scale_y_continuous(limits = c(0, 10.5), expand = c(0, 0), breaks = c(p_1, min_wage), labels = c(expression(w[1]), expression(underline(w)))) +
   theme_market +
   labs(x = "E", y = "w") +
-  stat_function(fun = demand, color = purple, size = 1, alpha = 0.5) +
+  stat_function(fun = demand, color = purple, size = 1) +
   stat_function(fun = supply, color = red_pink, size = 1) +
   geom_point(x = q_1, y = p_1, color = met_slate, size = 2) +
   geom_segment(x = 0, xend = q_1, y = p_1, yend = p_1, color = met_slate, linetype = "dashed") +
@@ -884,7 +884,7 @@ Perhaps we should expect **heterogeneous effects?**
 ---
 # Housekeeping
 
-**Assigned reading for Wednesday:** [Minimum Wage Increases, Wages, and Low-Wage Employment: Evidence from Seattle](https://www.nber.org/papers/w23532) by Ekaterina Jardim and coathors (2017).
+**Assigned reading for Wednesday:** [Minimum Wage Increases, Wages, and Low-Wage Employment: Evidence from Seattle](https://www.nber.org/papers/w23532) by Ekaterina Jardim and coauthors (2017).
 
 - Reading Quiz 7 is due by **Wednesday, May 12th at 16:00**.
 - The quiz instructions will include a reading guide.
