@@ -28,3 +28,5 @@ The HTML versions of the lecture slides allow you to view animations and interac
 9. **Labor Markets** <br> [.html](https://raw.githack.com/kyleraze/EC350_Labor_Economics/master/Lectures/09-Labor_Markets/09-Labor_Markets.html) | [.pdf](https://raw.githack.com/kyleraze/EC350_Labor_Economics/master/Lectures/09-Labor_Markets/09-Labor_Markets.pdf)
 
 10. **Monopsony** <br> [.html](https://raw.githack.com/kyleraze/EC350_Labor_Economics/master/Lectures/10-Monopsony/10-Monopsony.html) | [.pdf](https://raw.githack.com/kyleraze/EC350_Labor_Economics/master/Lectures/10-Monopsony/10-Monopsony.pdf)
+
+11. **The Great Minimum Wage Debate** <br> [.html](https://raw.githack.com/kyleraze/EC350_Labor_Economics/master/Lectures/11-Minimum_Wage_Debate/11-Minimum_Wage_Debate.html) | [.pdf](https://raw.githack.com/kyleraze/EC350_Labor_Economics/master/Lectures/11-Minimum_Wage_Debate/11-Minimum_Wage_Debate.pdf)

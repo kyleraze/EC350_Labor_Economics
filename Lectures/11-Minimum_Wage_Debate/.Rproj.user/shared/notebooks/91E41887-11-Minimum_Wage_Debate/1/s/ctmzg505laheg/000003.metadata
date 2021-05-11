@@ -1,0 +1,1 @@
+{"height":5.5,"width":5.5,"size_behavior":1,"conditions":[[1,"Removed 5 row(s) containing missing values (geom_path)."],[1,"Removed 10 row(s) containing missing values (geom_path)."],[1,"is.na() applied to non-(list or vector) of type 'expression'"],[1,"is.na() applied to non-(list or vector) of type 'expression'"]]}

@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>The Great Minimum Wage Debate</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Kyle Raze" />
+    <script src="11-Minimum_Wage_Debate_files/header-attrs/header-attrs.js"></script>
+    <link href="11-Minimum_Wage_Debate_files/remark-css/default.css" rel="stylesheet" />
+    <link href="11-Minimum_Wage_Debate_files/remark-css/metropolis.css" rel="stylesheet" />
+    <link href="11-Minimum_Wage_Debate_files/remark-css/metropolis-fonts.css" rel="stylesheet" />
+    <script src="11-Minimum_Wage_Debate_files/fabric/fabric.min.js"></script>
+    <link href="11-Minimum_Wage_Debate_files/xaringanExtra-scribble/scribble.css" rel="stylesheet" />
+    <script src="11-Minimum_Wage_Debate_files/xaringanExtra-scribble/scribble.js"></script>
+    <script>document.addEventListener('DOMContentLoaded', function() { window.xeScribble = new Scribble({"pen_color":["#FF0000"],"pen_size":3,"eraser_size":30}) })</script>
+    <link rel="stylesheet" href="my-css.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# The Great Minimum Wage Debate
+## EC 350: Labor Economics
+### <a href="https://kyleraze.com">Kyle Raze</a>
+### Spring 2021
+
+---
+
+
+
+
+# Azar et al. (2020)
+
+## **Discussion**
+
+**Q.sub[1]:** What are the strengths of the study?
+
+**Q.sub[2]:** What are the weaknesses of the study?
+
+**Q.sub[3]:** What can we learn from the study?
+
+---
+# Azar et al. (2020)
+
+The authors worry about unobserved changes in productivity within markets, so they use an **instrumental variables strategy**.
+
+- An **instrumental variable** has a direct effect on the intensity of treatment, but has no direct effect on the outcome variable. It can be used to **isolate** the **"clean" variation in treatment**.
+
+
+--
+
+.pull-left[
+&lt;img src="11-Minimum_Wage_Debate_files/figure-html/unnamed-chunk-1-1.svg" style="display: block; margin: auto;" /&gt;
+]
+.pull-right[
+**Variables**
+- .hi[D] .mono[=] Local market concentration
+- .hi[Y] .mono[=] Local wages
+- .hi[Z] .mono[=] Instrument (concentration in other markets)
+- .hi[U] .mono[=] Unobserved changes *within* each market
+
+]
+
+---
+# Azar et al. (2020)
+
+## **Instrumental variables**
+
+The instrument (concentration in other markets) is valid if it only affects local wages through local market concentration. If there is a direct effect on local wages, then it is invalid.
+
+.pull-left[
+.center[**Valid instrument**]
+&lt;img src="11-Minimum_Wage_Debate_files/figure-html/unnamed-chunk-2-1.svg" style="display: block; margin: auto;" /&gt;
+]
+.pull-right[
+.center[**Invalid instrument**]
+&lt;img src="11-Minimum_Wage_Debate_files/figure-html/unnamed-chunk-3-1.svg" style="display: block; margin: auto;" /&gt;
+]
+
+---
+class: inverse, middle
+
+# Minimum wages
+
+---
+# Minimum wages
+
+.bigger[**Policy Q:** Should the federal government increase the minimum wage to $15?]
+
+--
+
+**Research Q:** How would a $15 minimum wage affect workers and employers?
+
+- **Q:** Would a higher minimum wage help low-wage workers? Would it reduce poverty?
+- **Q:** What are the tradeoffs of a higher minimum wage?
+- **Q:** Are there are any unintended consequences that we should be aware of?
+
+
+--
+
+A great deal of economic research focuses on **how minimum wages affect employment**.
+
+- **Why?** Disemployment is one of the main (potential) unintended consequences. You only enjoy the benefits of a wage increase if you keep your job!
+
+---
+# Minimum wages
+
+.pull-left[
+&lt;img src="11-Minimum_Wage_Debate_files/figure-html/unnamed-chunk-4-1.svg" style="display: block; margin: auto;" /&gt;
+]
+.pull-right[
+## **Theory**
+
+**Q:** How does a minimum wage **set below** the current equilibrium wage affect employment?
+]
+
+---
+count: false
+# Minimum wages
+
+.pull-left[
+&lt;img src="11-Minimum_Wage_Debate_files/figure-html/unnamed-chunk-5-1.svg" style="display: block; margin: auto;" /&gt;
+]
+.pull-right[
+## **Theory**
+
+**Q:** How does a minimum wage **set below** the current equilibrium wage affect employment?
+
+**A:** It doesn't. The current equilibrium wage **already satisfies** the minimum-wage requirement. No adjustments required!
+
+- At the same time, this minimum wage doesn't "do anything" for workers&amp;mdash;no different than not having a minimum wage!
+- This is known as a **non-binding** minimum wage.
+]
+
+---
+# Minimum wages
+
+.pull-left[
+&lt;img src="11-Minimum_Wage_Debate_files/figure-html/unnamed-chunk-6-1.svg" style="display: block; margin: auto;" /&gt;
+]
+.pull-right[
+## **Theory**
+
+**Q:** How does a minimum wage **set above** the current equilibrium wage affect employment?
+]
+
+---
+count: false
+# Minimum wages
+
+.pull-left[
+&lt;img src="11-Minimum_Wage_Debate_files/figure-html/unnamed-chunk-7-1.svg" style="display: block; margin: auto;" /&gt;
+]
+.pull-right[
+## **Theory**
+
+**Q:** How does a minimum wage **set above** the current equilibrium wage affect employment?
+
+**A:** It reduces the number of employed workers.
+
+- **"Winners and losers:"** Workers who keep their jobs earn a higher wage, but workers who lose their jobs end up losing their labor income.
+- **Unemployment:** At the higher wage, the quantity of labor supplied exceeds the quantity demanded.
+]
+
+---
+# Minimum wages
+
+.pull-left[
+## **Evidence**
+
+There is considerable variation in estimates of the effect of minimum wages on employment!
+
+Most studies use **difference-in-differences designs**, but differ on other margins:
+
+- **Data** (*e.g.,* surveys *vs.* administrative data)
+- **Sample** (*e.g.,* restaurant workers only, teens only, all low-wage workers, *etc.*)
+- **Modeling** (*e.g.,* choice of control variables)
+- **Increases considered** (*e.g.,* case studies, federal increases, state increases, *etc.*)
+
+]
+.pull-right[
+&lt;img src="dube_2019.png" width="315" style="display: block; margin: auto;" /&gt;
+.footnote[*Source:* Arindrajit Dube (2019), [Impacts of Minimum Wages: Review of the International Evidence](https://www.gov.uk/government/publications/impacts-of-minimum-wages-review-of-the-international-evidence), *Report prepared for Her Majesty's Treasury (UK)*.]
+]
+
+---
+# Minimum wages
+
+.pull-left[
+## **Evidence**
+
+There is considerable variation in estimates of the effect of minimum wages on employment!
+
+Most studies use **difference-in-differences designs**, but differ on other margins.
+
+.hi[There is even disagreement about how to summarize the empirical literature!]
+
+]
+.pull-right[
+&lt;img src="neumark_shirley_2021.png" width="613" style="display: block; margin: auto;" /&gt;
+
+.footnote[*Source:* David Neumark and Peter Shirley (2021), [Myth or Measurement: What Does the New Minimum Wage Research Say About Minimum Wages and Job Loss in the United States?](https://www.nber.org/papers/w28388), *NBER Working Paper 28388*.]
+]
+
+---
+# Minimum wages
+
+## **What do we know so far?**
+
+The traditional neoclassical model predicts **an unambiguous decrease** in employment!
+
+Economists disagree about how minimum wages affect employment, but it does appear that some increases in the minimum wage increased employment.
+
+--
+
+This raises important questions!
+
+- **Q:** Is the neoclassical model wrong? What is missing from our analysis?
+- **Q:** How do employers respond to increases in the minimum wage? On what margins do they make adjustments?
+
+---
+# Margins of adjustment
+
+.pull-left[
+&lt;img src="11-Minimum_Wage_Debate_files/figure-html/unnamed-chunk-10-1.svg" style="display: block; margin: auto;" /&gt;
+]
+.pull-right[
+## **Consumer prices**
+
+Firms can respond to a binding minimum wage by **increasing the price** of the output good.
+
+- This is known as **pass-through**, which can partially **offset** the effects of a wage increase.
+
+]
+
+---
+count: false
+# Margins of adjustment
+
+.pull-left[
+&lt;img src="11-Minimum_Wage_Debate_files/figure-html/unnamed-chunk-11-1.svg" style="display: block; margin: auto;" /&gt;
+]
+.pull-right[
+## **Consumer prices**
+
+Firms can respond to a binding minimum wage by **increasing the price** of the output good.
+
+- This is known as **pass-through**, which can partially **offset** the effects of a wage increase.
+- The ability of firms to increase prices depends on consumers' sensitivity to changes in price.
+
+In this example, the **decrease in employment is smaller** than when prices are held constant, but unemployment remains.
+ 
+]
+
+---
+# Margins of adjustment
+
+.pull-left[
+&lt;img src="11-Minimum_Wage_Debate_files/figure-html/unnamed-chunk-12-1.svg" style="display: block; margin: auto;" /&gt;
+]
+.pull-right[
+## **Fringe benefits**
+
+Firms can respond to a binding minimum wage by **cutting fringe benefits**.
+
+- In addition to reducing supply, decreases in non-wage compensation also increase demand!.super[.hi-pink[&lt;span&gt;&amp;#8224;&lt;/span&gt;]]
+
+.footnote[.super[.hi-pink[&lt;span&gt;&amp;#8224;&lt;/span&gt;]] Fringe benefits affect the marginal cost of hiring a worker, but our previous analysis of profit maximization implicitly assumed that firms do not provide non-wage compensation.]
+]
+
+---
+count: false
+# Margins of adjustment
+
+.pull-left[
+&lt;img src="11-Minimum_Wage_Debate_files/figure-html/unnamed-chunk-13-1.svg" style="display: block; margin: auto;" /&gt;
+]
+.pull-right[
+## **Fringe benefits**
+
+Firms can respond to a binding minimum wage by **cutting fringe benefits**.
+
+- In addition to reducing supply, decreases in non-wage compensation also increase demand!.super[.hi-pink[&lt;span&gt;&amp;#8224;&lt;/span&gt;]]
+
+In this example, the decrease in fringe benefits **perfectly offsets** the wage increase.
+
+- No unemployment!
+
+.footnote[.super[.hi-pink[&lt;span&gt;&amp;#8224;&lt;/span&gt;]] Fringe benefits affect the marginal cost of hiring a worker, but our previous analysis of profit maximization implicitly assumed that firms do not provide non-wage compensation.]
+]
+
+---
+# Margins of adjustment
+
+.pull-left[
+&lt;img src="11-Minimum_Wage_Debate_files/figure-html/unnamed-chunk-14-1.svg" style="display: block; margin: auto;" /&gt;
+]
+.pull-right[
+## **Effort requirements**
+
+Firms can respond to a binding minimum wage by **making employees work harder**.
+
+- Working conditions become less desirable, which decreases labor supply.
+- Marginal product of labor increases, which increases labor demand
+]
+
+---
+count: false
+# Margins of adjustment
+
+.pull-left[
+&lt;img src="11-Minimum_Wage_Debate_files/figure-html/unnamed-chunk-15-1.svg" style="display: block; margin: auto;" /&gt;
+]
+.pull-right[
+## **Effort requirements**
+
+Firms can respond to a binding minimum wage by **making employees work harder**.
+
+- Working conditions become less desirable, which decreases labor supply.
+- Marginal product of labor increases, which increases labor demand
+
+In this example, employment decreases, but there is no unemployment.
+
+]
+
+---
+# Margins of adjustment
+
+.pull-left[
+&lt;img src="11-Minimum_Wage_Debate_files/figure-html/unnamed-chunk-16-1.svg" style="display: block; margin: auto;" /&gt;
+]
+.pull-right[
+## **Profit**
+
+**Q:** How would a monopsonist respond to a binding minimum wage?
+]
+
+---
+count: false
+# Margins of adjustment
+
+.pull-left[
+&lt;img src="11-Minimum_Wage_Debate_files/figure-html/unnamed-chunk-17-1.svg" style="display: block; margin: auto;" /&gt;
+]
+.pull-right[
+## **Profit**
+
+**Q:** How would a monopsonist respond to a binding minimum wage?
+
+**A:** Hire additional workers at a higher wage!.super[.hi-pink[&lt;span&gt;&amp;#8224;&lt;/span&gt;]]
+
+- No unemployment, either!
+
+.footnote[.super[.hi-pink[&lt;span&gt;&amp;#8224;&lt;/span&gt;]] This is true up to a point. If the minimum wage is set above the value of marginal product of the last worker hired in an unregulated monopsony, then employment will decrease.]
+]
+
+---
+# Margins of adjustment
+
+.pull-left[
+&lt;img src="11-Minimum_Wage_Debate_files/figure-html/unnamed-chunk-18-1.svg" style="display: block; margin: auto;" /&gt;
+]
+.pull-right[
+## **Profit**
+**Q:** How does this work?
+]
+
+---
+count: false
+# Margins of adjustment
+
+.pull-left[
+&lt;img src="11-Minimum_Wage_Debate_files/figure-html/unnamed-chunk-19-1.svg" style="display: block; margin: auto;" /&gt;
+]
+.pull-right[
+## **Profit**
+
+**Q:** How does this work?
+
+**A:** The minimum wage "bends" the marginal cost curve.
+
+- In this example, the last worker hired is now paid the value of her marginal contribution!
+]
+
+---
+count: false
+# Margins of adjustment
+
+.pull-left[
+&lt;img src="11-Minimum_Wage_Debate_files/figure-html/unnamed-chunk-20-1.svg" style="display: block; margin: auto;" /&gt;
+]
+.pull-right[
+## **Profit**
+
+**Q:** How does this work?
+
+**A:** The minimum wage "bends" the marginal cost curve.
+
+- In this example, the last worker hired is now paid the value of her marginal contribution!
+]
+
+---
+# Other margins of adjustment
+
+**Q:** How else could employers respond to increases in the minimum wage?
+
+--
+
+- Long-run substitution toward capital?
+- Substitution toward other kinds of lasbor (*e.g.,* lower-skill to higher-skill)?
+- Non-compliance?
+
+
+--
+
+**Q:** Why do these responses matter?
+
+--
+
+- **A:** They determine whether minimum wage increases will have the intended effect of helping low-wage workers!
+
+---
+# Minimum wages
+
+## **What do we know?**
+
+--
+
+The evidence on employment effects is mixed!
+
+--
+
+That said, a closer look at **theory suggests that** the size and direction of **employment effects are ambiguous!**
+
+- **It depends!** In particular, it depends on
+    - How much firms can increase prices
+    - How much firms can cut non-wage compensation
+    - Whether firms can adjust their production process
+    - Whether firms have market power
+    - The ability of firms to substitute toward other inputs
+    - Compliance with the law
+
+
+
+
+--
+
+Perhaps we should expect **heterogeneous effects?**
+
+---
+# Minimum wages
+
+## **Where is the empirical research frontier?**
+
+--
+
+**Q:** *When* do minimum wages help low-wage workers? When do they hurt?
+
+- *Average* effects can provide useful summaries, but they can also mask a lot of interesting variation!
+
+
+--
+
+**Q:** What is the **optimal** way to help low-wage workers?
+
+- Do other policies (*e.g.,* the EITC) provide the **same assistance at lower cost** (or more assistance at the same cost)?
+- Are there other things we should consider (*e.g.,* political feasibility) when making this judgement?
+
+
+---
+# Housekeeping
+
+**Assigned reading for Wednesday:** [Minimum Wage Increases, Wages, and Low-Wage Employment: Evidence from Seattle](https://www.nber.org/papers/w23532) by Ekaterina Jardim and coathors (2017).
+
+- Reading Quiz 7 is due by **Wednesday, May 12th at 16:00**.
+- The quiz instructions will include a reading guide.
+
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="https://platform.twitter.com/widgets.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
