@@ -1,0 +1,768 @@
+---
+title: "Human Capital"
+subtitle: "EC 350: Labor Economics"
+author: "[Kyle Raze](https://kyleraze.com)"
+date: "Spring 2021"
+output:
+  xaringan::moon_reader:
+    css: ['default', 'metropolis', 'metropolis-fonts', 'my-css.css']
+    self_contained: false
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      beforeInit: "https://platform.twitter.com/widgets.js"
+      ratio: "16:9"
+---
+
+```{r Setup, include = F}
+options(htmltools.dir.version = FALSE)
+library(pacman)
+p_load(ggthemes, readxl, viridis, knitr, ggdag, gapminder, extrafont, tidyverse, magrittr, janitor, kableExtra)
+# Define colors
+red_pink <- "#e64173"
+met_slate <- "#272822" # metropolis font color 
+purple <- "#9370DB"
+green <- "#007935"
+light_green <- "#7DBA97"
+orange <- "#FD5F00"
+turquoise <- "#44C1C4"
+# Knitr options
+opts_chunk$set(
+  comment = "#>",
+  fig.align = "center",
+  fig.height = 7,
+  fig.width = 10.5,
+  #dpi = 300,
+  #cache = T,
+  warning = F,
+  message = F
+)  
+theme_simple <- theme_bw() + theme(
+  axis.line = element_line(color = met_slate),
+  panel.grid = element_blank(),
+  rect = element_blank(),
+  strip.text = element_blank(),
+  text = element_text(family = "Fira Sans", color = met_slate, size = 17),
+  axis.text.x = element_text(size = 12),
+  axis.text.y = element_text(size = 12),
+  axis.ticks = element_blank()
+)
+theme_market <- theme_bw() + theme(
+  axis.line = element_line(color = met_slate),
+  panel.grid = element_blank(),
+  rect = element_blank(),
+  strip.text = element_blank(),
+  text = element_text(family = "Fira Sans", color = met_slate, size = 17),
+  axis.title.x = element_text(hjust = 1, size = 17),
+  axis.title.y = element_text(hjust = 1, angle = 0, size = 17),
+  # axis.text.x = element_text(size = 12),
+  # axis.text.y = element_text(size = 12),
+  axis.ticks = element_blank()
+)
+theme_gif <- theme_bw() + theme(
+  axis.line = element_line(color = met_slate),
+  panel.grid = element_blank(),
+  rect = element_blank(),
+  text = element_text(family = "Fira Sans", color = met_slate, size = 17),
+  axis.text.x = element_text(size = 12),
+  axis.text.y = element_text(size = 12),
+  axis.ticks = element_blank()
+)
+
+xaringanExtra::use_scribble()
+```
+
+# Human Capital
+
+### **What is it?**
+
+Human capital is set of **acquired skills and experiences** that a worker brings into the labor market.
+
+- **Increases productivity** beyond a worker's innate abilities
+- Includes basic literacy and numeracy as well as more-advanced skills
+- Non-transferable
+- Varies in specificity (*e.g.,* knowing how to code *vs.* knowing how to code in an obscure language)
+
+
+--
+
+### **Why does it matter?**
+
+Human capital is an important source of **economic growth** and **inequality**.
+
+- Increasing human capital can improve living standards!
+- Differences in human capital accumulation generate differences in earnings across workers.
+
+---
+# "Typical" age-earnings profiles
+
+.pull-left[
+```{r, echo = FALSE, fig.height = 5.5, fig.width = 5.5, dev = "svg"}
+x <- seq(18, 40, 0.01)
+
+No_College <- function(x) 125*x^2 - 2.4*x^3 - 5000
+College <- function(x){ifelse(x >= 22, 185*x^2 + 1000 * x - 3.5*x^3 - 50000, NA)}
+
+base_plot <- ggplot(data = data.frame(x = 0), mapping = aes(x = x)) +
+  scale_x_continuous(limits = c(18, 40), expand=c(0,0), breaks = c(18, 22.2), labels = c("18", "22")) +
+  scale_y_continuous(limits = c(-15000, 75000), label = scales::dollar) +
+  theme_bw() +
+  theme(text = element_text(family = "Fira Sans", color = met_slate, size = 17),
+        axis.text.x = element_text(size = 12),
+        axis.text.y = element_text(size = 12),
+        axis.title.y = element_text(margin = margin(r = 10)),
+        axis.ticks = element_blank(),
+        axis.line = element_line(size = 0.75, color = met_slate),
+        axis.line.x = element_blank(),
+        axis.text = element_text(size = 18),
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        panel.border = element_blank(), 
+        panel.background = element_rect(fill = "transparent", color = NA),
+        plot.background = element_rect(fill = "transparent", color = NA)) +
+  labs(x = "Age", y = "Earnings") +
+  geom_hline(yintercept = 0, size = 0.75, color = met_slate) +
+  stat_function(aes(x), fun = No_College, color = green, size = 0.75) + # no college
+  annotate("label", label = "No College", x = 35, y = No_College(35), color = green, family = "Fira Sans", size = 5)
+
+base_plot
+```
+]
+.pull-right[
+
+Earnings increase with experience and eventually decrease with age.
+
+]
+
+---
+count: false
+# "Typical" age-earnings profiles
+
+.pull-left[
+```{r, echo = FALSE, fig.height = 5.5, fig.width = 5.5, dev = "svg"}
+base_plot +
+  stat_function(aes(x), fun = College, color = red_pink, size = 0.75) + # college
+  geom_segment(aes(x = 22.2, y = -13000, xend = 22.2, yend = College(22.2)), color = red_pink, size = 0.75, linetype = "solid") +
+  geom_segment(aes(x = 18, y = -13000, xend = 22.2, yend = -13000), color = red_pink, size = 0.75) +
+  annotate("label", label = "College", x = 35, y = College(35), color = red_pink, family = "Fira Sans", size = 5)
+```
+]
+.pull-right[
+
+Earnings increase with experience and eventually decrease with age.
+
+- **Q:** How does going to college alter this relationship?
+]
+
+---
+count: false
+# "Typical" age-earnings profiles
+
+.pull-left[
+```{r, echo = FALSE, fig.height = 5.5, fig.width = 5.5, dev = "svg"}
+base_plot +
+  stat_function(aes(x), fun = College, color = red_pink, size = 0.75) + # college
+  geom_segment(aes(x = 22.2, y = -13000, xend = 22.2, yend = College(22.2)), color = red_pink, size = 0.75, linetype = "solid") +
+  geom_segment(aes(x = 18, y = -13000, xend = 22.2, yend = -13000), color = red_pink, size = 0.75) +
+  annotate("label", label = "College", x = 35, y = College(35), color = red_pink, family = "Fira Sans", size = 5) +
+  annotate("text", label = "A", x = 20, y = -6500, color = met_slate, family = "Fira Sans", size = 6) +
+  annotate("text", label = "B", x = 20, y = 12500, color = met_slate, family = "Fira Sans", size = 6) +
+  annotate("text", label = "C", x = 35, y = 54500, color = met_slate, family = "Fira Sans", size = 6)
+```
+]
+.pull-right[
+
+Earnings increase with experience and eventually decrease with age.
+
+- **Q:** How does going to college alter this relationship?
+
+**Q:** What do areas A, B, and C represent?
+
+]
+
+---
+count: false
+# "Typical" age-earnings profiles
+
+.pull-left[
+```{r, echo = FALSE, fig.height = 5.5, fig.width = 5.5, dev = "svg"}
+base_plot +
+  stat_function(aes(x), fun = College, color = red_pink, size = 0.75) + # college
+  geom_segment(aes(x = 22.2, y = -13000, xend = 22.2, yend = College(22.2)), color = red_pink, size = 0.75, linetype = "solid") +
+  geom_segment(aes(x = 18, y = -13000, xend = 22.2, yend = -13000), color = red_pink, size = 0.75) +
+  annotate("label", label = "College", x = 35, y = College(35), color = red_pink, family = "Fira Sans", size = 5) +
+  annotate("text", label = "A", x = 20, y = -6500, color = met_slate, family = "Fira Sans", size = 6) +
+  annotate("text", label = "B", x = 20, y = 12500, color = met_slate, family = "Fira Sans", size = 6) +
+  annotate("text", label = "C", x = 35, y = 54500, color = met_slate, family = "Fira Sans", size = 6)
+```
+]
+.pull-right[
+
+Earnings increase with experience and eventually decrease with age.
+
+- **Q:** How does going to college alter this relationship?
+
+**Q:** What do areas A, B, and C represent?
+
+- Area A represents the **explicit cost** of college (tuition, books, *etc.*).
+- Area B represents the **opportunity cost** of college (forgone earnings).
+- Area C represents the monetary **returns to education**.
+
+]
+
+---
+# The benefits of education
+
+College is costly!
+
+- Tuition, books, room and board, forgone earnings, stress, *etc.*
+
+
+--
+
+
+
+**Q:** Why did *you* **choose to incur the costs** of going to college? 
+
+--
+
+- To live the life of the mind?
+- To increase your earnings potential?
+- To expand your social network? 
+- To accrue social prestige?
+- To set yourself apart?
+- To party?
+- To find love?
+
+
+--
+
+While education may have consumption value, we will consider schooling decisions **as investments.**
+
+---
+# Education as investment
+
+**Q:** When is it "worth it" to go to college?
+
+- **Benefits?** Going to college causes us to **earn more later in life**.
+- **Costs?** Going to college forces us to **forgo earnings now** (and pay tuition, *etc.*).
+
+
+--
+
+Evaluating this tradeoff requires us to compare dollar amounts spent and received in different time periods.
+
+- To do this, we will use the idea of **present value**, which tells us how much an amount of money received in the future is **worth today**.
+
+---
+# Education as investment
+
+## **Present value**
+
+$$\text{PV} = \dfrac{y}{(1 + r)^t}$$
+
+- $y$ is the dollar amount received $t$ periods in the future.
+- $r$ is the discount/interest rate.
+
+**The idea?** Getting 100 dollars today is worth more today than getting 100 dollars next year.
+
+- If you got 100 dollars today, you could invest it and end up with $100 \times (1 + r)$ one year from now!
+
+---
+# Education as investment
+
+## **Present value**
+
+$$\text{PV} = \dfrac{y}{(1 + r)^t}$$
+
+- $y$ is the dollar amount received $t$ periods in the future.
+- $r$ is the discount/interest rate.
+
+**Q:** If the interest rate is 10 percent, what is the present value of receiving 1,000 dollars two years from now?
+
+--
+
+**A:** 826.45 dollars and 45 cents. $$\begin{align} \text{PV} &= \dfrac{y}{(1 + r)^t} = \dfrac{1000}{(1 + 0.1)^2} = \dfrac{1000}{1.1^2} = \dfrac{1000}{1.21} = 826.45  \end{align}$$
+
+---
+# Education as investment
+
+.pull-left[
+```{r, echo = FALSE, fig.height = 5.5, fig.width = 5.5, dev = "svg"}
+x <- seq(18, 40, 0.01)
+
+No_College <- function(x) 30000
+College <- function(x){ifelse(x >= 22, 60000, NA)}
+
+base_plot <- ggplot(data = data.frame(x = 0), mapping = aes(x = x)) +
+  scale_x_continuous(limits = c(18, 40), expand=c(0,0), breaks = c(18, 22.2, 40), labels = c("18", "22", "65")) +
+  scale_y_continuous(limits = c(-15000, 75000), breaks = c(-13000, 0, 30000, 60000), labels = c(expression(-H), 0, expression(w[HS]), expression(w[College]))) +
+  theme_bw() +
+  theme(text = element_text(family = "Fira Sans", color = met_slate, size = 17),
+        axis.text.x = element_text(size = 12),
+        axis.text.y = element_text(size = 12),
+        axis.title.y = element_text(margin = margin(r = 10)),
+        axis.ticks = element_blank(),
+        axis.line = element_line(size = 0.75, color = met_slate),
+        axis.line.x = element_blank(),
+        axis.text = element_text(size = 18),
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        panel.border = element_blank(), 
+        panel.background = element_rect(fill = "transparent", color = NA),
+        plot.background = element_rect(fill = "transparent", color = NA)) +
+  labs(x = "Age", y = "Earnings") +
+  geom_hline(yintercept = 0, size = 0.75, color = met_slate) +
+  stat_function(aes(x), fun = No_College, color = green, size = 0.75) + # no college
+  annotate("label", label = "No College", x = 35, y = No_College(35), color = green, family = "Fira Sans", size = 5) +
+  stat_function(aes(x), fun = College, color = red_pink, size = 0.75) + # college
+  geom_segment(aes(x = 22.2, y = -13000, xend = 22.2, yend = College(22.2)), color = red_pink, size = 0.75, linetype = "solid") +
+  geom_segment(aes(x = 18, y = -13000, xend = 22.2, yend = -13000), color = red_pink, size = 0.75) +
+  annotate("label", label = "College", x = 35, y = College(35), color = red_pink, family = "Fira Sans", size = 5)
+
+base_plot
+```
+]
+.pull-right[
+**Q:** When is it "worth it" to go to college?
+
+**A:** Assuming that your objective is to maximize the present value of your **lifetime earnings**, college is worthwhile when $\text{PV}_\text{College} > \text{PV}_\text{HS}$. 
+
+]
+
+---
+count: false
+# Education as investment
+
+.pull-left[
+```{r, echo = FALSE, fig.height = 5.5, fig.width = 5.5, dev = "svg"}
+x <- seq(18, 40, 0.01)
+
+No_College <- function(x) 30000
+College <- function(x){ifelse(x >= 22, 60000, NA)}
+
+base_plot <- ggplot(data = data.frame(x = 0), mapping = aes(x = x)) +
+  scale_x_continuous(limits = c(18, 40), expand=c(0,0), breaks = c(18, 22.2, 40), labels = c("18", "22", "65")) +
+  scale_y_continuous(limits = c(-15000, 75000), breaks = c(-13000, 0, 30000, 60000), labels = c(expression(-H), 0, expression(w[HS]), expression(w[College]))) +
+  theme_bw() +
+  theme(text = element_text(family = "Fira Sans", color = met_slate, size = 17),
+        axis.text.x = element_text(size = 12),
+        axis.text.y = element_text(size = 12),
+        axis.title.y = element_text(margin = margin(r = 10)),
+        axis.ticks = element_blank(),
+        axis.line = element_line(size = 0.75, color = met_slate),
+        axis.line.x = element_blank(),
+        axis.text = element_text(size = 18),
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        panel.border = element_blank(), 
+        panel.background = element_rect(fill = "transparent", color = NA),
+        plot.background = element_rect(fill = "transparent", color = NA)) +
+  labs(x = "Age", y = "Earnings") +
+  geom_hline(yintercept = 0, size = 0.75, color = met_slate) +
+  stat_function(aes(x), fun = No_College, color = green, size = 0.75) + # no college
+  annotate("label", label = "No College", x = 35, y = No_College(35), color = green, family = "Fira Sans", size = 5) +
+  stat_function(aes(x), fun = College, color = red_pink, size = 0.75) + # college
+  geom_segment(aes(x = 22.2, y = -13000, xend = 22.2, yend = College(22.2)), color = red_pink, size = 0.75, linetype = "solid") +
+  geom_segment(aes(x = 18, y = -13000, xend = 22.2, yend = -13000), color = red_pink, size = 0.75) +
+  annotate("label", label = "College", x = 35, y = College(35), color = red_pink, family = "Fira Sans", size = 5)
+
+base_plot
+```
+]
+.pull-right[
+**Q:** When is it "worth it" to go to college?
+
+**A:** Assuming that your objective is to maximize the present value of your **lifetime earnings**, college is worthwhile when $\text{PV}_\text{College} > \text{PV}_\text{HS}$. 
+
+$$\begin{align} \small \text{PV}_\text{HS} &= \small w_\text{HS} + \dfrac{w_\text{HS}}{(1 + r)}+  \dfrac{w_\text{HS}}{(1 + r)^2} + \cdots + \dfrac{w_\text{HS}}{(1 + r)^{46}} \end{align}$$
+
+$$\begin{align} \small \text{PV}_\text{College} = & \small - H - \dfrac{H}{(1 + r)} - \dfrac{H}{(1 + r)^2} - \dfrac{H}{(1 + r)^3} \\  & \small + \small \dfrac{w_\text{College}}{(1 + r)^4} + \dfrac{w_\text{College}}{(1 + r)^5} + \cdots + \dfrac{w_\text{College}}{(1 + r)^{46}} \end{align}$$
+
+]
+
+---
+class: clear-slide
+
+**Example:** You are deciding whether to go back to school. 
+
+- You just turned 60, and it would take you 2 years to finish a master's program, which would cost you 10,000 dollars per year.
+- You currently earn 80,000 dollars per year. With a master's degree, you could earn 83,000. 
+- Regardless of your decision, you are going to retire at 65.
+
+**Q:** If your discount rate is 5 percent, will you choose to go back to school?
+
+---
+class: clear-slide
+
+**Example:** You are deciding whether to go back to school. 
+
+- You just turned 60, and it would take you 2 years to finish a master's program, which would cost you 10,000 dollars per year.
+- You currently earn 80,000 dollars per year. With a master's degree, you could earn 83,000. 
+- Regardless of your decision, you are going to retire at 65.
+
+**Q:** How would the following change your odds of going back to school?
+
+- Your discount rate increases?
+- Your post-master's earnings increase?
+- Tuition increases?
+- You plan to postpone your retirement?
+
+
+---
+# Returns to education
+
+.pull-left[
+```{r, echo = FALSE, fig.height = 5.5, fig.width = 5.5, dev = "svg"}
+wage_school <- function(x) 17500 * log(x + 1)
+mrr <- function(x) log(x + 2) / log(x + 1) - 1
+
+plot <- ggplot() +
+  stat_function(
+    data = tibble(x = 0:20),
+    xlim = c(0, 20),
+    fun = wage_school,
+    aes(x = x),
+    color = red_pink,
+    size = 1,
+  ) +
+  scale_x_continuous(limits = c(0, 21), expand = c(0, 0), breaks = seq(0, 20, 4)) +
+  scale_y_continuous(expand = c(0, 0), breaks = scales::pretty_breaks(), labels = scales::dollar) +
+  labs(x = "Years of education", y = "Earnings") +
+  theme_simple +
+  theme(axis.title.x = element_text(margin = margin(t = 10)),
+        axis.title.y = element_text(margin = margin(r = 10)))
+plot
+```
+]
+.pull-right[
+## .hi-pink[Wage-schooling locus]
+
+> The amount of money that employers are willing to pay *a particular worker* at every level of schooling. 
+
+]
+
+---
+count: false
+# Returns to education
+
+.pull-left[
+```{r, echo = FALSE, fig.height = 5.5, fig.width = 5.5, dev = "svg"}
+wage_school <- function(x) 17500 * log(x + 1)
+mrr <- function(x) log(x + 2) / log(x + 1) - 1
+
+plot <- ggplot() +
+  stat_function(
+    data = tibble(x = 0:20),
+    xlim = c(0, 20),
+    fun = wage_school,
+    aes(x = x),
+    color = red_pink,
+    size = 1,
+  ) +
+  scale_x_continuous(limits = c(0, 21), expand = c(0, 0), breaks = seq(0, 20, 4)) +
+  scale_y_continuous(expand = c(0, 0), breaks = scales::pretty_breaks(), labels = scales::dollar) +
+  labs(x = "Years of education", y = "Earnings") +
+  theme_simple +
+  theme(axis.title.x = element_text(margin = margin(t = 10)),
+        axis.title.y = element_text(margin = margin(r = 10)))
+plot
+```
+]
+.pull-right[
+## .hi-pink[Wage-schooling locus]
+
+> The amount of money that employers are willing to pay *a particular worker* at every level of schooling. 
+
+1. Upward sloping .mono[-->] more school, more money.
+
+2. Slope at a given point .mono[-->] marginal return of an additional year of schooling.
+
+3. Concave .mono[-->] diminishing returns to schooling. 
+
+]
+
+---
+# Returns to education
+
+.pull-left[
+```{r, echo = FALSE, fig.height = 5.5, fig.width = 5.5, dev = "svg"}
+mrr <- function(x) 0.85 - 1/30 * x
+
+plot <- ggplot() +
+  stat_function(
+    data = tibble(x = 0:20),
+    xlim = c(1, 20),
+    fun = mrr,
+    aes(x = x),
+    color = red_pink,
+    size = 1,
+  ) +
+  scale_x_continuous(limits = c(0, 21), expand = c(0, 0), breaks = seq(0, 20, 4)) +
+  scale_y_continuous(limits = c(0, 1.05), expand = c(0, 0), breaks = scales::pretty_breaks()) +
+  labs(x = "Years of education (e)", y = "Rate") +
+  theme_simple +
+  theme(axis.title.x = element_text(margin = margin(t = 10)),
+        axis.title.y = element_text(margin = margin(r = 10))) +
+  annotate("label", label = "MRR", x = 18, y = mrr(18), color = red_pink, family = "Fira Sans", size = 5)
+
+plot
+```
+]
+.pull-right[
+## .hi-pink[Marginal rate of return]
+
+> The percentage increase in earnings from an additional year of schooling: $$\text{MRR} = \dfrac{\%\Delta w}{\Delta e}$$
+
+]
+
+---
+# Schooling decisions
+
+## **The stopping rule**
+
+**Q:** How does a worker choose the optimal.super[.hi-pink[<span>&#8224;</span>]] amount of schooling?
+
+.footnote[.super[.hi-pink[<span>&#8224;</span>]] "Optimal" in the sense of maximizing the present value of lifetime earnings.]
+
+--
+
+**A:** A worker chooses the optimal amount of schooling $e^*$ where the marginal rate of return equals the discount rate: $$\text{MRR} = r$$
+
+--
+
+- If $\text{MRR} > r$, then schooling education would increase the present value of lifetime earnings.
+- If $\text{MRR} < r$, then the worker has "gone too far"&mdash;she could had a higher present value of lifetime earnings if she had completed less schooling.
+
+
+---
+# Schooling decisions
+
+.pull-left[
+```{r, echo = FALSE, fig.height = 5.5, fig.width = 5.5, dev = "svg"}
+x <- 0:20
+mrr <- function(x) 1 - 1/20 * x
+discount <- 0.55
+optimal_e <- uniroot(function(x) mrr(x) - discount, range(x))$root
+
+ggplot() +
+  stat_function(
+    data = tibble(x = 0:20),
+    xlim = c(1, 20),
+    fun = mrr,
+    aes(x = x),
+    color = red_pink,
+    size = 1,
+  ) +
+  annotate("label", label = "MRR", x = 18, y = mrr(18), color = red_pink, family = "Fira Sans", size = 5) +
+  geom_hline(yintercept = discount, color = met_slate, size = 1) +
+  geom_point(aes(x = optimal_e, y = discount), color = met_slate, size = 2) +
+  geom_segment(aes(x = optimal_e, y = 0, xend = optimal_e, yend = discount), linetype  = "dashed", color = met_slate) + 
+  scale_x_continuous(limits = c(0, 21), expand = c(0, 0), breaks = c(optimal_e), labels = c(expression(e^"*"))) +
+  scale_y_continuous(limits = c(0, 1.05), expand = c(0, 0), breaks = c(discount), labels = c(expression(r))) +
+  labs(x = "Years of education (e)", y = "Discount rate") +
+  theme_simple +
+  theme(axis.title.x = element_text(margin = margin(t = 10)),
+        axis.title.y = element_text(margin = margin(r = 10)))
+```
+]
+.pull-right[
+## **The stopping rule**
+
+A worker chooses the optimal amount of schooling where the marginal rate of return intersects the discount rate.
+]
+
+---
+# Comparing schooling decisions
+
+.pull-left[
+```{r, echo = FALSE, fig.height = 5.5, fig.width = 5.5, dev = "svg"}
+x <- 0:20
+mrr <- function(x) 1 - 1/20 * x
+discount_1 <- 0.75
+discount_2 <- 0.25
+optimal_e_1 <- uniroot(function(x) mrr(x) - discount_1, range(x))$root
+optimal_e_2 <- uniroot(function(x) mrr(x) - discount_2, range(x))$root
+
+plot <- ggplot() +
+  stat_function(
+    data = tibble(x = 0:20),
+    xlim = c(1, 20),
+    fun = mrr,
+    aes(x = x),
+    color = red_pink,
+    size = 1,
+  ) +
+  annotate("label", label = expression(MRR[1]==MRR[2]), x = 18, y = mrr(18), color = red_pink, family = "Fira Sans", size = 5) +
+  geom_hline(yintercept = discount_1, color = met_slate, size = 1) +
+  geom_hline(yintercept = discount_2, color = met_slate, size = 1) +
+  geom_point(aes(x = optimal_e_1, y = discount_1), color = met_slate, size = 2) +
+  geom_segment(aes(x = optimal_e_1, y = 0, xend = optimal_e_1, yend = discount_1), linetype  = "dashed", color = met_slate) + 
+  geom_point(aes(x = optimal_e_2, y = discount_2), color = met_slate, size = 2) +
+  geom_segment(aes(x = optimal_e_2, y = 0, xend = optimal_e_2, yend = discount_2), linetype  = "dashed", color = met_slate) + 
+  scale_x_continuous(limits = c(0, 21), expand = c(0, 0), breaks = c(optimal_e_1, optimal_e_2), labels = c(expression(e[1]), expression(e[2]))) +
+  scale_y_continuous(limits = c(0, 1.05), expand = c(0, 0), breaks = c(discount_2, discount_1), labels = c(expression(r[2]), expression(r[1]))) +
+  labs(x = "Years of education (e)", y = "Discount rate") +
+  theme_simple +
+  theme(axis.title.x = element_text(margin = margin(t = 10)),
+        axis.title.y = element_text(margin = margin(r = 10)))
+
+plot
+```
+]
+.pull-right[
+
+## **Differences in discount rates**
+
+Higher discount rate .mono[-->] less access to credit or stronger preferences toward immediate payoffs.
+
+- Given two individuals with the same ability, the person with a **higher discount rate** will complete **fewer years** of schooling.
+- In either case, the person with the higher discount rate will earn less money.
+
+
+
+
+]
+
+---
+count: false
+# Comparing schooling decisions
+
+.pull-left[
+```{r, echo = FALSE, fig.height = 5.5, fig.width = 5.5, dev = "svg"}
+plot
+```
+]
+.pull-right[
+
+## **Differences in discount rates**
+
+Higher discount rate .mono[-->] less access to credit or stronger preferences toward immediate payoffs.
+
+- Given two individuals with the same ability, the person with a **higher discount rate** will complete **fewer years** of schooling.
+- In either case, the person with the higher discount rate will earn less money.
+
+**Implications for policy?** Expanding educational opportunities to person with the higher discount rate will close the earnings gap!
+
+]
+
+---
+# Comparing schooling decisions
+
+.pull-left[
+```{r, echo = FALSE, fig.height = 5.5, fig.width = 5.5, dev = "svg"}
+x <- 0:20
+mrr_1 <- function(x) 0.75 - 1/20 * x
+mrr_2 <- function(x) 1.25 - 1/20 * x
+discount_1 <- 0.5
+discount_2 <- 0.5
+optimal_e_1 <- uniroot(function(x) mrr_1(x) - discount_1, range(x))$root
+optimal_e_2 <- uniroot(function(x) mrr_2(x) - discount_2, range(x))$root
+
+plot <- ggplot() +
+  stat_function(
+    data = tibble(x = 0:20),
+    xlim = c(1, 20),
+    fun = mrr_1,
+    aes(x = x),
+    color = red_pink,
+    size = 1,
+  ) +
+  annotate("label", label = expression(MRR[1]), x = 9, y = mrr_1(9), color = red_pink, family = "Fira Sans", size = 5) +
+  
+  stat_function(
+    data = tibble(x = 0:20),
+    xlim = c(1, 20),
+    fun = mrr_2,
+    aes(x = x),
+    color = purple,
+    size = 1,
+  ) +
+  annotate("label", label = expression(MRR[2]), x = 19, y = mrr_2(19), color = purple, family = "Fira Sans", size = 5) +
+  
+  geom_hline(yintercept = discount_1, color = met_slate, size = 1) +
+  geom_point(aes(x = optimal_e_1, y = discount_1), color = met_slate, size = 2) +
+  geom_segment(aes(x = optimal_e_1, y = 0, xend = optimal_e_1, yend = discount_1), linetype  = "dashed", color = met_slate) + 
+  geom_point(aes(x = optimal_e_2, y = discount_2), color = met_slate, size = 2) +
+  geom_segment(aes(x = optimal_e_2, y = 0, xend = optimal_e_2, yend = discount_2), linetype  = "dashed", color = met_slate) + 
+  scale_x_continuous(limits = c(0, 21), expand = c(0, 0), breaks = c(optimal_e_1, optimal_e_2), labels = c(expression(e[1]), expression(e[2]))) +
+  scale_y_continuous(limits = c(0, 1.05), expand = c(0, 0), breaks = c(discount_1), labels = c(expression(r))) +
+  labs(x = "Years of education (e)", y = "Discount rate") +
+  theme_simple +
+  theme(axis.title.x = element_text(margin = margin(t = 10)),
+        axis.title.y = element_text(margin = margin(r = 10)))
+
+plot
+```
+]
+.pull-right[
+
+## **Differences in ability**
+
+A .purple[higher-ability individual] "gets more" out of the same amount of schooling than a .pink[lower-ability individual] .mono[-->] higher marginal rate of return.
+
+- Given the same discount rate, then the .hi-purple[higher-ability individual] will complete **more schooling** and earn **more money**.
+]
+
+---
+count: false
+# Comparing schooling decisions
+
+.pull-left[
+```{r, echo = FALSE, fig.height = 5.5, fig.width = 5.5, dev = "svg"}
+plot
+```
+]
+.pull-right[
+
+## **Differences in ability**
+
+A .purple[higher-ability individual] "gets more" out of the same amount of schooling than a .pink[lower-ability individual] .mono[-->] higher marginal rate of return.
+
+- Given the same discount rate, then the .hi-purple[higher-ability individual] will complete **more schooling** and earn **more money**.
+
+
+**Implications for policy?** Closing the schooling gap won't close the earnings gap!
+
+]
+
+---
+count: false
+# Comparing schooling decisions
+
+.pull-left[
+```{r, echo = FALSE, fig.height = 5.5, fig.width = 5.5, dev = "svg"}
+plot
+```
+]
+.pull-right[
+
+## **Differences in ability**
+
+A .purple[higher-ability individual] "gets more" out of the same amount of schooling than a .pink[lower-ability individual] .mono[-->] higher marginal rate of return.
+
+- Given the same discount rate, then the .hi-purple[higher-ability individual] will complete **more schooling** and earn **more money**.
+
+
+**Implications for policy?** Closing the schooling gap won't close the earnings gap!
+
+**Implications for data analysis?**
+
+]
+
+---
+# Arteaga (2018)
+
+## **Discussion**
+
+**Q.sub[1]:** What is the research question? Why does it matter?
+
+**Q.sub[2]:** What is the research design? What are the comparison groups?
+
+**Q.sub[3]:** What are the main results? What story do they convey?
+
+---
+# Housekeeping
+
+**Problem Set 3** due Sunday, **May 23rd**  by 11:59pm PDT.

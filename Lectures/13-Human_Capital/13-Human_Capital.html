@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Human Capital</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Kyle Raze" />
+    <script src="13-Human_Capital_files/header-attrs/header-attrs.js"></script>
+    <link href="13-Human_Capital_files/remark-css/default.css" rel="stylesheet" />
+    <link href="13-Human_Capital_files/remark-css/metropolis.css" rel="stylesheet" />
+    <link href="13-Human_Capital_files/remark-css/metropolis-fonts.css" rel="stylesheet" />
+    <script src="13-Human_Capital_files/fabric/fabric.min.js"></script>
+    <link href="13-Human_Capital_files/xaringanExtra-scribble/scribble.css" rel="stylesheet" />
+    <script src="13-Human_Capital_files/xaringanExtra-scribble/scribble.js"></script>
+    <script>document.addEventListener('DOMContentLoaded', function() { window.xeScribble = new Scribble({"pen_color":["#FF0000"],"pen_size":3,"eraser_size":30}) })</script>
+    <link rel="stylesheet" href="my-css.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Human Capital
+## EC 350: Labor Economics
+### <a href="https://kyleraze.com">Kyle Raze</a>
+### Spring 2021
+
+---
+
+
+
+
+# Human Capital
+
+### **What is it?**
+
+Human capital is set of **acquired skills and experiences** that a worker brings into the labor market.
+
+- **Increases productivity** beyond a worker's innate abilities
+- Includes basic literacy and numeracy as well as more-advanced skills
+- Non-transferable
+- Varies in specificity (*e.g.,* knowing how to code *vs.* knowing how to code in an obscure language)
+
+
+--
+
+### **Why does it matter?**
+
+Human capital is an important source of **economic growth** and **inequality**.
+
+- Increasing human capital can improve living standards!
+- Differences in human capital accumulation generate differences in earnings across workers.
+
+---
+# "Typical" age-earnings profiles
+
+.pull-left[
+&lt;img src="13-Human_Capital_files/figure-html/unnamed-chunk-1-1.svg" style="display: block; margin: auto;" /&gt;
+]
+.pull-right[
+
+Earnings increase with experience and eventually decrease with age.
+
+]
+
+---
+count: false
+# "Typical" age-earnings profiles
+
+.pull-left[
+&lt;img src="13-Human_Capital_files/figure-html/unnamed-chunk-2-1.svg" style="display: block; margin: auto;" /&gt;
+]
+.pull-right[
+
+Earnings increase with experience and eventually decrease with age.
+
+- **Q:** How does going to college alter this relationship?
+]
+
+---
+count: false
+# "Typical" age-earnings profiles
+
+.pull-left[
+&lt;img src="13-Human_Capital_files/figure-html/unnamed-chunk-3-1.svg" style="display: block; margin: auto;" /&gt;
+]
+.pull-right[
+
+Earnings increase with experience and eventually decrease with age.
+
+- **Q:** How does going to college alter this relationship?
+
+**Q:** What do areas A, B, and C represent?
+
+]
+
+---
+count: false
+# "Typical" age-earnings profiles
+
+.pull-left[
+&lt;img src="13-Human_Capital_files/figure-html/unnamed-chunk-4-1.svg" style="display: block; margin: auto;" /&gt;
+]
+.pull-right[
+
+Earnings increase with experience and eventually decrease with age.
+
+- **Q:** How does going to college alter this relationship?
+
+**Q:** What do areas A, B, and C represent?
+
+- Area A represents the **explicit cost** of college (tuition, books, *etc.*).
+- Area B represents the **opportunity cost** of college (forgone earnings).
+- Area C represents the monetary **returns to education**.
+
+]
+
+---
+# The benefits of education
+
+College is costly!
+
+- Tuition, books, room and board, forgone earnings, stress, *etc.*
+
+
+--
+
+
+
+**Q:** Why did *you* **choose to incur the costs** of going to college? 
+
+--
+
+- To live the life of the mind?
+- To increase your earnings potential?
+- To expand your social network? 
+- To accrue social prestige?
+- To set yourself apart?
+- To party?
+- To find love?
+
+
+--
+
+While education may have consumption value, we will consider schooling decisions **as investments.**
+
+---
+# Education as investment
+
+**Q:** When is it "worth it" to go to college?
+
+- **Benefits?** Going to college causes us to **earn more later in life**.
+- **Costs?** Going to college forces us to **forgo earnings now** (and pay tuition, *etc.*).
+
+
+--
+
+Evaluating this tradeoff requires us to compare dollar amounts spent and received in different time periods.
+
+- To do this, we will use the idea of **present value**, which tells us how much an amount of money received in the future is **worth today**.
+
+---
+# Education as investment
+
+## **Present value**
+
+`$$\text{PV} = \dfrac{y}{(1 + r)^t}$$`
+
+- `\(y\)` is the dollar amount received `\(t\)` periods in the future.
+- `\(r\)` is the discount/interest rate.
+
+**The idea?** Getting 100 dollars today is worth more today than getting 100 dollars next year.
+
+- If you got 100 dollars today, you could invest it and end up with `\(100 \times (1 + r)\)` one year from now!
+
+---
+# Education as investment
+
+## **Present value**
+
+`$$\text{PV} = \dfrac{y}{(1 + r)^t}$$`
+
+- `\(y\)` is the dollar amount received `\(t\)` periods in the future.
+- `\(r\)` is the discount/interest rate.
+
+**Q:** If the interest rate is 10 percent, what is the present value of receiving 1,000 dollars two years from now?
+
+--
+
+**A:** 826.45 dollars and 45 cents. `$$\begin{align} \text{PV} &amp;= \dfrac{y}{(1 + r)^t} = \dfrac{1000}{(1 + 0.1)^2} = \dfrac{1000}{1.1^2} = \dfrac{1000}{1.21} = 826.45  \end{align}$$`
+
+---
+# Education as investment
+
+.pull-left[
+&lt;img src="13-Human_Capital_files/figure-html/unnamed-chunk-5-1.svg" style="display: block; margin: auto;" /&gt;
+]
+.pull-right[
+**Q:** When is it "worth it" to go to college?
+
+**A:** Assuming that your objective is to maximize the present value of your **lifetime earnings**, college is worthwhile when `\(\text{PV}_\text{College} &gt; \text{PV}_\text{HS}\)`. 
+
+]
+
+---
+count: false
+# Education as investment
+
+.pull-left[
+&lt;img src="13-Human_Capital_files/figure-html/unnamed-chunk-6-1.svg" style="display: block; margin: auto;" /&gt;
+]
+.pull-right[
+**Q:** When is it "worth it" to go to college?
+
+**A:** Assuming that your objective is to maximize the present value of your **lifetime earnings**, college is worthwhile when `\(\text{PV}_\text{College} &gt; \text{PV}_\text{HS}\)`. 
+
+`$$\begin{align} \small \text{PV}_\text{HS} &amp;= \small w_\text{HS} + \dfrac{w_\text{HS}}{(1 + r)}+  \dfrac{w_\text{HS}}{(1 + r)^2} + \cdots + \dfrac{w_\text{HS}}{(1 + r)^{46}} \end{align}$$`
+
+`$$\begin{align} \small \text{PV}_\text{College} = &amp; \small - H - \dfrac{H}{(1 + r)} - \dfrac{H}{(1 + r)^2} - \dfrac{H}{(1 + r)^3} \\  &amp; \small + \small \dfrac{w_\text{College}}{(1 + r)^4} + \dfrac{w_\text{College}}{(1 + r)^5} + \cdots + \dfrac{w_\text{College}}{(1 + r)^{46}} \end{align}$$`
+
+]
+
+---
+class: clear-slide
+
+**Example:** You are deciding whether to go back to school. 
+
+- You just turned 60, and it would take you 2 years to finish a master's program, which would cost you 10,000 dollars per year.
+- You currently earn 80,000 dollars per year. With a master's degree, you could earn 83,000. 
+- Regardless of your decision, you are going to retire at 65.
+
+**Q:** If your discount rate is 5 percent, will you choose to go back to school?
+
+---
+class: clear-slide
+
+**Example:** You are deciding whether to go back to school. 
+
+- You just turned 60, and it would take you 2 years to finish a master's program, which would cost you 10,000 dollars per year.
+- You currently earn 80,000 dollars per year. With a master's degree, you could earn 83,000. 
+- Regardless of your decision, you are going to retire at 65.
+
+**Q:** How would the following change your odds of going back to school?
+
+- Your discount rate increases?
+- Your post-master's earnings increase?
+- Tuition increases?
+- You plan to postpone your retirement?
+
+
+---
+# Returns to education
+
+.pull-left[
+&lt;img src="13-Human_Capital_files/figure-html/unnamed-chunk-7-1.svg" style="display: block; margin: auto;" /&gt;
+]
+.pull-right[
+## .hi-pink[Wage-schooling locus]
+
+&gt; The amount of money that employers are willing to pay *a particular worker* at every level of schooling. 
+
+]
+
+---
+count: false
+# Returns to education
+
+.pull-left[
+&lt;img src="13-Human_Capital_files/figure-html/unnamed-chunk-8-1.svg" style="display: block; margin: auto;" /&gt;
+]
+.pull-right[
+## .hi-pink[Wage-schooling locus]
+
+&gt; The amount of money that employers are willing to pay *a particular worker* at every level of schooling. 
+
+1. Upward sloping .mono[--&gt;] more school, more money.
+
+2. Slope at a given point .mono[--&gt;] marginal return of an additional year of schooling.
+
+3. Concave .mono[--&gt;] diminishing returns to schooling. 
+
+]
+
+---
+# Returns to education
+
+.pull-left[
+&lt;img src="13-Human_Capital_files/figure-html/unnamed-chunk-9-1.svg" style="display: block; margin: auto;" /&gt;
+]
+.pull-right[
+## .hi-pink[Marginal rate of return]
+
+&gt; The percentage increase in earnings from an additional year of schooling: `$$\text{MRR} = \dfrac{\%\Delta w}{\Delta e}$$`
+
+]
+
+---
+# Schooling decisions
+
+## **The stopping rule**
+
+**Q:** How does a worker choose the optimal.super[.hi-pink[&lt;span&gt;&amp;#8224;&lt;/span&gt;]] amount of schooling?
+
+.footnote[.super[.hi-pink[&lt;span&gt;&amp;#8224;&lt;/span&gt;]] "Optimal" in the sense of maximizing the present value of lifetime earnings.]
+
+--
+
+**A:** A worker chooses the optimal amount of schooling `\(e^*\)` where the marginal rate of return equals the discount rate: `$$\text{MRR} = r$$`
+
+--
+
+- If `\(\text{MRR} &gt; r\)`, then schooling education would increase the present value of lifetime earnings.
+- If `\(\text{MRR} &lt; r\)`, then the worker has "gone too far"&amp;mdash;she could had a higher present value of lifetime earnings if she had completed less schooling.
+
+
+---
+# Schooling decisions
+
+.pull-left[
+&lt;img src="13-Human_Capital_files/figure-html/unnamed-chunk-10-1.svg" style="display: block; margin: auto;" /&gt;
+]
+.pull-right[
+## **The stopping rule**
+
+A worker chooses the optimal amount of schooling where the marginal rate of return intersects the discount rate.
+]
+
+---
+# Comparing schooling decisions
+
+.pull-left[
+&lt;img src="13-Human_Capital_files/figure-html/unnamed-chunk-11-1.svg" style="display: block; margin: auto;" /&gt;
+]
+.pull-right[
+
+## **Differences in discount rates**
+
+Higher discount rate .mono[--&gt;] less access to credit or stronger preferences toward immediate payoffs.
+
+- Given two individuals with the same ability, the person with a **higher discount rate** will complete **fewer years** of schooling.
+- In either case, the person with the higher discount rate will earn less money.
+
+
+
+
+]
+
+---
+count: false
+# Comparing schooling decisions
+
+.pull-left[
+&lt;img src="13-Human_Capital_files/figure-html/unnamed-chunk-12-1.svg" style="display: block; margin: auto;" /&gt;
+]
+.pull-right[
+
+## **Differences in discount rates**
+
+Higher discount rate .mono[--&gt;] less access to credit or stronger preferences toward immediate payoffs.
+
+- Given two individuals with the same ability, the person with a **higher discount rate** will complete **fewer years** of schooling.
+- In either case, the person with the higher discount rate will earn less money.
+
+**Implications for policy?** Expanding educational opportunities to person with the higher discount rate will close the earnings gap!
+
+]
+
+---
+# Comparing schooling decisions
+
+.pull-left[
+&lt;img src="13-Human_Capital_files/figure-html/unnamed-chunk-13-1.svg" style="display: block; margin: auto;" /&gt;
+]
+.pull-right[
+
+## **Differences in ability**
+
+A .purple[higher-ability individual] "gets more" out of the same amount of schooling than a .pink[lower-ability individual] .mono[--&gt;] higher marginal rate of return.
+
+- Given the same discount rate, then the .hi-purple[higher-ability individual] will complete **more schooling** and earn **more money**.
+]
+
+---
+count: false
+# Comparing schooling decisions
+
+.pull-left[
+&lt;img src="13-Human_Capital_files/figure-html/unnamed-chunk-14-1.svg" style="display: block; margin: auto;" /&gt;
+]
+.pull-right[
+
+## **Differences in ability**
+
+A .purple[higher-ability individual] "gets more" out of the same amount of schooling than a .pink[lower-ability individual] .mono[--&gt;] higher marginal rate of return.
+
+- Given the same discount rate, then the .hi-purple[higher-ability individual] will complete **more schooling** and earn **more money**.
+
+
+**Implications for policy?** Closing the schooling gap won't close the earnings gap!
+
+]
+
+---
+count: false
+# Comparing schooling decisions
+
+.pull-left[
+&lt;img src="13-Human_Capital_files/figure-html/unnamed-chunk-15-1.svg" style="display: block; margin: auto;" /&gt;
+]
+.pull-right[
+
+## **Differences in ability**
+
+A .purple[higher-ability individual] "gets more" out of the same amount of schooling than a .pink[lower-ability individual] .mono[--&gt;] higher marginal rate of return.
+
+- Given the same discount rate, then the .hi-purple[higher-ability individual] will complete **more schooling** and earn **more money**.
+
+
+**Implications for policy?** Closing the schooling gap won't close the earnings gap!
+
+**Implications for data analysis?**
+
+]
+
+---
+# Arteaga (2018)
+
+## **Discussion**
+
+**Q.sub[1]:** What is the research question? Why does it matter?
+
+**Q.sub[2]:** What is the research design? What are the comparison groups?
+
+**Q.sub[3]:** What are the main results? What story do they convey?
+
+---
+# Housekeeping
+
+**Problem Set 3** due Sunday, **May 23rd**  by 11:59pm PDT.
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="https://platform.twitter.com/widgets.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
