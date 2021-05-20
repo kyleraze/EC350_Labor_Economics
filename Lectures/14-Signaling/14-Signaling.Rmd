@@ -1,0 +1,344 @@
+---
+title: "Signaling"
+subtitle: "EC 350: Labor Economics"
+author: "[Kyle Raze](https://kyleraze.com)"
+date: "Spring 2021"
+output:
+  xaringan::moon_reader:
+    css: ['default', 'metropolis', 'metropolis-fonts', 'my-css.css']
+    self_contained: false
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      beforeInit: "https://platform.twitter.com/widgets.js"
+      ratio: "16:9"
+---
+
+```{r Setup, include = F}
+options(htmltools.dir.version = FALSE)
+library(pacman)
+p_load(ggthemes, readxl, viridis, knitr, ggdag, gapminder, extrafont, tidyverse, magrittr, janitor, kableExtra)
+# Define colors
+red_pink <- "#e64173"
+met_slate <- "#272822" # metropolis font color 
+purple <- "#9370DB"
+green <- "#007935"
+light_green <- "#7DBA97"
+orange <- "#FD5F00"
+turquoise <- "#44C1C4"
+# Knitr options
+opts_chunk$set(
+  comment = "#>",
+  fig.align = "center",
+  fig.height = 7,
+  fig.width = 10.5,
+  #dpi = 300,
+  #cache = T,
+  warning = F,
+  message = F
+)  
+theme_simple <- theme_bw() + theme(
+  axis.line = element_line(color = met_slate),
+  panel.grid = element_blank(),
+  rect = element_blank(),
+  strip.text = element_blank(),
+  text = element_text(family = "Fira Sans", color = met_slate, size = 17),
+  axis.text.x = element_text(size = 12),
+  axis.text.y = element_text(size = 12),
+  axis.ticks = element_blank()
+)
+theme_market <- theme_bw() + theme(
+  axis.line = element_line(color = met_slate),
+  panel.grid = element_blank(),
+  rect = element_blank(),
+  strip.text = element_blank(),
+  text = element_text(family = "Fira Sans", color = met_slate, size = 17),
+  axis.title.x = element_text(hjust = 1, size = 17),
+  axis.title.y = element_text(hjust = 1, angle = 0, size = 17),
+  # axis.text.x = element_text(size = 12),
+  # axis.text.y = element_text(size = 12),
+  axis.ticks = element_blank()
+)
+theme_gif <- theme_bw() + theme(
+  axis.line = element_line(color = met_slate),
+  panel.grid = element_blank(),
+  rect = element_blank(),
+  text = element_text(family = "Fira Sans", color = met_slate, size = 17),
+  axis.text.x = element_text(size = 12),
+  axis.text.y = element_text(size = 12),
+  axis.ticks = element_blank()
+)
+
+xaringanExtra::use_scribble()
+```
+
+# Signaling
+
+**Q:** Why do college graduates earn more than high-school graduates?
+
+--
+
+- They learn new skills that increase your productivity?
+- They separate themselves from people who couldn't make it through college?
+    - Getting through may correlate with productive attributes.
+    
+    
+--
+
+### **Asymmetric information**
+
+One side of a market often has less information than the other.
+
+- In the labor market, employers often have to "take a chance" on new employees&mdash;they don't know exactly who is a good fit for a job.
+- To separate those who would be a good fit for the job from those who wouldn't, employers can 1) rely on **signaling** by potential employees or 2) employ a **screening** test.
+
+
+---
+# Education as a signal of ability
+
+The **Spence model**.super[.hi-pink[<span>&#8224;</span>]] posits that education can help higher-ability workers separate themselves from lower-ability workers when employers cannot directly observe ability.
+
+- In contrast to models of human capital, the Spence model assumes that **education has no impact on productivity**.
+
+.footnote[.super[.hi-pink[<span>&#8224;</span>]] Named after the economist Michael Spence, who developed the model in [Job Market Signaling](https://www.jstor.org/stable/1882010), *The Quarterly Journal of Economics* (1973).]
+
+--
+
+
+**The players?** 
+
+1. High-ability workers
+2. Low-ability workers
+3. Employer
+    - Willing to pay a premium for high-ability workers over low-ability workers.
+    - But...unable to observe worker types.
+    
+---
+# Education as a signal of ability
+
+The **Spence model**.super[.hi-pink[<span>&#8224;</span>]] posits that education can help higher-ability workers separate themselves from lower-ability workers when employers cannot directly observe ability.
+
+- In contrast to models of human capital, the Spence model assumes that **education has no impact on productivity**.
+
+.footnote[.super[.hi-pink[<span>&#8224;</span>]] Named after the economist Michael Spence, who developed the model in [Job Market Signaling](https://www.jstor.org/stable/1882010), *The Quarterly Journal of Economics* (1973).]
+
+**And their objectives?** 
+
+1. High-ability workers **want to separate** themselves from low-ability workers.
+2. Low-ability workers **want to pool** with high-ability workers.
+3. Employer **wants to identify** worker **types**.
+
+
+---
+# Spence model
+
+## **Setup**
+
+If the employer could observe types, then they would pay a salary that corresponds to each individual's present value of lifetime productivity.
+
+| Worker type | Proportion of population | Present value of lifetime productivity |
+|:-----------:|:------------------------:|:--------------------------------------:|
+| Low-ability | *q*                      | $250,000                               |
+| High-ability| 1 .mono[-] *q*           | $350,000                               |
+
+--
+
+Workers know their ability, but the employer doesn't! .mono[-->] **asymmetric information!**
+
+---
+# Spence model
+
+## **Pooling equilibrium**
+
+With asymmetric information, **the employer treats all workers the same**, paying an identical salary that averages the lifetime productivity of both groups: $$\begin{align} \text{Salary} &= \text{250,000} \times q + \text{350,000} \times (1 - q) \\ &= \text{350,000} - \text{100,000} \times q \end{align}$$
+
+--
+
+- **Low-ability workers are overpaid** and **high-ability workers are underpaid**.
+- **The employer also suffers** because workers are not necessarily assigned to the appropriate job.
+
+
+--
+
+**Q:** Why can't a high-ability worker just tell the employer that they are highly-able?
+
+--
+
+**A:** Because **talk is cheap!**
+
+- A low-ability worker can just as easily claim that they are highly-able!
+
+---
+# Spence model
+
+## **Ability signaling**
+
+High-ability workers have an incentive to provide **a credible signal** of their ability to employers.
+
+- If employers learn their type, then they get a higher wage.
+
+
+--
+
+Likewise, employers have an incentive to **extract signals** that separate workers by ability.
+
+- Knowing worker types allows employers to **avoid mismatches** between workers and jobs.
+
+
+--
+
+**Q:** When is a signal *credible*?
+
+--
+
+**A:** When it is sufficiently **costly!**
+
+- Costly enough to discourage low-ability workers from pursuing.
+- Cheap enough for high-ability workers to willingly pursue.
+
+
+---
+# Spence model
+
+## **Separating equilibrium**
+
+Employers can choose a level of education $\bar{e}$ that separates low-ability types from high-ability types.
+
+* Anyone with less education than $\bar{e}$ .mono[-->] low-ability.
+* Anyone with $\bar{e}$ or more education .mono[-->] high-ability.
+
+
+--
+
+The existence of a separating equilibrium **requires that education is more costly for a low-ability worker** than for a high-ability worker.
+
+- Both types face the same tuition rates, book prices, *etc.*
+- But low-ability types pay more in extra tutoring, re-taking failed classes, additional stress, *etc.*
+
+
+--
+
+Assume that low-ability workers pay $30,000 per year and high-ability workers pay $20,000 per year.
+
+---
+# Spence model
+
+## **Separating equilibrium**
+
+Employers can choose a level of education $\bar{e}$ that separates low-ability types from high-ability types.
+
+* Anyone with less education than $\bar{e}$ .mono[-->] low-ability.
+* Anyone with $\bar{e}$ or more education .mono[-->] high-ability.
+
+The low-ability worker **will not obtain** $\bar{e}$ if the low-ability wage exceeds the higher wage minus the cost of education: $$\begin{align} \text{250,000} &> \text{350,000} - \text{30,000} \times \bar{e} \\ \bar{e} &> 3.33 \end{align}$$
+
+---
+# Spence model
+
+## **Separating equilibrium**
+
+Employers can choose a level of education $\bar{e}$ that separates low-ability types from high-ability types.
+
+* Anyone with less education than $\bar{e}$ .mono[-->] low-ability.
+* Anyone with $\bar{e}$ or more education .mono[-->] high-ability.
+
+The high-ability worker **will obtain** $\bar{e}$ if the high-ability wage minus the cost of education exceeds the low-ability wage: $$\begin{align} \text{350,000} - \text{20,000} \times \bar{e} &> \text{250,000}   \\ \bar{e} &< 5 \end{align}$$
+
+---
+# Spence model
+
+## **Separating equilibrium**
+
+Employers can choose a level of education $\bar{e}$ that separates low-ability types from high-ability types.
+
+* Anyone with less education than $\bar{e}$ .mono[-->] low-ability.
+* Anyone with $\bar{e}$ or more education .mono[-->] high-ability.
+
+In our running example, the employer chooses 3.33 .mono[<] $\bar{e}$ .mono[<] 5, which separates high-ability from low-ability workers.
+
+- High-ability workers get $\bar{e}$ years of education and earn a lifetime salary of $350,000.
+- Low-ability workers get zero years of education and earn a lifetime salary of $250,000.
+
+---
+# Spence model
+
+## **Implications?**
+
+For the **role of education?**
+
+--
+
+- Under a pure signaling model, education is nothing more than a **sorting mechanism**. 
+- You professor's job? Make sure A's only go to high-ability students.
+
+
+--
+
+For **economic efficiency?**
+
+- On the one hand, **education is "wasteful"** in the sense that it doesn't increase productivity. 
+- On the other hand, **education reduces worker mismatch** caused by asymmetric information.
+
+
+---
+# Spence model
+
+## **Implications?**
+
+For **you?**
+
+--
+
+- Taking difficult classes set you apart, *even if you don't learn anything*.
+--
+
+- Not all A's are created equal.
+--
+
+- Cheap talk on your résumé won't increase your odds of landing a job, at the margin. 
+   - You're a *detail-oriented, self-motivated, team player*? Sure.
+
+
+---
+# Sheepskin effects
+
+The empirical relationship between earnings and years of education **isn't smooth**.
+
+- There are significant **"jumps"** in average earnings **where you'd expect them**&mdash;12 years, 16 years, *etc.*.super[.hi-pink[<span>1</span>]]
+- *Holding years of education constant*, workers with a degree earn more than those without a degree, on average..super[.hi-pink[<span>2</span>]]
+
+.footnote[.super[.hi-pink[<span>1</span>]]  Thomas Hungerford and Gary Solon (1987), [Sheepskin Effects in the Returns to Education](https://www.jstor.org/stable/1937919), *The Review of Economics and Statistics.*  <br> .super[.hi-pink[<span>2</span>]] David A. Jaeger and Marianne E. Page (1996), [Degrees Matter: New Evidence on Sheepskin Effects in the Returns to Education](https://www.jstor.org/stable/2109960), *The Review of Economics and Statistics.*]
+
+--
+
+That is, the simple act of having obtained that piece of paper&mdash;your degree&mdash;seems to matter a lot.
+
+**Q:** Does this provide evidence for signaling?
+
+--
+
+**A:** It's debatable, though the [more-convincing arguments](http://noahpinionblog.blogspot.com/2017/12/sheepskin-effects-signals-without.html) suggest that sheepskin effects are not evidence of pure signaling.
+
+---
+# Signaling *vs.* human capital
+
+## **Discussion**
+
+**Q.sub[1]:** Why do I make you take exams?
+
+**Q.sub[2]:** Why do we give gifts?
+
+**Q.sub[3]:** What is the purpose of initiation rituals (*e.g.,* to join a gang)?
+
+
+
+---
+# Housekeeping
+
+**Problem Set 3** due Sunday, **May 23rd**  by 11:59pm PDT.
+
+**Assigned reading for Monday:** [Are Emily and Greg More Employable Than Lakisha and Jamal? A Field Experiment on Labor Market Discrimination](https://www.aeaweb.org/articles?id=10.1257/0002828042002561) by Marianne Bertrand and Sendhil Mullainathan (2004).
+
+- Reading Quiz 9 is due by **Monday, May 24th at 16:00**.
+- The quiz instructions will include a reading guide.
