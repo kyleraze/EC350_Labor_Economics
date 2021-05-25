@@ -1,0 +1,1109 @@
+---
+title: "Discrimination"
+subtitle: "EC 350: Labor Economics"
+author: "[Kyle Raze](https://kyleraze.com)"
+date: "Spring 2021"
+output:
+  xaringan::moon_reader:
+    css: ['default', 'metropolis', 'metropolis-fonts', 'my-css.css']
+    self_contained: false
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      beforeInit: "https://platform.twitter.com/widgets.js"
+      ratio: "16:9"
+---
+
+```{r Setup, include = F}
+options(htmltools.dir.version = FALSE)
+library(pacman)
+p_load(ggthemes, readxl, viridis, knitr, ggdag, gapminder, extrafont, tidyverse, magrittr, janitor, kableExtra)
+# Define colors
+red_pink <- "#e64173"
+met_slate <- "#272822" # metropolis font color 
+purple <- "#9370DB"
+green <- "#007935"
+light_green <- "#7DBA97"
+orange <- "#FD5F00"
+turquoise <- "#44C1C4"
+# Knitr options
+opts_chunk$set(
+  comment = "#>",
+  fig.align = "center",
+  fig.height = 7,
+  fig.width = 10.5,
+  #dpi = 300,
+  #cache = T,
+  warning = F,
+  message = F
+)  
+theme_simple <- theme_bw() + theme(
+  axis.line = element_line(color = met_slate),
+  panel.grid = element_blank(),
+  rect = element_blank(),
+  # strip.text = element_blank(),
+  text = element_text(family = "Fira Sans", color = met_slate, size = 17),
+  axis.text.x = element_text(size = 12),
+  axis.text.y = element_text(size = 12),
+  axis.ticks = element_blank()
+)
+theme_market <- theme_bw() + theme(
+  axis.line = element_line(color = met_slate),
+  panel.grid = element_blank(),
+  rect = element_blank(),
+  strip.text = element_blank(),
+  text = element_text(family = "Fira Sans", color = met_slate, size = 17),
+  axis.title.x = element_text(hjust = 1, size = 17),
+  axis.title.y = element_text(hjust = 1, angle = 0, size = 17),
+  # axis.text.x = element_text(size = 12),
+  # axis.text.y = element_text(size = 12),
+  axis.ticks = element_blank()
+)
+theme_gif <- theme_bw() + theme(
+  axis.line = element_line(color = met_slate),
+  panel.grid = element_blank(),
+  rect = element_blank(),
+  text = element_text(family = "Fira Sans", color = met_slate, size = 17),
+  axis.text.x = element_text(size = 12),
+  axis.text.y = element_text(size = 12),
+  axis.ticks = element_blank()
+)
+
+xaringanExtra::use_scribble()
+```
+
+# Discrimination
+
+### **What is it?**
+
+Labor market discrimination occurs when two or more **equally productive individuals** are **treated differently** on the basis of some other characteristic that is unrelated to productivity.
+
+- **Examples?** Age, race, gender, *etc.*
+
+
+--
+
+### **Why should we care?**
+
+Discrimination is...
+
+- Morally objectionable.
+- Illegal.
+- A cause of inequality.
+- Common.
+
+
+
+
+---
+# Understanding group differences
+
+**Q:** What do we mean when we say ".hi-pink[Group A] **earns less than** .hi-green[Group B]**, on average**?"
+
+---
+count: false
+# Understanding group differences
+
+**Q:** What do we mean when we say ".hi-pink[Group A] **earns less than** .hi-green[Group B]**, on average**?"
+
+```{r, echo = F, dev = "svg", fig.height = 5.25}
+diff <- 1
+df <- tibble(x = seq(-4, 4, 0.01), y = dnorm(x)) %>%
+  rbind(., tibble(x = seq(4, -4, -0.01), y = 0)) %>% 
+  mutate(x2 = x + diff)
+ggplot() +
+  scale_x_continuous(limits = c(-4, 5), expand = c(0, 0)) +
+  scale_y_continuous(limits = c(0, 0.45), expand = c(0, 0)) +
+  geom_polygon(data = df, aes(x, y), fill = red_pink, alpha = 0.5) +
+  # geom_polygon(data = df, aes(x = x2, y), fill = green, alpha = 0.5) +
+  # geom_vline(xintercept = diff, size = 1, color = green) +
+  geom_vline(xintercept = 0, size = 1, color = red_pink) +
+  theme_simple +
+  theme(axis.line.y = element_blank(), axis.text.y = element_blank(), axis.text.x = element_blank(), axis.title = element_blank())
+```
+
+---
+count: false
+# Understanding group differences
+
+**Q:** What do we mean when we say ".hi-pink[Group A] **earns less than** .hi-green[Group B]**, on average**?"
+
+```{r, echo = F, dev = "svg", fig.height = 5.25}
+diff <- 1
+df <- tibble(x = seq(-4, 4, 0.01), y = dnorm(x)) %>%
+  rbind(., tibble(x = seq(4, -4, -0.01), y = 0)) %>% 
+  mutate(x2 = x + diff)
+ggplot() +
+  scale_x_continuous(limits = c(-4, 5), expand = c(0, 0)) +
+  scale_y_continuous(limits = c(0, 0.45), expand = c(0, 0)) +
+  geom_polygon(data = df, aes(x, y), fill = red_pink, alpha = 0.5) +
+  geom_polygon(data = df, aes(x = x2, y), fill = green, alpha = 0.5) +
+  geom_vline(xintercept = diff, size = 1, color = green) +
+  geom_vline(xintercept = 0, size = 1, color = red_pink) +
+  theme_simple +
+  theme(axis.line.y = element_blank(), axis.text.y = element_blank(), axis.text.x = element_blank(), axis.title = element_blank())
+```
+
+
+---
+# Earnings gaps
+
+## **Data**
+
+**The source?** Current Population Survey (via [IPUMS](https://cps.ipums.org/cps/)).
+
+**The sample?** Nationally representative sample of employed working-age adults aged 16.mono[+].
+
+- We will further restrict the sample to those who self-identify as Asian, Black, Hispanic (of any race), or White (non-Hispanic).
+- We will first analyze the 2021 data (43,119 survey respondents), then incorporate data going back to 2010 (1,711,699 survey respondents).
+
+**The outcome?** Weekly earnings.
+
+---
+# Earnings gaps
+
+## **Approach**
+
+Run regressions of the form $$\log(\text{Earnings}_i) = \alpha + \beta~\text{Group}_i + X^{'} \Phi + \varepsilon_i$$
+
+- $\text{Group}_i$ is an indicator variable denoting race or gender.
+- $\beta$ is the earnings gap, interpreted as a percentage difference.
+- $X^{'}$ is a vector of control variables.
+
+
+---
+class: clear-slide
+
+.center[**Racial earnings gaps among men (2021)**]
+```{R, echo = F, escape = F}
+tab <- data.frame(
+  v1 = c("Asian", "", "Black", "", "Hispanic", "", 
+         "Education",
+         "Experience", 
+         "Industry",
+         "Occupation",
+         "State",
+         "Hours worked"),
+  v2 = c(0.147, "(0.023)", -0.295, "(0.020)", -0.320, "(0.015)", "", "", "", "", "", ""),
+  v3 = c(-0.007, "(0.020)", -0.213, "(0.019)", -0.095, "(0.015)", "$\\checkmark$", "", "", "", "", ""),
+  v4 = c(-0.001, "(0.020)", -0.199, "(0.018)", -0.069, "(0.014)", "$\\checkmark$", "$\\checkmark$", "", "", "", ""),
+  v5 = c(-0.027, "(0.019)", -0.160, "(0.018)", -0.060, "(0.014)", "$\\checkmark$", "$\\checkmark$", "$\\checkmark$", "", "", ""),
+  v6 = c(-0.009, "(0.018)", -0.101, "(0.017)", -0.016, "(0.014)", "$\\checkmark$", "$\\checkmark$", "$\\checkmark$", "$\\checkmark$", "", ""),
+  v7 = c(-0.039, "(0.019)", -0.097, "(0.017)", -0.034, "(0.015)", "$\\checkmark$", "$\\checkmark$", "$\\checkmark$", "$\\checkmark$", "$\\checkmark$", ""),
+  v8 = c(-0.017, "(0.017)", -0.098, "(0.016)", -0.043, "(0.014)", "$\\checkmark$", "$\\checkmark$", "$\\checkmark$", "$\\checkmark$", "$\\checkmark$", "$\\checkmark$")
+) %>% kable(
+  escape = FALSE,
+  col.names = c("", "(1)", "(2)", "(3)", "(4)", "(5)", "(6)", "(7)"),
+  align = c("l", rep("c", 7)),
+  table.attr = "style='width:100%;'"
+) %>%
+row_spec(0, color = "#708090") %>% 
+row_spec(1:12, color = met_slate) %>%
+row_spec(seq(2,6,2), color = "#c2bebe") %>%
+row_spec(1:12, extra_css = "line-height: 110%;") %>%
+column_spec(1, color = met_slate, italic = T)
+
+tab
+```
+.footnote[*Notes:* Outcome variable .mono[=] log(weekly earnings). Standard errors in parentheses. Reference category .mono[=] White men.]
+
+---
+count: false
+class: clear-slide
+
+.center[**Racial earnings gaps among men (2021)**]
+```{R, echo = F, escape = F}
+tab %>% column_spec(2, bold = T)
+```
+.footnote[*Notes:* Outcome variable .mono[=] log(weekly earnings). Standard errors in parentheses. Reference category .mono[=] White men.]
+
+---
+count: false
+class: clear-slide
+
+.center[**Racial earnings gaps among men (2021)**]
+```{R, echo = F, escape = F}
+tab %>% column_spec(3, bold = T)
+```
+.footnote[*Notes:* Outcome variable .mono[=] log(weekly earnings). Standard errors in parentheses. Reference category .mono[=] White men.]
+
+---
+count: false
+class: clear-slide
+
+.center[**Racial earnings gaps among men (2021)**]
+```{R, echo = F, escape = F}
+tab %>% column_spec(4, bold = T)
+```
+.footnote[*Notes:* Outcome variable .mono[=] log(weekly earnings). Standard errors in parentheses. Reference category .mono[=] White men.]
+
+---
+count: false
+class: clear-slide
+
+.center[**Racial earnings gaps among men (2021)**]
+```{R, echo = F, escape = F}
+tab %>% column_spec(5, bold = T)
+```
+.footnote[*Notes:* Outcome variable .mono[=] log(weekly earnings). Standard errors in parentheses. Reference category .mono[=] White men.]
+
+---
+count: false
+class: clear-slide
+
+.center[**Racial earnings gaps among men (2021)**]
+```{R, echo = F, escape = F}
+tab %>% column_spec(6, bold = T)
+```
+.footnote[*Notes:* Outcome variable .mono[=] log(weekly earnings). Standard errors in parentheses. Reference category .mono[=] White men.]
+
+---
+count: false
+class: clear-slide
+
+.center[**Racial earnings gaps among men (2021)**]
+```{R, echo = F, escape = F}
+tab %>% column_spec(7, bold = T)
+```
+.footnote[*Notes:* Outcome variable .mono[=] log(weekly earnings). Standard errors in parentheses. Reference category .mono[=] White men.]
+
+---
+count: false
+class: clear-slide
+
+.center[**Racial earnings gaps among men (2021)**]
+```{R, echo = F, escape = F}
+tab %>% column_spec(8, bold = T)
+```
+.footnote[*Notes:* Outcome variable .mono[=] log(weekly earnings). Standard errors in parentheses. Reference category .mono[=] White men.]
+
+---
+class: clear-slide
+
+.center[**Racial earnings gaps among men (2010-2021)**]
+```{r, echo = F, dev = "svg", fig.height = 5.5}
+df <- readRDS("annual_race_earnings_gaps.rds") %>%
+  mutate(
+    gender = case_when(female == 0 ~ "Men", T ~ "Women"),
+    term = case_when(
+      term == "asian" ~ "Asian-White",
+      term == "black" ~ "Black-White",
+      term == "hispanic" ~ "Hispanic-White"
+    )
+  )
+
+
+df %>% 
+  filter(gender == "Men") %>% 
+  ggplot(aes(
+      x = year,
+      y = estimate,
+      color = as.factor(term),
+      shape = as.factor(analysis)
+    )) +
+    geom_hline(yintercept = 0) +
+    geom_linerange(
+      aes(ymin = conf.low, ymax = conf.high),
+      size = 1.5,
+      alpha = 0.5,
+      position = position_dodge2(preserve = "single", width = 0.5)
+    ) +
+    geom_point(
+      size = 1.5,
+      fill = "white",
+      stroke = 2,
+      position = position_dodge2(preserve = "single", width = 0.5)
+    ) +
+  facet_grid(~ term, scales = "free_y") +
+  scale_y_continuous(limits = c(-0.45, 0.2),
+                       breaks = scales::pretty_breaks(n = 6)) +
+  scale_shape_manual(values = c(21, 24)) +
+  scale_color_manual(values = c(red_pink, purple, green)) +
+  guides(color = F) +
+  labs(y = "Gap estimate", shape = "Gap") +
+  theme_simple +
+  theme(
+    strip.background = element_blank(),
+    axis.title.x = element_blank(),
+    axis.ticks.x = element_blank()
+  )
+```
+.footnote[*Notes:* Outcome variable .mono[=] log(weekly earnings). Vertical bars outline 95% confidence intervals. Reference category .mono[=] White men.]
+
+---
+class: clear-slide
+
+.center[**Racial earnings gaps among women (2021)**]
+```{R, echo = F, escape = F}
+tab <- data.frame(
+  v1 = c("Asian", "", "Black", "", "Hispanic", "", 
+         "Education",
+         "Experience", 
+         "Industry",
+         "Occupation",
+         "State",
+         "Hours worked"),
+  v2 = c(0.161, "(0.026)", -0.122, "(0.018)", -0.227, "(0.016)", "", "", "", "", "", ""),
+  v3 = c(0.060, "(0.022)", -0.035, "(0.016)", 0.005, "(0.015)", "$\\checkmark$", "", "", "", "", ""),
+  v4 = c(0.057, "(0.022)", -0.028, "(0.016)", 0.021, "(0.015)", "$\\checkmark$", "$\\checkmark$", "", "", "", ""),
+  v5 = c(0.021, "(0.021)", -0.044, "(0.015)", 0.034, "(0.014)", "$\\checkmark$", "$\\checkmark$", "$\\checkmark$", "", "", ""),
+  v6 = c(0.034, "(0.021)", -0.008, "(0.015)", 0.071, "(0.013)", "$\\checkmark$", "$\\checkmark$", "$\\checkmark$", "$\\checkmark$", "", ""),
+  v7 = c(-0.025, "(0.022)", -0.014, "(0.016)", 0.028, "(0.015)", "$\\checkmark$", "$\\checkmark$", "$\\checkmark$", "$\\checkmark$", "$\\checkmark$", ""),
+  v8 = c(-0.010, "(0.019)", -0.034, "(0.014)", -0.008, "(0.013)", "$\\checkmark$", "$\\checkmark$", "$\\checkmark$", "$\\checkmark$", "$\\checkmark$", "$\\checkmark$")
+) %>% kable(
+  escape = FALSE,
+  col.names = c("", "(1)", "(2)", "(3)", "(4)", "(5)", "(6)", "(7)"),
+  align = c("l", rep("c", 7)),
+  table.attr = "style='width:100%;'"
+) %>%
+row_spec(0, color = "#708090") %>% 
+row_spec(1:12, color = met_slate) %>%
+row_spec(seq(2,6,2), color = "#c2bebe") %>%
+row_spec(1:12, extra_css = "line-height: 110%;") %>%
+column_spec(1, color = met_slate, italic = T)
+
+tab
+```
+.footnote[*Notes:* Outcome variable .mono[=] log(weekly earnings). Standard errors in parentheses. Reference category .mono[=] White women.]
+
+---
+count: false
+class: clear-slide
+
+.center[**Racial earnings gaps among women (2021)**]
+```{R, echo = F, escape = F}
+tab %>% column_spec(2, bold = T)
+```
+.footnote[*Notes:* Outcome variable .mono[=] log(weekly earnings). Standard errors in parentheses. Reference category .mono[=] White women.]
+
+---
+count: false
+class: clear-slide
+
+.center[**Racial earnings gaps among women (2021)**]
+```{R, echo = F, escape = F}
+tab %>% column_spec(3, bold = T)
+```
+.footnote[*Notes:* Outcome variable .mono[=] log(weekly earnings). Standard errors in parentheses. Reference category .mono[=] White women.]
+
+---
+count: false
+class: clear-slide
+
+.center[**Racial earnings gaps among women (2021)**]
+```{R, echo = F, escape = F}
+tab %>% column_spec(4, bold = T)
+```
+.footnote[*Notes:* Outcome variable .mono[=] log(weekly earnings). Standard errors in parentheses. Reference category .mono[=] White women.]
+
+---
+count: false
+class: clear-slide
+
+.center[**Racial earnings gaps among women (2021)**]
+```{R, echo = F, escape = F}
+tab %>% column_spec(5, bold = T)
+```
+.footnote[*Notes:* Outcome variable .mono[=] log(weekly earnings). Standard errors in parentheses. Reference category .mono[=] White women.]
+
+---
+count: false
+class: clear-slide
+
+.center[**Racial earnings gaps among women (2021)**]
+```{R, echo = F, escape = F}
+tab %>% column_spec(6, bold = T)
+```
+.footnote[*Notes:* Outcome variable .mono[=] log(weekly earnings). Standard errors in parentheses. Reference category .mono[=] White women.]
+
+---
+count: false
+class: clear-slide
+
+.center[**Racial earnings gaps among women (2021)**]
+```{R, echo = F, escape = F}
+tab %>% column_spec(7, bold = T)
+```
+.footnote[*Notes:* Outcome variable .mono[=] log(weekly earnings). Standard errors in parentheses. Reference category .mono[=] White women.]
+
+---
+count: false
+class: clear-slide
+
+.center[**Racial earnings gaps among women (2021)**]
+```{R, echo = F, escape = F}
+tab %>% column_spec(8, bold = T)
+```
+.footnote[*Notes:* Outcome variable .mono[=] log(weekly earnings). Standard errors in parentheses. Reference category .mono[=] White women.]
+
+---
+class: clear-slide
+
+.center[**Racial earnings gaps among women (2010-2021)**]
+```{r, echo = F, dev = "svg", fig.height = 5.5}
+df <- readRDS("annual_race_earnings_gaps.rds") %>%
+  mutate(
+    gender = case_when(female == 0 ~ "Men", T ~ "Women"),
+    term = case_when(
+      term == "asian" ~ "Asian-White",
+      term == "black" ~ "Black-White",
+      term == "hispanic" ~ "Hispanic-White"
+    )
+  )
+
+
+df %>% 
+  filter(gender == "Women") %>% 
+  ggplot(aes(
+      x = year,
+      y = estimate,
+      color = as.factor(term),
+      shape = as.factor(analysis)
+    )) +
+    geom_hline(yintercept = 0) +
+    geom_linerange(
+      aes(ymin = conf.low, ymax = conf.high),
+      size = 1.5,
+      alpha = 0.5,
+      position = position_dodge2(preserve = "single", width = 0.5)
+    ) +
+    geom_point(
+      size = 1.5,
+      fill = "white",
+      stroke = 2,
+      position = position_dodge2(preserve = "single", width = 0.5)
+    ) +
+  facet_grid(~ term, scales = "free_y") +
+  scale_y_continuous(limits = c(-0.35, 0.25),
+                       breaks = scales::pretty_breaks(n = 6)) +
+  scale_shape_manual(values = c(21, 24)) +
+  scale_color_manual(values = c(red_pink, purple, green)) +
+  guides(color = F) +
+  labs(y = "Gap estimate", shape = "Gap") +
+  theme_simple +
+  theme(
+    strip.background = element_blank(),
+    axis.title.x = element_blank(),
+    axis.ticks.x = element_blank()
+  )
+```
+.footnote[*Notes:* Outcome variable .mono[=] log(weekly earnings). Vertical bars outline 95% confidence intervals. Reference category .mono[=] White women.]
+
+
+---
+class: clear-slide
+
+.center[**Gender earnings gap among Whites (2021)**]
+```{R, echo = F, escape = F}
+tab <- data.frame(
+  v1 = c("Female", "", 
+         "Education",
+         "Experience", 
+         "Industry",
+         "Occupation",
+         "State",
+         "Hours worked"),
+  v2 = c(-0.301, "(0.011)", "", "", "", "", "", ""),
+  v3 = c(-0.348, "(0.009)", "$\\checkmark$", "", "", "", "", ""),
+  v4 = c(-0.348, "(0.009)", "$\\checkmark$", "$\\checkmark$", "", "", "", ""),
+  v5 = c(-0.244, "(0.010)", "$\\checkmark$", "$\\checkmark$", "$\\checkmark$", "", "", ""),
+  v6 = c(-0.197, "(0.010)", "$\\checkmark$", "$\\checkmark$", "$\\checkmark$", "$\\checkmark$", "", ""),
+  v7 = c(-0.195, "(0.010)", "$\\checkmark$", "$\\checkmark$", "$\\checkmark$", "$\\checkmark$", "$\\checkmark$", ""),
+  v8 = c(-0.142, "(0.009)", "$\\checkmark$", "$\\checkmark$", "$\\checkmark$", "$\\checkmark$", "$\\checkmark$", "$\\checkmark$")
+) %>% kable(
+  escape = FALSE,
+  col.names = c("", "(1)", "(2)", "(3)", "(4)", "(5)", "(6)", "(7)"),
+  align = c("l", rep("c", 7)),
+  table.attr = "style='width:100%;'"
+) %>%
+row_spec(0, color = "#708090") %>% 
+row_spec(1:8, color = met_slate) %>%
+row_spec(2, color = "#c2bebe") %>%
+row_spec(1:8, extra_css = "line-height: 110%;") %>%
+column_spec(1, color = met_slate, italic = T)
+
+tab
+```
+.footnote[*Notes:* Outcome variable .mono[=] log(weekly earnings). Standard errors in parentheses. Reference category .mono[=] White men.]
+
+---
+count: false
+class: clear-slide
+
+.center[**Gender earnings gap among Whites (2021)**]
+```{R, echo = F, escape = F}
+tab %>% column_spec(2, bold = T)
+```
+.footnote[*Notes:* Outcome variable .mono[=] log(weekly earnings). Standard errors in parentheses. Reference category .mono[=] White men.]
+
+---
+count: false
+class: clear-slide
+
+.center[**Gender earnings gap among Whites (2021)**]
+```{R, echo = F, escape = F}
+tab %>% column_spec(3, bold = T)
+```
+.footnote[*Notes:* Outcome variable .mono[=] log(weekly earnings). Standard errors in parentheses. Reference category .mono[=] White men.]
+
+---
+count: false
+class: clear-slide
+
+.center[**Gender earnings gap among Whites (2021)**]
+```{R, echo = F, escape = F}
+tab %>% column_spec(4, bold = T)
+```
+.footnote[*Notes:* Outcome variable .mono[=] log(weekly earnings). Standard errors in parentheses. Reference category .mono[=] White men.]
+
+---
+count: false
+class: clear-slide
+
+.center[**Gender earnings gap among Whites (2021)**]
+```{R, echo = F, escape = F}
+tab %>% column_spec(5, bold = T)
+```
+.footnote[*Notes:* Outcome variable .mono[=] log(weekly earnings). Standard errors in parentheses. Reference category .mono[=] White men.]
+
+---
+count: false
+class: clear-slide
+
+.center[**Gender earnings gap among Whites (2021)**]
+```{R, echo = F, escape = F}
+tab %>% column_spec(6, bold = T)
+```
+.footnote[*Notes:* Outcome variable .mono[=] log(weekly earnings). Standard errors in parentheses. Reference category .mono[=] White men.]
+
+---
+count: false
+class: clear-slide
+
+.center[**Gender earnings gap among Whites (2021)**]
+```{R, echo = F, escape = F}
+tab %>% column_spec(7, bold = T)
+```
+.footnote[*Notes:* Outcome variable .mono[=] log(weekly earnings). Standard errors in parentheses. Reference category .mono[=] White men.]
+
+---
+count: false
+class: clear-slide
+
+.center[**Gender earnings gap among Whites (2021)**]
+```{R, echo = F, escape = F}
+tab %>% column_spec(8, bold = T)
+```
+.footnote[*Notes:* Outcome variable .mono[=] log(weekly earnings). Standard errors in parentheses. Reference category .mono[=] White men.]
+
+---
+class: clear-slide
+
+.center[**Gender earnings gaps by race (2010-2021)**]
+```{r, echo = F, dev = "svg", fig.height = 5.5}
+df <- readRDS("annual_gender_earnings_gaps.rds")
+
+df %>% 
+  ggplot(aes(
+      x = year,
+      y = estimate,
+      color = as.factor(race),
+      shape = as.factor(analysis)
+    )) +
+    geom_hline(yintercept = 0) +
+    geom_linerange(
+      aes(ymin = conf.low, ymax = conf.high),
+      size = 1.5,
+      alpha = 0.5,
+      position = position_dodge2(preserve = "single", width = 0.5)
+    ) +
+    geom_point(
+      size = 1.5,
+      fill = "white",
+      stroke = 2,
+      position = position_dodge2(preserve = "single", width = 0.5)
+    ) +
+  facet_grid(~ race, scales = "free_y") +
+  scale_y_continuous(limits = c(-0.45, 0.05),
+                       breaks = scales::pretty_breaks(n = 6)) +
+  scale_shape_manual(values = c(21, 24)) +
+  scale_color_manual(values = c(red_pink, purple, green, met_slate)) +
+  guides(color = F) +
+  labs(y = "Gap estimate", shape = "Gap") +
+  theme_simple +
+  theme(
+    strip.background = element_blank(),
+    axis.title.x = element_blank(),
+    axis.ticks.x = element_blank()
+  )
+```
+.footnote[*Notes:* Outcome variable .mono[=] log(weekly earnings). Vertical bars outline 95% confidence intervals. Reference category .mono[=] Men.]
+
+---
+# Earnings gaps
+
+## **Discussion**
+
+**Q:** Do the adjusted gaps provide causal evidence of gender or race discrimination? Why or why not?
+
+- Do the adjusted gaps control for enough factors to make an *all-else-equal* claim?
+- Do the adjusted gaps adjust for too much?
+
+---
+# Collider bias
+
+## **Example: Gender discrimination**
+
+.pull-left[
+**Variables**
+- .hi[F] .mono[=] Gender
+- .hi[D] .mono[=] Discrimination
+- .hi[Y] .mono[=] Earnings
+- .hi[O] .mono[=] Occupation
+- .hi[U] .mono[=] Unobserved ability
+
+**Causal paths**
+- .hi[D] .mono[-->] .hi[Y] (path of interest)
+- .hi[D] .mono[-->] .hi[O] .mono[-->] .hi[Y] (mediated path)
+- .hi[D] .mono[-->] .hi[O] .mono[<--] .hi[A] .mono[-->] .hi[Y]
+]
+.pull-right[
+```{r, dev = "svg", echo = F, fig.width = 5.5, fig.height = 5}
+set.seed(1229)
+dag <-
+  dagify(Y ~ D + O + A,
+         D ~ `F`,
+         O ~ D + A,
+         exposure = "D",
+         outcome = "Y") %>%
+  ggplot(aes(
+    x = x,
+    y = y,
+    xend = xend,
+    yend = yend
+  )) +
+  geom_dag_point(color = red_pink) +
+  geom_dag_edges_link(arrow = grid::arrow(length = grid::unit(10, "pt"), type = "closed")) +
+  geom_dag_text(family = "Fira Sans", size = 10) +
+  theme_dag()
+dag
+```
+]
+
+---
+# Collider bias
+
+## **Example: Gender discrimination**
+
+.pull-left[
+**Simulation**
+```{R, eval = F}
+simulated_data <- tibble(
+  female = ifelse(runif(10000) >= 0.5, 1, 0),
+  ability = rnorm(10000),
+  discrimination = female,
+  occupation = 1 + 2 * ability + 0 * female - 2 * discrimination + rnorm(10000),
+  wage = 1 - 1 * discrimination + 1 * occupation + 2 * ability + rnorm(10000)
+)
+
+lm_1 <- lm(wage ~ female, 
+           data = simulated_data)
+
+lm_2 <- lm(wage ~ female + occupation, 
+           data = simulated_data)
+
+lm_3 <- lm(wage ~ female + occupation + ability, 
+           data = simulated_data)
+```
+
+]
+.pull-right[
+```{r, dev = "svg", echo = F, fig.width = 5.5, fig.height = 5}
+dag
+```
+]
+
+---
+count: false
+# Collider bias
+
+## **Example: Gender discrimination**
+
+.pull-left[
+**Simulation**
+```{R, eval = F}
+simulated_data <- tibble(
+  female = ifelse(runif(10000) >= 0.5, 1, 0), #<<
+  ability = rnorm(10000),
+  discrimination = female,
+  occupation = 1 + 2 * ability + 0 * female - 2 * discrimination + rnorm(10000),
+  wage = 1 - 1 * discrimination + 1 * occupation + 2 * ability + rnorm(10000)
+)
+
+lm_1 <- lm(wage ~ female, 
+           data = simulated_data)
+
+lm_2 <- lm(wage ~ female + occupation, 
+           data = simulated_data)
+
+lm_3 <- lm(wage ~ female + occupation + ability, 
+           data = simulated_data)
+```
+
+]
+.pull-right[
+```{r, dev = "svg", echo = F, fig.width = 5.5, fig.height = 5}
+dag
+```
+]
+
+---
+count: false
+# Collider bias
+
+## **Example: Gender discrimination**
+
+.pull-left[
+**Simulation**
+```{R, eval = F}
+simulated_data <- tibble(
+  female = ifelse(runif(10000) >= 0.5, 1, 0),
+  ability = rnorm(10000), #<<
+  discrimination = female,
+  occupation = 1 + 2 * ability + 0 * female - 2 * discrimination + rnorm(10000),
+  wage = 1 - 1 * discrimination + 1 * occupation + 2 * ability + rnorm(10000)
+)
+
+lm_1 <- lm(wage ~ female, 
+           data = simulated_data)
+
+lm_2 <- lm(wage ~ female + occupation, 
+           data = simulated_data)
+
+lm_3 <- lm(wage ~ female + occupation + ability, 
+           data = simulated_data)
+```
+
+]
+.pull-right[
+```{r, dev = "svg", echo = F, fig.width = 5.5, fig.height = 5}
+dag
+```
+]
+
+---
+count: false
+# Collider bias
+
+## **Example: Gender discrimination**
+
+.pull-left[
+**Simulation**
+```{R, eval = F}
+simulated_data <- tibble(
+  female = ifelse(runif(10000) >= 0.5, 1, 0),
+  ability = rnorm(10000),
+  discrimination = female, #<<
+  occupation = 1 + 2 * ability + 0 * female - 2 * discrimination + rnorm(10000),
+  wage = 1 - 1 * discrimination + 1 * occupation + 2 * ability + rnorm(10000)
+)
+
+lm_1 <- lm(wage ~ female, 
+           data = simulated_data)
+
+lm_2 <- lm(wage ~ female + occupation, 
+           data = simulated_data)
+
+lm_3 <- lm(wage ~ female + occupation + ability, 
+           data = simulated_data)
+```
+
+]
+.pull-right[
+```{r, dev = "svg", echo = F, fig.width = 5.5, fig.height = 5}
+dag
+```
+]
+
+---
+count: false
+# Collider bias
+
+## **Example: Gender discrimination**
+
+.pull-left[
+**Simulation**
+```{R, eval = F}
+simulated_data <- tibble(
+  female = ifelse(runif(10000) >= 0.5, 1, 0),
+  ability = rnorm(10000),
+  discrimination = female,
+  occupation = 1 + 2 * ability + 0 * female - 2 * discrimination + rnorm(10000), #<<
+  wage = 1 - 1 * discrimination + 1 * occupation + 2 * ability + rnorm(10000)
+)
+
+lm_1 <- lm(wage ~ female, 
+           data = simulated_data)
+
+lm_2 <- lm(wage ~ female + occupation, 
+           data = simulated_data)
+
+lm_3 <- lm(wage ~ female + occupation + ability, 
+           data = simulated_data)
+```
+
+]
+.pull-right[
+```{r, dev = "svg", echo = F, fig.width = 5.5, fig.height = 5}
+dag
+```
+]
+
+---
+count: false
+# Collider bias
+
+## **Example: Gender discrimination**
+
+.pull-left[
+**Simulation**
+```{R, eval = F}
+simulated_data <- tibble(
+  female = ifelse(runif(10000) >= 0.5, 1, 0),
+  ability = rnorm(10000),
+  discrimination = female,
+  occupation = 1 + 2 * ability + 0 * female - 2 * discrimination + rnorm(10000),
+  wage = 1 - 1 * discrimination + 1 * occupation + 2 * ability + rnorm(10000) #<<
+)
+
+lm_1 <- lm(wage ~ female, 
+           data = simulated_data)
+
+lm_2 <- lm(wage ~ female + occupation, 
+           data = simulated_data)
+
+lm_3 <- lm(wage ~ female + occupation + ability, 
+           data = simulated_data)
+```
+
+]
+.pull-right[
+```{r, dev = "svg", echo = F, fig.width = 5.5, fig.height = 5}
+dag
+```
+]
+
+---
+# Collider bias
+
+## **Example: Gender discrimination**
+
+.pull-left[
+**Simulation**
+```{R, eval = F}
+simulated_data <- tibble(
+  female = ifelse(runif(10000) >= 0.5, 1, 0),
+  ability = rnorm(10000),
+  discrimination = female,
+  occupation = 1 + 2 * ability + 0 * female - 2 * discrimination + rnorm(10000),
+  wage = 1 - 1 * discrimination + 1 * occupation + 2 * ability + rnorm(10000)
+)
+
+lm_1 <- lm(wage ~ female, 
+           data = simulated_data)
+
+lm_2 <- lm(wage ~ female + occupation, 
+           data = simulated_data)
+
+lm_3 <- lm(wage ~ female + occupation + ability, 
+           data = simulated_data)
+```
+
+]
+.pull-right[
+**Results**
+```{R, echo = F, escape = F}
+p_load(broom)
+
+set.seed(6399)
+
+simulated_data <- tibble(
+  female = ifelse(runif(10000) >= 0.5, 1, 0),
+  ability = rnorm(10000),
+  discrimination = female,
+  occupation = 1 + 2 * ability + 0 * female - 2 * discrimination + rnorm(10000),
+  wage = 1 - 1 * discrimination + 1 * occupation + 2 * ability + rnorm(10000)
+)
+
+lm_1 <- lm(wage ~ female, data = simulated_data) %>%
+  tidy() %>% 
+  mutate(estimate = round(estimate, 2), std.error = round(std.error, 2))
+
+lm_2 <- lm(wage ~ female + occupation, data = simulated_data) %>%
+  tidy() %>% 
+  mutate(estimate = round(estimate, 2), std.error = round(std.error, 2))
+
+lm_3 <- lm(wage ~ female + occupation + ability, data = simulated_data) %>%
+  tidy() %>% 
+  mutate(estimate = round(estimate, 2), std.error = round(std.error, 2))
+
+tab <- data.frame(
+  v1 = c("Female", "", 
+         "Occupation", "",
+         "Ability", "",
+         "Intercept", ""),
+  v2 = c(-3.05, "(0.09)", "", "", "", "", 1.95, "(0.06)"),
+  v3 = c(0.58, "(0.03)", 1.80, "(0.01)", "", "", 0.20, "(0.02)"),
+  v4 = c(-1.01, "(0.03)", 1.00, "(0.01)", 2.00, "(0.02)", 1.01, "(0.02)")
+) %>% kable(
+  escape = FALSE,
+  col.names = c("", "(1)", "(2)", "(3)"),
+  align = c("l", rep("c", 3)),
+  table.attr = "style='width:100%;'"
+) %>%
+row_spec(0, color = "#708090") %>% 
+row_spec(1:8, color = met_slate) %>%
+row_spec(c(seq(2, 8, 2)), color = "#c2bebe") %>%
+row_spec(1:8, extra_css = "line-height: 110%;") %>%
+column_spec(1, color = met_slate, italic = T)
+
+tab
+```
+.footnote[*Notes:* Outcome variable .mono[=] wage. Standard errors in parentheses. Reference category .mono[=] Men.]
+]
+
+---
+count: false
+# Collider bias
+
+## **Example: Gender discrimination**
+
+.pull-left[
+**Simulation**
+```{R, eval = F}
+simulated_data <- tibble(
+  female = ifelse(runif(10000) >= 0.5, 1, 0),
+  ability = rnorm(10000),
+  discrimination = female,
+  occupation = 1 + 2 * ability + 0 * female - 2 * discrimination + rnorm(10000),
+  wage = 1 - 1 * discrimination + 1 * occupation + 2 * ability + rnorm(10000)
+)
+
+lm_1 <- lm(wage ~ female, 
+           data = simulated_data)
+
+lm_2 <- lm(wage ~ female + occupation, 
+           data = simulated_data)
+
+lm_3 <- lm(wage ~ female + occupation + ability, 
+           data = simulated_data)
+```
+
+]
+.pull-right[
+**Results**
+```{R, echo = F, escape = F}
+tab %>% column_spec(2, bold = T)
+```
+.footnote[*Notes:* Outcome variable .mono[=] wage. Standard errors in parentheses. Reference category .mono[=] Men.]
+]
+
+---
+count: false
+# Collider bias
+
+## **Example: Gender discrimination**
+
+.pull-left[
+**Simulation**
+```{R, eval = F}
+simulated_data <- tibble(
+  female = ifelse(runif(10000) >= 0.5, 1, 0),
+  ability = rnorm(10000),
+  discrimination = female,
+  occupation = 1 + 2 * ability + 0 * female - 2 * discrimination + rnorm(10000),
+  wage = 1 - 1 * discrimination + 1 * occupation + 2 * ability + rnorm(10000)
+)
+
+lm_1 <- lm(wage ~ female, 
+           data = simulated_data)
+
+lm_2 <- lm(wage ~ female + occupation, 
+           data = simulated_data)
+
+lm_3 <- lm(wage ~ female + occupation + ability, 
+           data = simulated_data)
+```
+
+]
+.pull-right[
+**Results**
+```{R, echo = F, escape = F}
+tab %>% column_spec(3, bold = T)
+```
+.footnote[*Notes:* Outcome variable .mono[=] wage. Standard errors in parentheses. Reference category .mono[=] Men.]
+]
+
+---
+count: false
+# Collider bias
+
+## **Example: Gender discrimination**
+
+.pull-left[
+**Simulation**
+```{R, eval = F}
+simulated_data <- tibble(
+  female = ifelse(runif(10000) >= 0.5, 1, 0),
+  ability = rnorm(10000),
+  discrimination = female,
+  occupation = 1 + 2 * ability + 0 * female - 2 * discrimination + rnorm(10000),
+  wage = 1 - 1 * discrimination + 1 * occupation + 2 * ability + rnorm(10000)
+)
+
+lm_1 <- lm(wage ~ female, 
+           data = simulated_data)
+
+lm_2 <- lm(wage ~ female + occupation, 
+           data = simulated_data)
+
+lm_3 <- lm(wage ~ female + occupation + ability, 
+           data = simulated_data)
+```
+
+]
+.pull-right[
+**Results**
+```{R, echo = F, escape = F}
+tab %>% column_spec(4, bold = T)
+```
+.footnote[*Notes:* Outcome variable .mono[=] wage. Standard errors in parentheses. Reference category .mono[=] Men.]
+]
+
+---
+# Bertrand and Mullainathan (2004)
+
+## **Discussion**
+
+**Q.sub[1]:** How does the study measure discrimination in the labor market? 
+
+**Q.sub[2]:** What are the advantages of the research design?
+
+**Q.sub[3]:** What are the weaknesses of the study?
+
+**Q.sub[4]:** What are the main findings? 
+
+**Q.sub[5]:** What does the study tell us about employers?
+
+**Q.sub[6]:** What did *you* find most interesting and/or depressing?
+
+---
+# Housekeeping
+
+**Assigned reading for Wednesday:** [Ban the Box, Criminal Records, and Racial Discrimination: A Field Experiment](https://academic.oup.com/qje/article-abstract/133/1/191/4060073) by Amanda Agan and Sonja Starr (2017).
+
+- Reading Quiz 10 is due by **Wednesday, May 26th at 16:00**.
+- The quiz instructions will include a reading guide.
+
+**Reading Quiz 9** is also due by Wednesday, May 26th at 16:00.

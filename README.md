@@ -37,3 +37,5 @@ The HTML versions of the lecture slides allow you to view animations and interac
 
 14. **Signaling** <br> [.html](https://raw.githack.com/kyleraze/EC350_Labor_Economics/master/Lectures/14-Signaling/14-Signaling.html) | [.pdf](https://raw.githack.com/kyleraze/EC350_Labor_Economics/master/Lectures/14-Signaling/14-Signaling.pdf)
 
+15. **Discrimination** <br> [.html](https://raw.githack.com/kyleraze/EC350_Labor_Economics/master/Lectures/15-Discrimination/15-Discrimination.html) | [.pdf](https://raw.githack.com/kyleraze/EC350_Labor_Economics/master/Lectures/15-Discrimination/15-Discrimination.pdf)
+
