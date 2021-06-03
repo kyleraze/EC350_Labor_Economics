@@ -1,0 +1,362 @@
+---
+title: "Unions"
+subtitle: "EC 350: Labor Economics"
+author: "[Kyle Raze](https://kyleraze.com)"
+date: "Spring 2021"
+output:
+  xaringan::moon_reader:
+    css: ['default', 'metropolis', 'metropolis-fonts', 'my-css.css']
+    self_contained: false
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      beforeInit: "https://platform.twitter.com/widgets.js"
+      ratio: "16:9"
+---
+
+```{r Setup, include = F}
+options(htmltools.dir.version = FALSE)
+library(pacman)
+p_load(ggthemes, readxl, viridis, knitr, ggdag, gapminder, extrafont, tidyverse, magrittr, janitor, kableExtra)
+# Define colors
+red_pink <- "#e64173"
+met_slate <- "#272822" # metropolis font color 
+purple <- "#9370DB"
+green <- "#007935"
+light_green <- "#7DBA97"
+orange <- "#FD5F00"
+turquoise <- "#44C1C4"
+# Knitr options
+opts_chunk$set(
+  comment = "#>",
+  fig.align = "center",
+  fig.height = 7,
+  fig.width = 10.5,
+  #dpi = 300,
+  #cache = T,
+  warning = F,
+  message = F
+)  
+theme_simple <- theme_bw() + theme(
+  axis.line = element_line(color = met_slate),
+  panel.grid = element_blank(),
+  rect = element_blank(),
+  # strip.text = element_blank(),
+  text = element_text(family = "Fira Sans", color = met_slate, size = 17),
+  axis.text.x = element_text(size = 12),
+  axis.text.y = element_text(size = 12),
+  axis.ticks = element_blank()
+)
+theme_market <- theme_bw() + theme(
+  axis.line = element_line(color = met_slate),
+  panel.grid = element_blank(),
+  rect = element_blank(),
+  strip.text = element_blank(),
+  text = element_text(family = "Fira Sans", color = met_slate, size = 17),
+  axis.title.x = element_text(hjust = 1, size = 17),
+  axis.title.y = element_text(hjust = 1, angle = 0, size = 17),
+  # axis.text.x = element_text(size = 12),
+  # axis.text.y = element_text(size = 12),
+  axis.ticks = element_blank()
+)
+theme_gif <- theme_bw() + theme(
+  axis.line = element_line(color = met_slate),
+  panel.grid = element_blank(),
+  rect = element_blank(),
+  text = element_text(family = "Fira Sans", color = met_slate, size = 17),
+  axis.text.x = element_text(size = 12),
+  axis.text.y = element_text(size = 12),
+  axis.ticks = element_blank()
+)
+
+xaringanExtra::use_scribble()
+```
+
+# Agan and Starr (2017)
+
+## **Discussion**
+
+**Q.sub[1]:** What is the motivation for the research question? 
+
+**Q.sub[2]:** How does the study address the research question?
+
+**Q.sub[3]:** What are the main findings?
+
+**Q.sub[4]:** How does the study advance our understanding of racial discrimination in the labor market?
+
+**Q.sub[5]:** What are the policy implications?
+
+**Q.sub[6]:** What did *you* find most interesting?
+
+---
+class: inverse, middle
+
+# Unions
+
+---
+# Unions
+
+### **What are they?**
+
+Labor unions are **institutions** that bargain with employers over wages and working conditions.
+
+- Instead of having individual workers bargain with the employer, unions bargain with the employer **collectively** on behalf of those workers.
+
+--
+
+### **Why do they matter?**
+
+1. Unions pose important consequences for economic **inequality** and **efficiency**.
+
+2. Unions [may](https://www.vox.com/recode/22213494/google-union-alphabet-workers-tech-organizing-activism-labor) or [may not](https://www.nytimes.com/2021/04/09/technology/amazon-defeats-union.html) be making a comeback in the United States.
+
+---
+# Unions
+
+### **What's in a contract?**
+
+The result of negotiations between a union and an employer? A legally binding contract, known as a **collective bargaining agreement**.
+
+
+--
+
+Collective bargaining agreements cover a lot of ground!
+
+- **Wages** (*e.g.,* minimum salaries, overtime pay, bonuses, performance pay, *etc.*)
+- **Fringe benefits** (*e.g.,* health insurance, pensions, paid vacation, sick days, parking, *etc.*)
+- **Workload** (*e.g.,* minimum and maximum hours, holidays, scheduling, *etc.*)
+- **Working conditions** (*e.g.,* break schedules, health and safety regulations, grievance procedures, *etc.*)
+- **Training** (*e.g.,* in-service, mandatory workplace safety meetings, *etc.*)
+- **Discipline** (*e.g.,* grounds for dismissal, performance standards, *etc.*)
+
+---
+class: clear-slide
+
+.center[**Solidarity *forever*?**<br>.slate[Union density in the United States, 1973&ndash;2020]]
+```{r, echo = FALSE, fig.height = 5, dev = "svg"}
+p_load(readxl)
+
+data <-
+  read_excel("union_membership.xlsx",
+             col_types = c("numeric", "text", "numeric")) %>% 
+  mutate(membership = membership / 100) %>% 
+  filter(!is.na(membership))
+
+data %>% 
+  ggplot(aes(x = year, y = membership, group = class, color = class)) +
+  geom_line(size = 1) +
+  scale_y_continuous(breaks = scales::pretty_breaks(), labels = scales::percent) +
+  scale_x_continuous(breaks = scales::pretty_breaks()) +
+  scale_color_manual(values = c(purple, green, red_pink)) +
+  labs(y = "Union membership", color = "Workers") +
+  theme_simple +
+  theme(axis.title.x = element_blank(),
+        axis.title.y = element_text(margin = margin(r = 10)))
+```
+
+.footnote[*Source:* Barry T. Hirsch and David A. Macpherson (2003), [Union Membership and Coverage Database from the Current Population Survey: Note](https://journals.sagepub.com/doi/10.1177/001979390305600208), *Industrial and Labor Relations Review*, updated annually at [unionstats.com](http://www.unionstats.com/).]
+
+---
+# Unions and inequality
+
+**Union density and income inequality are negatively correlated.**
+
+- The rise of union membership during the 1930s coincided with a significant decrease in income inequality.
+- Conversely, the decline in union membership since the 1970s coincided with a significant increase in income inequality.
+
+
+--
+
+**Q:** Does this correlation reflect a causal relationship or something else?
+
+--
+
+**A:** While part of the raw correlation can be explained by other factors, it appears that unions do have a negative causal effect on income inequality..super[.hi-pink[<span>&#8224;</span>]]
+
+- **How?** Unions increase compensation for lower-skill workers and compress wages within firms.
+
+.footnote[.super[.hi-pink[<span>&#8224;</span>]] *Source:* Farber et al. (2021), [Unions and Inequality Over the Twentieth Century: New Evidence from Survey Data](https://www.nber.org/papers/w24587), *NBER Working Paper 24587*.]
+
+---
+# Monopoly unions
+
+**Unions bargain on the behalf of all workers** within a "bargaining unit," regardless of whether those workers are union members.
+
+- The GTFF bargains on behalf of all GEs at the University of Oregon, even those who choose not to pay union dues..super[.hi-pink[<span>&#8224;</span>]]
+
+.footnote[.super[.hi-pink[<span>&#8224;</span>]] [*Janus v. AFSCME*](https://en.wikipedia.org/wiki/Janus_v._AFSCME) eliminated the ability of public employee unions to collect "fair share" dues from non-members.]
+
+--
+
+The **exclusive** right to bargain within a workplace gives unions **monopoly power** over wages.
+
+- With unionization, workers are no longer "wage takers"&mdash;they now have the ability to influence market wages.
+
+
+--
+
+**The union's objective?**
+
+> More. <br> &nbsp;&nbsp; &mdash;  [Samuel Gompers](https://en.wikipedia.org/wiki/Samuel_Gompers), founder of the American Federation of Labor
+
+
+---
+# Monopoly unions
+
+.pull-left[
+```{r, echo = FALSE, fig.height = 5.5, fig.width = 5.5, dev = "svg"}
+x <- 0:10
+demand <- function(x) 10 - x
+supply <- function(x) 1 + x
+
+q_1 <- uniroot(function(x) demand(x) - supply(x), range(x))$root
+p_1 <- demand(q_1)
+min_wage <- p_1 + 2 
+q_2 <- uniroot(function(x) demand(x) - min_wage, range(x))$root
+
+
+ggplot(data = data.frame(x = 0), mapping = aes(x = x)) +
+  scale_x_continuous(limits = c(0, 10.5), expand = c(0, 0), breaks = c(q_2, q_1), labels = c(expression(E[U]), expression(E[C]))) +
+  scale_y_continuous(limits = c(0, 10.5), expand = c(0, 0), breaks = c(p_1, min_wage), labels = c(expression(w[C]), expression(w[U]))) +
+  theme_market +
+  labs(x = "E", y = "w") +
+  stat_function(fun = demand, color = purple, size = 1) +
+  stat_function(fun = supply, color = red_pink, size = 1) +
+  geom_point(x = q_1, y = p_1, color = met_slate, size = 2) +
+  geom_point(x = q_2, y = min_wage, color = met_slate, size = 2) +
+  geom_segment(x = 0, xend = q_1, y = p_1, yend = p_1, color = met_slate, linetype = "dashed") +
+  geom_segment(x = q_1, xend = q_1, y = 0, yend = p_1, color = met_slate, linetype = "dashed") +
+  geom_segment(x = q_2, xend = q_2, y = 0, yend = min_wage, color = met_slate, linetype = "dashed") +
+  geom_hline(yintercept = min_wage, size = 1, color = met_slate) +
+  annotate("label", label = expression(S), x = 8, y = supply(8), color = red_pink, family = "Fira Sans", size = 5) +
+  annotate("label", label = expression(D), x = 9, y = demand(9), color = purple, family = "Fira Sans", size = 5)
+```
+]
+.pull-right[
+
+## **Competitive employers**
+
+A union can leverage its market power over employers by setting a binding minimum wage.
+
+* Wages increase, but employers respond by decreasing employment or cutting hours.
+* Creates deadweight loss .mono[-->] inefficient.
+
+
+]
+
+---
+# Monopoly unions
+
+.pull-left[
+```{r, dev = "svg", echo = F, fig.height = 5.5, fig.width = 5.5}
+x <- 0:10
+supply <- function(x) 1 + 1 * x
+demand <- function(x) 10 - x
+marginal_cost <- function(x) 1 + 2 * x
+l_m <- uniroot(function(x) demand(x) - marginal_cost(x), range(x))$root
+w_m <- supply(l_m)
+vmp_m <- demand(l_m)
+
+min_wage <- 5
+
+l_u <- uniroot(function(x) min_wage - supply(x), range(x))$root
+w_u <- min_wage
+
+
+
+ggplot(data = data.frame(x = 0), mapping = aes(x = x)) +
+  scale_x_continuous(limits = c(0, 10.5), expand = c(0, 0), breaks = c(l_m, l_u), labels = c(expression(E[M]), expression(E[U]))) +
+  scale_y_continuous(limits = c(0, 10.5), expand = c(0, 0), breaks = c(w_m, w_u), labels = c(expression(w[M]), expression(w[U]))) +
+  theme_market +
+  labs(x = "E", y = "w") +
+  stat_function(aes(x), fun = marginal_cost, color = green, size = 1) +
+  annotate("label", label = expression(MC[E]), x = 4.5, y = marginal_cost(4.5), color = green, family = "Fira Sans", size = 5) +
+  stat_function(aes(x), fun = demand, color = purple, size = 1) +
+  stat_function(aes(x), fun = supply, color = red_pink, size = 1) +
+  geom_hline(yintercept = min_wage, size = 1, color = met_slate) +
+  # labels
+  annotate("label", label = expression(D==VMP[E]), x = 9, y = demand(9), color = purple, family = "Fira Sans", size = 5) +
+  annotate("label", label = "S", x = 9, y = supply(9), color = red_pink, family = "Fira Sans", size = 5) +
+  geom_point(aes(x = l_u, y = min_wage), color = met_slate, size = 2) +
+  geom_segment(aes(x = l_u, xend = l_u, y = 0, yend = min_wage), color = met_slate, linetype = "dashed") +
+  geom_point(aes(x = l_m, y = w_m), color = met_slate, size = 2) +
+  geom_segment(aes(x = l_m, xend = l_m, y = 0, yend = w_m), color = met_slate, linetype = "dashed") +
+  geom_segment(aes(x = 0, xend = l_m, y = w_m, yend = w_m), color = met_slate, linetype = "dashed")
+```
+]
+.pull-right[
+
+## **Monopsonist employer**
+
+The union can bargain for a binding minimum wage that increases both wages and employment.
+
+- Possibly less inefficient than the unregulated monopsony equilibrium.
+
+]
+
+---
+# Bargaining
+
+**Richer models** of bargaining **predict** that unions and competitive employers will reach **agreement off the demand curve**, increasing both wages and employment beyond the unregulated market equilibrium.
+
+- Efficient in the sense that negotiations exhaust mutual benefits between the union and the employer.
+- Inefficient in the sense that collective bargaining agreements can **misallocate** workers within and across firms.
+- Having excess workers forces the employer and union to negotiate **featherbedding** practices.
+
+
+---
+# Bargaining
+
+The **consequences** of collective bargaining **extend beyond wages and employment**&mdash;there are also meaningful consequences for effort and productivity.
+
+
+### **Examples**
+
+- Teacher unionization increases school funding, but worsens student performance..super[.hi-pink[<span>1</span>]]
+- Teacher unionization can decrease students' earnings in the long run..super[.hi-pink[<span>2</span>]]
+- Police unionization can increase the frequency of violent misconduct among officers..super[.hi-pink[<span>3</span>]]
+
+
+.footnote[
+.super[.hi-pink[<span>1</span>]] Caroline M. Hoxby (1996), [How Teachers' Unions Affect Education Production](https://www.jstor.org/stable/2946669), *The Quarterly Journal of Economics*. <br> .super[.hi-pink[<span>2</span>]] Michael F. Lovenheim and Alexander Willén (2019), [The Long-Run Effects of Teacher Collective Bargaining](https://www.aeaweb.org/articles?id=10.1257/pol.20170570), *American Economic Journal: Economic Policy*. <br> .super[.hi-pink[<span>3</span>]] Dharmapala et al. (2020), [Collective Bargaining Rights and Police Misconduct: Evidence from Florida](https://academic.oup.com/jleo/advance-article/doi/10.1093/jleo/ewaa025/6054285), *The Journal of Law, Economics, and Organization*.
+]
+
+--
+
+In each example, the increase in job security comes with a **social cost!**
+
+- Unions can decrease income inequality, but they can also increase other forms of inequality!
+
+---
+# The tradeoffs of unionization 
+
+## **Discussion**
+
+**Q:** Should we embrace unionization efforts?
+
+- What tradeoffs should we consider?
+
+--
+
+**The takeaway?** Unions can pose an equity-efficiency tradeoff, but the nature/existance of this tradeoff depends on the local context!
+
+- Possible for unions to increase equity and efficiency!
+- Also possible for unions to decrease equity and efficiency!
+
+
+---
+# Housekeeping
+
+**Problem Set 4** is also due by **Sunday, June 6th at 23:59**.
+
+**Final Exam** scheduled for **Wednesday, June 9th from 14:45 to 16:45** on Canvas.
+
+- Same format as the midterm
+- Cumulative, but with more weight on post-midterm material
+
+**Extra office hours**
+
+- Saturday, June 5th from 14:00 to 15:00
+- Monday, June 7th from 10:00 to 11:00
+
