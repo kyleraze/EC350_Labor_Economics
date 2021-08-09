@@ -1,9 +1,11 @@
-# EC 350, Spring 2021
+# Labor Economics <img align="right" height="300" src="fig_labor_supply.png">
 
-Welcome to the course GitHub page for **EC 350: Labor Economics** (Spring 2021) at the University of Oregon.
+Welcome to EC 350: Labor Economics (Spring 2021) at the University of Oregon.
 
 - Instructor: [Kyle Raze](https://kyleraze.com)
 - [Syllabus](https://raw.githack.com/kyleraze/EC350_Labor_Economics/master/Syllabus/syllabus.pdf)
+
+This course applies insights from economic theory and real-world data to explore the causes of inequality in the labor market. Building upon concepts from introductory microeconomics, we will analyze the responses of workers and employers to changes in incentives, and consider the roles of policy, institutions, and other social phenomena in shaping labor market outcomes. As part of this line of inquiry, we will develop a toolkit that integrates theory and data, paying special attention to the ways in which we can identify&mdash;or fail to identify&mdash;causal relationships from data. Beyond refining their understanding of mechanisms that drive income inequality, successful students will leave the course with a framework for evaluating evidence and policy.
 
 ## Lectures
 
@@ -43,4 +45,10 @@ The HTML versions of the lecture slides allow you to view animations and interac
 
 17. **Unions** <br> [.html](https://raw.githack.com/kyleraze/EC350_Labor_Economics/master/Lectures/17-Unions/17-Unions.html) | [.pdf](https://raw.githack.com/kyleraze/EC350_Labor_Economics/master/Lectures/17-Unions/17-Unions.pdf)
 
+## Other course content
 
+For supplemental lecture documents, problem sets, and other materials, please see Canvas.
+
+## Resources
+
+I am indebted to [Amani Rashid](https://www.linkedin.com/in/amani-rashid-0b1654196) and [Glen Waddell](http://www.glenwaddell.com/) ([@glenwaddell](https://github.com/glenwaddell)) for their generous contributions of course materials. I also source material from [Scott Cunningham](https://www.scunning.com/) ([@scunning1975](https://github.com/scunning1975)), [Nick Huntington-Klein](https://nickchk.com/) ([@NickCH-K](https://github.com/NickCH-K)), [Ed Rubin](http://edrub.in/) ([@edrubin](https://github.com/edrubin)), and [Opportunity Insights](https://opportunityinsights.org/). If you're interested in learning more about causal inference and its applications in labor economics, check out Scott Cunningham's excellent [*Causal Inference: The Mixtape*](https://mixtape.scunning.com/).
