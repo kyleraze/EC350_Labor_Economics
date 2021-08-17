@@ -1,4 +1,4 @@
-# Labor Economics <img align="right" height="300" src="fig_labor_supply.png">
+# Labor Economics <img align="right" height="175" src="fig_labor_supply.png">
 
 Welcome to EC 350: Labor Economics (Spring 2021) at the University of Oregon.
 
@@ -49,6 +49,7 @@ The HTML versions of the lecture slides allow you to view animations and interac
 
 For supplemental lecture documents, problem sets, and other materials, please see Canvas.
 
-## Resources
+## Contributors
 
-I am indebted to [Amani Rashid](https://www.linkedin.com/in/amani-rashid-0b1654196) and [Glen Waddell](http://www.glenwaddell.com/) ([@glenwaddell](https://github.com/glenwaddell)) for their generous contributions of course materials. I also source material from [Scott Cunningham](https://www.scunning.com/) ([@scunning1975](https://github.com/scunning1975)), [Nick Huntington-Klein](https://nickchk.com/) ([@NickCH-K](https://github.com/NickCH-K)), [Ed Rubin](http://edrub.in/) ([@edrubin](https://github.com/edrubin)), and [Opportunity Insights](https://opportunityinsights.org/). If you're interested in learning more about causal inference and its applications in labor economics, check out Scott Cunningham's excellent [*Causal Inference: The Mixtape*](https://mixtape.scunning.com/).
+I am indebted to [Glen Waddell](http://www.glenwaddell.com/) ([@glenwaddell](https://github.com/glenwaddell)) for his generous contribution of course materials. I also source material from [Ed Rubin](http://edrub.in/) ([@edrubin](https://github.com/edrubin)) and [Nick Huntington-Klein](https://nickchk.com/) ([@NickCH-K](https://github.com/NickCH-K)).
+
