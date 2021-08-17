@@ -1,4 +1,4 @@
-# Labor Economics <img align="right" height="175" src="fig_labor_supply.png">
+# Labor Economics
 
 Welcome to EC 350: Labor Economics (Spring 2021) at the University of Oregon.
 
