@@ -2,7 +2,7 @@
 title: "Inequality, Opportunity, and Science"
 subtitle: "EC 350: Labor Economics"
 author: "[Kyle Raze](https://kyleraze.com)"
-date: "Spring 2021"
+date: "Winter 2022"
 output:
   xaringan::moon_reader:
     css: ['default', 'metropolis', 'metropolis-fonts', 'my-css.css']
@@ -14,12 +14,11 @@ output:
       beforeInit: "https://platform.twitter.com/widgets.js"
       ratio: "16:9"
 ---
-class: inverse, middle
 
 ```{r Setup, include = F}
 options(htmltools.dir.version = FALSE)
 library(pacman)
-p_load(ggthemes, viridis, knitr, kableExtra, extrafont, webshot, fontawesome, tidyverse, magrittr, janitor)
+p_load(ggthemes, xaringanExtra, viridis, knitr, kableExtra, extrafont, webshot, fontawesome, tidyverse, magrittr, janitor)
 # Define colors
 red_pink <- "#e64173"
 met_slate <- "#272822" # metropolis font color 
@@ -50,11 +49,10 @@ theme_simple <- theme_bw() + theme(
   axis.ticks = element_blank()
 )
 wrapper <- function(x, ...) paste(strwrap(x, ...), collapse = "\n")
+
+xaringanExtra::use_scribble()
 ```
 
-# Prologue
-
----
 # Inequality, Opportunity, and Science
 
 1. What role should economists play?
@@ -287,7 +285,8 @@ mobility %>%
 
 **Motivation:** Large income disparities between Black and White Americans have persisted throughout US history.
 
-- Why aren't gaps closing over time?
+- Why do gaps continue to exist? 
+- Why is it taking so long for gaps to close?
 
 
 --
@@ -342,7 +341,7 @@ df %>%
 ```
 ]
 .less-right[
-The .hi-pink[relationship] between a parent's rank in the income distribution and her child's eventual rank is .pink[approximately linear].
+The .hi-pink[relationship] between a parent's rank in the income distribution and her child's eventual rank is .pink[approximately linear in the US].
 ]
 
 ---
@@ -373,11 +372,75 @@ df %>%
 ```
 ]
 .less-right[
-The .hi-pink[relationship] between a parent's rank in the income distribution and her child's eventual rank is .pink[approximately linear].
+The .hi-pink[relationship] between a parent's rank in the income distribution and her child's eventual rank is .pink[approximately linear in the US].
 
 Intercept .mono[=] **absolute mobility** 
 
 Slope .mono[=] **relative mobility**
+]
+
+---
+# Race and Economic Opportunity
+
+## Intergenerational mobility
+
+.more-left[
+```{R, echo = F, dev = "svg", fig.height = 7}
+df <- tibble(parent = seq(0, 100, 1),
+             child = 32.5 + 0.35 * parent,
+             line_45_degree = parent)
+
+rank <- function(x) 32.5 + 0.35 * x
+
+df %>% 
+  ggplot(aes(x = parent, y = child)) +
+  geom_line(aes(x = parent, y = line_45_degree), color = red_pink, size = 1) +
+  scale_y_continuous(breaks = c(0, 20, 40, 60, 80, 100), labels = c(0, 20, 40, 60, 80, 100), limits = c(0, 105), expand = c(0, 0)) +
+  annotate("text", x = 70, y = 20, label = "Absolute~mobility==0", hjust = 0, parse = T, color = met_slate, size = 5, family = "Fira Sans") +
+  annotate("text", x = 70, y = 15, label = "Relative~mobility==1", hjust = 0, parse = T, color = met_slate, size = 5, family = "Fira Sans") +
+  annotate("text", x = 6, y = 4, label = "45° line", hjust = 0, color = red_pink, size = 5, family = "Fira Sans") +
+  scale_x_continuous(breaks = seq(0, 100, 20), limits = c(0, 105), expand = c(0, 0)) +
+  labs(x = "Parent rank (percentile)", y = "Expected child rank (percentile)") +
+  theme_simple
+```
+]
+.less-right[
+The .hi-pink[45° line] describes a society in which a child's eventual rank in the income distribution matches that of their parents' rank, on average.
+
+No change from one generation to the next.
+]
+
+---
+# Race and Economic Opportunity
+
+## Intergenerational mobility
+
+.more-left[
+```{R, echo = F, dev = "svg", fig.height = 7}
+df <- tibble(parent = seq(0, 100, 1),
+             child = 32.5 + 0.35 * parent,
+             line_45_degree = parent) %>% 
+  mutate(flat = 50)
+
+rank <- function(x) 32.5 + 0.35 * x
+
+df %>% 
+  ggplot(aes(x = parent, y = child)) +
+  geom_line(aes(x = parent, y = line_45_degree), color = "lightgrey", size = 1, linetype = "dashed") +
+  geom_line(aes(x = parent, y = flat), color = red_pink, size = 1) +
+  scale_y_continuous(breaks = c(0, 20, 40, 60, 80, 100), labels = c(0, 20, 40, 60, 80, 100), limits = c(0, 105), expand = c(0, 0)) +
+  annotate("text", x = 70, y = 20, label = "Absolute~mobility==50", hjust = 0, parse = T, color = met_slate, size = 5, family = "Fira Sans") +
+  annotate("text", x = 70, y = 15, label = "Relative~mobility==0", hjust = 0, parse = T, color = met_slate, size = 5, family = "Fira Sans") +
+  annotate("text", x = 6, y = 4, label = "45° line", hjust = 0, color = "lightgrey", size = 5, family = "Fira Sans") +
+  scale_x_continuous(breaks = seq(0, 100, 20), limits = c(0, 105), expand = c(0, 0)) +
+  labs(x = "Parent rank (percentile)", y = "Expected child rank (percentile)") +
+  theme_simple
+```
+]
+.less-right[
+A .hi-pink[flat line] describes a society in which a child's eventual rank in the income distribution does not depend on their parents' rank, on average.
+
+Odds of "success" no different for poor children than for rich children.
 ]
 
 ---
@@ -406,21 +469,21 @@ df %>%
   geom_segment(aes(x = 35, xend = 35, y = 0, yend = rank(35)), color = green, size = 1, linetype = "dashed") +
   geom_segment(aes(x = 55, xend = 55, y = 0, yend = rank(55)), color = purple, size = 1, linetype = "dashed") +
   annotate("text", x = 45, y = 18, label = "Gap==20", parse = T, color = met_slate, size = 5, family = "Fira Sans") +
-  geom_segment(aes(x = 45, y = 15, xend = 35 + 0.2, yend = 15), arrow = arrow(angle = 20, length = unit(0.3,"cm"), type = "closed"), color = met_slate, size = 1) + 
-  geom_segment(aes(x = 45, y = 15, xend = 55 - 0.2, yend = 15), arrow = arrow(angle = 20, length = unit(0.3,"cm"), type = "closed"), color = met_slate, size = 1) + 
+  geom_segment(aes(x = 45, y = 15, xend = 35 + 0.2, yend = 15), arrow = arrow(angle = 20, length = unit(0.2,"cm"), type = "closed"), color = met_slate)  + 
+  geom_segment(aes(x = 45, y = 15, xend = 55 - 0.2, yend = 15), arrow = arrow(angle = 20, length = unit(0.2,"cm"), type = "closed"), color = met_slate)  + 
   # child gap
   # geom_segment(aes(x = 0, xend = 35, y = rank(35), yend = rank(35)), color = green, size = 1, linetype = "dashed") +
   # geom_segment(aes(x = 0, xend = 55, y = rank(55), yend = rank(55)), color = purple, size = 1, linetype = "dashed") +
   # 
-  # geom_segment(aes(x = 15, y = (rank(35) + rank(55)) / 2, xend = 15, yend = rank(55) - 0.4), arrow = arrow(angle = 20, length = unit(0.3,"cm"), type = "closed"), color = met_slate, size = 1) + 
-  # geom_segment(aes(x = 15, y = (rank(35) + rank(55)) / 2, xend = 15, yend = rank(35) + 0.4), arrow = arrow(angle = 20, length = unit(0.3,"cm"), type = "closed"), color = met_slate, size = 1) + 
+  # geom_segment(aes(x = 15, y = (rank(35) + rank(55)) / 2, xend = 15, yend = rank(55) - 0.4), arrow = arrow(angle = 20, length = unit(0.2, "cm"), type = "closed"), color = met_slate)  + 
+  # geom_segment(aes(x = 15, y = (rank(35) + rank(55)) / 2, xend = 15, yend = rank(35) + 0.4), arrow = arrow(angle = 20, length = unit(0.2, "cm"), type = "closed"), color = met_slate)  + 
   # annotate("text", x = 16, y = (rank(35) + rank(55)) / 2, label = "Gap==7", hjust = 0, parse = T, color = met_slate, size = 5, family = "Fira Sans") +
   # geom_point(aes(x = 35, y = rank(35)), color = green, size = 2) +
   # geom_point(aes(x = 55, y = rank(55)), color = purple, size = 2) +
   
   # steady state
   # geom_point(aes(x = 50, y = 50), size = 2, color = red_pink) +
-  # geom_segment(aes(x = 50, y = 60, xend = 50, yend = 51), arrow = arrow(angle = 20, length = unit(0.3,"cm"), type = "closed"), color = met_slate, size = 1) + 
+  # geom_segment(aes(x = 50, y = 60, xend = 50, yend = 51), arrow = arrow(angle = 20, length = unit(0.2, "cm"), type = "closed"), color = met_slate)  + 
   # annotate("text", x = 50, y = 63, label = "Steady state", color = met_slate, size = 5, family = "Fira Sans") +
   # style
   scale_y_continuous(breaks = c(0, 20, 40, 60, 80, 100), labels = c(0, 20, 40, 60, 80, 100), limits = c(0, 105), expand = c(0, 0)) +
@@ -458,8 +521,8 @@ df %>%
   geom_segment(aes(x = 35, xend = 35, y = 0, yend = rank(35)), color = green, size = 1, linetype = "dashed") +
   geom_segment(aes(x = 55, xend = 55, y = 0, yend = rank(55)), color = purple, size = 1, linetype = "dashed") +
   annotate("text", x = 45, y = 18, label = "Gap==20", parse = T, color = met_slate, size = 5, family = "Fira Sans") +
-  geom_segment(aes(x = 45, y = 15, xend = 35 + 0.2, yend = 15), arrow = arrow(angle = 20, length = unit(0.3,"cm"), type = "closed"), color = met_slate, size = 1) + 
-  geom_segment(aes(x = 45, y = 15, xend = 55 - 0.2, yend = 15), arrow = arrow(angle = 20, length = unit(0.3,"cm"), type = "closed"), color = met_slate, size = 1) + 
+  geom_segment(aes(x = 45, y = 15, xend = 35 + 0.2, yend = 15), arrow = arrow(angle = 20, length = unit(0.2,"cm"), type = "closed"), color = met_slate)  + 
+  geom_segment(aes(x = 45, y = 15, xend = 55 - 0.2, yend = 15), arrow = arrow(angle = 20, length = unit(0.2,"cm"), type = "closed"), color = met_slate)  + 
   # child gap
   geom_segment(aes(x = 0, xend = 35, y = rank(35), yend = rank(35)), color = green, size = 1, linetype = "dashed") +
   geom_segment(aes(x = 0, xend = 55, y = rank(55), yend = rank(55)), color = purple, size = 1, linetype = "dashed") +
@@ -500,13 +563,13 @@ df %>%
   geom_segment(aes(x = 35, xend = 35, y = 0, yend = rank(35)), color = green, size = 1, linetype = "dashed") +
   geom_segment(aes(x = 55, xend = 55, y = 0, yend = rank(55)), color = purple, size = 1, linetype = "dashed") +
   annotate("text", x = 45, y = 18, label = "Gap==20", parse = T, color = met_slate, size = 5, family = "Fira Sans") +
-  geom_segment(aes(x = 45, y = 15, xend = 35 + 0.2, yend = 15), arrow = arrow(angle = 20, length = unit(0.3,"cm"), type = "closed"), color = met_slate, size = 1) + 
-  geom_segment(aes(x = 45, y = 15, xend = 55 - 0.2, yend = 15), arrow = arrow(angle = 20, length = unit(0.3,"cm"), type = "closed"), color = met_slate, size = 1) + 
+  geom_segment(aes(x = 45, y = 15, xend = 35 + 0.2, yend = 15), arrow = arrow(angle = 20, length = unit(0.2,"cm"), type = "closed"), color = met_slate)  + 
+  geom_segment(aes(x = 45, y = 15, xend = 55 - 0.2, yend = 15), arrow = arrow(angle = 20, length = unit(0.2,"cm"), type = "closed"), color = met_slate)  + 
   # child gap
   geom_segment(aes(x = 0, xend = 35, y = rank(35), yend = rank(35)), color = green, size = 1, linetype = "dashed") +
   geom_segment(aes(x = 0, xend = 55, y = rank(55), yend = rank(55)), color = purple, size = 1, linetype = "dashed") +
-  geom_segment(aes(x = 15, y = (rank(35) + rank(55)) / 2, xend = 15, yend = rank(55) - 0.4), arrow = arrow(angle = 20, length = unit(0.3,"cm"), type = "closed"), color = met_slate, size = 1) +
-  geom_segment(aes(x = 15, y = (rank(35) + rank(55)) / 2, xend = 15, yend = rank(35) + 0.4), arrow = arrow(angle = 20, length = unit(0.3,"cm"), type = "closed"), color = met_slate, size = 1) +
+  geom_segment(aes(x = 15, y = (rank(35) + rank(55)) / 2, xend = 15, yend = rank(55) - 0.4), arrow = arrow(angle = 20, length = unit(0.2,"cm"), type = "closed"), color = met_slate)  +
+  geom_segment(aes(x = 15, y = (rank(35) + rank(55)) / 2, xend = 15, yend = rank(35) + 0.4), arrow = arrow(angle = 20, length = unit(0.2,"cm"), type = "closed"), color = met_slate)  +
   annotate("text", x = 16, y = (rank(35) + rank(55)) / 2, label = "Gap==7", hjust = 0, parse = T, color = met_slate, size = 5, family = "Fira Sans") +
   geom_point(aes(x = 35, y = rank(35)), color = green, size = 2) +
   geom_point(aes(x = 55, y = rank(55)), color = purple, size = 2) +
@@ -542,24 +605,147 @@ df %>%
   annotate("text", x = 70, y = 20, label = "Absolute~mobility==32.5", hjust = 0, parse = T, color = met_slate, size = 5, family = "Fira Sans") +
   annotate("text", x = 70, y = 15, label = "Relative~mobility==0.35", hjust = 0, parse = T, color = met_slate, size = 5, family = "Fira Sans") +
   annotate("text", x = 6, y = 4, label = "45° line", hjust = 0, color = "lightgrey", size = 5, family = "Fira Sans") +
+  # parent gap t + 1
+  geom_segment(aes(x = rank(35), xend = rank(35), y = 0, yend = rank(rank(35))), color = green, size = 1, linetype = "dashed") +
+  geom_segment(aes(x = rank(55), xend = rank(55), y = 0, yend = rank(rank(55))), color = purple, size = 1, linetype = "dashed") +
+   # child gap t + 1
+  geom_segment(aes(x = 0, xend = rank(35), y = rank(rank(35)), yend = rank(rank(35))), color = green, size = 1, linetype = "dashed") +
+  geom_segment(aes(x = 0, xend = rank(55), y = rank(rank(55)), yend = rank(rank(55))), color = purple, size = 1, linetype = "dashed") +
+  # gaps t
+  geom_point(aes(x = rank(35), y = rank(rank(35))), color = green, size = 2) +
+  geom_point(aes(x = rank(55), y = rank(rank(55))), color = purple, size = 2) +
+  # style
+  scale_y_continuous(breaks = c(0, 20, 40, 60, 80, 100), labels = c(0, 20, 40, 60, 80, 100), limits = c(0, 105), expand = c(0, 0)) +
+  scale_x_continuous(breaks = seq(0, 100, 20), limits = c(0, 105), expand = c(0, 0)) +
+  labs(x = "Child rank (percentile)", y = "Expected grandchild rank (percentile)") +
+  theme_simple
+```
+]
+.less-right[
+No racial disparities in .hi-pink[intergenerational mobility]<br>.mono[-->] Income disparities between .hi-green[Black] and .hi-purple[White] Americans vanish over time. 
+]
+
+---
+count: false
+# Race and Economic Opportunity
+
+## Intergenerational mobility
+
+.more-left[
+```{R, echo = F, dev = "svg", fig.height = 7}
+df <- tibble(parent = seq(0, 100, 1),
+             child = 32.5 + 0.35 * parent,
+             line_45_degree = parent)
+
+rank <- function(x) 32.5 + 0.35 * x
+
+df %>% 
+  ggplot(aes(x = parent, y = child)) +
+  geom_line(aes(x = parent, y = line_45_degree), color = "lightgrey", size = 1, linetype = "dashed") +
+  geom_line(size = 1, color = red_pink) +
+  annotate("text", x = 70, y = 20, label = "Absolute~mobility==32.5", hjust = 0, parse = T, color = met_slate, size = 5, family = "Fira Sans") +
+  annotate("text", x = 70, y = 15, label = "Relative~mobility==0.35", hjust = 0, parse = T, color = met_slate, size = 5, family = "Fira Sans") +
+  annotate("text", x = 6, y = 4, label = "45° line", hjust = 0, color = "lightgrey", size = 5, family = "Fira Sans") +
+  # parent gap t + 2
+  geom_segment(aes(x = rank(rank(35)), xend = rank(rank(35)), y = 0, yend = rank(rank(rank(35)))), color = green, size = 1, linetype = "dashed") +
+  geom_segment(aes(x = rank(rank(55)), xend = rank(rank(55)), y = 0, yend = rank(rank(rank(55)))), color = purple, size = 1, linetype = "dashed") +
+   # child gap t + 2
+  geom_segment(aes(x = 0, xend = rank(rank(35)), y = rank(rank(rank(35))), yend = rank(rank(rank(35)))), color = green, size = 1, linetype = "dashed") +
+  geom_segment(aes(x = 0, xend = rank(rank(55)), y = rank(rank(rank(55))), yend = rank(rank(rank(55)))), color = purple, size = 1, linetype = "dashed") +
+  # gaps t + 2
+  geom_point(aes(x = rank(rank(35)), y = rank(rank(rank(35)))), color = green, size = 2) +
+  geom_point(aes(x = rank(rank(55)), y = rank(rank(rank(55)))), color = purple, size = 2) +
+  # style
+  scale_y_continuous(breaks = c(0, 20, 40, 60, 80, 100), labels = c(0, 20, 40, 60, 80, 100), limits = c(0, 105), expand = c(0, 0)) +
+  scale_x_continuous(breaks = seq(0, 100, 20), limits = c(0, 105), expand = c(0, 0)) +
+  labs(x = "Grandchild rank (percentile)", y = "Expected great-grandchild rank (percentile)") +
+  theme_simple
+```
+]
+.less-right[
+No racial disparities in .hi-pink[intergenerational mobility]<br>.mono[-->] Income disparities between .hi-green[Black] and .hi-purple[White] Americans vanish over time. 
+]
+
+---
+count: false
+# Race and Economic Opportunity
+
+## Intergenerational mobility
+
+.more-left[
+```{R, echo = F, dev = "svg", fig.height = 7}
+df <- tibble(parent = seq(0, 100, 1),
+             child = 32.5 + 0.35 * parent,
+             line_45_degree = parent)
+
+rank <- function(x) 32.5 + 0.35 * x
+
+df %>% 
+  ggplot(aes(x = parent, y = child)) +
+  geom_line(aes(x = parent, y = line_45_degree), color = "lightgrey", size = 1, linetype = "dashed") +
+  geom_line(size = 1, color = red_pink) +
+  annotate("text", x = 70, y = 20, label = "Absolute~mobility==32.5", hjust = 0, parse = T, color = met_slate, size = 5, family = "Fira Sans") +
+  annotate("text", x = 70, y = 15, label = "Relative~mobility==0.35", hjust = 0, parse = T, color = met_slate, size = 5, family = "Fira Sans") +
+  annotate("text", x = 6, y = 4, label = "45° line", hjust = 0, color = "lightgrey", size = 5, family = "Fira Sans") +
+  # parent gap t + 3
+  geom_segment(aes(x = rank(rank(rank(35))), xend = rank(rank(rank(35))), y = 0, yend = rank(rank(rank(rank(35))))), color = green, size = 1, linetype = "dashed") +
+  geom_segment(aes(x = rank(rank(rank(55))), xend = rank(rank(rank(55))), y = 0, yend = rank(rank(rank(rank(55))))), color = purple, size = 1, linetype = "dashed") +
+   # child gap t + 3
+  geom_segment(aes(x = 0, xend = rank(rank(rank(35))), y = rank(rank(rank(rank(35)))), yend = rank(rank(rank(rank(35))))), color = green, size = 1, linetype = "dashed") +
+  geom_segment(aes(x = 0, xend = rank(rank(rank(55))), y = rank(rank(rank(rank(55)))), yend = rank(rank(rank(rank(55))))), color = purple, size = 1, linetype = "dashed") +
+  # gaps t + 3
+  geom_point(aes(x = rank(rank(rank(35))), y = rank(rank(rank(rank(35))))), color = green, size = 2) +
+  geom_point(aes(x = rank(rank(rank(55))), y = rank(rank(rank(rank(55))))), color = purple, size = 2) +
+  # style
+  scale_y_continuous(breaks = c(0, 20, 40, 60, 80, 100), labels = c(0, 20, 40, 60, 80, 100), limits = c(0, 105), expand = c(0, 0)) +
+  scale_x_continuous(breaks = seq(0, 100, 20), limits = c(0, 105), expand = c(0, 0)) +
+  labs(x = "Great-grandchild rank (percentile)", y = "Expected great-great-grandchild rank (percentile)") +
+  theme_simple
+```
+]
+.less-right[
+No racial disparities in .hi-pink[intergenerational mobility]<br>.mono[-->] Income disparities between .hi-green[Black] and .hi-purple[White] Americans vanish over time. 
+]
+
+---
+count: false
+# Race and Economic Opportunity
+
+## Intergenerational mobility
+
+.more-left[
+```{R, echo = F, dev = "svg", fig.height = 7}
+df <- tibble(parent = seq(0, 100, 1),
+             child = 32.5 + 0.35 * parent,
+             line_45_degree = parent)
+
+rank <- function(x) 32.5 + 0.35 * x
+
+df %>% 
+  ggplot(aes(x = parent, y = child)) +
+  geom_line(aes(x = parent, y = line_45_degree), color = "lightgrey", size = 1, linetype = "dashed") +
+  geom_line(size = 1, color = red_pink) +
+  annotate("text", x = 70, y = 20, label = "Absolute~mobility==32.5", hjust = 0, parse = T, color = met_slate, size = 5, family = "Fira Sans") +
+  annotate("text", x = 70, y = 15, label = "Relative~mobility==0.35", hjust = 0, parse = T, color = met_slate, size = 5, family = "Fira Sans") +
+  annotate("text", x = 6, y = 4, label = "45° line", hjust = 0, color = "lightgrey", size = 5, family = "Fira Sans") +
   # parent gap
   geom_segment(aes(x = 35, xend = 35, y = 0, yend = rank(35)), color = green, size = 1, linetype = "dashed") +
   geom_segment(aes(x = 55, xend = 55, y = 0, yend = rank(55)), color = purple, size = 1, linetype = "dashed") +
   annotate("text", x = 45, y = 18, label = "Gap==20", parse = T, color = met_slate, size = 5, family = "Fira Sans") +
-  geom_segment(aes(x = 45, y = 15, xend = 35 + 0.2, yend = 15), arrow = arrow(angle = 20, length = unit(0.3,"cm"), type = "closed"), color = met_slate, size = 1) + 
-  geom_segment(aes(x = 45, y = 15, xend = 55 - 0.2, yend = 15), arrow = arrow(angle = 20, length = unit(0.3,"cm"), type = "closed"), color = met_slate, size = 1) + 
+  geom_segment(aes(x = 45, y = 15, xend = 35 + 0.2, yend = 15), arrow = arrow(angle = 20, length = unit(0.2,"cm"), type = "closed"), color = met_slate)  + 
+  geom_segment(aes(x = 45, y = 15, xend = 55 - 0.2, yend = 15), arrow = arrow(angle = 20, length = unit(0.2,"cm"), type = "closed"), color = met_slate)  + 
   # child gap
   geom_segment(aes(x = 0, xend = 35, y = rank(35), yend = rank(35)), color = green, size = 1, linetype = "dashed") +
   geom_segment(aes(x = 0, xend = 55, y = rank(55), yend = rank(55)), color = purple, size = 1, linetype = "dashed") +
-  geom_segment(aes(x = 15, y = (rank(35) + rank(55)) / 2, xend = 15, yend = rank(55) - 0.4), arrow = arrow(angle = 20, length = unit(0.3,"cm"), type = "closed"), color = met_slate, size = 1) +
-  geom_segment(aes(x = 15, y = (rank(35) + rank(55)) / 2, xend = 15, yend = rank(35) + 0.4), arrow = arrow(angle = 20, length = unit(0.3,"cm"), type = "closed"), color = met_slate, size = 1) +
+  geom_segment(aes(x = 15, y = (rank(35) + rank(55)) / 2, xend = 15, yend = rank(55) - 0.4), arrow = arrow(angle = 20, length = unit(0.2,"cm"), type = "closed"), color = met_slate)  +
+  geom_segment(aes(x = 15, y = (rank(35) + rank(55)) / 2, xend = 15, yend = rank(35) + 0.4), arrow = arrow(angle = 20, length = unit(0.2,"cm"), type = "closed"), color = met_slate)  +
   annotate("text", x = 16, y = (rank(35) + rank(55)) / 2, label = "Gap==7", hjust = 0, parse = T, color = met_slate, size = 5, family = "Fira Sans") +
   geom_point(aes(x = 35, y = rank(35)), color = green, size = 2) +
   geom_point(aes(x = 55, y = rank(55)), color = purple, size = 2) +
   
   # steady state
   geom_point(aes(x = 50, y = 50), size = 2, color = red_pink) +
-  geom_segment(aes(x = 50, y = 60, xend = 50, yend = 52), arrow = arrow(angle = 20, length = unit(0.3,"cm"), type = "closed"), color = met_slate, size = 1) +
+  geom_segment(aes(x = 50, y = 60, xend = 50, yend = 52), arrow = arrow(angle = 20, length = unit(0.2,"cm"), type = "closed"), color = met_slate)  +
   annotate("text", x = 50, y = 63, label = "Steady state", color = met_slate, size = 5, family = "Fira Sans") +
   # style
   scale_y_continuous(breaks = c(0, 20, 40, 60, 80, 100), labels = c(0, 20, 40, 60, 80, 100), limits = c(0, 105), expand = c(0, 0)) +
@@ -599,20 +785,20 @@ df %>%
   geom_segment(aes(x = 35, xend = 35, y = 0, yend = rank(35)), color = green, size = 1, linetype = "dashed") +
   geom_segment(aes(x = 55, xend = 55, y = 0, yend = rank(55)), color = purple, size = 1, linetype = "dashed") +
   annotate("text", x = 45, y = 18, label = "Gap==20", parse = T, color = met_slate, size = 5, family = "Fira Sans") +
-  geom_segment(aes(x = 45, y = 15, xend = 35 + 0.2, yend = 15), arrow = arrow(angle = 20, length = unit(0.3,"cm"), type = "closed"), color = met_slate, size = 1) + 
-  geom_segment(aes(x = 45, y = 15, xend = 55 - 0.2, yend = 15), arrow = arrow(angle = 20, length = unit(0.3,"cm"), type = "closed"), color = met_slate, size = 1) + 
+  geom_segment(aes(x = 45, y = 15, xend = 35 + 0.2, yend = 15), arrow = arrow(angle = 20, length = unit(0.2,"cm"), type = "closed"), color = met_slate)  + 
+  geom_segment(aes(x = 45, y = 15, xend = 55 - 0.2, yend = 15), arrow = arrow(angle = 20, length = unit(0.2, "cm"), type = "closed"), color = met_slate)  + 
   # child gap
   geom_segment(aes(x = 0, xend = 35, y = rank(35), yend = rank(35)), color = green, size = 1, linetype = "dashed") +
   geom_segment(aes(x = 0, xend = 55, y = rank(55), yend = rank(55)), color = purple, size = 1, linetype = "dashed") +
-  geom_segment(aes(x = 15, y = (rank(35) + rank(55)) / 2, xend = 15, yend = rank(55) - 0.4), arrow = arrow(angle = 20, length = unit(0.3,"cm"), type = "closed"), color = met_slate, size = 1) +
-  geom_segment(aes(x = 15, y = (rank(35) + rank(55)) / 2, xend = 15, yend = rank(35) + 0.4), arrow = arrow(angle = 20, length = unit(0.3,"cm"), type = "closed"), color = met_slate, size = 1) +
+  geom_segment(aes(x = 15, y = (rank(35) + rank(55)) / 2, xend = 15, yend = rank(55) - 0.4), arrow = arrow(angle = 20, length = unit(0.2, "cm"), type = "closed"), color = met_slate)  +
+  geom_segment(aes(x = 15, y = (rank(35) + rank(55)) / 2, xend = 15, yend = rank(35) + 0.4), arrow = arrow(angle = 20, length = unit(0.2, "cm"), type = "closed"), color = met_slate)  +
   annotate("text", x = 16, y = (rank(35) + rank(55)) / 2, label = "Gap==7", hjust = 0, parse = T, color = met_slate, size = 5, family = "Fira Sans") +
   geom_point(aes(x = 35, y = rank(35)), color = green, size = 2) +
   geom_point(aes(x = 55, y = rank(55)), color = purple, size = 2) +
   
   # steady state
   geom_point(aes(x = 50, y = 50), size = 2, color = red_pink) +
-  geom_segment(aes(x = 50, y = 60, xend = 50, yend = 52), arrow = arrow(angle = 20, length = unit(0.3,"cm"), type = "closed"), color = met_slate, size = 1) +
+  geom_segment(aes(x = 50, y = 60, xend = 50, yend = 52), arrow = arrow(angle = 20, length = unit(0.2, "cm"), type = "closed"), color = met_slate)  +
   annotate("text", x = 50, y = 63, label = "Steady state", color = met_slate, size = 5, family = "Fira Sans") +
   # style
   scale_y_continuous(breaks = c(0, 20, 40, 60, 80, 100), labels = c(0, 20, 40, 60, 80, 100), limits = c(0, 105), expand = c(0, 0)) +
@@ -689,8 +875,8 @@ df %>%
   geom_segment(aes(x = 35.2, xend = 35.2, y = 0, yend = rank_black(35.2)), color = green, size = 1, linetype = "dashed") +
   geom_segment(aes(x = 54.5, xend = 54.5, y = 0, yend = rank_white(54.5)), color = purple, size = 1, linetype = "dashed") +
   annotate("text", x = (54.5 + 35.2) / 2, y = 18, label = "`Long-run`~gap==19.2", parse = T, color = met_slate, size = 4.5, family = "Fira Sans") +
-  geom_segment(aes(x = (54.5 + 35.2) / 2, y = 15, xend = 35.2 + 0.2, yend = 15), arrow = arrow(angle = 20, length = unit(0.3,"cm"), type = "closed"), color = met_slate, size = 1) + 
-  geom_segment(aes(x = (54.5 + 35.2) / 2, y = 15, xend = 54.5 - 0.2, yend = 15), arrow = arrow(angle = 20, length = unit(0.3,"cm"), type = "closed"), color = met_slate, size = 1) + 
+  geom_segment(aes(x = (54.5 + 35.2) / 2, y = 15, xend = 35.2 + 0.2, yend = 15), arrow = arrow(angle = 20, length = unit(0.2, "cm"), type = "closed"), color = met_slate)  + 
+  geom_segment(aes(x = (54.5 + 35.2) / 2, y = 15, xend = 54.5 - 0.2, yend = 15), arrow = arrow(angle = 20, length = unit(0.2, "cm"), type = "closed"), color = met_slate)  + 
   geom_point(aes(x = 35.2, y = rank_black(35.2)), color = green, size = 2) +
   geom_point(aes(x = 54.5, y = rank_white(54.5)), color = purple, size = 2) +
   # style
@@ -703,7 +889,7 @@ df %>%
 .less-right[
 Intergenerational mobility does, in fact, differ between .hi-green[Black] and .hi-purple[White] Americans.
 
-**Implication:** Without intervention, racial disparities in income will not vanish in the long-run. 
+**Implication:** As long as there is a racial intergenerational mobility gap, racial disparities in income will not vanish in the long-run. 
 
 ]
 
@@ -882,17 +1068,15 @@ Arguably, **we want to** be able to **identify which margins matter** and **iden
 .bigger[**If "**.hi-purple[some postulate]**" then "**.hi-pink[some event]**."**]
 
 - If .purple[you attend class regularly] then .pink[you will earn a higher grade].
-
-
+- If .purple[you get vaccinated] then .pink[your probability of getting sick will decrease]..super[.hi-pink[1]]
+- If .purple[you get vaccinated] then .pink[your friends' probability of getting sick will decrease]..super[.hi-pink[1]]
 - If .purple[monitoring workers is costly] then .pink[firms will compensate workers based on performance].
-
-
-- If .purple[the risk of dying from an overdose decreases] then .pink[the number of overdoses will increase]..super[.hi-pink[<span>&#8224;</span>]]
-
-
+- If .purple[the risk of dying from an overdose decreases] then .pink[the number of overdoses will increase]..super[.hi-pink[2]]
 - If .purple[working conditions improve] then .pink[labor supply will increase].
 
-.footnote[.super[.hi-pink[<span>&#8224;</span>]] For related evidence: Jennifer L. Doleac and Anita Mukherjee (2018), [The Moral Hazard of Lifesaving Innovations: Naloxone Access, Opioid Abuse, and Crime](https://www.iza.org/publications/dp/11489/the-moral-hazard-of-lifesaving-innovations-naloxone-access-opioid-abuse-and-crime), *IZA Discussion Paper No. 11489*]
+.footnote[.super[.hi-pink[1]] For related evidence: Christopher S. Carpenter and Emily C. Lawler (2019), [Direct and Spillover Effects of Middle School Vaccination Requirements](https://www.aeaweb.org/articles?id=10.1257/pol.20170067), *American Economic Journal: Economic Policy*.
+
+.super[.hi-pink[2]] For related evidence: Jennifer L. Doleac and Anita Mukherjee (2018), [The Moral Hazard of Lifesaving Innovations: Naloxone Access, Opioid Abuse, and Crime](https://www.iza.org/publications/dp/11489/the-moral-hazard-of-lifesaving-innovations-naloxone-access-opioid-abuse-and-crime), *IZA Discussion Paper No. 11489*.]
 
 ---
 # Theory in a data-driven world?
@@ -964,10 +1148,10 @@ Arguably, **we want to** be able to **identify which margins matter** and **iden
 
 **Caveat 1: A theory does not imply its converse.**
 
-Observing **B** does not guarantee that **A** is true. **Something else could have caused B.**
+Observing .hi-pink[B] does not guarantee that .hi-purple[A] is true. **Something else could have caused** .hi-pink[B]**.**
 
-- Example: More people catch colds in winter months than in summer months, but low temperatures do not cause colds.
-- Example: Indoor temperatures are negatively correlated with the running time on furnaces, but furnaces do not cool houses. <br>
+- Example: Just because .pink[you don't have a headache] doesn't mean that .purple[you took an Advil].
+- Example: Just because .pink[you improved your exam score] doesn't mean that .purple[your attendance improved]. <br>
     
 
 --
@@ -983,8 +1167,8 @@ At best, science fails to refute a theory's postulates or predictions.
 
 **Assigned reading for Monday:** [Thinking, Fast and Slow? Some Field Experiments to Reduce Crime and Dropout in Chicago](https://academic.oup.com/qje/article-abstract/132/1/1/2724542?redirectedFrom=fulltext) by Heller et al. (2017).
 
-- I will post the paper on Canvas tonight!
+- You can find the paper on Canvas.
 - Read the **abstract**, the **introduction**, the section called "**intervention strategy**," and the **conclusion**.
 - The two results sections ("**Evidence from...**" and "**Mechanisms**") are optional (we will discuss them in class).
-- Reading Quiz 2 is due by **Monday, April 5th at 16:00**.
+- Reading Quiz 2 is due by **Monday, January 10th at 12:00 (noon)**.
 

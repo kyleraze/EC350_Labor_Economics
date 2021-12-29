@@ -1,6 +1,6 @@
 # Labor Economics
 
-Welcome to EC 350: Labor Economics (Spring 2021) at the University of Oregon.
+Welcome to EC 350: Labor Economics (Winter 2022) at the University of Oregon.
 
 - Instructor: [Kyle Raze](https://kyleraze.com)
 - [Syllabus](https://raw.githack.com/kyleraze/EC350_Labor_Economics/master/Syllabus/syllabus.pdf)

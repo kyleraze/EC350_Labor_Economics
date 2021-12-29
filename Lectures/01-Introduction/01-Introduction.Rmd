@@ -2,7 +2,7 @@
 title: "What is Labor Economics?"
 subtitle: "EC 350: Labor Economics"
 author: "[Kyle Raze](https://kyleraze.com)"
-date: "Spring 2021"
+date: "Winter 2022"
 output:
   xaringan::moon_reader:
     css: ['default', 'metropolis', 'metropolis-fonts', 'my-css.css']
@@ -14,12 +14,11 @@ output:
       beforeInit: "https://platform.twitter.com/widgets.js"
       ratio: "16:9"
 ---
-class: inverse, middle
 
 ```{r Setup, include = F}
 options(htmltools.dir.version = FALSE)
 library(pacman)
-p_load(ggthemes, viridis, knitr, kableExtra, extrafont, fontawesome, tidyverse, magrittr, janitor)
+p_load(ggthemes, xaringanExtra, viridis, knitr, kableExtra, extrafont, fontawesome, tidyverse, magrittr, janitor)
 # Define colors
 red_pink <- "#e64173"
 met_slate <- "#272822" # metropolis font color 
@@ -50,11 +49,10 @@ theme_simple <- theme_bw() + theme(
   axis.ticks = element_blank()
 )
 wrapper <- function(x, ...) paste(strwrap(x, ...), collapse = "\n")
+
+xaringanExtra::use_scribble()
 ```
 
-# Prologue
-
----
 # About me
 
 ## [**Kyle Raze**](https://kyleraze.com)
@@ -62,14 +60,14 @@ wrapper <- function(x, ...) paste(strwrap(x, ...), collapse = "\n")
 - PhD candidate in economics
 - UO alumnus: BA '15, MS '17
 - Applied microeconomist and econometrician
-- Data science, causal inference, education, labor, and public policy
+- Data science, causal inference, labor, education, and public policy
 
 --
 
 Where can you find me?
 
-&nbsp; &nbsp; `r fa("map-marker-alt", fill = "#A9A9A9")` &nbsp; [uoregon.zoom.us](https://uoregon.zoom.us/) via [canvas.uoregon.edu](https://canvas.uoregon.edu/) <br>
-&nbsp; &nbsp; `r fa("clock", fill = "#A9A9A9")` &nbsp; T 13:00-14:00, Th 10:00-11:00, or by appointment <br>
+&nbsp; &nbsp; `r fa("map-marker-alt", fill = "#A9A9A9")` &nbsp;&thinsp; [522 PLC](https://map.uoregon.edu/fae79fcfd) and [uoregon.zoom.us](https://uoregon.zoom.us/) via [canvas.uoregon.edu](https://canvas.uoregon.edu/) <br>
+&nbsp; &nbsp; `r fa("clock", fill = "#A9A9A9")` &nbsp; M 12:00-13:00, W 16:00-17:00, or by appointment <br>
 &nbsp; &nbsp; `r fa("envelope", fill = "#A9A9A9")` &nbsp; [raze@uoregon.edu](mailto:raze@uoregon.edu) <br>
 &nbsp; &nbsp; `r fa("globe", fill = "#A9A9A9")` &nbsp; [kyleraze.com](https://kyleraze.com)
 
@@ -187,13 +185,13 @@ According to [John Maynard Keynes](https://en.wikipedia.org/wiki/John_Maynard_Ke
 - **Q:** Why are there [fewer female CEOs than male CEOs named John?](https://www.nytimes.com/2015/03/03/upshot/fewer-women-run-big-companies-than-men-named-john.html) 
 --
 
-- **Q:** Who stays in the police force once we defund the police? Who leaves? Who enters?
+- **Q:** How would de-funding the police affect the behavior of police officers?
 --
 
-- **Q:** Do charter schools improve outcomes for disadvantaged students?
+- **Q:** Do charter schools improve outcomes for disadvantaged students? 
 --
 
-- **Q:** Can labor unions decrease income inequality? 
+- **Q:** Do labor unions decrease income inequality?
 --
 
 - **Q:** Should teachers receive "performance pay" for improvements in their students' test scores?
@@ -219,11 +217,13 @@ class: clear-slide
 - Give longer suspensions to low-performing students during the testing window?.super[.hi-pink[2]]
 - Have teachers cheat for students on standardized tests?.super[.hi-pink[3]]
 
-.footnote[.super[.hi-pink[1]] David N. Figlio (2006), [Testing, Crime and Punishment](https://doi.org/10.1016/j.jpubeco.2005.01.003), *Journal of Public Economics*.
 
-.super[.hi-pink[2]] David N. Figlio and Joshua Winicki (2005), [Food for Thought: The Effects of School Accountability Plans on School Nutrition](https://doi.org/10.1016/j.jpubeco.2003.10.007), *Journal of Public Economics*.
 
-.super[.hi-pink[3]] Brian A. Jacob and Steven D. Levit (2018), [Rotten Apples: An Investigation of the Prevalence and Predictors of Teacher Cheating](https://doi.org/10.1162/00335530360698441), *The Quarterly Journal of Economics*.]
+.footnote[.super[.hi-pink[1]] David N. Figlio and Joshua Winicki (2005), [Food for Thought: The Effects of School Accountability Plans on School Nutrition](https://doi.org/10.1016/j.jpubeco.2003.10.007), *Journal of Public Economics*.
+
+.super[.hi-pink[2]] David N. Figlio (2006), [Testing, Crime and Punishment](https://doi.org/10.1016/j.jpubeco.2005.01.003), *Journal of Public Economics*.
+
+.super[.hi-pink[3]] Brian A. Jacob and Steven D. Levit (2003), [Rotten Apples: An Investigation of the Prevalence and Predictors of Teacher Cheating](https://doi.org/10.1162/00335530360698441), *The Quarterly Journal of Economics*.]
 
 ---
 class: clear-slide
@@ -726,7 +726,7 @@ In this case, the data provide evidence that is **inconsistent** with the predic
 
 .footnote[.super[.hi-pink[<span>&#8224;</span>]] *i.e.,* an abstract market featuring undifferentiated labor, perfect competition, perfect information, and well-defined property rights.]
 
-- Perhaps the conventional model fails to account for an important aspect of the labor market? (We will revisit this later.)
+- Perhaps the conventional model fails to account for an important aspect of the labor market? (We will revisit this.)
 
 **Q:** Does the evidence *prove* that minimum wage increases have no negative impact on employment?
 
@@ -828,6 +828,6 @@ You will take one online quiz for each required reading.
 
 --
 
-The first quiz is due by **Wednesday, March 31st at 16:00**.
+The first quiz is due by **Wednesday, January 5th at 12:00 (noon)**.
 
 To account for technical difficulties, **I will drop your lowest three scores** at the end of the quarter.

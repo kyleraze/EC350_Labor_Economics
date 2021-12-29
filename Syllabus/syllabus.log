@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999992 (MiKTeX 20.6.29) (preloaded format=xelatex 2020.10.9)  2 JUN 2021 11:09
+This is XeTeX, Version 3.14159265-2.6-0.999992 (MiKTeX 20.6.29) (preloaded format=xelatex 2020.10.9)  28 DEC 2021 17:52
 entering extended mode
 **./syllabus.tex
 (syllabus.tex
@@ -773,7 +773,7 @@ File: se-ascii-print.def 2019/11/29 v1.12 stringenc: Printable ASCII characters
 ) [1
 
 ]
-Overfull \hbox (6.9511pt too wide) in paragraph at lines 127--128
+Overfull \hbox (6.9511pt too wide) in paragraph at lines 123--124
 \TU/FiraSans-Regular.otf(0)/m/n/10.95 I will assign \TU/FiraSans-Regular.otf(0)
 /b/n/10.95 four \TU/FiraSans-Regular.otf(0)/m/n/10.95 problem sets throughout t
 he quarter. Each problem set will consist of a computer-
@@ -782,22 +782,22 @@ he quarter. Each problem set will consist of a computer-
 [2] [3] [4] (syllabus.bbl) [5] [6
 
 ]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 250.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 250.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 255.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 255.
  (syllabus.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 250.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 250.
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 255.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 255.
 Package rerunfilecheck Info: File `syllabus.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 250.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 255.
  ) 
 Here is how much of TeX's memory you used:
- 18973 strings out of 414071
- 360979 string characters out of 2894591
- 656789 words of memory out of 3000000
- 36373 multiletter control sequences out of 15000+200000
+ 18961 strings out of 414071
+ 360700 string characters out of 2894591
+ 656608 words of memory out of 3000000
+ 36361 multiletter control sequences out of 15000+200000
  541072 words of font info for 105 fonts, out of 3000000 for 9000
  1348 hyphenation exceptions out of 8191
- 44i,12n,82p,775b,770s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 44i,12n,82p,775b,742s stack positions out of 5000i,500n,10000p,200000b,50000s
 
 Output written on syllabus.pdf (6 pages).
