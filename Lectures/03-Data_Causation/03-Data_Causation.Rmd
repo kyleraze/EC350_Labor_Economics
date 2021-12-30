@@ -2,7 +2,7 @@
 title: "Data and Causation"
 subtitle: "EC 350: Labor Economics"
 author: "[Kyle Raze](https://kyleraze.com)"
-date: "Spring 2021"
+date: "Winter 2022"
 output:
   xaringan::moon_reader:
     css: ['default', 'metropolis', 'metropolis-fonts', 'my-css.css']
@@ -14,12 +14,11 @@ output:
       beforeInit: "https://platform.twitter.com/widgets.js"
       ratio: "16:9"
 ---
-class: inverse, middle
 
 ```{r Setup, include = F}
 options(htmltools.dir.version = FALSE, knitr.table.format = "html")
 library(pacman)
-p_load(ggthemes, viridis, knitr, emoGG, kableExtra, gridExtra, extrafont, webshot, fontawesome, tidyverse, magrittr, janitor, wooldridge)
+p_load(ggthemes, xaringanExtra, viridis, knitr, emoGG, kableExtra, gridExtra, extrafont, webshot, fontawesome, tidyverse, magrittr, janitor, wooldridge)
 # Define colors
 red_pink <- "#e64173"
 met_slate <- "#272822" # metropolis font color 
@@ -50,11 +49,10 @@ theme_simple <- theme_bw() + theme(
   axis.ticks = element_blank()
 )
 wrapper <- function(x, ...) paste(strwrap(x, ...), collapse = "\n")
+
+xaringanExtra::use_scribble()
 ```
 
-# Prologue
-
----
 # Data and Causation
 
 1. The rise of empirical evidence
@@ -944,12 +942,3 @@ tab <- data.frame(
 tab
 ```
 .smallest[*Notes:* 4804 observations. Standard errors in parentheses.]
-
----
-# Housekeeping
-
-**Assigned reading for ~~Wednesday~~ Friday:** [Snapping back: Food stamp bans and criminal recidivism](https://www.aeaweb.org/articles?id=10.1257/pol.20170490) by Cody Tuttle (2019).
-
-- I will post the paper on Canvas tonight!
-- Reading Quiz 3 will be due this Friday.
-- Details to follow!
