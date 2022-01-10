@@ -25,8 +25,6 @@ met_slate <- "#272822" # metropolis font color
 purple <- "#9370DB"
 green <- "#007935"
 light_green <- "#7DBA97"
-# Notes directory
-dir_slides <- "~/GitHub/Intro_Labor_S21/Lectures/03-Data_Causation/"
 # Knitr options
 opts_chunk$set(
   comment = "#>",
@@ -55,13 +53,150 @@ xaringanExtra::use_scribble()
 
 # Data and Causation
 
-1. The rise of empirical evidence
-2. Making *other-things-equal* comparisons
-3. Causal identification
+1. Theory in a data-driven world? (continued)
+2. The rise of empirical evidence
+3. Making *other-things-equal* comparisons
+4. Causal identification
     - Average treatment effects
     - Selection bias
-4. Randomized control trials
-5. *Thinking Fast and Slow*, Chicago edition
+5. Randomized control trials
+6. *Thinking Fast and Slow*, Chicago edition
+
+---
+class: inverse, middle
+
+# Theory in a data-driven world? (continued)
+
+---
+# Theory in a data-driven world?
+
+> **The theory of economics** does not furnish a body of settled conclusions immediately applicable to policy. It is **a method rather than a doctrine**, an apparatus of the mind, **a technique of thinking** which helps its possessor to draw correct conclusions. <br> .right[&mdash; John Maynard Keynes]
+
+.bigger[**Why theory? We value what is useful. And theory is useful.**]
+
+- .hi-pink[Theory can be a substitute for data]
+- .hi-pink[Theory can inform us of important parameters and their roles]
+- .hi-pink[Theory relates seemingly disparate problems]
+- .hi-pink[Theory provides a method for solving problems]
+- .hi-pink[Theory is an antidote to introspection]
+- .hi-pink[Economics is amenable to experimental verification]
+
+
+---
+# Theory in a data-driven world?
+
+> **The theory of economics** does not furnish a body of settled conclusions immediately applicable to policy. It is **a method rather than a doctrine**, an apparatus of the mind, **a technique of thinking** which helps its possessor to draw correct conclusions. <br> .right[&mdash; John Maynard Keynes]
+
+
+Arguably, **we want to** be able to **identify which margins matter** and **identify their importance** when we can.
+
+**We should therefore be comfortable with the following structure:**
+
+&nbsp; &nbsp; &nbsp; **Q:** .ul[&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;]**?**
+
+&nbsp; &nbsp; &nbsp; **A:** .pink[It depends.] In particular, it depends on .ul[&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;], .ul[&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;], and .ul[&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;].
+
+---
+# Theory in a data-driven world?
+
+## Theory itself has a structure, though:
+
+.bigger[**If "**.hi-purple[some postulate]**" then "**.hi-pink[some event]**."**]
+
+- If .purple[you attend class regularly] then .pink[you will earn a higher grade].
+- If .purple[you get vaccinated] then .pink[your probability of getting sick will decrease]..super[.hi-pink[1]]
+- If .purple[you get vaccinated] then .pink[your friends' probability of getting sick will decrease]..super[.hi-pink[1]]
+- If .purple[monitoring workers is costly] then .pink[firms will compensate workers based on performance].
+- If .purple[the risk of dying from an overdose decreases] then .pink[the number of overdoses will increase]..super[.hi-pink[2]]
+- If .purple[working conditions improve] then .pink[labor supply will increase].
+
+.footnote[.super[.hi-pink[1]] For related evidence: Christopher S. Carpenter and Emily C. Lawler (2019), [Direct and Spillover Effects of Middle School Vaccination Requirements](https://www.aeaweb.org/articles?id=10.1257/pol.20170067), *American Economic Journal: Economic Policy*.
+
+.super[.hi-pink[2]] For related evidence: Jennifer L. Doleac and Anita Mukherjee (2018), [The Moral Hazard of Lifesaving Innovations: Naloxone Access, Opioid Abuse, and Crime](https://www.iza.org/publications/dp/11489/the-moral-hazard-of-lifesaving-innovations-naloxone-access-opioid-abuse-and-crime), *IZA Discussion Paper No. 11489*.]
+
+---
+# Theory in a data-driven world?
+
+## By definition:
+
+> **An explanation** for some phenomenon that is based on observation, experimentation, and reasoning.
+
+> A logical statement or **a testable model** of the manner in which phenomena interact.
+
+> A structured prediction that is capable of being tested through experimentation or otherwise **falsifiable through empirical observation**.
+
+---
+# Theory in a data-driven world?
+
+## What makes theory valuable?
+
+**Q:** What do we mean by "good in theory, but lousy in practice?"
+
+--
+
+- Such statements are misplaced, as theory's only value is in **how well it works in practice!**
+- Let's not say this anymore?
+
+
+--
+
+## Factors to consider?
+
+**Refutability** 
+
+- The theory could, in principle, be wrong. Otherwise, it is without value.
+- Economists/scientists seek to make statements that could be wrong, but are repeatedly shown to be consistent with the facts.
+
+---
+# Theory in a data-driven world?
+
+## What makes theory valuable?
+
+**Q:** What do we mean by "good in theory, but lousy in practice?"
+
+- Such statements are misplaced, as theory's only value is in **how well it works in practice!**
+- Let's not say this anymore?
+
+## Factors to consider?
+
+**Predictive power** 
+
+- A theory is valuable insofar as it predicts behavior well.
+
+---
+# Theory in a data-driven world?
+
+## What makes theory valuable?
+
+**Q:** What do we mean by "good in theory, but lousy in practice?"
+
+- Such statements are misplaced, as theory's only value is in **how well it works in practice!**
+- Let's not say this anymore?
+
+## Factors to consider?
+
+**Simplicity** 
+
+- *All else equal*, simpler theory is more valuable.
+
+---
+# Theory in a data-driven world?
+
+**Caveat 1: A theory does not imply its converse.**
+
+Observing .hi-pink[B] does not guarantee that .hi-purple[A] is true. **Something else could have caused** .hi-pink[B]**.**
+
+- Example: Just because .pink[you don't have a headache] doesn't mean that .purple[you took an Advil].
+- Example: Just because .pink[you improved your exam score] doesn't mean that .purple[your attendance improved]. <br>
+    
+
+--
+
+**Caveat 2: Science cannot prove that a theory is true.**
+
+At best, science fails to refute a theory's postulates or predictions.
+
+- Example: We will not prove that social assistance programs ("welfare") are good. Nor will we prove that social assistance programs are bad.
 
 ---
 class: inverse, middle

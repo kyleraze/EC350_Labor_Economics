@@ -4,16 +4,16 @@
     <title>Data and Causation</title>
     <meta charset="utf-8" />
     <meta name="author" content="Kyle Raze" />
-    <script src="03-Data_Causation_files/header-attrs/header-attrs.js"></script>
-    <link href="03-Data_Causation_files/remark-css/default.css" rel="stylesheet" />
-    <link href="03-Data_Causation_files/remark-css/metropolis.css" rel="stylesheet" />
-    <link href="03-Data_Causation_files/remark-css/metropolis-fonts.css" rel="stylesheet" />
-    <script src="03-Data_Causation_files/fabric/fabric.min.js"></script>
-    <link href="03-Data_Causation_files/xaringanExtra-scribble/scribble.css" rel="stylesheet" />
-    <script src="03-Data_Causation_files/xaringanExtra-scribble/scribble.js"></script>
+    <script src="03-Data_Causation_with_recap_files/header-attrs/header-attrs.js"></script>
+    <link href="03-Data_Causation_with_recap_files/remark-css/default.css" rel="stylesheet" />
+    <link href="03-Data_Causation_with_recap_files/remark-css/metropolis.css" rel="stylesheet" />
+    <link href="03-Data_Causation_with_recap_files/remark-css/metropolis-fonts.css" rel="stylesheet" />
+    <script src="03-Data_Causation_with_recap_files/fabric/fabric.min.js"></script>
+    <link href="03-Data_Causation_with_recap_files/xaringanExtra-scribble/scribble.css" rel="stylesheet" />
+    <script src="03-Data_Causation_with_recap_files/xaringanExtra-scribble/scribble.js"></script>
     <script>document.addEventListener('DOMContentLoaded', function() { window.xeScribble = new Scribble({"pen_color":["#FF0000"],"pen_size":3,"eraser_size":30,"palette":[]}) })</script>
-    <script src="03-Data_Causation_files/kePrint/kePrint.js"></script>
-    <link href="03-Data_Causation_files/lightable/lightable.css" rel="stylesheet" />
+    <script src="03-Data_Causation_with_recap_files/kePrint/kePrint.js"></script>
+    <link href="03-Data_Causation_with_recap_files/lightable/lightable.css" rel="stylesheet" />
     <link rel="stylesheet" href="my-css.css" type="text/css" />
   </head>
   <body>
@@ -32,13 +32,150 @@ class: center, middle, inverse, title-slide
 
 # Data and Causation
 
-1. The rise of empirical evidence
-2. Making *other-things-equal* comparisons
-3. Causal identification
+1. Theory in a data-driven world? (continued)
+2. The rise of empirical evidence
+3. Making *other-things-equal* comparisons
+4. Causal identification
     - Average treatment effects
     - Selection bias
-4. Randomized control trials
-5. *Thinking Fast and Slow*, Chicago edition
+5. Randomized control trials
+6. *Thinking Fast and Slow*, Chicago edition
+
+---
+class: inverse, middle
+
+# Theory in a data-driven world? (continued)
+
+---
+# Theory in a data-driven world?
+
+&gt; **The theory of economics** does not furnish a body of settled conclusions immediately applicable to policy. It is **a method rather than a doctrine**, an apparatus of the mind, **a technique of thinking** which helps its possessor to draw correct conclusions. &lt;br&gt; .right[&amp;mdash; John Maynard Keynes]
+
+.bigger[**Why theory? We value what is useful. And theory is useful.**]
+
+- .hi-pink[Theory can be a substitute for data]
+- .hi-pink[Theory can inform us of important parameters and their roles]
+- .hi-pink[Theory relates seemingly disparate problems]
+- .hi-pink[Theory provides a method for solving problems]
+- .hi-pink[Theory is an antidote to introspection]
+- .hi-pink[Economics is amenable to experimental verification]
+
+
+---
+# Theory in a data-driven world?
+
+&gt; **The theory of economics** does not furnish a body of settled conclusions immediately applicable to policy. It is **a method rather than a doctrine**, an apparatus of the mind, **a technique of thinking** which helps its possessor to draw correct conclusions. &lt;br&gt; .right[&amp;mdash; John Maynard Keynes]
+
+
+Arguably, **we want to** be able to **identify which margins matter** and **identify their importance** when we can.
+
+**We should therefore be comfortable with the following structure:**
+
+&amp;nbsp; &amp;nbsp; &amp;nbsp; **Q:** .ul[&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;]**?**
+
+&amp;nbsp; &amp;nbsp; &amp;nbsp; **A:** .pink[It depends.] In particular, it depends on .ul[&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;], .ul[&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;], and .ul[&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;].
+
+---
+# Theory in a data-driven world?
+
+## Theory itself has a structure, though:
+
+.bigger[**If "**.hi-purple[some postulate]**" then "**.hi-pink[some event]**."**]
+
+- If .purple[you attend class regularly] then .pink[you will earn a higher grade].
+- If .purple[you get vaccinated] then .pink[your probability of getting sick will decrease]..super[.hi-pink[1]]
+- If .purple[you get vaccinated] then .pink[your friends' probability of getting sick will decrease]..super[.hi-pink[1]]
+- If .purple[monitoring workers is costly] then .pink[firms will compensate workers based on performance].
+- If .purple[the risk of dying from an overdose decreases] then .pink[the number of overdoses will increase]..super[.hi-pink[2]]
+- If .purple[working conditions improve] then .pink[labor supply will increase].
+
+.footnote[.super[.hi-pink[1]] For related evidence: Christopher S. Carpenter and Emily C. Lawler (2019), [Direct and Spillover Effects of Middle School Vaccination Requirements](https://www.aeaweb.org/articles?id=10.1257/pol.20170067), *American Economic Journal: Economic Policy*.
+
+.super[.hi-pink[2]] For related evidence: Jennifer L. Doleac and Anita Mukherjee (2018), [The Moral Hazard of Lifesaving Innovations: Naloxone Access, Opioid Abuse, and Crime](https://www.iza.org/publications/dp/11489/the-moral-hazard-of-lifesaving-innovations-naloxone-access-opioid-abuse-and-crime), *IZA Discussion Paper No. 11489*.]
+
+---
+# Theory in a data-driven world?
+
+## By definition:
+
+&gt; **An explanation** for some phenomenon that is based on observation, experimentation, and reasoning.
+
+&gt; A logical statement or **a testable model** of the manner in which phenomena interact.
+
+&gt; A structured prediction that is capable of being tested through experimentation or otherwise **falsifiable through empirical observation**.
+
+---
+# Theory in a data-driven world?
+
+## What makes theory valuable?
+
+**Q:** What do we mean by "good in theory, but lousy in practice?"
+
+--
+
+- Such statements are misplaced, as theory's only value is in **how well it works in practice!**
+- Let's not say this anymore?
+
+
+--
+
+## Factors to consider?
+
+**Refutability** 
+
+- The theory could, in principle, be wrong. Otherwise, it is without value.
+- Economists/scientists seek to make statements that could be wrong, but are repeatedly shown to be consistent with the facts.
+
+---
+# Theory in a data-driven world?
+
+## What makes theory valuable?
+
+**Q:** What do we mean by "good in theory, but lousy in practice?"
+
+- Such statements are misplaced, as theory's only value is in **how well it works in practice!**
+- Let's not say this anymore?
+
+## Factors to consider?
+
+**Predictive power** 
+
+- A theory is valuable insofar as it predicts behavior well.
+
+---
+# Theory in a data-driven world?
+
+## What makes theory valuable?
+
+**Q:** What do we mean by "good in theory, but lousy in practice?"
+
+- Such statements are misplaced, as theory's only value is in **how well it works in practice!**
+- Let's not say this anymore?
+
+## Factors to consider?
+
+**Simplicity** 
+
+- *All else equal*, simpler theory is more valuable.
+
+---
+# Theory in a data-driven world?
+
+**Caveat 1: A theory does not imply its converse.**
+
+Observing .hi-pink[B] does not guarantee that .hi-purple[A] is true. **Something else could have caused** .hi-pink[B]**.**
+
+- Example: Just because .pink[you don't have a headache] doesn't mean that .purple[you took an Advil].
+- Example: Just because .pink[you improved your exam score] doesn't mean that .purple[your attendance improved]. &lt;br&gt;
+    
+
+--
+
+**Caveat 2: Science cannot prove that a theory is true.**
+
+At best, science fails to refute a theory's postulates or predictions.
+
+- Example: We will not prove that social assistance programs ("welfare") are good. Nor will we prove that social assistance programs are bad.
 
 ---
 class: inverse, middle
@@ -49,7 +186,7 @@ class: inverse, middle
 class: clear-slide
 
 .center[**The fading *American dream***]
-&lt;img src="03-Data_Causation_files/figure-html/unnamed-chunk-1-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="03-Data_Causation_with_recap_files/figure-html/unnamed-chunk-1-1.svg" style="display: block; margin: auto;" /&gt;
 
 .footnote[*Source:* Raj Chetty et al. (2017), [The fading American dream: Trends in absolute income mobility since 1940](https://science.sciencemag.org/content/356/6336/398.abstract), *Science*.]
 
@@ -86,7 +223,7 @@ Historically, the social sciences had **limited data** to study policy questions
 class: clear-slide
 
 .center[**Economics is becoming more data-driven** &lt;br&gt;.slate[Empirical articles in the top three economics journals over time]]
-&lt;img src="03-Data_Causation_files/figure-html/unnamed-chunk-2-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="03-Data_Causation_with_recap_files/figure-html/unnamed-chunk-2-1.svg" style="display: block; margin: auto;" /&gt;
 
 .footnote[*Source:* Daniel S. Hamermesh (2013), [Six Decades of Top Economics Publishing: Who and How?](https://www.aeaweb.org/articles?id=10.1257/jel.51.1.162) *Journal of Economic Literature*.]
 
@@ -483,85 +620,85 @@ By randomizing villages into .hi-slate[treatment] or .hi-slate[control], we will
 class: clear-slide
 
 .hi-slate[72 villages] 
-&lt;img src="03-Data_Causation_files/figure-html/plot1-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="03-Data_Causation_with_recap_files/figure-html/plot1-1.svg" style="display: block; margin: auto;" /&gt;
 ---
 class: clear-slide
 count: false
 
 .hi-slate[72 villages] .hi[of varying levels of development]
-&lt;img src="03-Data_Causation_files/figure-html/plot2-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="03-Data_Causation_with_recap_files/figure-html/plot2-1.svg" style="display: block; margin: auto;" /&gt;
 ---
 class: clear-slide
 count: false
 
 .hi-slate[72 villages] .hi[of varying levels of development] .mono[+] .hi-orange[randomly assigned treatment]
-&lt;img src="03-Data_Causation_files/figure-html/plot3_1-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="03-Data_Causation_with_recap_files/figure-html/plot3_1-1.svg" style="display: block; margin: auto;" /&gt;
 ---
 class: clear-slide
 count: false
 
 .hi-slate[72 villages] .hi[of varying levels of development] .mono[+] .hi-orange[randomly assigned treatment]
-&lt;img src="03-Data_Causation_files/figure-html/plot3_2-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="03-Data_Causation_with_recap_files/figure-html/plot3_2-1.svg" style="display: block; margin: auto;" /&gt;
 ---
 class: clear-slide
 count: false
 
 .hi-slate[72 villages] .hi[of varying levels of development] .mono[+] .hi-orange[randomly assigned treatment]
-&lt;img src="03-Data_Causation_files/figure-html/plot3_3-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="03-Data_Causation_with_recap_files/figure-html/plot3_3-1.svg" style="display: block; margin: auto;" /&gt;
 ---
 class: clear-slide
 count: false
 
 .hi-slate[72 villages] .hi[of varying levels of development] .mono[+] .hi-orange[randomly assigned treatment]
-&lt;img src="03-Data_Causation_files/figure-html/plot3_4-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="03-Data_Causation_with_recap_files/figure-html/plot3_4-1.svg" style="display: block; margin: auto;" /&gt;
 ---
 class: clear-slide
 count: false
 
 .hi-slate[72 villages] .hi[of varying levels of development] .mono[+] .hi-orange[randomly assigned treatment]
-&lt;img src="03-Data_Causation_files/figure-html/plot3_5-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="03-Data_Causation_with_recap_files/figure-html/plot3_5-1.svg" style="display: block; margin: auto;" /&gt;
 ---
 class: clear-slide
 count: false
 
 .hi-slate[72 villages] .hi[of varying levels of development] .mono[+] .hi-orange[randomly assigned treatment]
-&lt;img src="03-Data_Causation_files/figure-html/plot3_6-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="03-Data_Causation_with_recap_files/figure-html/plot3_6-1.svg" style="display: block; margin: auto;" /&gt;
 ---
 class: clear-slide
 count: false
 
 .hi-slate[72 villages] .hi[of varying levels of development] .mono[+] .hi-orange[randomly assigned treatment]
-&lt;img src="03-Data_Causation_files/figure-html/plot3_7-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="03-Data_Causation_with_recap_files/figure-html/plot3_7-1.svg" style="display: block; margin: auto;" /&gt;
 ---
 class: clear-slide
 count: false
 
 .hi-slate[72 villages] .hi[of varying levels of development] .mono[+] .hi-orange[randomly assigned treatment]
-&lt;img src="03-Data_Causation_files/figure-html/plot3_8-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="03-Data_Causation_with_recap_files/figure-html/plot3_8-1.svg" style="display: block; margin: auto;" /&gt;
 ---
 class: clear-slide
 count: false
 
 .hi-slate[72 villages] .hi[of varying levels of development] .mono[+] .hi-orange[randomly assigned treatment]
-&lt;img src="03-Data_Causation_files/figure-html/plot3_9-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="03-Data_Causation_with_recap_files/figure-html/plot3_9-1.svg" style="display: block; margin: auto;" /&gt;
 ---
 class: clear-slide
 count: false
 
 .hi-slate[72 villages] .hi[of varying levels of development] .mono[+] .hi-orange[randomly assigned treatment]
-&lt;img src="03-Data_Causation_files/figure-html/plot3_10-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="03-Data_Causation_with_recap_files/figure-html/plot3_10-1.svg" style="display: block; margin: auto;" /&gt;
 ---
 class: clear-slide
 count: false
 
 .hi-slate[72 villages] .hi[of varying levels of development] .mono[+] .hi-orange[randomly assigned treatment]
-&lt;img src="03-Data_Causation_files/figure-html/plot3_11-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="03-Data_Causation_with_recap_files/figure-html/plot3_11-1.svg" style="display: block; margin: auto;" /&gt;
 ---
 class: clear-slide
 count: false
 
 .hi-slate[72 villages] .hi[of varying levels of development] .mono[+] .hi-orange[randomly assigned treatment]
-&lt;img src="03-Data_Causation_files/figure-html/plot3_12-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="03-Data_Causation_with_recap_files/figure-html/plot3_12-1.svg" style="display: block; margin: auto;" /&gt;
 
 ---
 # Randomized control trials 
@@ -601,7 +738,7 @@ We can estimate the **causal effect** of de-worming on school attendance by **co
 class: clear-slide
 
 Balance ***on average*** .mono[!=] Balance ***every time***
-&lt;img src="03-Data_Causation_files/figure-html/fertilizer_plot3_bad-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="03-Data_Causation_with_recap_files/figure-html/fertilizer_plot3_bad-1.svg" style="display: block; margin: auto;" /&gt;
 
 ---
 # Interpreting results
