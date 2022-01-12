@@ -1,0 +1,1257 @@
+---
+title: "All About Regression"
+subtitle: "EC 350: Labor Economics"
+author: "[Kyle Raze](https://kyleraze.com)"
+date: "Winter 2022"
+output:
+  xaringan::moon_reader:
+    css: ['default', 'metropolis', 'metropolis-fonts', 'my-css.css']
+    self_contained: false
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      beforeInit: "https://platform.twitter.com/widgets.js"
+      ratio: "16:9"
+---
+
+```{r Setup, include = F}
+options(htmltools.dir.version = FALSE)
+library(pacman)
+p_load(ggthemes, readxl, viridis, broom, emoGG, ggdag, gganimate, knitr, dslabs, gapminder, extrafont, Ecdat, wooldridge, tidyverse, magrittr, janitor, kableExtra, gridExtra, ggforce)
+# Define colors
+red_pink <- "#e64173"
+met_slate <- "#272822" # metropolis font color 
+purple <- "#9370DB"
+green <- "#007935"
+light_green <- "#7DBA97"
+orange <- "#FD5F00"
+turquoise <- "#44C1C4"
+red <- "#b92e34"
+slate <- "#314f4f"
+# Knitr options
+opts_chunk$set(
+  comment = "#>",
+  fig.align = "center",
+  fig.height = 7,
+  fig.width = 10.5,
+  #dpi = 300,
+  #cache = T,
+  warning = F,
+  message = F
+)  
+theme_simple <- theme_bw() + theme(
+  axis.line = element_line(color = met_slate),
+  panel.grid = element_blank(),
+  rect = element_blank(),
+  strip.text = element_blank(),
+  text = element_text(family = "Fira Sans", color = met_slate, size = 17),
+  # axis.text.x = element_text(size = 12),
+  # axis.text.y = element_text(size = 12),
+  axis.ticks = element_blank()
+)
+theme_market <- theme_bw() + theme(
+  axis.line = element_line(color = met_slate),
+  panel.grid = element_blank(),
+  rect = element_blank(),
+  strip.text = element_blank(),
+  text = element_text(family = "Fira Sans", color = met_slate, size = 17),
+  axis.title.x = element_text(hjust = 1, size = 17),
+  axis.title.y = element_text(hjust = 1, angle = 0, size = 17),
+  # axis.text.x = element_text(size = 12),
+  # axis.text.y = element_text(size = 12),
+  axis.ticks = element_blank()
+)
+theme_gif <- theme_bw() + theme(
+  axis.line = element_line(color = met_slate),
+  panel.grid = element_blank(),
+  rect = element_blank(),
+  text = element_text(family = "Fira Sans", color = met_slate, size = 17),
+  axis.text.x = element_text(size = 12),
+  axis.text.y = element_text(size = 12),
+  axis.ticks = element_blank()
+)
+wrapper <- function(x, ...) paste(strwrap(x, ...), collapse = "\n")
+```
+
+```{r, include=FALSE}
+# experimental job training from lalonde (1986): use this as an example
+# Evaluating the Econometric Evaluations of Training Programs with Experimental Data
+# adding controls doesn't affect the point estimate
+df <- get('jtrain2')
+lm(unem78 ~ train, df) %>% tidy()
+lm(unem78 ~ train + black + hisp + re74 + unem74 + married + educ, df) %>% tidy()
+lm(re78 ~ train + black, df) %>% tidy()
+
+df <- get('wage2')
+lm(wage ~ educ + IQ, df) %>% tidy()
+
+```
+
+# All About Regression
+
+## **Econometrics**
+
+**The objective?** Identify the effect of a treatment variable $D$ on an outcome variable $Y$..super[.hi-pink[<span>&#8224;</span>]]
+
+- **How?** Find a way to shut down .hi-pink[selection bias].
+
+.footnote[.super[.hi-pink[<span>&#8224;</span>]] The other objective? Forecast future values of key outcome variables, such as unemployment, GDP, customer retention, *etc.* But that's a different subject for a different course.]
+
+--
+
+## **Regression analysis**
+
+> A set of statistical processes for quantifying the relationship between a dependent variable (*e.g.,* an outcome) and one or more independent variables (*e.g.,* a treatment or a control variable).
+
+A bundle of useful tools for doing econometrics!
+
+---
+# All About Regression
+
+## **Regression analysis**
+
+Economists often rely on regression analysis to make various statistical comparisons.
+
+- Can facilitate *other things equal* comparisons.
+- Can shut down .pink[selection bias] by explicitly **controlling for** .hi-pink[confounding variables].
+- Failure to control for confounding variables? .mono[-->] .hi-pink[omitted-variable bias].
+
+--
+
+**Our objective?** Learn how to interpret the results of a regression analysis.
+
+1. **Literal interpretation**
+    - Interpret the size and statistical significance of regression coefficient estimates.
+    - Know your way around a regression table.
+2. **Big-picture interpretation** 
+    - What do the estimates imply about the effects of a treatment? 
+    - Should we trust the estimates? Do they reflect a causal relationship? 
+
+---
+class: inverse, middle
+
+# Simple linear regression
+
+---
+# Simple linear regression
+
+```{r simple, dev = "svg", echo = F, fig.height=5.5}
+df <- tibble(X = rnorm(200, 0, 3)) %>%
+  mutate(Y = 0.75 * X - 2 + rnorm(200, 0, 2))
+
+reg <- lm(Y ~ X, data = df) %>% tidy()
+
+intercept <- reg %>% filter(term == "(Intercept)") %>% pull(estimate) %>% round(2)
+intercept_se <- reg %>% filter(term == "(Intercept)") %>% pull(std.error) %>% round(2) %>% as.character()
+intercept_se <- paste0("(", intercept_se, ")")
+
+slope <- reg %>% filter(term == "X") %>% pull(estimate) %>% round(2)
+slope_se <- reg %>% filter(term == "X") %>% pull(std.error) %>% round(2) %>% as.character()
+slope_se <- paste0("(", slope_se, ")")
+
+plot <- ggplot(data = df, aes(y = Y, x = X)) + 
+  geom_hline(yintercept = 0, linetype = "dashed", color = met_slate) +
+  geom_vline(xintercept = 0, linetype = "dashed", color = met_slate) +
+  geom_point(alpha = 0.8, color = met_slate, size = 2) + 
+  scale_x_continuous(breaks = scales::pretty_breaks()) +
+  scale_y_continuous(breaks = scales::pretty_breaks()) +
+  labs(y = "Outcome (Y)", x = "Treatment (D)") + 
+  scale_color_manual(values = c("darkslategrey", red_pink)) +
+  theme_simple +
+  theme(legend.position = c(0.2, 0.1))
+
+plot
+```
+
+---
+count: false
+# Simple linear regression
+
+```{r simple_reg, dev = "svg", echo = F, fig.height = 5.5}
+plot + geom_smooth(method = lm, se = F, color = purple, size = 1)
+```
+
+---
+# Simple linear regression
+
+## **Model**
+
+We can express the relationship between the .hi-purple[outcome variable] and the .hi-green[treatment variable] as linear:
+
+$$
+ \color{#9370DB}{Y_i} = \alpha + \beta~\color{#007935}{D_i} + \varepsilon_i
+$$
+
+- $i$ indexes an individual.
+- $\alpha$ .mono[=] the __intercept__ or constant.
+- $\beta$ .mono[=] the __slope coefficient__.
+    - Imagine for now that $D_i$ can take on many different values (*e.g.,* more than just 0 or 1).
+- $\varepsilon_i$ .mono[=] the __error term__.
+
+.footnote[
+_Simple_ .mono[=] Only one independent variable.
+]
+
+---
+# Simple linear regression
+
+## **Model**
+
+The .hi[intercept] tells us the expected value of $Y_i$ when $D_i = 0$. 
+
+$$
+ Y_i = \color{#e64173}{\alpha} + \beta ~ D_i + \varepsilon_i
+$$
+
+Part of the regression line, but almost never the focus of an analysis.
+
+- In practice, omitting the intercept would bias estimates of the slope coefficient&mdash;the object we really care about.
+
+---
+# Simple linear regression
+
+## **Model**
+
+The .hi[slope coefficient] tells us the expected change in $Y_i$ when $D_i$ increases by one. 
+
+$$
+ Y_i = \alpha + \color{#e64173}{\beta} ~ D_i + \varepsilon_i
+$$
+
+"A one-unit increase in $D_i$ *is associated with* a $\color{#e64173}{\beta}$-unit increase in $Y_i$."
+
+--
+
+Under certain (strong) assumptions about the error term (*e.g.,* no selection bias), $\color{#e64173}{\beta}$ represents the causal effect of $D_i$ on $Y_i$.
+
+- "A one-unit increase in $D_i$ *leads to* a $\color{#e64173}{\beta}$-unit increase in $Y_i$."
+- Otherwise, it's just the _association of_ $D_i$ _with_ $Y_i$, representing a non-causal correlation.
+
+---
+# Simple linear regression
+
+## **Model**
+
+The .hi[error term] reminds us that $D_i$ isn't the only variable that affects $Y_i$. 
+
+$$
+ Y_i = \alpha + \beta ~ D_i + \color{#e64173}{\varepsilon_i}
+$$
+
+--
+
+The error term represents all other factors that explain $Y_i$.
+
+- **So what?** If some of those factors influence $D_i$, then omitted-variable bias will contaminate estimates of the slope coefficient.
+
+---
+# Simple linear regression
+
+## **Example**
+
+.pull-left[
+**Q:** How does attendance affect performance?
+
+As a first attempt at an answer, we can estimate a regression of final exam scores on attendance: $$\text{Final}_i = \alpha + \beta~\text{Attend}_i + \varepsilon_i$$
+
+```{r attend_1, echo = F, escape = F}
+attend <- get("attend") %>% 
+  mutate(final = (final / 40) * 100)
+
+reg <- lm(final ~ attend, attend) %>% tidy()
+
+intercept <- reg %>% filter(term == "(Intercept)") %>% pull(estimate) %>% round(2)
+intercept_se <- reg %>% filter(term == "(Intercept)") %>% pull(std.error) %>% round(2) %>% as.character()
+intercept_se <- paste0("(", intercept_se, ")")
+
+slope <- reg %>% filter(term == "attend") %>% pull(estimate) %>% round(2)
+slope_se <- reg %>% filter(term == "attend") %>% pull(std.error) %>% round(2) %>% as.character()
+slope_se <- paste0("(", slope_se, ")")
+
+tab <- data.frame(
+  v1 = c("Intercept", "", "Attendance", ""),
+  v2 = rbind(
+    c(intercept, slope),
+    c(intercept_se, slope_se)
+  ) %>% as.vector()
+) %>% kable(
+  escape = F,
+  col.names = c("Parameter", "(1)"),
+  align = c("l", rep("c", 2))
+) %>%
+row_spec(1:4, color = met_slate) %>%
+row_spec(seq(2,4,2), color = "#c2bebe") %>%
+row_spec(1:4, extra_css = "line-height: 110%;") %>%
+column_spec(1, color = "black", italic = T)
+tab %>% column_spec(2, bold = T)
+```
+.center[*Standard errors in parentheses.*]
+]
+.pull-right[
+```{r attend_1_plot, dev = "svg", echo = F, fig.height = 4.75, fig.width = 5.5}
+ggplot(data = attend, aes(y = final, x = attend)) + 
+  geom_point(alpha = 0.5, size = 2, color = met_slate, position = position_jitter()) + 
+  geom_smooth(method = lm, se = F, color = purple, size = 1) +
+  scale_x_continuous(expand = c(0, 0), breaks = seq(0, 32, 8), limits = c(0, 36)) +
+  scale_y_continuous(expand = c(0, 0), breaks = seq(0, 100, 20), limits = c(0, 110)) +
+  labs(y = "Final exam score (out of 100)", x = "Attendance (out of 32)") +
+  scale_color_manual(values = c("darkslategrey", red_pink)) +
+  theme_simple +
+  theme(legend.position = c(0.2, 0.1))
+```
+]
+
+---
+# Simple linear regression
+
+## **Example**
+
+```{r campus_crime_1, include = F}
+campus <- get("campus") %>% 
+  mutate(crime = round(crime / enroll * 1000, 2),
+         police = round(police / enroll * 1000, 2)) %>% 
+  # remove outlier
+  filter(police < 10) %>% 
+  select(crime, police)
+
+lm0 <- lm(crime ~ police, data = campus)
+
+b0 <- lm0$coefficients[1]
+b1 <- lm0$coefficients[2]
+```
+
+.pull-left[
+.center[.purple[Crime.sub[*i*] .mono[=] `r round(b0, 2)` .mono[+] `r round(b1, 2)` Police.sub[*i*]]]
+```{r campus_crime_1_plot, echo=FALSE, dev = "svg", fig.height = 4.5, fig.width = 5.5}
+plot <- campus %>% 
+  ggplot() +
+  geom_point(aes(x = police, y = crime), color = met_slate, size = 2, alpha = 0.8) +
+  geom_abline(intercept = b0, slope = b1, color = purple, size = 1) +
+  theme_simple + xlab("Police per 1,000 students") + ylab("Crimes per 1,000 students")
+plot
+```
+]
+.pull-right[
+**Q:** Do police on college campuses reduce crime?
+
+- What does the slope coefficient tell us?
+]
+
+---
+count: false
+# Simple linear regression
+
+## **Example**
+
+.pull-left[
+.center[.purple[Crime.sub[*i*] .mono[=] `r round(b0, 2)` .mono[+] `r round(b1, 2)` Police.sub[*i*]]]
+```{r campus_crime_2_plot, echo=FALSE, dev = "svg", fig.height = 4.5, fig.width = 5.5}
+plot
+```
+]
+.pull-right[
+**Q:** Do police on college campuses reduce crime?
+
+- What does the slope coefficient tell us?
+
+
+**Q:** Does this mean that police *cause* crime!?
+
+- Why or why not?
+]
+
+---
+count: false
+# Simple linear regression
+
+## **Example**
+
+.pull-left[
+.center[.purple[Crime.sub[*i*] .mono[=] `r round(b0, 2)` .mono[+] `r round(b1, 2)` Police.sub[*i*]]]
+```{r campus_crime_3_plot, echo=FALSE, dev = "svg", fig.height = 4.5, fig.width = 5.5}
+plot
+```
+]
+.pull-right[
+**Q:** Do police on college campuses reduce crime?
+
+- What does the slope coefficient tell us?
+
+**Q:** Does this mean that police *cause* crime!?
+
+- Why or why not?
+
+.footnote[For an interesting discussion of the causal effects of police staffing on crime and arrests&mdash;and how those effects vary by race&mdash;check out [episode 55](https://www.probablecausation.com/podcasts/episode-55-morgan-williams-jr) of the [*Probable Causation*](https://www.probablecausation.com/) podcast.]
+]
+
+
+---
+# Simple linear regression
+
+## **Estimation**
+
+.pull-left[
+**Q:** Where does the regression line come from?
+]
+.pull-right[
+.center[.purple[Crime.sub[*i*] .mono[=] `r round(b0, 2)` .mono[+] `r round(b1, 2)` Police.sub[*i*]]]
+```{r, echo = F, dev = "svg", fig.height = 4.5, fig.width = 5.5}
+plot <- campus %>% 
+  ggplot() +
+  geom_point(aes(x = police, y = crime), color = met_slate, size = 2, alpha = 0.8) +
+  geom_abline(intercept = b0, slope = b1, color = purple, size = 1) +
+  theme_simple + xlab("Police per 1,000 students") + ylab("Crimes per 1,000 students")
+plot
+```
+]
+
+---
+count: false
+# Simple linear regression
+
+## **Estimation**
+
+.pull-left[
+**Q:** Where does the regression line come from? <br>
+**A:** A routine called **ordinary least squares (OLS)**.
+
+]
+.pull-right[
+.center[.purple[Crime.sub[*i*] .mono[=] `r round(b0, 2)` .mono[+] `r round(b1, 2)` Police.sub[*i*]]]
+```{r, echo = F, dev = "svg", fig.height = 4.5, fig.width = 5.5}
+plot
+```
+]
+
+---
+count: false
+# Simple linear regression
+
+## **Estimation**
+
+.pull-left[
+**Q:** Where does the regression line come from? <br>
+**A:** A routine called **ordinary least squares (OLS)**.
+
+**How does OLS work?**
+
+
+]
+.pull-right[
+.center[.purple[Crime.sub[*i*] .mono[=] `r round(b0, 2)` .mono[+] `r round(b1, 2)` Police.sub[*i*]]]
+```{r, echo = F, dev = "svg", fig.height = 4.5, fig.width = 5.5}
+plot
+```
+]
+
+---
+count: false
+# Simple linear regression
+
+## **Estimation**
+
+.pull-left[
+**Q:** Where does the regression line come from? <br>
+**A:** A routine called **ordinary least squares (OLS)**.
+
+**How does OLS work?**
+
+- Every "fitted line" produces .hi-pink[residuals].
+- Residual .mono[=] actual .mono[-] .hi-purple[predicted]
+
+]
+.pull-right[
+.center[.purple[Crime.sub[*i*] .mono[=] `r round(b0, 2)` .mono[+] `r round(b1, 2)` Police.sub[*i*]]]
+```{r, echo = F, dev = "svg", fig.height = 4.5, fig.width = 5.5}
+y_hat <- function(x, b0, b1) {b0 + b1 * x}
+
+campus %>% 
+  ggplot() +
+  geom_segment(aes(x = police, xend = police, y = crime, yend = y_hat(police, b0, b1)), color = red_pink, size = 0.5, alpha = 0.8) +
+  geom_point(aes(x = police, y = crime), color = met_slate, fill = met_slate, size = 2, alpha = 0.8) +
+  geom_abline(intercept = b0, slope = b1, color = purple, size = 1) +
+  theme_simple + xlab("Police per 1,000 students") + ylab("Crimes per 1,000 students")
+```
+]
+
+---
+# Simple linear regression
+
+## **Estimation**
+
+.pull-left[
+**Q:** Where does the regression line come from? <br>
+**A:** A routine called **ordinary least squares (OLS)**.
+
+**How does OLS work?**
+
+- Some fitted lines generate bigger residuals than others.
+
+```{r, include = F}
+b0_guess <- 58.2
+b1_guess <- -2.2
+```
+
+]
+.pull-right[
+.center[.purple[Crime.sub[*i*] .mono[=] `r round(b0_guess, 2)` .mono[+] `r round(b1_guess, 2)` Police.sub[*i*]]]
+```{r, echo = F, dev = "svg", fig.height = 4.5, fig.width = 5.5}
+campus %>% 
+  ggplot() +
+  geom_segment(aes(x = police, xend = police, y = crime, yend = y_hat(police, b0_guess, b1_guess)), color = red_pink, size = 0.5, alpha = 0.8) +
+  geom_point(aes(x = police, y = crime), color = met_slate, fill = met_slate, size = 2, alpha = 0.8) +
+  geom_abline(intercept = b0_guess, slope = b1_guess, color = purple, size = 1) +
+  theme_simple + xlab("Police per 1,000 students") + ylab("Crimes per 1,000 students")
+```
+]
+
+---
+count: false
+# Simple linear regression
+
+## **Estimation**
+
+.pull-left[
+**Q:** Where does the regression line come from? <br>
+**A:** A routine called **ordinary least squares (OLS)**.
+
+**How does OLS work?**
+
+- Some fitted lines generate bigger residuals than others.
+
+```{r, include = F}
+b0_guess <- 20.5
+b1_guess <- 3.15
+```
+
+]
+.pull-right[
+.center[.purple[Crime.sub[*i*] .mono[=] `r round(b0_guess, 2)` .mono[+] `r round(b1_guess, 2)` Police.sub[*i*]]]
+```{r, echo = F, dev = "svg", fig.height = 4.5, fig.width = 5.5}
+campus %>% 
+  ggplot() +
+  geom_segment(aes(x = police, xend = police, y = crime, yend = y_hat(police, b0_guess, b1_guess)), color = red_pink, size = 0.5, alpha = 0.8) +
+  geom_point(aes(x = police, y = crime), color = met_slate, fill = met_slate, size = 2, alpha = 0.8) +
+  geom_abline(intercept = b0_guess, slope = b1_guess, color = purple, size = 1) +
+  theme_simple + xlab("Police per 1,000 students") + ylab("Crimes per 1,000 students")
+```
+]
+
+---
+count: false
+# Simple linear regression
+
+## **Estimation**
+
+.pull-left[
+**Q:** Where does the regression line come from? <br>
+**A:** A routine called **ordinary least squares (OLS)**.
+
+**How does OLS work?**
+
+- Some fitted lines generate bigger residuals than others.
+
+```{r, include = F}
+b0_guess <- 1.3
+b1_guess <- 0.75
+```
+
+]
+.pull-right[
+.center[.purple[Crime.sub[*i*] .mono[=] `r round(b0_guess, 2)` .mono[+] `r round(b1_guess, 2)` Police.sub[*i*]]]
+```{r, echo = F, dev = "svg", fig.height = 4.5, fig.width = 5.5}
+campus %>% 
+  ggplot() +
+  geom_segment(aes(x = police, xend = police, y = crime, yend = y_hat(police, b0_guess, b1_guess)), color = red_pink, size = 0.5, alpha = 0.8) +
+  geom_point(aes(x = police, y = crime), color = met_slate, fill = met_slate, size = 2, alpha = 0.8) +
+  geom_abline(intercept = b0_guess, slope = b1_guess, color = purple, size = 1) +
+  theme_simple + xlab("Police per 1,000 students") + ylab("Crimes per 1,000 students")
+```
+]
+
+---
+# Simple linear regression
+
+## **Estimation**
+
+.pull-left[
+**Q:** Where does the regression line come from? <br>
+**A:** A routine called **ordinary least squares (OLS)**.
+
+**How does OLS work?**
+
+- The "line of best fit" is the line that **minimizes** the **sum of squared residuals**.
+- **Q:** Why squared?
+
+]
+.pull-right[
+.center[.purple[Crime.sub[*i*] .mono[=] `r round(b0, 2)` .mono[+] `r round(b1, 2)` Police.sub[*i*]]]
+```{r, echo = F, dev = "svg", fig.height = 4.5, fig.width = 5.5}
+campus %>% 
+  ggplot() +
+  geom_segment(aes(x = police, xend = police, y = crime, yend = y_hat(police, b0, b1)), color = red_pink, size = 0.5, alpha = 0.8) +
+  geom_point(aes(x = police, y = crime), color = met_slate, fill = met_slate, size = 2, alpha = 0.8) +
+  geom_abline(intercept = b0, slope = b1, color = purple, size = 1) +
+  theme_simple + xlab("Police per 1,000 students") + ylab("Crimes per 1,000 students")
+```
+]
+
+---
+count: false
+# Simple linear regression
+
+## **Estimation**
+
+.pull-left[
+**Q:** Where does the regression line come from? <br>
+**A:** A routine called **ordinary least squares (OLS)**.
+
+**How does OLS work?**
+
+- The "line of best fit" is the line that **minimizes** the **sum of squared residuals**.
+- **Q:** Why squared?
+- Using math you'll see in EC 320 or matrix algebra, OLS does this without the guesswork.
+
+]
+.pull-right[
+.center[.purple[Crime.sub[*i*] .mono[=] `r round(b0, 2)` .mono[+] `r round(b1, 2)` Police.sub[*i*]]]
+```{r, echo = F, dev = "svg", fig.height = 4.5, fig.width = 5.5}
+campus %>% 
+  ggplot() +
+  geom_segment(aes(x = police, xend = police, y = crime, yend = y_hat(police, b0, b1)), color = red_pink, size = 0.5, alpha = 0.8) +
+  geom_point(aes(x = police, y = crime), color = met_slate, fill = met_slate, size = 2, alpha = 0.8) +
+  geom_abline(intercept = b0, slope = b1, color = purple, size = 1) +
+  theme_simple + xlab("Police per 1,000 students") + ylab("Crimes per 1,000 students")
+```
+]
+
+
+---
+# Simple linear regression
+
+## **Estimation**
+
+.pull-left[
+**Q:** Where does the regression line come from? <br>
+**A:** A routine called **ordinary least squares (OLS)**.
+
+**How does OLS work?**
+
+- **"Squares?"** Sum of squared residuals.
+- **"Least?"** Minimize that sum.
+- **"Ordinary?"** Oldest, most common way of estimating a regression.
+
+]
+.pull-right[
+.center[.purple[Crime.sub[*i*] .mono[=] `r round(b0, 2)` .mono[+] `r round(b1, 2)` Police.sub[*i*]]]
+```{r, echo = F, dev = "svg", fig.height = 4.5, fig.width = 5.5}
+campus %>% 
+  ggplot() +
+  geom_segment(aes(x = police, xend = police, y = crime, yend = y_hat(police, b0, b1)), color = red_pink, size = 0.5, alpha = 0.8) +
+  geom_point(aes(x = police, y = crime), color = met_slate, fill = met_slate, size = 2, alpha = 0.8) +
+  geom_abline(intercept = b0, slope = b1, color = purple, size = 1) +
+  theme_simple + xlab("Police per 1,000 students") + ylab("Crimes per 1,000 students")
+```
+]
+
+---
+# Simple linear regression
+
+## **Example: Returns to education**
+
+The optimal investment in education by students, parents, and legislators depends in part on the monetary *return to education*.
+
+--
+
+.hi-purple[Thought experiment:]
+- Randomly select an individual.
+- Give her an additional year of education.
+- How much do her earnings increase?
+
+The change in her earnings describes the .hi-slate[causal effect] of education on earnings.
+
+---
+# Simple linear regression
+
+## **Example: Returns to education**
+
+```{r, include = F}
+wage2 <- get("wage2")
+lm_wage <- lm(wage ~ educ, wage2)
+
+b0 <- lm_wage$coefficients[1]
+b1 <- lm_wage$coefficients[2]
+```
+
+.pull-left[
+.center[.purple[Earnings.sub[*i*] .mono[=] `r round(b0, 2)` .mono[+] `r round(b1, 2)` Schooling.sub[*i*]]]
+```{r, echo=FALSE, dev = "svg", fig.height = 4.5, fig.width = 5.5}
+set.seed(629)
+plot <- wage2 %>% 
+  ggplot() +
+  scale_y_continuous(labels = scales::comma) +
+  geom_point(aes(x = educ, y = wage), color = met_slate, size = 2, alpha = 0.8, position = position_jitter()) +
+  geom_abline(intercept = b0, slope = b1, color = purple, size = 1) +
+  theme_simple + xlab("Years of education") + ylab("Weekly earnings ($)")
+plot
+```
+]
+.pull-right[
+**Q:** How much extra money can a worker in this sample expect from an additional year of education?
+
+- How do you know?
+]
+
+---
+count: false
+# Simple linear regression
+
+## **Example: Returns to education**
+
+.pull-left[
+.center[.purple[Earnings.sub[*i*] .mono[=] `r round(b0, 2)` .mono[+] `r round(b1, 2)` Schooling.sub[*i*]]]
+```{r, echo=FALSE, dev = "svg", fig.height = 4.5, fig.width = 5.5}
+set.seed(629)
+plot
+```
+]
+.pull-right[
+**Q:** How much extra money can a worker in this sample expect from an additional year of education?
+
+- How do you know?
+
+**Q:** Does this number represent the causal return to an additional year of education?
+
+- What other variables could be driving the relationship?
+]
+
+---
+class: inverse, middle
+
+# Making adjustments
+
+---
+# Making adjustments
+
+.pull-left[
+```{r, dev = "svg", echo = F, fig.height=5.5, fig.width = 5.5}
+df <- data.frame(W = as.integer((1:200>100))) %>%
+  mutate(X = .5+2*W + rnorm(200)) %>%
+  mutate(Y = -.5*X + 4*W + 1 + rnorm(200),time="1") %>%
+  filter(Y <= 5 & Y >= -5, X <= 5 & X >= -5) %>% 
+  group_by(W) %>%
+  mutate(mean_X=mean(X),mean_Y=mean(Y)) %>%
+  ungroup()
+
+reg <- lm(Y ~ X, data = df) %>% tidy()
+
+intercept <- reg %>% filter(term == "(Intercept)") %>% pull(estimate) %>% round(2)
+intercept_se <- reg %>% filter(term == "(Intercept)") %>% pull(std.error) %>% round(2) %>% as.character()
+intercept_se <- paste0("(", intercept_se, ")")
+
+slope <- reg %>% filter(term == "X") %>% pull(estimate) %>% round(2)
+slope_se <- reg %>% filter(term == "X") %>% pull(std.error) %>% round(2) %>% as.character()
+slope_se <- paste0("(", slope_se, ")")
+
+reg_2 <- lm(Y ~ X + W, data = df) %>% tidy()
+
+intercept_2 <- reg_2 %>% filter(term == "(Intercept)") %>% pull(estimate) %>% round(2)
+intercept_se_2 <- reg_2 %>% filter(term == "(Intercept)") %>% pull(std.error) %>% round(2) %>% as.character()
+intercept_se_2 <- paste0("(", intercept_se_2, ")")
+
+slope_2 <- reg_2 %>% filter(term == "X") %>% pull(estimate) %>% round(2)
+slope_se_2 <- reg_2 %>% filter(term == "X") %>% pull(std.error) %>% round(2) %>% as.character()
+slope_se_2 <- paste0("(", slope_se_2, ")")
+
+w_slope_2 <- reg_2 %>% filter(term == "W") %>% pull(estimate) %>% round(2)
+w_slope_se_2 <- reg_2 %>% filter(term == "W") %>% pull(std.error) %>% round(2) %>% as.character()
+w_slope_se_2 <- paste0("(", w_slope_se_2, ")")
+
+ggplot(data = df, aes(y = Y, x = X)) + # , color = as.factor(W)
+  geom_hline(yintercept = 0, linetype = "dashed", color = met_slate) +
+  geom_vline(xintercept = 0, linetype = "dashed", color = met_slate) +
+  geom_point(alpha = 0.8, color = met_slate) + # 
+  geom_smooth(method = lm, se = F, color = purple, size = 1) +
+  scale_x_continuous(limits = c(-5, 5)) +
+  scale_y_continuous(limits = c(-5, 5)) +
+  labs(y = "Outcome (Y)", x = "Treatment (D)") + # 
+  scale_color_manual(values = c("darkslategrey", red_pink)) +
+  theme_simple +
+  theme(legend.position = c(0.2, 0.1))
+```
+]
+.pull-right[
+We can produce a fitted line by estimating a regression of an outcome on a treatment: $$Y_i = \alpha + \beta~D_i + \varepsilon_i$$
+
+$\beta$ describes how the outcome changes, *on average*, when treatment changes.
+
+```{R, echo = F, escape = F}
+tab <- data.frame(
+  v1 = c("Intercept", "", "Treatment", ""),
+  v2 = rbind(
+    c(intercept, slope),
+    c(intercept_se, slope_se)
+  ) %>% as.vector()
+) %>% kable(
+  escape = F,
+  col.names = c("Parameter", "(1)"),
+  align = c("l", rep("c", 2))
+) %>%
+row_spec(1:4, color = met_slate) %>%
+row_spec(seq(2,4,2), color = "#c2bebe") %>%
+row_spec(1:4, extra_css = "line-height: 110%;") %>%
+column_spec(1, color = "black", italic = T)
+tab %>% column_spec(2, bold = T)
+```
+.center[*Standard errors in parentheses.*]
+]
+
+---
+# Making adjustments
+
+.pull-left[
+```{r, dev = "svg", echo = F, fig.height=5.5, fig.width = 5.5}
+ggplot(data = df, aes(y = Y, x = X, color = as.factor(W))) +
+  geom_hline(yintercept = 0, linetype = "dashed", color = met_slate) +
+  geom_vline(xintercept = 0, linetype = "dashed", color = met_slate) +
+  geom_point(alpha = 0.8) + # 
+  geom_smooth(method = lm, se = F, color = purple, size = 1) +
+  scale_x_continuous(limits = c(-5, 5)) +
+  scale_y_continuous(limits = c(-5, 5)) +
+  labs(y = "Outcome (Y)", x = "Treatment (D)", color = "Confounder (W)") + # 
+  scale_color_manual(values = c("darkslategrey", red_pink)) +
+  theme_simple +
+  theme(legend.position = c(0.2, 0.1))
+```
+]
+.pull-right[
+
+However, we might worry that a third variable $W_i$ confounds our estimate of the effect of the treatment on the outcome.
+]
+
+---
+# Making adjustments
+
+.pull-left[
+```{r, dev = "svg", echo = F, fig.height=5.5, fig.width = 5.5}
+ggplot(data = df, aes(y = Y, x = X, color = as.factor(W))) +
+  geom_hline(yintercept = 0, linetype = "dashed", color = met_slate) +
+  geom_vline(xintercept = 0, linetype = "dashed", color = met_slate) +
+  geom_point(alpha = 0.8) + # 
+  # geom_smooth(method = lm, se = F, color = purple, size = 1) +
+  scale_x_continuous(limits = c(-5, 5)) +
+  scale_y_continuous(limits = c(-5, 5)) +
+  labs(y = "Outcome (Y)", x = "Treatment (D)", color = "Confounder (W)") + # 
+  scale_color_manual(values = c("darkslategrey", red_pink)) +
+  theme_simple +
+  theme(legend.position = c(0.2, 0.1))
+```
+]
+.pull-right[
+
+If data on the confounder exists, it can be added to the regression model: $$Y_i = \alpha + \beta~D_i + \gamma~W_i + \varepsilon_i$$
+]
+
+**Q:** How does OLS "adjust" for the confounder?
+
+---
+count: false
+# Making adjustments
+
+.pull-left[
+```{r, dev = "svg", echo = F, fig.height=5.5, fig.width = 5.5}
+df2 <- df %>% 
+  group_by(W) %>% 
+  summarize(
+    mean_X = mean(mean_X),
+    mean_Y = mean(mean_Y)
+  )
+
+ggplot(data = df, aes(y = Y, x = X, color = as.factor(W))) +
+  geom_hline(yintercept = 0, linetype = "dashed", color = met_slate) +
+  geom_vline(xintercept = 0, linetype = "dashed", color = met_slate) +
+  geom_point(alpha = 0.8) + # 
+  geom_vline(data = df2, aes(xintercept = mean_X, color = as.factor(W)), show.legend = F, linetype = "solid", size = 1) +
+
+  # geom_smooth(method = lm, se = F, color = purple, size = 1) +
+  scale_x_continuous(limits = c(-5, 5)) +
+  scale_y_continuous(limits = c(-5, 5)) +
+  labs(y = "Outcome (Y)", x = "Treatment (D)", color = "Confounder (W)") + # 
+  scale_color_manual(values = c("darkslategrey", red_pink)) +
+  theme_simple +
+  theme(legend.position = c(0.2, 0.1))
+```
+]
+.pull-right[
+
+If data on the confounder exists, it can be added to the regression model: $$Y_i = \alpha + \beta~D_i + \gamma~W_i + \varepsilon_i$$
+
+**Q:** How does OLS "adjust" for the confounder?
+
+- **Step 1:** Figure out what differences in D are explained by W.
+]
+
+
+
+---
+# Making adjustments
+
+.pull-left[
+```{r, dev = "svg", echo = F, fig.height=5.5, fig.width = 5.5}
+df %>% 
+  mutate(W = as.factor(W)) %>% 
+  group_by(W) %>%
+  mutate(X = X - mean_X) %>%
+  ggplot(aes(y = Y, x = X, color = as.factor(W))) +  
+  geom_hline(yintercept = 0, linetype = "dashed", color = met_slate) +
+  geom_vline(xintercept = 0, linetype = "dashed", color = met_slate) +
+  geom_point(alpha = 0.8) + # 
+  # geom_vline(data = df2, aes(xintercept = mean_X, color = as.factor(W)), show.legend = F, linetype = "solid", size = 1) +
+  # geom_smooth(method = lm, se = F, color = purple, size = 1) +
+  scale_x_continuous(limits = c(-5, 5)) +
+  scale_y_continuous(limits = c(-5, 5)) +
+  labs(y = "Outcome (Y)", x = "Treatment (adjusted D)", color = "Confounder (W)") + # 
+  scale_color_manual(values = c("darkslategrey", red_pink)) +
+  theme_simple +
+  theme(legend.position = c(0.2, 0.1))
+```
+]
+.pull-right[
+
+If data on the confounder exists, it can be added to the regression model: $$Y_i = \alpha + \beta~D_i + \gamma~W_i + \varepsilon_i$$
+
+**Q:** How does OLS "adjust" for the confounder?
+
+- **Step 2:** Remove differences in D explained by W.
+]
+
+---
+# Making adjustments
+
+.pull-left[
+```{r, dev = "svg", echo = F, fig.height=5.5, fig.width = 5.5}
+df %>% 
+  mutate(W = as.factor(W)) %>% 
+  group_by(W) %>%
+  mutate(X = X - mean_X) %>%
+  ggplot(aes(y = Y, x = X, color = as.factor(W))) +  
+  geom_hline(yintercept = 0, linetype = "dashed", color = met_slate) +
+  geom_vline(xintercept = 0, linetype = "dashed", color = met_slate) +
+  geom_point(alpha = 0.8) + # 
+  geom_hline(data = df2, aes(yintercept = mean_Y, color = as.factor(W)), show.legend = F, linetype = "solid", size = 1) +
+  # geom_smooth(method = lm, se = F, color = purple, size = 1) +
+  scale_x_continuous(limits = c(-5, 5)) +
+  scale_y_continuous(limits = c(-5, 5)) +
+  labs(y = "Outcome (Y)", x = "Treatment (adjusted D)", color = "Confounder (W)") + # 
+  scale_color_manual(values = c("darkslategrey", red_pink)) +
+  theme_simple +
+  theme(legend.position = c(0.2, 0.1))
+```
+]
+.pull-right[
+
+If data on the confounder exists, it can be added to the regression model: $$Y_i = \alpha + \beta~D_i + \gamma~W_i + \varepsilon_i$$
+
+**Q:** How does OLS "adjust" for the confounder?
+
+- **Step 3:** Figure out what differences in Y are explained by W.
+]
+
+
+
+---
+# Making adjustments
+
+.pull-left[
+```{r, dev = "svg", echo = F, fig.height=5.5, fig.width = 5.5}
+df %>% 
+  mutate(W = as.factor(W)) %>% 
+  group_by(W) %>%
+  mutate(X = X - mean_X, Y = Y - mean_Y) %>%
+  ggplot(aes(y = Y, x = X, color = as.factor(W))) +  
+  geom_hline(yintercept = 0, linetype = "dashed", color = met_slate) +
+  geom_vline(xintercept = 0, linetype = "dashed", color = met_slate) +
+  geom_point(alpha = 0.8) + # 
+  # geom_smooth(method = lm, se = F, color = purple, size = 1) +
+  scale_x_continuous(limits = c(-5, 5)) +
+  scale_y_continuous(limits = c(-5, 5)) +
+  labs(y = "Outcome (adjusted Y)", x = "Treatment (adjusted D)", color = "Confounder (W)") + # 
+  scale_color_manual(values = c("darkslategrey", red_pink)) +
+  theme_simple +
+  theme(legend.position = c(0.2, 0.1))
+```
+]
+.pull-right[
+
+If data on the confounder exists, it can be added to the regression model: $$Y_i = \alpha + \beta~D_i + \gamma~W_i + \varepsilon_i$$
+
+**Q:** How does OLS "adjust" for the confounder?
+
+- **Step 4:** Remove differences in Y explained by W.
+]
+
+
+
+---
+# Making adjustments
+
+.pull-left[
+```{r, dev = "svg", echo = F, fig.height=5.5, fig.width = 5.5}
+df %>% 
+  mutate(W = as.factor(W)) %>% 
+  group_by(W) %>%
+  mutate(X = X - mean_X, Y = Y - mean_Y) %>%
+  ggplot(aes(y = Y, x = X, color = as.factor(W))) +  
+  geom_hline(yintercept = 0, linetype = "dashed", color = met_slate) +
+  geom_vline(xintercept = 0, linetype = "dashed", color = met_slate) +
+  geom_point(alpha = 0.8) + # 
+  geom_smooth(method = lm, se = F, color = purple, size = 1) +
+  scale_x_continuous(limits = c(-5, 5)) +
+  scale_y_continuous(limits = c(-5, 5)) +
+  labs(y = "Outcome (adjusted Y)", x = "Treatment (adjusted D)", color = "Confounder (W)") + # 
+  scale_color_manual(values = c("darkslategrey", red_pink)) +
+  theme_simple +
+  theme(legend.position = c(0.2, 0.1))
+```
+]
+.pull-right[
+
+If data on the confounder exists, it can be added to the regression model: $$Y_i = \alpha + \beta~D_i + \gamma~W_i + \varepsilon_i$$
+
+**Q:** How does OLS "adjust" for the confounder?
+
+- **Step 5:** Fit a regression through the adjusted data.
+]
+
+---
+# Making adjustments
+
+.pull-left[
+```{r, dev = "svg", echo = F, fig.height=5.5, fig.width = 5.5}
+df %>% 
+  mutate(W = as.factor(W)) %>% 
+  group_by(W) %>%
+  mutate(X = X - mean_X,
+         Y = Y - mean_Y) %>%
+  ggplot(aes(y = Y, x = X, color = as.factor(W))) +
+  geom_hline(yintercept = 0, linetype = "dashed", color = met_slate) +
+  geom_vline(xintercept = 0, linetype = "dashed", color = met_slate) +
+  geom_point(alpha = 0.8) + # 
+  geom_smooth(method = lm, se = F, color = purple, size = 1) +
+  scale_x_continuous(limits = c(-5, 5)) +
+  scale_y_continuous(limits = c(-5, 5)) +
+  labs(y = "Outcome (adjusted Y)", x = "Treatment (adjusted D)", color = "Confounder (W)") + # 
+  scale_color_manual(values = c("darkslategrey", red_pink)) +
+  theme_simple +
+  theme(legend.position = c(0.2, 0.1))
+```
+]
+.pull-right[
+
+If data on the confounder exists, it can be added to the regression model: $$Y_i = \alpha + \beta~D_i + \gamma~W_i + \varepsilon_i$$
+
+```{R, echo = F, escape = F}
+tab <- data.frame(
+  v1 = c("Intercept", "", "Treatment", "", "Confounder", ""),
+  v2 = rbind(
+    c(intercept, slope, ""),
+    c(intercept_se, slope_se, "")
+  ) %>% as.vector(),
+  v3 = rbind(
+    c(intercept_2, slope_2, w_slope_2),
+    c(intercept_se_2, slope_se_2, w_slope_se_2)
+  ) %>% as.vector()
+) %>% kable(
+  escape = F,
+  col.names = c("Parameter", "(1)", "(2)"),
+  align = c("l", rep("c", 3))
+) %>%
+row_spec(1:6, color = met_slate) %>%
+row_spec(seq(2,6,2), color = "#c2bebe") %>%
+row_spec(1:6, extra_css = "line-height: 110%;") %>%
+column_spec(1, color = "black", italic = T)
+tab %>% column_spec(3, bold = T)
+```
+.center[*Standard errors in parentheses.*]
+]
+
+---
+# Omitted-variable bias
+
+## **Example: Returns to education**
+
+.pull-left[
+<br>
+```{R, echo = F, escape = F}
+tab <- data.frame(
+  v1 = c("Intercept", "", "Schooling (Years)", "", "IQ Score (Points)", ""),
+  v2 = rbind(
+    c(146.95, 60.21, ""),
+    c("(77.72)", "(5.70)", "")
+  ) %>% as.vector(),
+  v3 = rbind(
+    c(-128.89, 42.06, 5.14),
+    c("(92.18)", "(6.55)", "(0.96)")
+  ) %>% as.vector()
+) %>% kable(
+  escape = F,
+  col.names = c("Parameter", "1", "2"),
+  align = c("l", rep("c", 3)),
+  caption = "Outcome: Weekly Earnings"
+) %>%
+row_spec(1:6, color = met_slate) %>%
+row_spec(seq(2,6,2), color = "#c2bebe") %>%
+row_spec(1:6, extra_css = "line-height: 110%;") %>%
+column_spec(1, color = "black", italic = T)
+tab %>% column_spec(2, bold = T)
+```
+.center[*Standard errors in parentheses.*]
+]
+
+.pull-right[
+
+]
+
+---
+count: false
+# Omitted-variable bias
+
+## **Example: Returns to education**
+
+.pull-left[
+<br>
+```{R, echo = F, escape = F}
+tab %>% 
+  column_spec(3, bold = T)
+```
+.center[*Standard errors in parentheses.*]
+]
+
+--
+
+.pull-right[
+<br> <br>
+
+.orange[Bias] from omitting IQ score 
+<br> $\quad$ .mono[=] .pink["short"] .mono[-] .purple["long"]
+<br> $\quad$ .mono[=] .pink[60.21] .mono[-] .purple[42.06]
+<br> $\quad$ .mono[=] .orange[18.15]
+
+The first regression mistakenly attributes some of the influence of intelligence to education.
+]
+
+---
+# Omitted-variable bias
+
+.more-left[
+```{R, venn2, dev = "svg", echo = F, fig.height = 5.5, fig.width = 5.5}
+# Colors (order: x1, x2, x3, y)
+venn_colors <- c(green, orange, purple)
+# Locations of circles
+venn_df <- tibble(
+  x  = c( 0.0,   -0.5, -1.0),
+  y  = c( 0.0,   -2.5, 2.0),
+  r  = c( 1.9,    1.5, 1.3),
+  l  = c( "Y", "D", "W"),
+  xl = c( 0.0,   -0.5, -1.0),
+  yl = c( 0.0,   -2.5, 2.2)
+)
+# Line types (order: x1, x2, x3, y)
+venn_lines <- c("solid", "dotted", "solid")
+# Venn
+ggplot(data = venn_df, aes(x0 = x, y0 = y, r = r, fill = l, color = l)) +
+geom_circle(aes(linetype = l), alpha = 0.3, size = 0.75) +
+theme_void() +
+theme(legend.position = "none") +
+scale_fill_manual(values = venn_colors) +
+scale_color_manual(values = venn_colors) +
+scale_linetype_manual(values = venn_lines) +
+geom_text(aes(x = xl, y = yl, label = l), size = 9, family = "Fira Sans", parse = T) +
+annotate(
+  x = 1, y = 3,
+  geom = "text", label = "No Bias", color = met_slate, size = 9, family = "Fira Sans", hjust = 0
+) +
+xlim(-3, 3) +
+ylim(-4, 3.4) +
+coord_equal()
+```
+]
+
+.less-right[
+
+.hi-purple[Y] .mono[=] Outcome
+
+.hi-green[D] .mono[=] Treatment
+
+.hi-orange[W] .mono[=] Omitted variable
+
+If .hi-orange[W] is correlated with both .hi-green[D] and .hi-purple[Y] .mono[-->] omitted variable bias .mono[-->] regression fails to isolate the causal effect of .hi-green[D] on .hi-purple[Y].
+
+]
+
+---
+# Omitted-variable bias
+
+.more-left[
+```{R, echo = F, dev = "svg", fig.height = 5.5, fig.width = 5.5}
+# Colors (order: x1, x2, x3, y)
+venn_lines <- c("solid", "dotted", "solid")
+# Locations of circles
+venn_df <- tibble(
+  x  = c( 0.0,   -0.5, 1.5),
+  y  = c( 0.0,   -2.5, -1.8),
+  r  = c( 1.9,    1.5, 1.5),
+  l  = c( "Y", "D", "W"),
+  xl = c( 0.0,   -0.5, 1.6),
+  yl = c( 0.0,   -2.5, -1.9)
+)
+# Venn
+ggplot(data = venn_df, aes(x0 = x, y0 = y, r = r, fill = l, color = l)) +
+geom_circle(aes(linetype = l), alpha = 0.3, size = 0.75) +
+theme_void() +
+theme(legend.position = "none") +
+scale_fill_manual(values = venn_colors) +
+scale_color_manual(values = venn_colors) +
+scale_linetype_manual(values = venn_lines) +
+geom_text(aes(x = xl, y = yl, label = l), size = 9, family = "Fira Sans", parse = T) +
+annotate(
+  x = 1, y = 3,
+  geom = "text", label = "Bias", color = met_slate, size = 9, family = "Fira Sans", hjust = 0
+) +
+xlim(-3, 3) +
+ylim(-4, 3.4) +
+coord_equal()
+```
+]
+
+.less-right[
+
+.hi-purple[Y] .mono[=] Outcome
+
+.hi-green[D] .mono[=] Treatment
+
+.hi-orange[W] .mono[=] Omitted variable
+
+If .hi-orange[W] is correlated with both .hi-green[D] and .hi-purple[Y] .mono[-->] omitted variable bias .mono[-->] regression fails to isolate the causal effect of .hi-green[D] on .hi-purple[Y].
+
+]
+
+---
+# Housekeeping
+
+**MLK Jr. Day:** No class or office hours on Monday the 17th.
+
+**Pre-recorded lecture** for Wednesday the 19th.
+
+- I will try to post it sometime next week.
+- In the meantime, enjoy your weekend!
+
+**Assigned reading for next week:** [Snapping back: Food stamp bans and criminal recidivism](https://www.aeaweb.org/articles?id=10.1257/pol.20170490) by Cody Tuttle (2019).
+
+- Best to read it *after* you watch next week's lecture.
+- Reading Quiz 3 due the following week (Monday the 24th).
+
+**Problem Set 1** due on Friday the 21st by 11:59pm.
+
+- Covers everything though next Wednesday.
