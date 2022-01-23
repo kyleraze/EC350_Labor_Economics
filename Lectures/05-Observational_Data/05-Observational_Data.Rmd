@@ -14,7 +14,6 @@ output:
       beforeInit: "https://platform.twitter.com/widgets.js"
       ratio: "16:9"
 ---
-class: inverse, middle
 
 ```{r Setup, include = F}
 options(htmltools.dir.version = FALSE)
@@ -90,14 +89,12 @@ observational <- get("jtrain3")
 
 fixest::feols(unem78 ~ train + csw0(age + black + hisp, educ, unem74), data = experimental) %>%
   fixest::etable(digits = 3)
-p_load(pander)
 fixest::feols(unem78 ~ train + csw0(age + agesq + black + hisp, educ, unem74), data = observational) %>%
   fixest::etable(digits = 3)
+
+xaringanExtra::use_scribble()
 ```
 
-# Prologue
-
----
 # Learning from Observational Data
 
 1. A taxonomy of data
@@ -131,7 +128,7 @@ Data generated from a .hi-pink[randomized] experiment.
 Data generated from the .hi-purple[decisions] of various individuals in the "real world."
 
 - Sometimes treatment is randomly assigned (*e.g.,* in a lottery), but not usually .hi-purple[(non-random!)]
-- Prone to selection bias
+- Prone to selection bias and omitted-variable bias
 - Must rely on natural experiments to identify causal relationships
 
 ---
@@ -160,11 +157,11 @@ Data generated from the .hi-purple[decisions] of various individuals in the "rea
 
 ```{R, echo = F, escape = F}
 tab <- data.frame(
-  v1 = c(".hi-pink[Training?]" , "", "**Demographics**", "**Education**", "**Previously unemployed?**"),
-  v2 = c("-0.111", "(0.044)", "", "", ""),
-  v3 = c("-0.116", "(0.044)", "$\\checkmark$", "", ""),
-  v4 = c("-0.115", "(0.044)", "$\\checkmark$", "$\\checkmark$", ""),
-  v5 = c("-0.113", "(0.044)", "$\\checkmark$", "$\\checkmark$", "$\\checkmark$")
+  v1 = c(".hi-pink[Training?]" , "", "**Control mean**", "**Demographics**", "**Education**", "**Unemployed?.sub[t-1]**"),
+  v2 = c("-0.111", "(0.044)", "0.354", "", "", ""),
+  v3 = c("-0.116", "(0.044)", "0.354", "$\\checkmark$", "", ""),
+  v4 = c("-0.115", "(0.044)", "0.354", "$\\checkmark$", "$\\checkmark$", ""),
+  v5 = c("-0.113", "(0.044)", "0.354", "$\\checkmark$", "$\\checkmark$", "$\\checkmark$")
 ) %>% kable(
   escape = F,
   col.names = c("", "1", "2", "3", "4"),
@@ -172,13 +169,13 @@ tab <- data.frame(
   caption = "<br>**Unemployed?** (.mono[=] 1 if yes, .mono[=] if no)"
 ) %>%
 row_spec(0, color = "#708090") %>% 
-row_spec(1:5, color = met_slate) %>%
+row_spec(1:6, color = met_slate) %>%
 row_spec(2, color = "#c2bebe") %>%
 column_spec(1, color = met_slate)
 
 tab
 ```
-.center[*Note:* Standard errors in parentheses.]
+.smallest[*Note:* Standard errors in parentheses.]
 ]
 
 --
@@ -202,26 +199,25 @@ tab
 
 ```{R, echo = F, escape = F}
 tab <- data.frame(
-  v1 = c(".hi-purple[Training?]" , "", "**Demographics**", "**Education**", "**Previously unemployed?**"),
-  v2 = c("0.128", "(0.025)", "", "", ""),
-  v3 = c("0.164", "(0.027)", "$\\checkmark$", "", ""),
-  v4 = c("0.160", "(0.027)", "$\\checkmark$", "$\\checkmark$", ""),
-  v5 = c(-0.182, "(0.027)", "$\\checkmark$", "$\\checkmark$", "$\\checkmark$")
+  v1 = c(".hi-purple[Training?]" , "", "**Control mean**", "**Demographics**", "**Education**", "**Unemployed?.sub[t-1]**"),
+  v2 = c("0.128", "(0.025)", "0.115", "", "", ""),
+  v3 = c("0.164", "(0.027)", "0.115", "$\\checkmark$", "", ""),
+  v4 = c("0.160", "(0.027)", "0.115", "$\\checkmark$", "$\\checkmark$", ""),
+  v5 = c(-0.182, "(0.027)", "0.115", "$\\checkmark$", "$\\checkmark$", "$\\checkmark$")
 ) %>% kable(
   escape = F,
   col.names = c("", "1", "2", "3", "4"),
   align = c("l", rep("c", 5)),
   caption = "<br>**Unemployed?** (.mono[=] 1 if yes, .mono[=] if no)"
-
 ) %>%
 row_spec(0, color = "#708090") %>% 
-row_spec(1:5, color = met_slate) %>%
+row_spec(1:6, color = met_slate) %>%
 row_spec(2, color = "#c2bebe") %>%
 column_spec(1, color = met_slate)
 
 tab
 ```
-.center[*Note:* Standard errors in parentheses.]
+.smallest[*Note:* Standard errors in parentheses.]
 
 ]
 

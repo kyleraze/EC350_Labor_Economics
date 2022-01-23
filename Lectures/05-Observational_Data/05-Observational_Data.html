@@ -8,6 +8,10 @@
     <link href="05-Observational_Data_files/remark-css/default.css" rel="stylesheet" />
     <link href="05-Observational_Data_files/remark-css/metropolis.css" rel="stylesheet" />
     <link href="05-Observational_Data_files/remark-css/metropolis-fonts.css" rel="stylesheet" />
+    <script src="05-Observational_Data_files/fabric/fabric.min.js"></script>
+    <link href="05-Observational_Data_files/xaringanExtra-scribble/scribble.css" rel="stylesheet" />
+    <script src="05-Observational_Data_files/xaringanExtra-scribble/scribble.js"></script>
+    <script>document.addEventListener('DOMContentLoaded', function() { window.xeScribble = new Scribble({"pen_color":["#FF0000"],"pen_size":3,"eraser_size":30,"palette":[]}) })</script>
     <script src="05-Observational_Data_files/kePrint/kePrint.js"></script>
     <link href="05-Observational_Data_files/lightable/lightable.css" rel="stylesheet" />
     <link rel="stylesheet" href="my-css.css" type="text/css" />
@@ -23,13 +27,9 @@ class: center, middle, inverse, title-slide
 
 ---
 
-class: inverse, middle
 
 
 
-# Prologue
-
----
 # Learning from Observational Data
 
 1. A taxonomy of data
@@ -63,7 +63,7 @@ Data generated from a .hi-pink[randomized] experiment.
 Data generated from the .hi-purple[decisions] of various individuals in the "real world."
 
 - Sometimes treatment is randomly assigned (*e.g.,* in a lottery), but not usually .hi-purple[(non-random!)]
-- Prone to selection bias
+- Prone to selection bias and omitted-variable bias
 - Must rely on natural experiments to identify causal relationships
 
 ---
@@ -118,6 +118,13 @@ Data generated from the .hi-purple[decisions] of various individuals in the "rea
    &lt;td style="text-align:center;color: #272822 !important;color: #c2bebe !important;"&gt; (0.044) &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
+   &lt;td style="text-align:left;color: #272822 !important;color: #272822 !important;"&gt; **Control mean** &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;"&gt; 0.354 &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;"&gt; 0.354 &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;"&gt; 0.354 &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;"&gt; 0.354 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
    &lt;td style="text-align:left;color: #272822 !important;color: #272822 !important;"&gt; **Demographics** &lt;/td&gt;
    &lt;td style="text-align:center;color: #272822 !important;"&gt;  &lt;/td&gt;
    &lt;td style="text-align:center;color: #272822 !important;"&gt; `\(\checkmark\)` &lt;/td&gt;
@@ -132,7 +139,7 @@ Data generated from the .hi-purple[decisions] of various individuals in the "rea
    &lt;td style="text-align:center;color: #272822 !important;"&gt; `\(\checkmark\)` &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
-   &lt;td style="text-align:left;color: #272822 !important;color: #272822 !important;"&gt; **Previously unemployed?** &lt;/td&gt;
+   &lt;td style="text-align:left;color: #272822 !important;color: #272822 !important;"&gt; **Unemployed?.sub[t-1]** &lt;/td&gt;
    &lt;td style="text-align:center;color: #272822 !important;"&gt;  &lt;/td&gt;
    &lt;td style="text-align:center;color: #272822 !important;"&gt;  &lt;/td&gt;
    &lt;td style="text-align:center;color: #272822 !important;"&gt;  &lt;/td&gt;
@@ -140,7 +147,7 @@ Data generated from the .hi-purple[decisions] of various individuals in the "rea
   &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
-.center[*Note:* Standard errors in parentheses.]
+.smallest[*Note:* Standard errors in parentheses.]
 ]
 
 --
@@ -190,6 +197,13 @@ Data generated from the .hi-purple[decisions] of various individuals in the "rea
    &lt;td style="text-align:center;color: #272822 !important;color: #c2bebe !important;"&gt; (0.027) &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
+   &lt;td style="text-align:left;color: #272822 !important;color: #272822 !important;"&gt; **Control mean** &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;"&gt; 0.115 &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;"&gt; 0.115 &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;"&gt; 0.115 &lt;/td&gt;
+   &lt;td style="text-align:center;color: #272822 !important;"&gt; 0.115 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
    &lt;td style="text-align:left;color: #272822 !important;color: #272822 !important;"&gt; **Demographics** &lt;/td&gt;
    &lt;td style="text-align:center;color: #272822 !important;"&gt;  &lt;/td&gt;
    &lt;td style="text-align:center;color: #272822 !important;"&gt; `\(\checkmark\)` &lt;/td&gt;
@@ -204,7 +218,7 @@ Data generated from the .hi-purple[decisions] of various individuals in the "rea
    &lt;td style="text-align:center;color: #272822 !important;"&gt; `\(\checkmark\)` &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
-   &lt;td style="text-align:left;color: #272822 !important;color: #272822 !important;"&gt; **Previously unemployed?** &lt;/td&gt;
+   &lt;td style="text-align:left;color: #272822 !important;color: #272822 !important;"&gt; **Unemployed?.sub[t-1]** &lt;/td&gt;
    &lt;td style="text-align:center;color: #272822 !important;"&gt;  &lt;/td&gt;
    &lt;td style="text-align:center;color: #272822 !important;"&gt;  &lt;/td&gt;
    &lt;td style="text-align:center;color: #272822 !important;"&gt;  &lt;/td&gt;
@@ -212,7 +226,7 @@ Data generated from the .hi-purple[decisions] of various individuals in the "rea
   &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
-.center[*Note:* Standard errors in parentheses.]
+.smallest[*Note:* Standard errors in parentheses.]
 
 ]
 
