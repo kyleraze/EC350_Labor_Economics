@@ -21,7 +21,7 @@ The HTML versions of the lecture slides allow you to view animations and interac
 
 5. **Learning from Observational Data** <br> [.html](https://raw.githack.com/kyleraze/EC350_Labor_Economics/master/Lectures/05-Observational_Data/05-Observational_Data.html) | [.pdf](https://raw.githack.com/kyleraze/EC350_Labor_Economics/master/Lectures/05-Observational_Data/05-Observational_Data.pdf)
 
-6. **The Worker's Dilemma** <br> [.html](https://raw.githack.com/kyleraze/EC350_Labor_Economics/master/Lectures/05-Workers/05-Workers.html) | [.pdf](https://raw.githack.com/kyleraze/EC350_Labor_Economics/master/Lectures/05-Workers/05-Workers.pdf)
+6. **The Worker's Dilemma** <br> [.html](https://raw.githack.com/kyleraze/EC350_Labor_Economics/master/Lectures/06-Workers/06-Workers.html) | [.pdf](https://raw.githack.com/kyleraze/EC350_Labor_Economics/master/Lectures/06-Workers/06-Workers.pdf)
 
 7. **Welfare and Work Incentives** <br> [.html](https://raw.githack.com/kyleraze/EC350_Labor_Economics/master/Lectures/06-Work_Incentives/06-Work_Incentives.html) | [.pdf](https://raw.githack.com/kyleraze/EC350_Labor_Economics/master/Lectures/06-Work_Incentives/06-Work_Incentives.pdf)
 
