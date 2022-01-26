@@ -1,0 +1,3099 @@
+---
+title: "Welfare and Work Incentives"
+subtitle: "EC 350: Labor Economics"
+author: "[Kyle Raze](https://kyleraze.com)"
+date: "Winter 2022"
+output:
+  xaringan::moon_reader:
+    css: ['default', 'metropolis', 'metropolis-fonts', 'my-css.css']
+    self_contained: false
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      beforeInit: "https://platform.twitter.com/widgets.js"
+      ratio: "16:9"
+---
+
+```{r Setup, include = F}
+options(htmltools.dir.version = FALSE)
+library(pacman)
+p_load(ggthemes, xaringanExtra, readxl, viridis, knitr, dslabs, gapminder, extrafont, Ecdat, wooldridge, tidyverse, magrittr, janitor, kableExtra)
+# Define colors
+red_pink <- "#e64173"
+met_slate <- "#272822" # metropolis font color 
+purple <- "#9370DB"
+green <- "#007935"
+light_green <- "#7DBA97"
+orange <- "#FD5F00"
+turquoise <- "#44C1C4"
+# Notes directory
+dir_slides <- "~/GitHub/Intro_Labor_S21/Lectures/05-Workers/"
+# Knitr options
+opts_chunk$set(
+  comment = "#>",
+  fig.align = "center",
+  fig.height = 7,
+  fig.width = 10.5,
+  #dpi = 300,
+  #cache = T,
+  warning = F,
+  message = F
+)  
+theme_simple <- theme_bw() + theme(
+  axis.line = element_line(color = met_slate),
+  panel.grid = element_blank(),
+  rect = element_blank(),
+  strip.text = element_blank(),
+  text = element_text(family = "Fira Sans", color = met_slate, size = 17),
+  axis.text.x = element_text(size = 12),
+  axis.text.y = element_text(size = 12),
+  axis.ticks = element_blank()
+)
+theme_market <- theme_bw() + theme(
+  axis.line = element_line(color = met_slate),
+  panel.grid = element_blank(),
+  rect = element_blank(),
+  strip.text = element_blank(),
+  text = element_text(family = "Fira Sans", color = met_slate, size = 17),
+  axis.title.x = element_text(hjust = 1, size = 17),
+  axis.title.y = element_text(hjust = 1, angle = 0, size = 17),
+  # axis.text.x = element_text(size = 12),
+  # axis.text.y = element_text(size = 12),
+  axis.ticks = element_blank()
+)
+theme_gif <- theme_bw() + theme(
+  axis.line = element_line(color = met_slate),
+  panel.grid = element_blank(),
+  rect = element_blank(),
+  text = element_text(family = "Fira Sans", color = met_slate, size = 17),
+  axis.text.x = element_text(size = 12),
+  axis.text.y = element_text(size = 12),
+  axis.ticks = element_blank()
+)
+wrapper <- function(x, ...) paste(strwrap(x, ...), collapse = "\n")
+
+# budget line (for graphing)
+budget <- function(x, wage, non_labor_income) {
+  wage * (24 - x) + non_labor_income
+}
+
+# utility function = u(x, y) = C (x - A)^a (y - B)^(1-a)
+utility <- function(x, y, constant = 1, alpha = 0.5, offset = 10) {
+  if (offset == 0) {
+    utility <- constant * (x ^ alpha) * (y ^ (1 - alpha))
+  } else {
+    utility <-
+      constant * ((x - 1 / offset) ^ alpha) * ((y - 1 / offset) ^ (1 - alpha))
+  }
+  return(utility)
+}
+
+# optimal leisure hours
+optimize <-
+  function(non_labor_income = 0,
+           wage = 4,
+           alpha = 0.5,
+           offset = 10) {
+    if (offset == 0) {
+      marginal_utility <-
+        function(x) {
+          ((1 - alpha) / alpha) * wage * x
+        }
+    } else {
+      marginal_utility <- function(x) {
+        (offset * x * wage + wage - alpha * (offset * x * wage + wage + 1)) / (offset * alpha)
+      }
+    }
+    
+    budget <- function(x) {
+      wage * (24 - x) + non_labor_income
+    }
+    
+    optimal_x <-
+      uniroot(function(x)
+        budget(x) - marginal_utility(x), c(-100, 100))$root
+    
+    if (optimal_x > 24) {
+      optimal_x <- 24
+    }
+    
+    return(optimal_x)
+  }
+
+# indifference curve (k = utility level)
+ic <- function(x, k, constant = 1, alpha = 0.5, offset = 10) {
+  if (offset == 0) {
+    ic <- (k / (constant * x ^ alpha)) ^ (1 / (1 - alpha))
+  } else {
+    ic <- ((k * (x - 1/offset) ^ (-alpha)) / constant) ^ (1 / (1 - alpha)) + 1/offset
+  }
+  return(ic)
+}
+
+# not accurate enough for offset != 0
+ic_slope <- function(x, k, constant = 1, alpha = 0.5, offset = 10) {
+  if (offset == 0) {
+    ic_slope <- alpha * ((k * x ^ (-alpha)) / constant) ^ (1 / (1 - alpha)) / ((alpha - 1) * x)
+  } else {
+    ic_slope <- alpha * offset * ((k * (x - 1/offset) ^ (-alpha)) / constant) ^ (1 / (1 - alpha)) / ((alpha - 1) * (offset * x - 1))
+  }
+  return(ic_slope)
+}
+
+xaringanExtra::use_scribble()
+```
+
+# Welfare and Work Incentives
+
+1. Understanding worker responses
+    - Wealth and substitution effects
+    - Individual labor supply curve
+2. Policy analysis
+    - Aid to Families with Dependent Children (AFDC)
+    - Temporary Assistance for Needy Families (TANF)
+    - Earned Income Tax Credit (EITC)
+
+---
+class: inverse, middle
+
+# Understanding worker responses
+
+---
+# Understanding worker responses
+
+**Q:** What happens when your hourly wage increases?
+
+--
+
+**A.sub[1]:** Your opportunity set expands.
+
+**A.sub[2]:** The opportunity cost of leisure increases.
+
+--
+
+To better understand how workers respond to changes in market conditions, we will decompose changes in labor supply into a **wealth effect (WE)** and a **substitution effect (SE)**:
+
+.center[**Net effect (NE)** .mono[=] **WE** .mono[+] **SE**]
+
+---
+# Understanding worker responses
+
+.pull-left[
+```{r, dev = "svg", echo = F, fig.height = 5.5, fig.width = 5.5}
+# parameter
+wage_level = 5
+other_income = 0
+income_increase = 40
+offset_level = 0
+leisure_love = 0.5
+
+
+optimal_x <-
+  optimize(
+    wage = wage_level,
+    non_labor_income = other_income,
+    offset = offset_level,
+    alpha = leisure_love
+  )
+optimal_y <-
+  budget(
+    x = optimal_x,
+    wage = wage_level,
+    non_labor_income = other_income
+  )
+max_utility <-
+  utility(
+    x = optimal_x,
+    y = optimal_y,
+    offset = offset_level,
+    alpha = leisure_love
+  )
+
+new_optimal_x <-
+  optimize(
+    wage = wage_level,
+    non_labor_income = other_income + income_increase,
+    offset = offset_level,
+    alpha = leisure_love
+  )
+new_optimal_y <-
+  budget(
+    x = new_optimal_x,
+    wage = wage_level,
+    non_labor_income = other_income + income_increase
+  )
+new_max_utility <-
+  utility(
+    x = new_optimal_x,
+    y = new_optimal_y,
+    offset = offset_level,
+    alpha = leisure_love
+  )
+
+ggplot() + 
+  # Budget line
+  stat_function(
+    data = tibble(x = 0:24),
+    xlim = c(0, 24),
+    aes(x = x),
+    fun = budget,
+    args = list(wage = wage_level, non_labor_income = other_income),
+    color = green,
+    size = 1
+  ) +
+  # best indifference curve
+  stat_function(
+    data = tibble(x = 1:24),
+    xlim = c(0, 24),
+    aes(x = x),
+    fun = ic,
+    args = list(k = max_utility, offset = offset_level, alpha = leisure_love),
+    color = red_pink,
+    size = 1
+  ) +
+  # dotted lines to show x and y
+  # annotate(geom = "segment", x = 0, y = optimal_y, xend = optimal_x, yend = optimal_y,
+  #          linetype = "dashed", color = met_slate) +
+  annotate(geom = "segment", x = optimal_x, y = 0, xend = optimal_x, yend = optimal_y,
+           linetype = "dashed", color = met_slate) +
+  # dot at optimal point
+  annotate(geom = "point", x = optimal_x, y = optimal_y, size = 2, color = met_slate) +
+  labs(x = "Hours of leisure (L)", y = "Total income (Y)") +
+  scale_x_continuous(expand = c(0, 0), breaks = seq(0, 24, 4), limits = c(0, 25)) +
+  scale_y_continuous(expand = c(0, 0), breaks = seq(0, 160, 20), labels = scales::dollar, limits = c(0, 165)) +
+  theme_simple +
+  theme(axis.title.x = element_text(margin = margin(t = 10)),
+        axis.title.y = element_text(margin = margin(r = 10)))
+```
+]
+.pull-right[
+
+**Q:** How will this worker respond to an increase in non-labor income?
+]
+
+---
+count: false
+# Understanding worker responses
+
+.pull-left[
+```{r, dev = "svg", echo = F, fig.height = 5.5, fig.width = 5.5}
+ggplot() + 
+  # budget line
+  stat_function(
+    data = tibble(x = 0:24),
+    xlim = c(0, 24),
+    aes(x = x),
+    fun = budget,
+    args = list(wage = wage_level, non_labor_income = other_income),
+    color = green,
+    size = 1,
+    alpha = 0.5
+  ) +
+  stat_function(
+    data = tibble(x = 0:24),
+    xlim = c(0, 24),
+    aes(x = x),
+    fun = budget,
+    args = list(wage = wage_level, non_labor_income = other_income + income_increase),
+    color = green,
+    size = 1
+  ) +
+  # best indifference curve
+  stat_function(
+    data = tibble(x = 1:24),
+    xlim = c(0, 24),
+    aes(x = x),
+    fun = ic,
+    args = list(k = max_utility, offset = offset_level, alpha = leisure_love),
+    color = red_pink,
+    size = 1
+  ) +
+  # dotted lines to show x and y
+  # annotate(geom = "segment", x = 0, y = optimal_y, xend = optimal_x, yend = optimal_y,
+  #          linetype = "dashed", color = met_slate) +
+  annotate(geom = "segment", x = optimal_x, y = 0, xend = optimal_x, yend = optimal_y,
+           linetype = "dashed", color = met_slate) +
+  # dot at optimal point
+  annotate(geom = "point", x = optimal_x, y = optimal_y, size = 2, color = met_slate) +
+  labs(x = "Hours of leisure (L)", y = "Total income (Y)") +
+  scale_x_continuous(expand = c(0, 0), breaks = seq(0, 24, 4), limits = c(0, 25)) +
+  scale_y_continuous(expand = c(0, 0), breaks = seq(0, 160, 20), labels = scales::dollar, limits = c(0, 165)) +
+  theme_simple +
+  theme(axis.title.x = element_text(margin = margin(t = 10)),
+        axis.title.y = element_text(margin = margin(r = 10)))
+```
+]
+.pull-right[
+
+**Q:** How will this worker respond to an increase in non-labor income?
+
+]
+
+---
+count: false
+# Understanding worker responses
+
+.pull-left[
+```{r, dev = "svg", echo = F, fig.height = 5.5, fig.width = 5.5}
+plot <- ggplot() + 
+  # budget line
+  stat_function(
+    data = tibble(x = 0:24),
+    xlim = c(0, 24),
+    aes(x = x),
+    fun = budget,
+    args = list(wage = wage_level, non_labor_income = other_income),
+    color = green,
+    size = 1,
+    alpha = 0.5
+  ) +
+  stat_function(
+    data = tibble(x = 0:24),
+    xlim = c(0, 24),
+    aes(x = x),
+    fun = budget,
+    args = list(wage = wage_level, non_labor_income = other_income + income_increase),
+    color = green,
+    size = 1
+  ) +
+  # best indifference curve
+  stat_function(
+    data = tibble(x = 1:24),
+    xlim = c(0, 24),
+    aes(x = x),
+    fun = ic,
+    args = list(k = max_utility, offset = offset_level, alpha = leisure_love),
+    color = red_pink,
+    size = 1,
+    alpha = 0.5
+  ) +
+  stat_function(
+    data = tibble(x = 1:24),
+    xlim = c(0, 24),
+    aes(x = x),
+    fun = ic,
+    args = list(k = new_max_utility, offset = offset_level, alpha = leisure_love),
+    color = red_pink,
+    size = 1
+  ) +
+  # annotate(geom = "segment", x = 0, y = optimal_y, xend = optimal_x, yend = optimal_y,
+  #          linetype = "dashed", color = met_slate, alpha = 0.5) +
+  annotate(geom = "segment", x = optimal_x, y = 0, xend = optimal_x, yend = optimal_y,
+           linetype = "dashed", color = met_slate, alpha = 0.5) +
+  annotate(geom = "point", x = optimal_x, y = optimal_y, size = 2, color = met_slate, alpha = 0.5) +
+  
+  # annotate(geom = "segment", x = 0, y = new_optimal_y, xend = new_optimal_x, yend = new_optimal_y,
+  #          linetype = "dashed", color = met_slate) +
+  annotate(geom = "segment", x = new_optimal_x, y = 0, xend = new_optimal_x, yend = new_optimal_y,
+           linetype = "dashed", color = met_slate) +
+  annotate(geom = "point", x = new_optimal_x, y = new_optimal_y, size = 2, color = met_slate) +
+  
+  labs(x = "Hours of leisure (L)", y = "Total income (Y)") +
+  scale_x_continuous(expand = c(0, 0), breaks = seq(0, 24, 4), limits = c(0, 25)) +
+  scale_y_continuous(expand = c(0, 0), breaks = seq(0, 160, 20), labels = scales::dollar, limits = c(0, 165)) +
+  theme_simple +
+  theme(axis.title.x = element_text(margin = margin(t = 10)),
+        axis.title.y = element_text(margin = margin(r = 10)))
+plot
+```
+]
+.pull-right[
+
+**Q:** How will this worker respond to an increase in non-labor income?
+
+**A:** The worker will work fewer hours.
+
+- **Why?** Leisure is a normal good, and the worker's wealth just increased.
+
+]
+
+---
+count: false
+# Understanding worker responses
+
+.pull-left[
+```{r, dev = "svg", echo = F, fig.height = 5.5, fig.width = 5.5}
+plot +
+  # total effect
+  geom_segment(
+    aes(
+      x = optimal_x + 0.2,
+      y = 5,
+      xend = new_optimal_x - 0.2,
+      yend = 5
+    ),
+    arrow = arrow(
+      angle = 20,
+      length = unit(0.2, "cm"),
+      type = "closed"
+    ),
+    color = met_slate
+  ) +
+  annotate(
+    "label",
+    label = "NE",
+    x = (optimal_x + new_optimal_x) / 2,
+    y = 5,
+    color = met_slate,
+    family = "Fira Sans",
+    size = 4
+  )
+```
+]
+.pull-right[
+
+**Q:** How will this worker respond to an increase in non-labor income?
+
+**A:** The worker will work fewer hours.
+
+- **Why?** Leisure is a normal good, and the worker's wealth just increased.
+
+Holding wages constant, the impact of an increase in wealth on hours worked is known as a **wealth effect**.
+
+]
+
+---
+count: false
+# Understanding worker responses
+
+.pull-left[
+```{r, dev = "svg", echo = F, fig.height = 5.5, fig.width = 5.5}
+plot +
+  # total effect
+  geom_segment(
+    aes(
+      x = optimal_x + 0.2,
+      y = 5,
+      xend = new_optimal_x - 0.2,
+      yend = 5
+    ),
+    arrow = arrow(
+      angle = 20,
+      length = unit(0.2, "cm"),
+      type = "closed"
+    ),
+    color = met_slate
+  ) +
+  annotate(
+    "label",
+    label = "NE",
+    x = (optimal_x + new_optimal_x) / 2,
+    y = 5,
+    color = met_slate,
+    family = "Fira Sans",
+    size = 4
+  ) +
+  # wealth effect
+  geom_segment(
+    aes(
+      x = optimal_x + 0.2,
+      y = 15,
+      xend = new_optimal_x - 0.2,
+      yend = 15
+    ),
+    arrow = arrow(
+      angle = 20,
+      length = unit(0.2, "cm"),
+      type = "closed"
+    ),
+    color = met_slate
+  ) +
+  annotate(
+    "label",
+    label = "WE",
+    x = (optimal_x + new_optimal_x) / 2,
+    y = 15,
+    color = met_slate,
+    family = "Fira Sans",
+    size = 4
+  )
+```
+]
+.pull-right[
+
+**Q:** How will this worker respond to an increase in non-labor income?
+
+**A:** The worker will work fewer hours.
+
+- **Why?** Leisure is a normal good, and the worker's wealth just increased.
+
+Holding wages constant, the impact of an increase in wealth on hours worked is known as a **wealth effect**.
+]
+
+---
+# Understanding worker responses
+
+.pull-left[
+```{r, dev = "svg", echo = F, fig.height = 5.5, fig.width = 5.5}
+# parameter
+wage_level = 2
+wage_increase = 3
+other_income = 20
+income_increase = 0
+offset_level = 0
+leisure_love = 0.5
+
+optimal_x <-
+  optimize(
+    wage = wage_level,
+    non_labor_income = other_income + income_increase,
+    offset = offset_level,
+    alpha = leisure_love
+  )
+optimal_y <-
+  budget(
+    x = optimal_x,
+    wage = wage_level,
+    non_labor_income = other_income + income_increase
+  )
+max_utility <-
+  utility(
+    x = optimal_x,
+    y = optimal_y,
+    offset = offset_level,
+    alpha = leisure_love
+  )
+
+new_optimal_x <-
+  optimize(
+    wage = wage_level + wage_increase,
+    non_labor_income = other_income + income_increase,
+    offset = offset_level,
+    alpha = leisure_love
+  )
+new_optimal_y <-
+  budget(
+    x = new_optimal_x,
+    wage = wage_level + wage_increase,
+    non_labor_income = other_income + income_increase
+  )
+new_max_utility <-
+  utility(
+    x = new_optimal_x,
+    y = new_optimal_y,
+    offset = offset_level,
+    alpha = leisure_love
+  )
+
+# derive wealth effects
+wealth_x <- uniroot(function(x) wage_level*(-1) - ic_slope(x, k = new_max_utility, offset = offset_level, alpha = leisure_love), c(0, 100))$root
+
+wealth_bc_shift <- ic(x = wealth_x, k = new_max_utility, offset = offset_level, alpha = leisure_love) - budget(x = wealth_x, wage = wage_level, non_labor_income = other_income)
+
+wealth_y <-
+  budget(
+    x = wealth_x,
+    wage = wage_level,
+    non_labor_income = other_income + wealth_bc_shift
+  )
+
+
+ggplot() + 
+  # Budget line
+  stat_function(
+    data = tibble(x = 0:24),
+    xlim = c(0, 24),
+    aes(x = x),
+    fun = budget,
+    args = list(wage = wage_level, non_labor_income = other_income + income_increase),
+    color = green,
+    size = 1
+  ) +
+  # best indifference curve
+  stat_function(
+    data = tibble(x = 1:24),
+    xlim = c(0, 24),
+    aes(x = x),
+    fun = ic,
+    args = list(k = max_utility, offset = offset_level, alpha = leisure_love),
+    color = red_pink,
+    size = 1
+  ) +
+  # dotted lines to show x and y
+  # annotate(geom = "segment", x = 0, y = optimal_y, xend = optimal_x, yend = optimal_y,
+  #          linetype = "dashed", color = met_slate) +
+  annotate(geom = "segment", x = optimal_x, y = 0, xend = optimal_x, yend = optimal_y,
+           linetype = "dashed", color = met_slate) +
+  # dot at optimal point
+  annotate(geom = "point", x = optimal_x, y = optimal_y, size = 2, color = met_slate) +
+  labs(x = "Hours of leisure (L)", y = "Total income (Y)") +
+  scale_x_continuous(expand = c(0, 0), breaks = seq(0, 24, 4), limits = c(0, 25)) +
+  scale_y_continuous(expand = c(0, 0), breaks = seq(0, 160, 20), labels = scales::dollar, limits = c(0, 165)) +
+  theme_simple +
+  theme(axis.title.x = element_text(margin = margin(t = 10)),
+        axis.title.y = element_text(margin = margin(r = 10)))
+```
+]
+.pull-right[
+
+**Q:** How do we decompose the effect of a wage increase into a wealth effect and a substitution effect?
+
+]
+
+---
+count: false
+# Understanding worker responses
+
+.pull-left[
+```{r, dev = "svg", echo = F, fig.height = 5.5, fig.width = 5.5}
+ggplot() + 
+  # budget line
+  stat_function(
+    data = tibble(x = 0:24),
+    xlim = c(0, 24),
+    aes(x = x),
+    fun = budget,
+    args = list(wage = wage_level, non_labor_income = other_income + income_increase),
+    color = green,
+    size = 1,
+    alpha = 0.5
+  ) +
+  stat_function(
+    data = tibble(x = 0:24),
+    xlim = c(0, 24),
+    aes(x = x),
+    fun = budget,
+    args = list(wage = wage_level + wage_increase, non_labor_income = other_income + income_increase),
+    color = green,
+    size = 1
+  ) +
+  # best indifference curve
+  stat_function(
+    data = tibble(x = 1:24),
+    xlim = c(0, 24),
+    aes(x = x),
+    fun = ic,
+    args = list(k = max_utility, offset = offset_level, alpha = leisure_love),
+    color = red_pink,
+    size = 1
+  ) +
+  # dotted lines to show x and y
+  # annotate(geom = "segment", x = 0, y = optimal_y, xend = optimal_x, yend = optimal_y,
+  #          linetype = "dashed", color = met_slate) +
+  annotate(geom = "segment", x = optimal_x, y = 0, xend = optimal_x, yend = optimal_y,
+           linetype = "dashed", color = met_slate) +
+  # dot at optimal point
+  annotate(geom = "point", x = optimal_x, y = optimal_y, size = 2, color = met_slate) +
+  labs(x = "Hours of leisure (L)", y = "Total income (Y)") +
+  scale_x_continuous(expand = c(0, 0), breaks = seq(0, 24, 4), limits = c(0, 25)) +
+  scale_y_continuous(expand = c(0, 0), breaks = seq(0, 160, 20), labels = scales::dollar, limits = c(0, 165)) +
+  theme_simple +
+  theme(axis.title.x = element_text(margin = margin(t = 10)),
+        axis.title.y = element_text(margin = margin(r = 10)))
+```
+]
+.pull-right[
+
+**Q:** How do we decompose the effect of a wage increase into a wealth effect and a substitution effect?
+
+]
+
+---
+count: false
+# Understanding worker responses
+
+.pull-left[
+```{r, dev = "svg", echo = F, fig.height = 5.5, fig.width = 5.5}
+plot <- ggplot() + 
+  # budget line
+  stat_function(
+    data = tibble(x = 0:24),
+    xlim = c(0, 24),
+    aes(x = x),
+    fun = budget,
+    args = list(wage = wage_level, non_labor_income = other_income + income_increase),
+    color = green,
+    size = 1,
+    alpha = 0.5
+  ) +
+  stat_function(
+    data = tibble(x = 0:24),
+    xlim = c(0, 24),
+    aes(x = x),
+    fun = budget,
+    args = list(wage = wage_level + wage_increase, non_labor_income = other_income + income_increase),
+    color = green,
+    size = 1
+  ) +
+  # best indifference curve
+  stat_function(
+    data = tibble(x = 1:24),
+    xlim = c(0, 24),
+    aes(x = x),
+    fun = ic,
+    args = list(k = max_utility, offset = offset_level, alpha = leisure_love),
+    color = red_pink,
+    size = 1,
+    alpha = 0.5
+  ) +
+  stat_function(
+    data = tibble(x = 1:24),
+    xlim = c(0, 24),
+    aes(x = x),
+    fun = ic,
+    args = list(k = new_max_utility, offset = offset_level, alpha = leisure_love),
+    color = red_pink,
+    size = 1
+  ) +
+  # annotate(geom = "segment", x = 0, y = optimal_y, xend = optimal_x, yend = optimal_y,
+  #          linetype = "dashed", color = met_slate, alpha = 0.5) +
+  annotate(geom = "segment", x = optimal_x, y = 0, xend = optimal_x, yend = optimal_y,
+           linetype = "dashed", color = met_slate, alpha = 0.5) +
+  annotate(geom = "point", x = optimal_x, y = optimal_y, size = 2, color = met_slate, alpha = 0.5) +
+  
+  # annotate(geom = "segment", x = 0, y = new_optimal_y, xend = new_optimal_x, yend = new_optimal_y,
+  #          linetype = "dashed", color = met_slate) +
+  annotate(geom = "segment", x = new_optimal_x, y = 0, xend = new_optimal_x, yend = new_optimal_y,
+           linetype = "dashed", color = met_slate) +
+  annotate(geom = "point", x = new_optimal_x, y = new_optimal_y, size = 2, color = met_slate) +
+  
+  labs(x = "Hours of leisure (L)", y = "Total income (Y)") +
+  scale_x_continuous(expand = c(0, 0), breaks = seq(0, 24, 4), limits = c(0, 25)) +
+  scale_y_continuous(expand = c(0, 0), breaks = seq(0, 160, 20), labels = scales::dollar, limits = c(0, 165)) +
+  theme_simple +
+  theme(axis.title.x = element_text(margin = margin(t = 10)),
+        axis.title.y = element_text(margin = margin(r = 10)))
+plot
+```
+]
+.pull-right[
+
+**Q:** How do we decompose the effect of a wage increase into a wealth effect and a substitution effect?
+
+- **Step 1:** Re-optimize .mono[-->] net effect
+
+]
+
+---
+count: false
+# Understanding worker responses
+
+.pull-left[
+```{r, dev = "svg", echo = F, fig.height = 5.5, fig.width = 5.5}
+plot +
+  # total effect
+  geom_segment(
+    aes(
+      x = optimal_x - 0.2,
+      y = 5,
+      xend = new_optimal_x + 0.2,
+      yend = 5
+    ),
+    arrow = arrow(
+      angle = 20,
+      length = unit(0.2, "cm"),
+      type = "closed"
+    ),
+    color = met_slate
+  ) +
+  annotate(
+    "label",
+    label = "NE",
+    x = (optimal_x + new_optimal_x) / 2,
+    y = 5,
+    color = met_slate,
+    family = "Fira Sans",
+    size = 4
+  ) 
+```
+]
+.pull-right[
+
+**Q:** How do we decompose the effect of a wage increase into a wealth effect and a substitution effect?
+
+- **Step 1:** Re-optimize .mono[-->] net effect
+
+]
+
+---
+count: false
+# Understanding worker responses
+
+.pull-left[
+```{r, dev = "svg", echo = F, fig.height = 5.5, fig.width = 5.5}
+plot <- ggplot() + 
+  # budget line
+  stat_function(
+    data = tibble(x = 0:24),
+    xlim = c(0, 24),
+    aes(x = x),
+    fun = budget,
+    args = list(wage = wage_level, non_labor_income = other_income),
+    color = green,
+    size = 1,
+    alpha = 0.5
+  ) +
+  stat_function(
+    data = tibble(x = 0:24),
+    xlim = c(0, 24),
+    aes(x = x),
+    fun = budget,
+    args = list(wage = wage_level + wage_increase, non_labor_income = other_income),
+    color = green,
+    size = 1
+  ) +
+  # best indifference curve
+  stat_function(
+    data = tibble(x = 1:24),
+    xlim = c(0, 24),
+    aes(x = x),
+    fun = ic,
+    args = list(k = max_utility, offset = offset_level, alpha = leisure_love),
+    color = red_pink,
+    size = 1,
+    alpha = 0.5
+  ) +
+  stat_function(
+    data = tibble(x = 1:24),
+    xlim = c(0, 24),
+    aes(x = x),
+    fun = ic,
+    args = list(k = new_max_utility, offset = offset_level, alpha = leisure_love),
+    color = red_pink,
+    size = 1
+  ) +
+  # old bundle
+  # annotate(geom = "segment", x = 0, y = optimal_y, xend = optimal_x, yend = optimal_y,
+  #          linetype = "dashed", color = met_slate, alpha = 0.5) +
+  annotate(geom = "segment", x = optimal_x, y = 0, xend = optimal_x, yend = optimal_y,
+           linetype = "dashed", color = met_slate, alpha = 0.5) +
+  annotate(geom = "point", x = optimal_x, y = optimal_y, size = 2, color = met_slate, alpha = 0.5) +
+  # new bundle
+  # annotate(geom = "segment", x = 0, y = new_optimal_y, xend = new_optimal_x, yend = new_optimal_y,
+  #          linetype = "dashed", color = met_slate) +
+  annotate(geom = "segment", x = new_optimal_x, y = 0, xend = new_optimal_x, yend = new_optimal_y,
+           linetype = "dashed", color = met_slate) +
+  annotate(geom = "point", x = new_optimal_x, y = new_optimal_y, size = 2, color = met_slate) +
+  # wealth effect budget line
+  stat_function(
+    data = tibble(x = 0:24),
+    xlim = c(0, 24),
+    aes(x = x),
+    fun = budget,
+    args = list(wage = wage_level, non_labor_income = other_income + wealth_bc_shift),
+    color = green,
+    size = 1,
+    linetype = "longdash"
+  ) +
+  labs(x = "Hours of leisure (L)", y = "Total income (Y)") +
+  scale_x_continuous(expand = c(0, 0), breaks = seq(0, 24, 4), limits = c(0, 25)) +
+  scale_y_continuous(expand = c(0, 0), breaks = seq(0, 160, 20), labels = scales::dollar, limits = c(0, 165)) +
+  theme_simple +
+  theme(axis.title.x = element_text(margin = margin(t = 10)),
+        axis.title.y = element_text(margin = margin(r = 10))) +
+  # total effect
+  geom_segment(
+    aes(
+      x = optimal_x - 0.2,
+      y = 5,
+      xend = new_optimal_x + 0.2,
+      yend = 5
+    ),
+    arrow = arrow(
+      angle = 20,
+      length = unit(0.2, "cm"),
+      type = "closed"
+    ),
+    color = met_slate
+  ) +
+  annotate(
+    "label",
+    label = "NE",
+    x = (optimal_x + new_optimal_x) / 2,
+    y = 5,
+    color = met_slate,
+    family = "Fira Sans",
+    size = 4
+  ) 
+plot
+```
+]
+.pull-right[
+
+**Q:** How do we decompose the effect of a wage increase into a wealth effect and a substitution effect?
+
+- **Step 1:** Re-optimize .mono[-->] net effect
+- **Step 2:** Remove the wage increase, then "compensate" the worker
+
+]
+
+---
+count: false
+# Understanding worker responses
+
+.pull-left[
+```{r, dev = "svg", echo = F, fig.height = 5.5, fig.width = 5.5}
+plot <- plot +
+  # wealth effect
+  # annotate(geom = "segment", x = 0, y = wealth_y, xend = wealth_x, yend = wealth_y,
+  #          linetype = "dashed", color = met_slate) +
+  annotate(geom = "segment", x = wealth_x, y = 0, xend = wealth_x, yend = wealth_y,
+           linetype = "dashed", color = met_slate) +
+  annotate(geom = "point", x = wealth_x, y = wealth_y, size = 2, color = met_slate) +
+  geom_segment(
+    aes(
+      x = optimal_x + 0.2,
+      y = 5,
+      xend = wealth_x - 0.2,
+      yend = 5
+    ),
+    arrow = arrow(
+      angle = 20,
+      length = unit(0.2, "cm"),
+      type = "closed"
+    ),
+    color = met_slate
+  ) +
+  annotate(
+    "label",
+    label = "WE",
+    x = (optimal_x + wealth_x) / 2,
+    y = 5,
+    color = met_slate,
+    family = "Fira Sans",
+    size = 4
+  ) 
+plot
+```
+]
+.pull-right[
+
+**Q:** How do we decompose the effect of a wage increase into a wealth effect and a substitution effect?
+
+- **Step 1:** Re-optimize .mono[-->] net effect
+- **Step 2:** Remove the wage increase, then "compensate" the worker
+- **Step 3:** Hypothetical "compensated" bundle .mono[-->] wealth effect
+
+]
+
+---
+count: false
+# Understanding worker responses
+
+.pull-left[
+```{r, dev = "svg", echo = F, fig.height = 5.5, fig.width = 5.5}
+plot +
+  # substitution effect
+  geom_segment(
+    aes(
+      x = wealth_x - 0.2,
+      y = 15,
+      xend = new_optimal_x + 0.2,
+      yend = 15
+    ),
+    arrow = arrow(
+      angle = 20,
+      length = unit(0.2, "cm"),
+      type = "closed"
+    ),
+    color = met_slate
+  ) +
+  annotate(
+    "label",
+    label = "SE",
+    x = (new_optimal_x + wealth_x) / 2,
+    y = 15,
+    color = met_slate,
+    family = "Fira Sans",
+    size = 4
+  ) 
+```
+]
+.pull-right[
+
+**Q:** How do we decompose the effect of a wage increase into a wealth effect and a substitution effect?
+
+- **Step 1:** Re-optimize .mono[-->] net effect
+- **Step 2:** Remove the wage increase, then "compensate" the worker
+- **Step 3:** Hypothetical "compensated" bundle .mono[-->] wealth effect
+- **Step 4:** Difference between "compensated" bundle and actual bundle .mono[-->] substitution effect
+]
+
+---
+# Individual labor supply
+
+.pull-left[
+```{r, dev = "svg", echo = F, fig.height = 5.5, fig.width = 5.5}
+# parameter
+wage_level_1 = 0.8 # approximate reservation wage
+wage_level_2 = 2
+wage_level_3 = 4
+wage_level_4 = 5.71
+leisure_love_1 = 0.5 
+leisure_love_2 = 0.5
+leisure_love_3 = 0.5
+leisure_love_4 = 0.6 # cheating for a backward bend
+other_income = 20
+offset_level = 0
+
+optimal_x_1 <-
+  optimize(
+    wage = wage_level_1,
+    non_labor_income = other_income,
+    offset = offset_level,
+    alpha = leisure_love_1
+  )
+optimal_y_1 <-
+  budget(
+    x = optimal_x_1,
+    wage = wage_level_1,
+    non_labor_income = other_income
+  )
+max_utility_1 <-
+  utility(
+    x = optimal_x_1,
+    y = optimal_y_1,
+    offset = offset_level,
+    alpha = leisure_love_1
+  )
+
+optimal_x_2 <-
+  optimize(
+    wage = wage_level_2,
+    non_labor_income = other_income,
+    offset = offset_level,
+    alpha = leisure_love_2
+  )
+optimal_y_2 <-
+  budget(
+    x = optimal_x_2,
+    wage = wage_level_2,
+    non_labor_income = other_income
+  )
+max_utility_2 <-
+  utility(
+    x = optimal_x_2,
+    y = optimal_y_2,
+    offset = offset_level,
+    alpha = leisure_love_2
+  )
+
+optimal_x_3 <-
+  optimize(
+    wage = wage_level_3,
+    non_labor_income = other_income,
+    offset = offset_level,
+    alpha = leisure_love_3
+  )
+optimal_y_3 <-
+  budget(
+    x = optimal_x_3,
+    wage = wage_level_3,
+    non_labor_income = other_income
+  )
+max_utility_3 <-
+  utility(
+    x = optimal_x_3,
+    y = optimal_y_3,
+    offset = offset_level,
+    alpha = leisure_love_3
+  )
+
+optimal_x_4 <-
+  optimize(
+    wage = wage_level_4,
+    non_labor_income = other_income,
+    offset = offset_level,
+    alpha = leisure_love_4
+  )
+optimal_y_4 <-
+  budget(
+    x = optimal_x_4,
+    wage = wage_level_4,
+    non_labor_income = other_income
+  )
+max_utility_4 <-
+  utility(
+    x = optimal_x_4,
+    y = optimal_y_4,
+    offset = offset_level,
+    alpha = leisure_love_4
+  )
+
+
+ll_plot <- ggplot() + 
+  # budget for first wage
+  stat_function(
+    data = tibble(x = 0:24),
+    xlim = c(0, 24),
+    aes(x = x),
+    fun = budget,
+    args = list(wage = wage_level_1, non_labor_income = other_income),
+    color = green,
+    size = 1
+  ) +
+  annotate(
+    "label", label = paste0("w = ", scales::dollar(wage_level_1)), x = 4, y = budget(x = 4, wage = wage_level_1, non_labor_income = other_income), 
+    color = green, family = "Fira Sans", size = 4
+  ) +
+  # budget for second wage
+  # stat_function(
+  #   data = tibble(x = 0:24),
+  #   xlim = c(0, 24),
+  #   aes(x = x),
+  #   fun = budget,
+  #   args = list(wage = wage_level_2, non_labor_income = other_income),
+  #   color = green,
+  #   size = 1
+  # ) +
+  # annotate(
+  #   "label", label = paste0("w = ", scales::dollar(wage_level_2)), x = 4, y = budget(x = 4, wage = wage_level_2, non_labor_income = other_income), 
+  #   color = green, family = "Fira Sans", size = 4
+  # ) +
+  # budget for third wage
+  # stat_function(
+  #   data = tibble(x = 0:24),
+  #   xlim = c(0, 24),
+  #   aes(x = x),
+  #   fun = budget,
+  #   args = list(wage = wage_level_3, non_labor_income = other_income),
+  #   color = green,
+  #   size = 1
+  # ) +
+  # annotate(
+  #   "label", label = paste0("w = ", scales::dollar(wage_level_3)), x = 4, y = budget(x = 4, wage = wage_level_3, non_labor_income = other_income), 
+  #   color = green, family = "Fira Sans", size = 4
+  # ) +
+  # budget for fourth wage
+  # stat_function(
+  #   data = tibble(x = 0:24),
+  #   xlim = c(0, 24),
+  #   aes(x = x),
+  #   fun = budget,
+  #   args = list(wage = wage_level_4, non_labor_income = other_income),
+  #   color = green,
+  #   size = 1
+  # ) +
+  # annotate(
+  #   "label", label = paste0("w = ", scales::dollar(wage_level_4)), x = 4, y = budget(x = 4, wage = wage_level_4, non_labor_income = other_income), 
+  #   color = green, family = "Fira Sans", size = 4
+  # ) +
+  # best indifference curve for first wage
+  stat_function(
+    data = tibble(x = 1:24),
+    xlim = c(optimal_x_1 - 8, optimal_x_1),
+    aes(x = x),
+    fun = ic,
+    args = list(k = max_utility_1, offset = offset_level, alpha = leisure_love_1),
+    color = red_pink,
+    size = 1
+  ) +
+  # best indifference curve for second wage
+  # stat_function(
+  #   data = tibble(x = 1:24),
+  #   xlim = c(optimal_x_2 - 6, optimal_x_2 + 6),
+  #   aes(x = x),
+  #   fun = ic,
+  #   args = list(k = max_utility_2, offset = offset_level, alpha = leisure_love_2),
+  #   color = red_pink,
+  #   size = 1
+  # ) +
+  # best indifference curve for third wage
+  # stat_function(
+  #   data = tibble(x = 1:24),
+  #   xlim = c(optimal_x_3 - 4, optimal_x_3 + 6),
+  #   aes(x = x),
+  #   fun = ic,
+  #   args = list(k = max_utility_3, offset = offset_level, alpha = leisure_love_3),
+  #   color = red_pink,
+  #   size = 1
+  # ) +
+  # best indifference curve for fourth wage
+  # stat_function(
+  #   data = tibble(x = 1:24),
+  #   xlim = c(optimal_x_4 - 3, optimal_x_4 + 4),
+  #   aes(x = x),
+  #   fun = ic,
+  #   args = list(k = max_utility_4, offset = offset_level, alpha = leisure_love_4),
+  #   color = red_pink,
+  #   size = 1
+  # ) +
+  # bundle for first wage
+  annotate(geom = "segment", x = optimal_x_1, y = 0, xend = optimal_x_1, yend = optimal_y_1,
+           linetype = "dashed", color = met_slate) +
+  annotate(geom = "point", x = optimal_x_1, y = optimal_y_1, size = 2, color = met_slate) +
+  # bundle for second wage
+  # annotate(geom = "segment", x = optimal_x_2, y = 0, xend = optimal_x_2, yend = optimal_y_2,
+  #          linetype = "dashed", color = met_slate) +
+  # annotate(geom = "point", x = optimal_x_2, y = optimal_y_2, size = 2, color = met_slate) +
+  # bundle for third wage
+  # annotate(geom = "segment", x = optimal_x_3, y = 0, xend = optimal_x_3, yend = optimal_y_3,
+  #          linetype = "dashed", color = met_slate) +
+  # annotate(geom = "point", x = optimal_x_3, y = optimal_y_3, size = 2, color = met_slate) +
+  # bundle for fourth wage
+  # annotate(geom = "segment", x = optimal_x_4, y = 0, xend = optimal_x_4, yend = optimal_y_4,
+  #          linetype = "dashed", color = met_slate) +
+  # annotate(geom = "point", x = optimal_x_4, y = optimal_y_4, size = 2, color = met_slate) +
+  # appearance
+  labs(x = "Hours of leisure (L)", y = "Total income (Y)") +
+  scale_x_continuous(expand = c(0, 0), breaks = seq(0, 24, 4), limits = c(0, 25)) +
+  scale_y_continuous(expand = c(0, 0), breaks = seq(0, 160, 20), labels = scales::dollar, limits = c(0, 165)) +
+  theme_simple +
+  theme(axis.title.x = element_text(margin = margin(t = 10)),
+        axis.title.y = element_text(margin = margin(r = 10)))
+ll_plot
+```
+]
+.pull-right[
+```{r, dev = "svg", echo = F, fig.height = 5.5, fig.width = 5.5}
+ggplot() + 
+  # labor supply curve
+  # geom_curve(aes(x = 24 - optimal_x_1, y = wage_level_1, xend = 24 - optimal_x_2, yend = wage_level_2), 
+  #            curvature = 0.1, size = 1, color = red_pink) +
+  # geom_curve(aes(x = 24 - optimal_x_2, y = wage_level_2, xend = 24 - optimal_x_3, yend = wage_level_3), 
+  #            curvature = 0.2, size = 1, color = red_pink) +
+  # geom_curve(aes(x = 24 - optimal_x_3, y = wage_level_3, xend = 24 - optimal_x_4, yend = wage_level_4), 
+  #            curvature = 0.2, size = 1, color = red_pink) +
+  # labor supply at first wage
+  # annotate(geom = "segment", x = 0, y = wage_level_1, xend = 24 - optimal_x_1, yend = wage_level_1,
+  #          linetype = "dashed", color = met_slate) +
+  # annotate(geom = "segment", x = 24 - optimal_x_1, y = 0, xend = 24 - optimal_x_1, yend = wage_level_1,
+  #          linetype = "dashed", color = met_slate) +
+  # annotate(geom = "point", x = 24 - optimal_x_1, y = wage_level_1, size = 2, color = met_slate) +
+  # labor supply at second wage
+  # annotate(geom = "segment", x = 0, y = wage_level_2, xend = 24 - optimal_x_2, yend = wage_level_2,
+  #          linetype = "dashed", color = met_slate) +
+  # annotate(geom = "segment", x = 24 - optimal_x_2, y = 0, xend = 24 - optimal_x_2, yend = wage_level_2,
+  #          linetype = "dashed", color = met_slate) +
+  # annotate(geom = "point", x = 24 - optimal_x_2, y = wage_level_2, size = 2, color = met_slate) +
+  # labor supply at third wage
+  # annotate(geom = "segment", x = 0, y = wage_level_3, xend = 24 - optimal_x_3, yend = wage_level_3,
+  #          linetype = "dashed", color = met_slate) +
+  # annotate(geom = "segment", x = 24 - optimal_x_3, y = 0, xend = 24 - optimal_x_3, yend = wage_level_3,
+  #          linetype = "dashed", color = met_slate) +
+  # annotate(geom = "point", x = 24 - optimal_x_3, y = wage_level_3, size = 2, color = met_slate) +
+  # labor supply at fourth wage
+  # annotate(geom = "segment", x = 0, y = wage_level_4, xend = 24 - optimal_x_4, yend = wage_level_4,
+  #          linetype = "dashed", color = met_slate) +
+  # annotate(geom = "segment", x = 24 - optimal_x_4, y = 0, xend = 24 - optimal_x_4, yend = wage_level_4,
+  #          linetype = "dashed", color = met_slate) +
+  # annotate(geom = "point", x = 24 - optimal_x_4, y = wage_level_4, size = 2, color = met_slate) +
+  # markers for wealth/subsitution domination
+  # geom_segment(
+  #   aes(x = 3, y = wage_level_3 - 0.2, xend = 3, yend = wage_level_3 - 1.25),
+  #   arrow = arrow(angle = 20, length = unit(0.2, "cm"), type = "closed"),
+  #   color = met_slate
+  # ) +
+  # annotate(
+  #   "label", label = "SE dominates", x = 3, y = wage_level_3 - 0.5, 
+  #   color = met_slate, family = "Fira Sans", size = 4
+  # ) +
+  # geom_segment(
+  #   aes(x = 3, y = wage_level_3 + 0.2, xend = 3, yend = wage_level_3 + 1.25),
+  #   arrow = arrow(angle = 20, length = unit(0.2, "cm"), type = "closed"),
+  #   color = met_slate
+  # ) +
+  # annotate(
+  #   "label", label = "WE dominates", x = 3, y = wage_level_3 + 0.5, 
+  #   color = met_slate, family = "Fira Sans", size = 4
+  # ) +
+  # geom_hline(yintercept = wage_level_3, color = met_slate) +
+  # appearance
+  labs(x = "Hours of labor (H)", y = "Hourly wage (w)") +
+  scale_x_continuous(expand = c(0, 0), breaks = seq(0, 12, 2), limits = c(0, 13)) +
+  scale_y_continuous(expand = c(0, 0), breaks = seq(0, 6, 1), labels = scales::dollar, limits = c(0, 6.5)) +
+  theme_simple +
+  theme(axis.title.x = element_text(margin = margin(t = 10)),
+        axis.title.y = element_text(margin = margin(r = 10)))
+```
+]
+
+---
+count: false
+# Individual labor supply
+
+.pull-left[
+```{r, dev = "svg", echo = F, fig.height = 5.5, fig.width = 5.5}
+ll_plot
+```
+]
+.pull-right[
+```{r, dev = "svg", echo = F, fig.height = 5.5, fig.width = 5.5}
+ls_plot <- ggplot() + 
+  # labor supply curve
+  # geom_curve(aes(x = 24 - optimal_x_1, y = wage_level_1, xend = 24 - optimal_x_2, yend = wage_level_2), 
+  #            curvature = 0.1, size = 1, color = red_pink) +
+  # geom_curve(aes(x = 24 - optimal_x_2, y = wage_level_2, xend = 24 - optimal_x_3, yend = wage_level_3), 
+  #            curvature = 0.2, size = 1, color = red_pink) +
+  # geom_curve(aes(x = 24 - optimal_x_3, y = wage_level_3, xend = 24 - optimal_x_4, yend = wage_level_4), 
+  #            curvature = 0.2, size = 1, color = red_pink) +
+  # labor supply at first wage
+  annotate(geom = "segment", x = 0, y = wage_level_1, xend = 24 - optimal_x_1, yend = wage_level_1,
+           linetype = "dashed", color = met_slate) +
+  annotate(geom = "segment", x = 24 - optimal_x_1, y = 0, xend = 24 - optimal_x_1, yend = wage_level_1,
+           linetype = "dashed", color = met_slate) +
+  annotate(geom = "point", x = 24 - optimal_x_1, y = wage_level_1, size = 2, color = met_slate) +
+  # labor supply at second wage
+  # annotate(geom = "segment", x = 0, y = wage_level_2, xend = 24 - optimal_x_2, yend = wage_level_2,
+  #          linetype = "dashed", color = met_slate) +
+  # annotate(geom = "segment", x = 24 - optimal_x_2, y = 0, xend = 24 - optimal_x_2, yend = wage_level_2,
+  #          linetype = "dashed", color = met_slate) +
+  # annotate(geom = "point", x = 24 - optimal_x_2, y = wage_level_2, size = 2, color = met_slate) +
+  # labor supply at third wage
+  # annotate(geom = "segment", x = 0, y = wage_level_3, xend = 24 - optimal_x_3, yend = wage_level_3,
+  #          linetype = "dashed", color = met_slate) +
+  # annotate(geom = "segment", x = 24 - optimal_x_3, y = 0, xend = 24 - optimal_x_3, yend = wage_level_3,
+  #          linetype = "dashed", color = met_slate) +
+  # annotate(geom = "point", x = 24 - optimal_x_3, y = wage_level_3, size = 2, color = met_slate) +
+  # labor supply at fourth wage
+  # annotate(geom = "segment", x = 0, y = wage_level_4, xend = 24 - optimal_x_4, yend = wage_level_4,
+  #          linetype = "dashed", color = met_slate) +
+  # annotate(geom = "segment", x = 24 - optimal_x_4, y = 0, xend = 24 - optimal_x_4, yend = wage_level_4,
+  #          linetype = "dashed", color = met_slate) +
+  # annotate(geom = "point", x = 24 - optimal_x_4, y = wage_level_4, size = 2, color = met_slate) +
+  # markers for wealth/subsitution domination
+  # geom_segment(
+  #   aes(x = 3, y = wage_level_3 - 0.2, xend = 3, yend = wage_level_3 - 1.25),
+  #   arrow = arrow(angle = 20, length = unit(0.2, "cm"), type = "closed"),
+  #   color = met_slate
+  # ) +
+  # annotate(
+  #   "label", label = "SE dominates", x = 3, y = wage_level_3 - 0.5, 
+  #   color = met_slate, family = "Fira Sans", size = 4
+  # ) +
+  # geom_segment(
+  #   aes(x = 3, y = wage_level_3 + 0.2, xend = 3, yend = wage_level_3 + 1.25),
+  #   arrow = arrow(angle = 20, length = unit(0.2, "cm"), type = "closed"),
+  #   color = met_slate
+  # ) +
+  # annotate(
+  #   "label", label = "WE dominates", x = 3, y = wage_level_3 + 0.5, 
+  #   color = met_slate, family = "Fira Sans", size = 4
+  # ) +
+  # geom_hline(yintercept = wage_level_3, color = met_slate) +
+  # appearance
+  labs(x = "Hours of labor (H)", y = "Hourly wage (w)") +
+  scale_x_continuous(expand = c(0, 0), breaks = seq(0, 12, 2), limits = c(0, 13)) +
+  scale_y_continuous(expand = c(0, 0), breaks = seq(0, 6, 1), labels = scales::dollar, limits = c(0, 6.5)) +
+  theme_simple +
+  theme(axis.title.x = element_text(margin = margin(t = 10)),
+        axis.title.y = element_text(margin = margin(r = 10)))
+ls_plot
+```
+]
+
+---
+count: false
+# Individual labor supply
+
+.pull-left[
+```{r, dev = "svg", echo = F, fig.height = 5.5, fig.width = 5.5}
+ll_plot <- ggplot() + 
+  # budget for first wage
+  stat_function(
+    data = tibble(x = 0:24),
+    xlim = c(0, 24),
+    aes(x = x),
+    fun = budget,
+    args = list(wage = wage_level_1, non_labor_income = other_income),
+    color = green,
+    size = 1
+  ) +
+  annotate(
+    "label", label = paste0("w = ", scales::dollar(wage_level_1)), x = 4, y = budget(x = 4, wage = wage_level_1, non_labor_income = other_income), 
+    color = green, family = "Fira Sans", size = 4
+  ) +
+  # budget for second wage
+  stat_function(
+    data = tibble(x = 0:24),
+    xlim = c(0, 24),
+    aes(x = x),
+    fun = budget,
+    args = list(wage = wage_level_2, non_labor_income = other_income),
+    color = green,
+    size = 1
+  ) +
+  annotate(
+    "label", label = paste0("w = ", scales::dollar(wage_level_2)), x = 4, y = budget(x = 4, wage = wage_level_2, non_labor_income = other_income),
+    color = green, family = "Fira Sans", size = 4
+  ) +
+  # budget for third wage
+  # stat_function(
+  #   data = tibble(x = 0:24),
+  #   xlim = c(0, 24),
+  #   aes(x = x),
+  #   fun = budget,
+  #   args = list(wage = wage_level_3, non_labor_income = other_income),
+  #   color = green,
+  #   size = 1
+  # ) +
+  # annotate(
+  #   "label", label = paste0("w = ", scales::dollar(wage_level_3)), x = 4, y = budget(x = 4, wage = wage_level_3, non_labor_income = other_income), 
+  #   color = green, family = "Fira Sans", size = 4
+  # ) +
+  # budget for fourth wage
+  # stat_function(
+  #   data = tibble(x = 0:24),
+  #   xlim = c(0, 24),
+  #   aes(x = x),
+  #   fun = budget,
+  #   args = list(wage = wage_level_4, non_labor_income = other_income),
+  #   color = green,
+  #   size = 1
+  # ) +
+  # annotate(
+  #   "label", label = paste0("w = ", scales::dollar(wage_level_4)), x = 4, y = budget(x = 4, wage = wage_level_4, non_labor_income = other_income), 
+  #   color = green, family = "Fira Sans", size = 4
+  # ) +
+  # best indifference curve for first wage
+  stat_function(
+    data = tibble(x = 1:24),
+    xlim = c(optimal_x_1 - 8, optimal_x_1),
+    aes(x = x),
+    fun = ic,
+    args = list(k = max_utility_1, offset = offset_level, alpha = leisure_love_1),
+    color = red_pink,
+    size = 1
+  ) +
+  # best indifference curve for second wage
+  stat_function(
+    data = tibble(x = 1:24),
+    xlim = c(optimal_x_2 - 6, optimal_x_2 + 6),
+    aes(x = x),
+    fun = ic,
+    args = list(k = max_utility_2, offset = offset_level, alpha = leisure_love_2),
+    color = red_pink,
+    size = 1
+  ) +
+  # best indifference curve for third wage
+  # stat_function(
+  #   data = tibble(x = 1:24),
+  #   xlim = c(optimal_x_3 - 4, optimal_x_3 + 6),
+  #   aes(x = x),
+  #   fun = ic,
+  #   args = list(k = max_utility_3, offset = offset_level, alpha = leisure_love_3),
+  #   color = red_pink,
+  #   size = 1
+  # ) +
+  # best indifference curve for fourth wage
+  # stat_function(
+  #   data = tibble(x = 1:24),
+  #   xlim = c(optimal_x_4 - 3, optimal_x_4 + 4),
+  #   aes(x = x),
+  #   fun = ic,
+  #   args = list(k = max_utility_4, offset = offset_level, alpha = leisure_love_4),
+  #   color = red_pink,
+  #   size = 1
+  # ) +
+  # bundle for first wage
+  annotate(geom = "segment", x = optimal_x_1, y = 0, xend = optimal_x_1, yend = optimal_y_1,
+           linetype = "dashed", color = met_slate) +
+  annotate(geom = "point", x = optimal_x_1, y = optimal_y_1, size = 2, color = met_slate) +
+  # bundle for second wage
+  annotate(geom = "segment", x = optimal_x_2, y = 0, xend = optimal_x_2, yend = optimal_y_2,
+           linetype = "dashed", color = met_slate) +
+  annotate(geom = "point", x = optimal_x_2, y = optimal_y_2, size = 2, color = met_slate) +
+  # bundle for third wage
+  # annotate(geom = "segment", x = optimal_x_3, y = 0, xend = optimal_x_3, yend = optimal_y_3,
+  #          linetype = "dashed", color = met_slate) +
+  # annotate(geom = "point", x = optimal_x_3, y = optimal_y_3, size = 2, color = met_slate) +
+  # bundle for fourth wage
+  # annotate(geom = "segment", x = optimal_x_4, y = 0, xend = optimal_x_4, yend = optimal_y_4,
+  #          linetype = "dashed", color = met_slate) +
+  # annotate(geom = "point", x = optimal_x_4, y = optimal_y_4, size = 2, color = met_slate) +
+  # appearance
+  labs(x = "Hours of leisure (L)", y = "Total income (Y)") +
+  scale_x_continuous(expand = c(0, 0), breaks = seq(0, 24, 4), limits = c(0, 25)) +
+  scale_y_continuous(expand = c(0, 0), breaks = seq(0, 160, 20), labels = scales::dollar, limits = c(0, 165)) +
+  theme_simple +
+  theme(axis.title.x = element_text(margin = margin(t = 10)),
+        axis.title.y = element_text(margin = margin(r = 10)))
+ll_plot
+```
+]
+.pull-right[
+```{r, dev = "svg", echo = F, fig.height = 5.5, fig.width = 5.5}
+ls_plot
+```
+]
+
+---
+count: false
+# Individual labor supply
+
+.pull-left[
+```{r, dev = "svg", echo = F, fig.height = 5.5, fig.width = 5.5}
+ll_plot
+```
+]
+.pull-right[
+```{r, dev = "svg", echo = F, fig.height = 5.5, fig.width = 5.5}
+ls_plot <- ggplot() + 
+  # labor supply curve
+  # geom_curve(aes(x = 24 - optimal_x_1, y = wage_level_1, xend = 24 - optimal_x_2, yend = wage_level_2), 
+  #            curvature = 0.1, size = 1, color = red_pink) +
+  # geom_curve(aes(x = 24 - optimal_x_2, y = wage_level_2, xend = 24 - optimal_x_3, yend = wage_level_3), 
+  #            curvature = 0.2, size = 1, color = red_pink) +
+  # geom_curve(aes(x = 24 - optimal_x_3, y = wage_level_3, xend = 24 - optimal_x_4, yend = wage_level_4), 
+  #            curvature = 0.2, size = 1, color = red_pink) +
+  # labor supply at first wage
+  annotate(geom = "segment", x = 0, y = wage_level_1, xend = 24 - optimal_x_1, yend = wage_level_1,
+           linetype = "dashed", color = met_slate) +
+  annotate(geom = "segment", x = 24 - optimal_x_1, y = 0, xend = 24 - optimal_x_1, yend = wage_level_1,
+           linetype = "dashed", color = met_slate) +
+  annotate(geom = "point", x = 24 - optimal_x_1, y = wage_level_1, size = 2, color = met_slate) +
+  # labor supply at second wage
+  annotate(geom = "segment", x = 0, y = wage_level_2, xend = 24 - optimal_x_2, yend = wage_level_2,
+           linetype = "dashed", color = met_slate) +
+  annotate(geom = "segment", x = 24 - optimal_x_2, y = 0, xend = 24 - optimal_x_2, yend = wage_level_2,
+           linetype = "dashed", color = met_slate) +
+  annotate(geom = "point", x = 24 - optimal_x_2, y = wage_level_2, size = 2, color = met_slate) +
+  # labor supply at third wage
+  # annotate(geom = "segment", x = 0, y = wage_level_3, xend = 24 - optimal_x_3, yend = wage_level_3,
+  #          linetype = "dashed", color = met_slate) +
+  # annotate(geom = "segment", x = 24 - optimal_x_3, y = 0, xend = 24 - optimal_x_3, yend = wage_level_3,
+  #          linetype = "dashed", color = met_slate) +
+  # annotate(geom = "point", x = 24 - optimal_x_3, y = wage_level_3, size = 2, color = met_slate) +
+  # labor supply at fourth wage
+  # annotate(geom = "segment", x = 0, y = wage_level_4, xend = 24 - optimal_x_4, yend = wage_level_4,
+  #          linetype = "dashed", color = met_slate) +
+  # annotate(geom = "segment", x = 24 - optimal_x_4, y = 0, xend = 24 - optimal_x_4, yend = wage_level_4,
+  #          linetype = "dashed", color = met_slate) +
+  # annotate(geom = "point", x = 24 - optimal_x_4, y = wage_level_4, size = 2, color = met_slate) +
+  # markers for wealth/subsitution domination
+  # geom_segment(
+  #   aes(x = 3, y = wage_level_3 - 0.2, xend = 3, yend = wage_level_3 - 1.25),
+  #   arrow = arrow(angle = 20, length = unit(0.2, "cm"), type = "closed"),
+  #   color = met_slate
+  # ) +
+  # annotate(
+  #   "label", label = "SE dominates", x = 3, y = wage_level_3 - 0.5, 
+  #   color = met_slate, family = "Fira Sans", size = 4
+  # ) +
+  # geom_segment(
+  #   aes(x = 3, y = wage_level_3 + 0.2, xend = 3, yend = wage_level_3 + 1.25),
+  #   arrow = arrow(angle = 20, length = unit(0.2, "cm"), type = "closed"),
+  #   color = met_slate
+  # ) +
+  # annotate(
+  #   "label", label = "WE dominates", x = 3, y = wage_level_3 + 0.5, 
+  #   color = met_slate, family = "Fira Sans", size = 4
+  # ) +
+  # geom_hline(yintercept = wage_level_3, color = met_slate) +
+  # appearance
+  labs(x = "Hours of labor (H)", y = "Hourly wage (w)") +
+  scale_x_continuous(expand = c(0, 0), breaks = seq(0, 12, 2), limits = c(0, 13)) +
+  scale_y_continuous(expand = c(0, 0), breaks = seq(0, 6, 1), labels = scales::dollar, limits = c(0, 6.5)) +
+  theme_simple +
+  theme(axis.title.x = element_text(margin = margin(t = 10)),
+        axis.title.y = element_text(margin = margin(r = 10)))
+ls_plot
+```
+]
+
+---
+count: false
+# Individual labor supply
+
+.pull-left[
+```{r, dev = "svg", echo = F, fig.height = 5.5, fig.width = 5.5}
+ll_plot <- ggplot() + 
+  # budget for first wage
+  stat_function(
+    data = tibble(x = 0:24),
+    xlim = c(0, 24),
+    aes(x = x),
+    fun = budget,
+    args = list(wage = wage_level_1, non_labor_income = other_income),
+    color = green,
+    size = 1
+  ) +
+  annotate(
+    "label", label = paste0("w = ", scales::dollar(wage_level_1)), x = 4, y = budget(x = 4, wage = wage_level_1, non_labor_income = other_income), 
+    color = green, family = "Fira Sans", size = 4
+  ) +
+  # budget for second wage
+  stat_function(
+    data = tibble(x = 0:24),
+    xlim = c(0, 24),
+    aes(x = x),
+    fun = budget,
+    args = list(wage = wage_level_2, non_labor_income = other_income),
+    color = green,
+    size = 1
+  ) +
+  annotate(
+    "label", label = paste0("w = ", scales::dollar(wage_level_2)), x = 4, y = budget(x = 4, wage = wage_level_2, non_labor_income = other_income), 
+    color = green, family = "Fira Sans", size = 4
+  ) +
+  # budget for third wage
+  stat_function(
+    data = tibble(x = 0:24),
+    xlim = c(0, 24),
+    aes(x = x),
+    fun = budget,
+    args = list(wage = wage_level_3, non_labor_income = other_income),
+    color = green,
+    size = 1
+  ) +
+  annotate(
+    "label", label = paste0("w = ", scales::dollar(wage_level_3)), x = 4, y = budget(x = 4, wage = wage_level_3, non_labor_income = other_income), 
+    color = green, family = "Fira Sans", size = 4
+  ) +
+  # budget for fourth wage
+  # stat_function(
+  #   data = tibble(x = 0:24),
+  #   xlim = c(0, 24),
+  #   aes(x = x),
+  #   fun = budget,
+  #   args = list(wage = wage_level_4, non_labor_income = other_income),
+  #   color = green,
+  #   size = 1
+  # ) +
+  # annotate(
+  #   "label", label = paste0("w = ", scales::dollar(wage_level_4)), x = 4, y = budget(x = 4, wage = wage_level_4, non_labor_income = other_income), 
+  #   color = green, family = "Fira Sans", size = 4
+  # ) +
+  # best indifference curve for first wage
+  stat_function(
+    data = tibble(x = 1:24),
+    xlim = c(optimal_x_1 - 8, optimal_x_1),
+    aes(x = x),
+    fun = ic,
+    args = list(k = max_utility_1, offset = offset_level, alpha = leisure_love_1),
+    color = red_pink,
+    size = 1
+  ) +
+  # best indifference curve for second wage
+  stat_function(
+    data = tibble(x = 1:24),
+    xlim = c(optimal_x_2 - 6, optimal_x_2 + 6),
+    aes(x = x),
+    fun = ic,
+    args = list(k = max_utility_2, offset = offset_level, alpha = leisure_love_2),
+    color = red_pink,
+    size = 1
+  ) +
+  # best indifference curve for third wage
+  stat_function(
+    data = tibble(x = 1:24),
+    xlim = c(optimal_x_3 - 4, optimal_x_3 + 6),
+    aes(x = x),
+    fun = ic,
+    args = list(k = max_utility_3, offset = offset_level, alpha = leisure_love_3),
+    color = red_pink,
+    size = 1
+  ) +
+  # best indifference curve for fourth wage
+  # stat_function(
+  #   data = tibble(x = 1:24),
+  #   xlim = c(optimal_x_4 - 3, optimal_x_4 + 4),
+  #   aes(x = x),
+  #   fun = ic,
+  #   args = list(k = max_utility_4, offset = offset_level, alpha = leisure_love_4),
+  #   color = red_pink,
+  #   size = 1
+  # ) +
+  # bundle for first wage
+  annotate(geom = "segment", x = optimal_x_1, y = 0, xend = optimal_x_1, yend = optimal_y_1,
+           linetype = "dashed", color = met_slate) +
+  annotate(geom = "point", x = optimal_x_1, y = optimal_y_1, size = 2, color = met_slate) +
+  # bundle for second wage
+  annotate(geom = "segment", x = optimal_x_2, y = 0, xend = optimal_x_2, yend = optimal_y_2,
+           linetype = "dashed", color = met_slate) +
+  annotate(geom = "point", x = optimal_x_2, y = optimal_y_2, size = 2, color = met_slate) +
+  # bundle for third wage
+  annotate(geom = "segment", x = optimal_x_3, y = 0, xend = optimal_x_3, yend = optimal_y_3,
+           linetype = "dashed", color = met_slate) +
+  annotate(geom = "point", x = optimal_x_3, y = optimal_y_3, size = 2, color = met_slate) +
+  # bundle for fourth wage
+  # annotate(geom = "segment", x = optimal_x_4, y = 0, xend = optimal_x_4, yend = optimal_y_4,
+  #          linetype = "dashed", color = met_slate) +
+  # annotate(geom = "point", x = optimal_x_4, y = optimal_y_4, size = 2, color = met_slate) +
+  # appearance
+  labs(x = "Hours of leisure (L)", y = "Total income (Y)") +
+  scale_x_continuous(expand = c(0, 0), breaks = seq(0, 24, 4), limits = c(0, 25)) +
+  scale_y_continuous(expand = c(0, 0), breaks = seq(0, 160, 20), labels = scales::dollar, limits = c(0, 165)) +
+  theme_simple +
+  theme(axis.title.x = element_text(margin = margin(t = 10)),
+        axis.title.y = element_text(margin = margin(r = 10)))
+ll_plot
+```
+]
+.pull-right[
+```{r, dev = "svg", echo = F, fig.height = 5.5, fig.width = 5.5}
+ls_plot
+```
+]
+
+---
+count: false
+# Individual labor supply
+
+.pull-left[
+```{r, dev = "svg", echo = F, fig.height = 5.5, fig.width = 5.5}
+ll_plot
+```
+]
+.pull-right[
+```{r, dev = "svg", echo = F, fig.height = 5.5, fig.width = 5.5}
+ls_plot <- ggplot() + 
+  # labor supply curve
+  # geom_curve(aes(x = 24 - optimal_x_1, y = wage_level_1, xend = 24 - optimal_x_2, yend = wage_level_2), 
+  #            curvature = 0.1, size = 1, color = red_pink) +
+  # geom_curve(aes(x = 24 - optimal_x_2, y = wage_level_2, xend = 24 - optimal_x_3, yend = wage_level_3), 
+  #            curvature = 0.2, size = 1, color = red_pink) +
+  # geom_curve(aes(x = 24 - optimal_x_3, y = wage_level_3, xend = 24 - optimal_x_4, yend = wage_level_4), 
+  #            curvature = 0.2, size = 1, color = red_pink) +
+  # labor supply at first wage
+  annotate(geom = "segment", x = 0, y = wage_level_1, xend = 24 - optimal_x_1, yend = wage_level_1,
+           linetype = "dashed", color = met_slate) +
+  annotate(geom = "segment", x = 24 - optimal_x_1, y = 0, xend = 24 - optimal_x_1, yend = wage_level_1,
+           linetype = "dashed", color = met_slate) +
+  annotate(geom = "point", x = 24 - optimal_x_1, y = wage_level_1, size = 2, color = met_slate) +
+  # labor supply at second wage
+  annotate(geom = "segment", x = 0, y = wage_level_2, xend = 24 - optimal_x_2, yend = wage_level_2,
+           linetype = "dashed", color = met_slate) +
+  annotate(geom = "segment", x = 24 - optimal_x_2, y = 0, xend = 24 - optimal_x_2, yend = wage_level_2,
+           linetype = "dashed", color = met_slate) +
+  annotate(geom = "point", x = 24 - optimal_x_2, y = wage_level_2, size = 2, color = met_slate) +
+  # labor supply at third wage
+  annotate(geom = "segment", x = 0, y = wage_level_3, xend = 24 - optimal_x_3, yend = wage_level_3,
+           linetype = "dashed", color = met_slate) +
+  annotate(geom = "segment", x = 24 - optimal_x_3, y = 0, xend = 24 - optimal_x_3, yend = wage_level_3,
+           linetype = "dashed", color = met_slate) +
+  annotate(geom = "point", x = 24 - optimal_x_3, y = wage_level_3, size = 2, color = met_slate) +
+  # labor supply at fourth wage
+  # annotate(geom = "segment", x = 0, y = wage_level_4, xend = 24 - optimal_x_4, yend = wage_level_4,
+  #          linetype = "dashed", color = met_slate) +
+  # annotate(geom = "segment", x = 24 - optimal_x_4, y = 0, xend = 24 - optimal_x_4, yend = wage_level_4,
+  #          linetype = "dashed", color = met_slate) +
+  # annotate(geom = "point", x = 24 - optimal_x_4, y = wage_level_4, size = 2, color = met_slate) +
+  # markers for wealth/subsitution domination
+  # geom_segment(
+  #   aes(x = 3, y = wage_level_3 - 0.2, xend = 3, yend = wage_level_3 - 1.25),
+  #   arrow = arrow(angle = 20, length = unit(0.2, "cm"), type = "closed"),
+  #   color = met_slate
+  # ) +
+  # annotate(
+  #   "label", label = "SE dominates", x = 3, y = wage_level_3 - 0.5, 
+  #   color = met_slate, family = "Fira Sans", size = 4
+  # ) +
+  # geom_segment(
+  #   aes(x = 3, y = wage_level_3 + 0.2, xend = 3, yend = wage_level_3 + 1.25),
+  #   arrow = arrow(angle = 20, length = unit(0.2, "cm"), type = "closed"),
+  #   color = met_slate
+  # ) +
+  # annotate(
+  #   "label", label = "WE dominates", x = 3, y = wage_level_3 + 0.5, 
+  #   color = met_slate, family = "Fira Sans", size = 4
+  # ) +
+  # geom_hline(yintercept = wage_level_3, color = met_slate) +
+  # appearance
+  labs(x = "Hours of labor (H)", y = "Hourly wage (w)") +
+  scale_x_continuous(expand = c(0, 0), breaks = seq(0, 12, 2), limits = c(0, 13)) +
+  scale_y_continuous(expand = c(0, 0), breaks = seq(0, 6, 1), labels = scales::dollar, limits = c(0, 6.5)) +
+  theme_simple +
+  theme(axis.title.x = element_text(margin = margin(t = 10)),
+        axis.title.y = element_text(margin = margin(r = 10)))
+ls_plot
+```
+]
+
+---
+count: false
+# Individual labor supply
+
+.pull-left[
+```{r, dev = "svg", echo = F, fig.height = 5.5, fig.width = 5.5}
+ll_plot <- ggplot() + 
+  # budget for first wage
+  stat_function(
+    data = tibble(x = 0:24),
+    xlim = c(0, 24),
+    aes(x = x),
+    fun = budget,
+    args = list(wage = wage_level_1, non_labor_income = other_income),
+    color = green,
+    size = 1
+  ) +
+  annotate(
+    "label", label = paste0("w = ", scales::dollar(wage_level_1)), x = 4, y = budget(x = 4, wage = wage_level_1, non_labor_income = other_income), 
+    color = green, family = "Fira Sans", size = 4
+  ) +
+  # budget for second wage
+  stat_function(
+    data = tibble(x = 0:24),
+    xlim = c(0, 24),
+    aes(x = x),
+    fun = budget,
+    args = list(wage = wage_level_2, non_labor_income = other_income),
+    color = green,
+    size = 1
+  ) +
+  annotate(
+    "label", label = paste0("w = ", scales::dollar(wage_level_2)), x = 4, y = budget(x = 4, wage = wage_level_2, non_labor_income = other_income), 
+    color = green, family = "Fira Sans", size = 4
+  ) +
+  # budget for third wage
+  stat_function(
+    data = tibble(x = 0:24),
+    xlim = c(0, 24),
+    aes(x = x),
+    fun = budget,
+    args = list(wage = wage_level_3, non_labor_income = other_income),
+    color = green,
+    size = 1
+  ) +
+  annotate(
+    "label", label = paste0("w = ", scales::dollar(wage_level_3)), x = 4, y = budget(x = 4, wage = wage_level_3, non_labor_income = other_income), 
+    color = green, family = "Fira Sans", size = 4
+  ) +
+  # budget for fourth wage
+  stat_function(
+    data = tibble(x = 0:24),
+    xlim = c(0, 24),
+    aes(x = x),
+    fun = budget,
+    args = list(wage = wage_level_4, non_labor_income = other_income),
+    color = green,
+    size = 1
+  ) +
+  annotate(
+    "label", label = paste0("w = ", scales::dollar(wage_level_4)), x = 4, y = budget(x = 4, wage = wage_level_4, non_labor_income = other_income), 
+    color = green, family = "Fira Sans", size = 4
+  ) +
+  # best indifference curve for first wage
+  stat_function(
+    data = tibble(x = 1:24),
+    xlim = c(optimal_x_1 - 8, optimal_x_1),
+    aes(x = x),
+    fun = ic,
+    args = list(k = max_utility_1, offset = offset_level, alpha = leisure_love_1),
+    color = red_pink,
+    size = 1
+  ) +
+  # best indifference curve for second wage
+  stat_function(
+    data = tibble(x = 1:24),
+    xlim = c(optimal_x_2 - 6, optimal_x_2 + 6),
+    aes(x = x),
+    fun = ic,
+    args = list(k = max_utility_2, offset = offset_level, alpha = leisure_love_2),
+    color = red_pink,
+    size = 1
+  ) +
+  # best indifference curve for third wage
+  stat_function(
+    data = tibble(x = 1:24),
+    xlim = c(optimal_x_3 - 4, optimal_x_3 + 6),
+    aes(x = x),
+    fun = ic,
+    args = list(k = max_utility_3, offset = offset_level, alpha = leisure_love_3),
+    color = red_pink,
+    size = 1
+  ) +
+  # best indifference curve for fourth wage
+  stat_function(
+    data = tibble(x = 1:24),
+    xlim = c(optimal_x_4 - 3, optimal_x_4 + 4),
+    aes(x = x),
+    fun = ic,
+    args = list(k = max_utility_4, offset = offset_level, alpha = leisure_love_4),
+    color = red_pink,
+    size = 1
+  ) +
+  # bundle for first wage
+  annotate(geom = "segment", x = optimal_x_1, y = 0, xend = optimal_x_1, yend = optimal_y_1,
+           linetype = "dashed", color = met_slate) +
+  annotate(geom = "point", x = optimal_x_1, y = optimal_y_1, size = 2, color = met_slate) +
+  # bundle for second wage
+  annotate(geom = "segment", x = optimal_x_2, y = 0, xend = optimal_x_2, yend = optimal_y_2,
+           linetype = "dashed", color = met_slate) +
+  annotate(geom = "point", x = optimal_x_2, y = optimal_y_2, size = 2, color = met_slate) +
+  # bundle for third wage
+  annotate(geom = "segment", x = optimal_x_3, y = 0, xend = optimal_x_3, yend = optimal_y_3,
+           linetype = "dashed", color = met_slate) +
+  annotate(geom = "point", x = optimal_x_3, y = optimal_y_3, size = 2, color = met_slate) +
+  # bundle for fourth wage
+  annotate(geom = "segment", x = optimal_x_4, y = 0, xend = optimal_x_4, yend = optimal_y_4,
+           linetype = "dashed", color = met_slate) +
+  annotate(geom = "point", x = optimal_x_4, y = optimal_y_4, size = 2, color = met_slate) +
+  # appearance
+  labs(x = "Hours of leisure (L)", y = "Total income (Y)") +
+  scale_x_continuous(expand = c(0, 0), breaks = seq(0, 24, 4), limits = c(0, 25)) +
+  scale_y_continuous(expand = c(0, 0), breaks = seq(0, 160, 20), labels = scales::dollar, limits = c(0, 165)) +
+  theme_simple +
+  theme(axis.title.x = element_text(margin = margin(t = 10)),
+        axis.title.y = element_text(margin = margin(r = 10)))
+ll_plot
+```
+]
+.pull-right[
+```{r, dev = "svg", echo = F, fig.height = 5.5, fig.width = 5.5}
+ls_plot
+```
+]
+
+---
+count: false
+# Individual labor supply
+
+.pull-left[
+```{r, dev = "svg", echo = F, fig.height = 5.5, fig.width = 5.5}
+ll_plot
+```
+]
+.pull-right[
+```{r, dev = "svg", echo = F, fig.height = 5.5, fig.width = 5.5}
+ggplot() + 
+  # labor supply curve
+  # geom_curve(aes(x = 24 - optimal_x_1, y = wage_level_1, xend = 24 - optimal_x_2, yend = wage_level_2), 
+  #            curvature = 0.1, size = 1, color = red_pink) +
+  # geom_curve(aes(x = 24 - optimal_x_2, y = wage_level_2, xend = 24 - optimal_x_3, yend = wage_level_3), 
+  #            curvature = 0.2, size = 1, color = red_pink) +
+  # geom_curve(aes(x = 24 - optimal_x_3, y = wage_level_3, xend = 24 - optimal_x_4, yend = wage_level_4), 
+  #            curvature = 0.2, size = 1, color = red_pink) +
+  # labor supply at first wage
+  annotate(geom = "segment", x = 0, y = wage_level_1, xend = 24 - optimal_x_1, yend = wage_level_1,
+           linetype = "dashed", color = met_slate) +
+  annotate(geom = "segment", x = 24 - optimal_x_1, y = 0, xend = 24 - optimal_x_1, yend = wage_level_1,
+           linetype = "dashed", color = met_slate) +
+  annotate(geom = "point", x = 24 - optimal_x_1, y = wage_level_1, size = 2, color = met_slate) +
+  # labor supply at second wage
+  annotate(geom = "segment", x = 0, y = wage_level_2, xend = 24 - optimal_x_2, yend = wage_level_2,
+           linetype = "dashed", color = met_slate) +
+  annotate(geom = "segment", x = 24 - optimal_x_2, y = 0, xend = 24 - optimal_x_2, yend = wage_level_2,
+           linetype = "dashed", color = met_slate) +
+  annotate(geom = "point", x = 24 - optimal_x_2, y = wage_level_2, size = 2, color = met_slate) +
+  # labor supply at third wage
+  annotate(geom = "segment", x = 0, y = wage_level_3, xend = 24 - optimal_x_3, yend = wage_level_3,
+           linetype = "dashed", color = met_slate) +
+  annotate(geom = "segment", x = 24 - optimal_x_3, y = 0, xend = 24 - optimal_x_3, yend = wage_level_3,
+           linetype = "dashed", color = met_slate) +
+  annotate(geom = "point", x = 24 - optimal_x_3, y = wage_level_3, size = 2, color = met_slate) +
+  # labor supply at fourth wage
+  annotate(geom = "segment", x = 0, y = wage_level_4, xend = 24 - optimal_x_4, yend = wage_level_4,
+           linetype = "dashed", color = met_slate) +
+  annotate(geom = "segment", x = 24 - optimal_x_4, y = 0, xend = 24 - optimal_x_4, yend = wage_level_4,
+           linetype = "dashed", color = met_slate) +
+  annotate(geom = "point", x = 24 - optimal_x_4, y = wage_level_4, size = 2, color = met_slate) +
+  # markers for wealth/subsitution domination
+  # geom_segment(
+  #   aes(x = 3, y = wage_level_3 - 0.2, xend = 3, yend = wage_level_3 - 1.25),
+  #   arrow = arrow(angle = 20, length = unit(0.2, "cm"), type = "closed"),
+  #   color = met_slate
+  # ) +
+  # annotate(
+  #   "label", label = "SE dominates", x = 3, y = wage_level_3 - 0.5, 
+  #   color = met_slate, family = "Fira Sans", size = 4
+  # ) +
+  # geom_segment(
+  #   aes(x = 3, y = wage_level_3 + 0.2, xend = 3, yend = wage_level_3 + 1.25),
+  #   arrow = arrow(angle = 20, length = unit(0.2, "cm"), type = "closed"),
+  #   color = met_slate
+  # ) +
+  # annotate(
+  #   "label", label = "WE dominates", x = 3, y = wage_level_3 + 0.5, 
+  #   color = met_slate, family = "Fira Sans", size = 4
+  # ) +
+  # geom_hline(yintercept = wage_level_3, color = met_slate) +
+  # appearance
+  labs(x = "Hours of labor (H)", y = "Hourly wage (w)") +
+  scale_x_continuous(expand = c(0, 0), breaks = seq(0, 12, 2), limits = c(0, 13)) +
+  scale_y_continuous(expand = c(0, 0), breaks = seq(0, 6, 1), labels = scales::dollar, limits = c(0, 6.5)) +
+  theme_simple +
+  theme(axis.title.x = element_text(margin = margin(t = 10)),
+        axis.title.y = element_text(margin = margin(r = 10)))
+```
+]
+
+---
+count: false
+# Individual labor supply
+
+.pull-left[
+```{r, dev = "svg", echo = F, fig.height = 5.5, fig.width = 5.5}
+ll_plot
+```
+]
+.pull-right[
+```{r, dev = "svg", echo = F, fig.height = 5.5, fig.width = 5.5}
+ggplot() + 
+  # labor supply curve
+  geom_curve(aes(x = 24 - optimal_x_1, y = wage_level_1, xend = 24 - optimal_x_2, yend = wage_level_2),
+             curvature = 0.1, size = 1, color = red_pink) +
+  geom_curve(aes(x = 24 - optimal_x_2, y = wage_level_2, xend = 24 - optimal_x_3, yend = wage_level_3),
+             curvature = 0.25, size = 1, color = red_pink) +
+  geom_curve(aes(x = 24 - optimal_x_3, y = wage_level_3, xend = 24 - optimal_x_4, yend = wage_level_4),
+             curvature = 0.25, size = 1, color = red_pink) +
+  # labor supply at first wage
+  annotate(geom = "segment", x = 0, y = wage_level_1, xend = 24 - optimal_x_1, yend = wage_level_1,
+           linetype = "dashed", color = met_slate) +
+  annotate(geom = "segment", x = 24 - optimal_x_1, y = 0, xend = 24 - optimal_x_1, yend = wage_level_1,
+           linetype = "dashed", color = met_slate) +
+  annotate(geom = "point", x = 24 - optimal_x_1, y = wage_level_1, size = 2, color = met_slate) +
+  # labor supply at second wage
+  annotate(geom = "segment", x = 0, y = wage_level_2, xend = 24 - optimal_x_2, yend = wage_level_2,
+           linetype = "dashed", color = met_slate) +
+  annotate(geom = "segment", x = 24 - optimal_x_2, y = 0, xend = 24 - optimal_x_2, yend = wage_level_2,
+           linetype = "dashed", color = met_slate) +
+  annotate(geom = "point", x = 24 - optimal_x_2, y = wage_level_2, size = 2, color = met_slate) +
+  # labor supply at third wage
+  annotate(geom = "segment", x = 0, y = wage_level_3, xend = 24 - optimal_x_3, yend = wage_level_3,
+           linetype = "dashed", color = met_slate) +
+  annotate(geom = "segment", x = 24 - optimal_x_3, y = 0, xend = 24 - optimal_x_3, yend = wage_level_3,
+           linetype = "dashed", color = met_slate) +
+  annotate(geom = "point", x = 24 - optimal_x_3, y = wage_level_3, size = 2, color = met_slate) +
+  # labor supply at fourth wage
+  annotate(geom = "segment", x = 0, y = wage_level_4, xend = 24 - optimal_x_4, yend = wage_level_4,
+           linetype = "dashed", color = met_slate) +
+  annotate(geom = "segment", x = 24 - optimal_x_4, y = 0, xend = 24 - optimal_x_4, yend = wage_level_4,
+           linetype = "dashed", color = met_slate) +
+  annotate(geom = "point", x = 24 - optimal_x_4, y = wage_level_4, size = 2, color = met_slate) +
+  # markers for wealth/subsitution domination
+  # geom_segment(
+  #   aes(x = 3, y = wage_level_3 - 0.2, xend = 3, yend = wage_level_3 - 1.25),
+  #   arrow = arrow(angle = 20, length = unit(0.2, "cm"), type = "closed"),
+  #   color = met_slate
+  # ) +
+  # annotate(
+  #   "label", label = "SE dominates", x = 3, y = wage_level_3 - 0.5, 
+  #   color = met_slate, family = "Fira Sans", size = 4
+  # ) +
+  # geom_segment(
+  #   aes(x = 3, y = wage_level_3 + 0.2, xend = 3, yend = wage_level_3 + 1.25),
+  #   arrow = arrow(angle = 20, length = unit(0.2, "cm"), type = "closed"),
+  #   color = met_slate
+  # ) +
+  # annotate(
+  #   "label", label = "WE dominates", x = 3, y = wage_level_3 + 0.5, 
+  #   color = met_slate, family = "Fira Sans", size = 4
+  # ) +
+  # geom_hline(yintercept = wage_level_3, color = met_slate) +
+  # appearance
+  labs(x = "Hours of labor (H)", y = "Hourly wage (w)") +
+  scale_x_continuous(expand = c(0, 0), breaks = seq(0, 12, 2), limits = c(0, 13)) +
+  scale_y_continuous(expand = c(0, 0), breaks = seq(0, 6, 1), labels = scales::dollar, limits = c(0, 6.5)) +
+  theme_simple +
+  theme(axis.title.x = element_text(margin = margin(t = 10)),
+        axis.title.y = element_text(margin = margin(r = 10)))
+```
+]
+
+---
+count: false
+# Individual labor supply
+
+.pull-left[
+```{r, dev = "svg", echo = F, fig.height = 5.5, fig.width = 5.5}
+ll_plot
+```
+]
+.pull-right[
+```{r, dev = "svg", echo = F, fig.height = 5.5, fig.width = 5.5}
+ls_plot <- ggplot() + 
+  # labor supply curve
+  geom_curve(aes(x = 24 - optimal_x_1, y = wage_level_1, xend = 24 - optimal_x_2, yend = wage_level_2),
+             curvature = 0.1, size = 1, color = red_pink) +
+  geom_curve(aes(x = 24 - optimal_x_2, y = wage_level_2, xend = 24 - optimal_x_3, yend = wage_level_3),
+             curvature = 0.25, size = 1, color = red_pink) +
+  geom_curve(aes(x = 24 - optimal_x_3, y = wage_level_3, xend = 24 - optimal_x_4, yend = wage_level_4),
+             curvature = 0.25, size = 1, color = red_pink) +
+  # labor supply at first wage
+  annotate(geom = "segment", x = 0, y = wage_level_1, xend = 24 - optimal_x_1, yend = wage_level_1,
+           linetype = "dashed", color = met_slate) +
+  annotate(geom = "segment", x = 24 - optimal_x_1, y = 0, xend = 24 - optimal_x_1, yend = wage_level_1,
+           linetype = "dashed", color = met_slate) +
+  annotate(geom = "point", x = 24 - optimal_x_1, y = wage_level_1, size = 2, color = met_slate) +
+  # labor supply at second wage
+  annotate(geom = "segment", x = 0, y = wage_level_2, xend = 24 - optimal_x_2, yend = wage_level_2,
+           linetype = "dashed", color = met_slate) +
+  annotate(geom = "segment", x = 24 - optimal_x_2, y = 0, xend = 24 - optimal_x_2, yend = wage_level_2,
+           linetype = "dashed", color = met_slate) +
+  annotate(geom = "point", x = 24 - optimal_x_2, y = wage_level_2, size = 2, color = met_slate) +
+  # labor supply at third wage
+  annotate(geom = "segment", x = 0, y = wage_level_3, xend = 24 - optimal_x_3, yend = wage_level_3,
+           linetype = "dashed", color = met_slate) +
+  annotate(geom = "segment", x = 24 - optimal_x_3, y = 0, xend = 24 - optimal_x_3, yend = wage_level_3,
+           linetype = "dashed", color = met_slate) +
+  annotate(geom = "point", x = 24 - optimal_x_3, y = wage_level_3, size = 2, color = met_slate) +
+  # labor supply at fourth wage
+  annotate(geom = "segment", x = 0, y = wage_level_4, xend = 24 - optimal_x_4, yend = wage_level_4,
+           linetype = "dashed", color = met_slate) +
+  annotate(geom = "segment", x = 24 - optimal_x_4, y = 0, xend = 24 - optimal_x_4, yend = wage_level_4,
+           linetype = "dashed", color = met_slate) +
+  annotate(geom = "point", x = 24 - optimal_x_4, y = wage_level_4, size = 2, color = met_slate) +
+  # markers for wealth/substitution domination
+  geom_segment(
+    aes(x = 3, y = wage_level_3 - 0.2, xend = 3, yend = wage_level_3 - 1.25),
+    arrow = arrow(angle = 20, length = unit(0.2, "cm"), type = "closed"),
+    color = met_slate
+  ) +
+  annotate(
+    "label", label = "SE dominates", x = 3, y = wage_level_3 - 0.5,
+    color = met_slate, family = "Fira Sans", size = 4
+  ) +
+  geom_segment(
+    aes(x = 3, y = wage_level_3 + 0.2, xend = 3, yend = wage_level_3 + 1.25),
+    arrow = arrow(angle = 20, length = unit(0.2, "cm"), type = "closed"),
+    color = met_slate
+  ) +
+  annotate(
+    "label", label = "WE dominates", x = 3, y = wage_level_3 + 0.5,
+    color = met_slate, family = "Fira Sans", size = 4
+  ) +
+  geom_hline(yintercept = wage_level_3, color = met_slate, size = 1) +
+  # appearance
+  labs(x = "Hours of labor (H)", y = "Hourly wage (w)") +
+  scale_x_continuous(expand = c(0, 0), breaks = seq(0, 12, 2), limits = c(0, 13)) +
+  scale_y_continuous(expand = c(0, 0), breaks = seq(0, 6, 1), labels = scales::dollar, limits = c(0, 6.5)) +
+  theme_simple +
+  theme(axis.title.x = element_text(margin = margin(t = 10)),
+        axis.title.y = element_text(margin = margin(r = 10)))
+ls_plot
+```
+]
+
+
+---
+class: inverse, middle
+
+# Policy analysis
+
+---
+# Tuttle (2019)
+
+## **Discussion**
+
+**Q.sub[1]:** What is the research question?
+
+**Q.sub[2]:** What data does the study bring to bear?
+
+**Q.sub[3]:** What does the study find?
+
+**Q.sub[4]:** Should we believe the findings? Why or why not?
+
+**Q.sub[5]:** What are the policy implications?
+
+---
+# Policy analysis
+
+**Policy question:** How can we increase living standards for the least well-off?
+
+- There are numerous state and federal .pink[social assistance programs] that provide cash or in-kind benefits.
+- **Examples:** .pink[Medicaid], .pink[SNAP] ("food stamps"), .pink[WIC] (benefits for young mothers and their children), .pink[free school lunches], .pink[public housing], .pink[Section 8] (housing vouchers), .pink[TANF] (cash "welfare"), .pink[EITC], *etc.*
+
+
+--
+
+**Q:** How well do these programs work? What are the tradeoffs?
+
+- Do the intended beneficiaries actually receive benefits?
+- Do people adjust their behavior when benefits become available?
+- Do particular programs have the intended consequence of reducing poverty?
+
+---
+# AFDC
+
+**Aid to Families with Dependent Children (AFDC)** provided cash benefits to (mostly) single mothers with incomes below a certain threshold.
+
+- Known colloquially as "welfare"
+- Created by the Social Security Act of 1935 (part of the [New Deal](https://en.wikipedia.org/wiki/New_Deal))
+- Replaced with a less-generous program in 1997 as a consequence of the [Personal Responsibility and Work Opportunity Act](https://en.wikipedia.org/wiki/Personal_Responsibility_and_Work_Opportunity_Act) ("welfare reform").super[.hi-pink[<span>&#8224;</span>]]
+
+.footnote[.super[.hi-pink[<span>&#8224;</span>]] For an engaging illustration of the motivations behind welfare reform and how it impacted the lives of recipients, check out [season 1](https://www.marketplace.org/shows/the-uncertain-hour/introducing-uncertain-hour/) of the [*Uncertain Hour*](https://www.marketplace.org/shows/the-uncertain-hour/) podcast.]
+
+
+---
+# AFDC
+
+.pull-left[
+.center[**Hypothetical benefit schedule**]
+```{r, dev = "svg", echo = F, fig.height = 5.25, fig.width = 5.5}
+need_level = 5000
+
+adfc_benefits <- function(x, need_level) {
+  benefit <- ifelse(x < need_level, need_level - x, 0)
+  return(benefit)
+}
+
+ggplot() + 
+  geom_vline(xintercept = need_level, color = met_slate, linetype = "dashed") +
+  annotate(
+    "label", label = '"Needs met"', x = need_level, y = need_level,
+    color = met_slate, family = "Fira Sans", size = 4,
+  ) +
+  stat_function(
+    data = tibble(x = 0:10000),
+    xlim = c(0, 10000),
+    aes(x = x),
+    fun = adfc_benefits,
+    args = list(need_level = need_level),
+    color = green,
+    size = 1
+  ) +
+  labs(x = "Labor income", y = "Benefit amount") +
+  scale_x_continuous(expand = c(0, 0), breaks = seq(0, 10000, 2000), labels = scales::dollar, limits = c(0, 11000)) +
+  scale_y_continuous(expand = c(0, 0), breaks = seq(0, 5000, 1000), labels = scales::dollar, limits = c(0, 5500)) +
+  theme_simple +
+  theme(axis.title.x = element_text(margin = margin(t = 10)),
+        axis.title.y = element_text(margin = margin(r = 10)))
+```
+]
+.pull-right[
+
+State and federal governments would determine how much money a family of a certain size would "need" to secure basic necessities.
+
+While specific income floors varied across household size and time, the general structure of the program was to **close the gap between need and income** until needs were met:
+
+.center[.hi-green[Benefit = Need .mono[-] Income]]
+
+
+]
+
+---
+# AFDC
+
+.pull-left[
+```{r, dev = "svg", echo = F, fig.height = 5.5, fig.width = 5.5}
+# parameters
+wage_level = 6
+other_income = 0
+offset_level = 0
+leisure_love = 0.4
+need_level = 60
+
+
+afdc_budget <- function(x, wage, need) {
+  benefit <- ifelse(wage * (24 - x) > need, wage * (24 - x), need)
+  return(benefit)
+} 
+
+optimal_x <-
+  optimize(
+    wage = wage_level,
+    non_labor_income = other_income,
+    offset = offset_level,
+    alpha = leisure_love
+  )
+optimal_y <-
+  budget(
+    x = optimal_x,
+    wage = wage_level,
+    non_labor_income = other_income
+  )
+max_utility <-
+  utility(
+    x = optimal_x,
+    y = optimal_y,
+    offset = offset_level,
+    alpha = leisure_love
+  )
+
+ggplot() + 
+  # Budget line
+  stat_function(
+    data = tibble(x = 0:24),
+    xlim = c(0, 24),
+    aes(x = x),
+    fun = budget,
+    args = list(wage = wage_level, non_labor_income = other_income),
+    color = green,
+    size = 1,
+    alpha = 1
+  ) +
+  labs(x = "Hours of leisure (L)", y = "Total income (Y)") +
+  scale_x_continuous(expand = c(0, 0), breaks = seq(0, 24, 4), limits = c(0, 25)) +
+  scale_y_continuous(expand = c(0, 0), breaks = seq(0, 160, 20), labels = scales::dollar, limits = c(0, 165)) +
+  theme_simple +
+  theme(axis.title.x = element_text(margin = margin(t = 10)),
+        axis.title.y = element_text(margin = margin(r = 10)))
+```
+]
+.pull-right[
+
+The AFDC benefit schedule **inserts a kink** into the budget constraint.
+
+]
+
+---
+count: false
+# AFDC
+
+.pull-left[
+```{r, dev = "svg", echo = F, fig.height = 5.5, fig.width = 5.5}
+ggplot() + 
+  # Budget line
+  stat_function(
+    data = tibble(x = 0:24),
+    xlim = c(0, 24),
+    aes(x = x),
+    fun = budget,
+    args = list(wage = wage_level, non_labor_income = other_income),
+    color = green,
+    size = 1,
+    alpha = 0.5
+  ) +
+  # AFDC budget
+  stat_function(
+    data = tibble(x = 0:24),
+    xlim = c(0, 24),
+    aes(x = x),
+    fun = afdc_budget,
+    args = list(wage = wage_level, need = need_level),
+    color = green,
+    size = 1
+  ) +
+  labs(x = "Hours of leisure (L)", y = "Total income (Y)") +
+  scale_x_continuous(expand = c(0, 0), breaks = seq(0, 24, 4), limits = c(0, 25)) +
+  scale_y_continuous(expand = c(0, 0), breaks = seq(0, 160, 20), labels = scales::dollar, limits = c(0, 165)) +
+  theme_simple +
+  theme(axis.title.x = element_text(margin = margin(t = 10)),
+        axis.title.y = element_text(margin = margin(r = 10)))
+```
+]
+.pull-right[
+
+The AFDC benefit schedule **inserts a kink** into the budget constraint.
+
+- **Q:** What is the level of need in this example?
+
+]
+
+---
+class: clear-slide
+
+**Q:** How would this worker respond to the introduction of AFDC benefits?
+```{r, dev = "svg", echo = F, fig.height = 5.75}
+ggplot() + 
+  # Budget line
+  stat_function(
+    data = tibble(x = 0:24),
+    xlim = c(0, 24),
+    aes(x = x),
+    fun = budget,
+    args = list(wage = wage_level, non_labor_income = other_income),
+    color = green,
+    size = 1,
+    alpha = 0.5
+  ) +
+  # best indifference curve
+  stat_function(
+    data = tibble(x = 1:24),
+    xlim = c(0, 24),
+    aes(x = x),
+    fun = ic,
+    args = list(k = max_utility, offset = offset_level, alpha = leisure_love),
+    color = red_pink,
+    size = 1,
+    alpha = 1
+  ) +
+  # AFDC budget
+  stat_function(
+    data = tibble(x = 0:24),
+    xlim = c(0, 24),
+    aes(x = x),
+    fun = afdc_budget,
+    args = list(wage = wage_level, need = need_level),
+    color = green,
+    size = 1
+  ) +
+  # dotted lines to show x and y
+  annotate(geom = "segment", x = 0, y = optimal_y, xend = optimal_x, yend = optimal_y,
+           linetype = "dashed", color = met_slate) +
+  annotate(geom = "segment", x = optimal_x, y = 0, xend = optimal_x, yend = optimal_y,
+           linetype = "dashed", color = met_slate) +
+  annotate(geom = "point", x = optimal_x, y = optimal_y, size = 2, color = met_slate) +
+  labs(x = "Hours of leisure (L)", y = "Total income (Y)") +
+  scale_x_continuous(expand = c(0, 0), breaks = seq(0, 24, 4), limits = c(0, 25)) +
+  scale_y_continuous(expand = c(0, 0), breaks = seq(0, 160, 20), labels = scales::dollar, limits = c(0, 165)) +
+  theme_simple +
+  theme(axis.title.x = element_text(margin = margin(t = 10)),
+        axis.title.y = element_text(margin = margin(r = 10)))
+```
+
+---
+class: clear-slide
+
+**Q:** How would this worker respond to the introduction of AFDC benefits?
+```{r, dev = "svg", echo = F, fig.height = 5.75}
+# parameter
+wage_level = 6
+other_income = 0
+offset_level = 0
+leisure_love = 0.25
+need_level = 60
+
+
+afdc_budget <- function(x, wage, need) {
+  benefit <- ifelse(wage * (24 - x) > need, wage * (24 - x), need)
+  return(benefit)
+} 
+
+optimal_x <-
+  optimize(
+    wage = wage_level,
+    non_labor_income = other_income,
+    offset = offset_level,
+    alpha = leisure_love
+  )
+optimal_y <-
+  budget(
+    x = optimal_x,
+    wage = wage_level,
+    non_labor_income = other_income
+  )
+max_utility <-
+  utility(
+    x = optimal_x,
+    y = optimal_y,
+    offset = offset_level,
+    alpha = leisure_love
+  )
+
+ggplot() + 
+  # Budget line
+  stat_function(
+    data = tibble(x = 0:24),
+    xlim = c(0, 24),
+    aes(x = x),
+    fun = budget,
+    args = list(wage = wage_level, non_labor_income = other_income),
+    color = green,
+    size = 1,
+    alpha = 0.5
+  ) +
+  # best indifference curve
+  stat_function(
+    data = tibble(x = 1:24),
+    xlim = c(0, 24),
+    aes(x = x),
+    fun = ic,
+    args = list(k = max_utility, offset = offset_level, alpha = leisure_love),
+    color = red_pink,
+    size = 1,
+    alpha = 1
+  ) +
+  # AFDC budget
+  stat_function(
+    data = tibble(x = 0:24),
+    xlim = c(0, 24),
+    aes(x = x),
+    fun = afdc_budget,
+    args = list(wage = wage_level, need = need_level),
+    color = green,
+    size = 1
+  ) +
+  # dotted lines to show x and y
+  annotate(geom = "segment", x = 0, y = optimal_y, xend = optimal_x, yend = optimal_y,
+           linetype = "dashed", color = met_slate) +
+  annotate(geom = "segment", x = optimal_x, y = 0, xend = optimal_x, yend = optimal_y,
+           linetype = "dashed", color = met_slate) +
+  annotate(geom = "point", x = optimal_x, y = optimal_y, size = 2, color = met_slate) +
+  labs(x = "Hours of leisure (L)", y = "Total income (Y)") +
+  scale_x_continuous(expand = c(0, 0), breaks = seq(0, 24, 4), limits = c(0, 25)) +
+  scale_y_continuous(expand = c(0, 0), breaks = seq(0, 160, 20), labels = scales::dollar, limits = c(0, 165)) +
+  theme_simple +
+  theme(axis.title.x = element_text(margin = margin(t = 10)),
+        axis.title.y = element_text(margin = margin(r = 10)))
+```
+
+---
+# TANF
+
+.pull-left[
+.center[**Hypothetical benefit schedule**]
+```{r, dev = "svg", echo = F, fig.height = 5.25, fig.width = 5.5}
+need_level = 5000
+phase_out_rate = 0.5
+
+tanf_benefits <- function(x, need_level, phase_out) {
+  benefit <- need_level - phase_out * x
+  return(benefit)
+}
+
+ggplot() + 
+  geom_vline(xintercept = need_level, color = met_slate, linetype = "dashed") +
+  annotate(
+    "label", label = '"Needs met"', x = need_level, y = need_level,
+    color = met_slate, family = "Fira Sans", size = 4,
+  ) +
+  stat_function(
+    data = tibble(x = 0:10000),
+    xlim = c(0, 10000),
+    aes(x = x),
+    fun = tanf_benefits,
+    args = list(need_level = need_level, phase_out = phase_out_rate),
+    color = green,
+    size = 1
+  ) +
+  labs(x = "Labor income", y = "Benefit amount") +
+  scale_x_continuous(expand = c(0, 0), breaks = seq(0, 10000, 2000), labels = scales::dollar, limits = c(0, 11000)) +
+  scale_y_continuous(expand = c(0, 0), breaks = seq(0, 5000, 1000), labels = scales::dollar, limits = c(0, 5500)) +
+  theme_simple +
+  theme(axis.title.x = element_text(margin = margin(t = 10)),
+        axis.title.y = element_text(margin = margin(r = 10)))
+```
+]
+.pull-right[
+
+**Temporary Assistance for Needy Families (TANF)** also provides "cash welfare" to low-income families.
+
+Beyond being less generous, on average, **TANF benefits "phase out"** so that the additional income from working longer is not completely offset by a reduction in benefits:
+
+.center[.hi-green[Benefit = Need .mono[-] Rate .mono[&times;] Income]]
+
+]
+
+---
+# TANF
+
+.pull-left[
+```{r, dev = "svg", echo = F, fig.height = 5.5, fig.width = 5.5}
+# parameters
+wage_level = 6
+other_income = 0
+phase_out_rate = 0.5
+need_level = 40
+
+benefits_exhuasted <- uniroot(function(x) wage_level * (24 - x) + (need_level - phase_out_rate * (24 - x) * wage_level) - budget(x, wage = wage_level, non_labor_income = 0), c(0, 100))$root
+
+tanf_budget <- function(x, wage, need, phase_out) {
+  benefit <- ifelse(x > benefits_exhuasted,  wage * (24 - x) + (need - phase_out * (24 - x) * wage), (24 - x) * wage)
+  return(benefit)
+} 
+
+ggplot() + 
+  # Budget line
+  stat_function(
+    data = tibble(x = 0:24),
+    xlim = c(0, 24),
+    aes(x = x),
+    fun = budget,
+    args = list(wage = wage_level, non_labor_income = other_income),
+    color = green,
+    size = 1,
+    alpha = 0.5
+  ) +
+  stat_function(
+    data = tibble(x = 0:24),
+    xlim = c(0, 24),
+    aes(x = x),
+    fun = tanf_budget,
+    args = list(wage = wage_level, phase_out = phase_out_rate, need = need_level),
+    color = green,
+    size = 1,
+    alpha = 1
+  ) +
+  labs(x = "Hours of leisure (L)", y = "Total income (Y)") +
+  scale_x_continuous(expand = c(0, 0), breaks = seq(0, 24, 4), limits = c(0, 25)) +
+  scale_y_continuous(expand = c(0, 0), breaks = seq(0, 160, 20), labels = scales::dollar, limits = c(0, 165)) +
+  theme_simple +
+  theme(axis.title.x = element_text(margin = margin(t = 10)),
+        axis.title.y = element_text(margin = margin(r = 10)))
+```
+]
+.pull-right[
+
+The TANF benefit schedule also **introduces a kink** in the budget constraint.
+
+- In this example, the phase-out rate is 50 cents on the dollar.
+
+]
+
+---
+class: clear-slide
+
+**Q:** How would this worker respond to the introduction of TANF benefits?
+```{r, dev = "svg", echo = F, fig.height = 5.75}
+# parameters
+wage_level = 6
+other_income = 0
+offset_level = 0
+leisure_love = 0.6
+phase_out_rate = 0.5
+need_level = 40
+
+benefits_exhuasted <- uniroot(function(x) wage_level * (24 - x) + (need_level - phase_out_rate * (24 - x) * wage_level) - budget(x, wage = wage_level, non_labor_income = 0), c(0, 100))$root
+
+tanf_budget <- function(x, wage, need, phase_out) {
+  benefit <- ifelse(x > benefits_exhuasted,  wage * (24 - x) + (need - phase_out * (24 - x) * wage), (24 - x) * wage)
+  return(benefit)
+} 
+
+optimal_x <-
+  optimize(
+    wage = wage_level,
+    non_labor_income = other_income,
+    offset = offset_level,
+    alpha = leisure_love
+  )
+optimal_y <-
+  budget(
+    x = optimal_x,
+    wage = wage_level,
+    non_labor_income = other_income
+  )
+max_utility <-
+  utility(
+    x = optimal_x,
+    y = optimal_y,
+    offset = offset_level,
+    alpha = leisure_love
+  )
+
+ggplot() + 
+  # Budget line
+  stat_function(
+    data = tibble(x = 0:24),
+    xlim = c(0, 24),
+    aes(x = x),
+    fun = budget,
+    args = list(wage = wage_level, non_labor_income = other_income),
+    color = green,
+    size = 1,
+    alpha = 0.5
+  ) +
+  # best indifference curve
+  stat_function(
+    data = tibble(x = 1:24),
+    xlim = c(0, 24),
+    aes(x = x),
+    fun = ic,
+    args = list(k = max_utility, offset = offset_level, alpha = leisure_love),
+    color = red_pink,
+    size = 1,
+    alpha = 1
+  ) +
+  # TANF budget
+  stat_function(
+    data = tibble(x = 0:24),
+    xlim = c(0, 24),
+    aes(x = x),
+    fun = tanf_budget,
+    args = list(wage = wage_level, need = need_level, phase_out = phase_out_rate),
+    color = green,
+    size = 1
+  ) +
+  # dotted lines to show x and y
+  annotate(geom = "segment", x = 0, y = optimal_y, xend = optimal_x, yend = optimal_y,
+           linetype = "dashed", color = met_slate) +
+  annotate(geom = "segment", x = optimal_x, y = 0, xend = optimal_x, yend = optimal_y,
+           linetype = "dashed", color = met_slate) +
+  annotate(geom = "point", x = optimal_x, y = optimal_y, size = 2, color = met_slate) +
+  labs(x = "Hours of leisure (L)", y = "Total income (Y)") +
+  scale_x_continuous(expand = c(0, 0), breaks = seq(0, 24, 4), limits = c(0, 25)) +
+  scale_y_continuous(expand = c(0, 0), breaks = seq(0, 160, 20), labels = scales::dollar, limits = c(0, 165)) +
+  theme_simple +
+  theme(axis.title.x = element_text(margin = margin(t = 10)),
+        axis.title.y = element_text(margin = margin(r = 10)))
+```
+
+---
+# EITC
+
+The **Earned Income Tax Credit (EITC)** is currently the largest cash benefit program in the United States.
+
+- First established in 1975; expanded several times thereafter
+- Allows individuals who file a tax return to collect a refundable tax credit if their income is below a certain threshold
+- By design, only those who work are able to receive the credit
+
+---
+# EITC
+
+.pull-left[
+.center[**Hypothetical benefit schedule**]
+```{r, dev = "svg", echo = F, fig.height = 5.25, fig.width = 5.5}
+phase_rate = 0.75
+max_benefit = 2500
+
+phase_in_kink <- max_benefit / phase_rate
+
+phase_in_region <- function(x, phase_rate) {
+  benefit <- x * phase_rate
+  return(benefit)
+}
+
+max_region <- function(x) {
+  benefit <- max_benefit
+  return(benefit)
+}
+
+phase_out_region <- function(x, phase_rate) {
+  benefit <- max_benefit - (x - phase_in_kink * 2) * phase_rate
+  return(benefit)
+}
+
+ggplot() + 
+  stat_function(
+    data = tibble(x = 0:10000),
+    xlim = c(0, phase_in_kink),
+    aes(x = x),
+    fun = phase_in_region,
+    args = list(phase_rate = phase_rate),
+    color = green,
+    size = 1
+  ) +
+  stat_function(
+    data = tibble(x = 0:10000),
+    xlim = c(phase_in_kink, phase_in_kink * 2),
+    aes(x = x),
+    fun = max_region,
+    color = green,
+    size = 1
+  ) +
+  stat_function(
+    data = tibble(x = 0:10000),
+    xlim = c(phase_in_kink * 2, 10000),
+    aes(x = x),
+    fun = phase_out_region,
+    args = list(phase_rate = phase_rate),
+    color = green,
+    size = 1
+  ) +
+  labs(x = "Labor income", y = "Benefit amount") +
+  scale_x_continuous(expand = c(0, 0), breaks = seq(0, 10000, 2000), labels = scales::dollar, limits = c(0, 11000)) +
+  scale_y_continuous(expand = c(0, 0), breaks = seq(0, 5000, 1000), labels = scales::dollar, limits = c(0, 5500)) +
+  theme_simple +
+  theme(axis.title.x = element_text(margin = margin(t = 10)),
+        axis.title.y = element_text(margin = margin(r = 10)))
+```
+]
+.pull-right[
+
+The EITC benefit schedule features a **phase-in** region and a **phase-out** region.
+
+Phase-in rates and maximum benefit levels vary by household size, marital status, and state.
+
+]
+
+---
+class: clear-slide
+
+**Q:** How do we visualize an EITC budget constraint? 
+```{r, dev = "svg", echo = F, fig.height = 5.75}
+budget <- function(x, wage, non_labor_income) {
+  wage * (24 - x) + non_labor_income
+}
+
+# parameters
+wage_level = 6
+other_income = 0
+
+ggplot() + 
+  # no eitc
+  stat_function(
+    data = tibble(x = 0:24),
+    # xlim = c(7 + 2/3, 24),
+    aes(x = x),
+    fun = budget,
+    args = list(wage = wage_level, non_labor_income = other_income),
+    color = green,
+    size = 1,
+    alpha = 1
+  ) +
+  labs(x = "Hours of leisure (L)", y = "Total income (Y)") +
+  scale_x_continuous(expand = c(0, 0), breaks = seq(0, 24, 4), limits = c(0, 25)) +
+  scale_y_continuous(expand = c(0, 0), breaks = seq(0, 160, 20), labels = scales::dollar, limits = c(0, 165)) +
+  theme_simple +
+  theme(axis.title.x = element_text(margin = margin(t = 10)),
+        axis.title.y = element_text(margin = margin(r = 10)))
+```
+
+---
+count: false
+class: clear-slide
+
+**Q:** How do we visualize an EITC budget constraint? 
+```{r, dev = "svg", echo = F, fig.height = 5.75}
+# parameters
+wage_level = 6
+other_income = 0
+
+ggplot() + 
+  # no eitc
+  stat_function(
+    data = tibble(x = 0:24),
+    xlim = c(7 + 2/3, 24),
+    aes(x = x),
+    fun = budget,
+    args = list(wage = wage_level, non_labor_income = other_income),
+    color = green,
+    size = 1,
+    alpha = 0.6
+  ) +
+  # phase-in
+  stat_function(
+    data = tibble(x = 0:24),
+    xlim = c(20, 24),
+    aes(x = x),
+    fun = budget,
+    args = list(wage = wage_level + 8, non_labor_income = other_income),
+    color = green,
+    size = 1,
+    alpha = 1
+  ) +
+  # max benefit
+  stat_function(
+    data = tibble(x = 0:24),
+    xlim = c(14, 20),
+    aes(x = x),
+    fun = budget,
+    args = list(wage = wage_level, non_labor_income = other_income + wage_level * (5 + 1/3)),
+    color = green,
+    size = 1,
+    alpha = 1
+  ) +
+  # phase-out
+  stat_function(
+    data = tibble(x = 0:24),
+    xlim = c(7 + 2/3, 14),
+    aes(x = x),
+    fun = budget,
+    args = list(wage = wage_level - 5, non_labor_income = other_income + wage_level * (14 - 1/3)),
+    color = green,
+    size = 1,
+    alpha = 1
+  ) +
+  # no benefit
+  stat_function(
+    data = tibble(x = 0:24),
+    xlim = c(0, 7 + 2/3),
+    aes(x = x),
+    fun = budget,
+    args = list(wage = wage_level, non_labor_income = other_income),
+    color = green,
+    size = 1,
+    alpha = 1
+  ) +
+  labs(x = "Hours of leisure (L)", y = "Total income (Y)") +
+  scale_x_continuous(expand = c(0, 0), breaks = seq(0, 24, 4), limits = c(0, 25)) +
+  scale_y_continuous(expand = c(0, 0), breaks = seq(0, 160, 20), labels = scales::dollar, limits = c(0, 165)) +
+  theme_simple +
+  theme(axis.title.x = element_text(margin = margin(t = 10)),
+        axis.title.y = element_text(margin = margin(r = 10)))
+```
+
+---
+class: clear-slide
+
+**Q:** How does the EITC affect labor supply? (Case 1)
+```{r, dev = "svg", echo = F, fig.height = 5.75}
+# parameters
+wage_level = 6
+other_income = 0
+
+ggplot() + 
+  # no eitc
+  stat_function(
+    data = tibble(x = 0:24),
+    xlim = c(7 + 2/3, 24),
+    aes(x = x),
+    fun = budget,
+    args = list(wage = wage_level, non_labor_income = other_income),
+    color = green,
+    size = 1,
+    alpha = 0.6
+  ) +
+  # phase-in
+  stat_function(
+    data = tibble(x = 0:24),
+    xlim = c(20, 24),
+    aes(x = x),
+    fun = budget,
+    args = list(wage = wage_level + 8, non_labor_income = other_income),
+    color = green,
+    size = 1,
+    alpha = 1
+  ) +
+  # max benefit
+  stat_function(
+    data = tibble(x = 0:24),
+    xlim = c(14, 20),
+    aes(x = x),
+    fun = budget,
+    args = list(wage = wage_level, non_labor_income = other_income + wage_level * (5 + 1/3)),
+    color = green,
+    size = 1,
+    alpha = 1
+  ) +
+  # phase-out
+  stat_function(
+    data = tibble(x = 0:24),
+    xlim = c(7 + 2/3, 14),
+    aes(x = x),
+    fun = budget,
+    args = list(wage = wage_level - 5, non_labor_income = other_income + wage_level * (14 - 1/3)),
+    color = green,
+    size = 1,
+    alpha = 1
+  ) +
+  # no benefit
+  stat_function(
+    data = tibble(x = 0:24),
+    xlim = c(0, 7 + 2/3),
+    aes(x = x),
+    fun = budget,
+    args = list(wage = wage_level, non_labor_income = other_income),
+    color = green,
+    size = 1,
+    alpha = 1
+  ) +
+  labs(x = "Hours of leisure (L)", y = "Total income (Y)") +
+  scale_x_continuous(expand = c(0, 0), breaks = seq(0, 24, 4), limits = c(0, 25)) +
+  scale_y_continuous(expand = c(0, 0), breaks = seq(0, 160, 20), labels = scales::dollar, limits = c(0, 165)) +
+  theme_simple +
+  theme(axis.title.x = element_text(margin = margin(t = 10)),
+        axis.title.y = element_text(margin = margin(r = 10)))
+```
+
+---
+class: clear-slide
+
+**Q:** How does the EITC affect labor supply? (Case 2)
+```{r, dev = "svg", echo = F, fig.height = 5.75}
+# parameters
+wage_level = 6
+other_income = 0
+
+ggplot() + 
+  # no eitc
+  stat_function(
+    data = tibble(x = 0:24),
+    xlim = c(7 + 2/3, 24),
+    aes(x = x),
+    fun = budget,
+    args = list(wage = wage_level, non_labor_income = other_income),
+    color = green,
+    size = 1,
+    alpha = 0.6
+  ) +
+    # phase-in
+  stat_function(
+    data = tibble(x = 0:24),
+    xlim = c(20, 24),
+    aes(x = x),
+    fun = budget,
+    args = list(wage = wage_level + 8, non_labor_income = other_income),
+    color = green,
+    size = 1,
+    alpha = 1
+  ) +
+  # max benefit
+  stat_function(
+    data = tibble(x = 0:24),
+    xlim = c(14, 20),
+    aes(x = x),
+    fun = budget,
+    args = list(wage = wage_level, non_labor_income = other_income + wage_level * (5 + 1/3)),
+    color = green,
+    size = 1,
+    alpha = 1
+  ) +
+  # phase-out
+  stat_function(
+    data = tibble(x = 0:24),
+    xlim = c(7 + 2/3, 14),
+    aes(x = x),
+    fun = budget,
+    args = list(wage = wage_level - 5, non_labor_income = other_income + wage_level * (14 - 1/3)),
+    color = green,
+    size = 1,
+    alpha = 1
+  ) +
+  # no benefit
+  stat_function(
+    data = tibble(x = 0:24),
+    xlim = c(0, 7 + 2/3),
+    aes(x = x),
+    fun = budget,
+    args = list(wage = wage_level, non_labor_income = other_income),
+    color = green,
+    size = 1,
+    alpha = 1
+  ) +
+  labs(x = "Hours of leisure (L)", y = "Total income (Y)") +
+  scale_x_continuous(expand = c(0, 0), breaks = seq(0, 24, 4), limits = c(0, 25)) +
+  scale_y_continuous(expand = c(0, 0), breaks = seq(0, 160, 20), labels = scales::dollar, limits = c(0, 165)) +
+  theme_simple +
+  theme(axis.title.x = element_text(margin = margin(t = 10)),
+        axis.title.y = element_text(margin = margin(r = 10)))
+```
+
+---
+class: clear-slide
+
+**Q:** How does the EITC affect labor supply? (Case 3)
+```{r, dev = "svg", echo = F, fig.height = 5.75}
+# parameters
+wage_level = 6
+other_income = 0
+
+ggplot() + 
+  # no eitc
+  stat_function(
+    data = tibble(x = 0:24),
+    xlim = c(7 + 2/3, 24),
+    aes(x = x),
+    fun = budget,
+    args = list(wage = wage_level, non_labor_income = other_income),
+    color = green,
+    size = 1,
+    alpha = 0.6
+  ) +
+    # phase-in
+  stat_function(
+    data = tibble(x = 0:24),
+    xlim = c(20, 24),
+    aes(x = x),
+    fun = budget,
+    args = list(wage = wage_level + 8, non_labor_income = other_income),
+    color = green,
+    size = 1,
+    alpha = 1
+  ) +
+  # max benefit
+  stat_function(
+    data = tibble(x = 0:24),
+    xlim = c(14, 20),
+    aes(x = x),
+    fun = budget,
+    args = list(wage = wage_level, non_labor_income = other_income + wage_level * (5 + 1/3)),
+    color = green,
+    size = 1,
+    alpha = 1
+  ) +
+  # phase-out
+  stat_function(
+    data = tibble(x = 0:24),
+    xlim = c(7 + 2/3, 14),
+    aes(x = x),
+    fun = budget,
+    args = list(wage = wage_level - 5, non_labor_income = other_income + wage_level * (14 - 1/3)),
+    color = green,
+    size = 1,
+    alpha = 1
+  ) +
+  # no benefit
+  stat_function(
+    data = tibble(x = 0:24),
+    xlim = c(0, 7 + 2/3),
+    aes(x = x),
+    fun = budget,
+    args = list(wage = wage_level, non_labor_income = other_income),
+    color = green,
+    size = 1,
+    alpha = 1
+  ) +
+  labs(x = "Hours of leisure (L)", y = "Total income (Y)") +
+  scale_x_continuous(expand = c(0, 0), breaks = seq(0, 24, 4), limits = c(0, 25)) +
+  scale_y_continuous(expand = c(0, 0), breaks = seq(0, 160, 20), labels = scales::dollar, limits = c(0, 165)) +
+  theme_simple +
+  theme(axis.title.x = element_text(margin = margin(t = 10)),
+        axis.title.y = element_text(margin = margin(r = 10)))
+```
+
+---
+# Housekeeping
+
+**Assigned reading for Monday:** [Effective policy for reducing poverty and inequality? The
+Earned Income Tax Credit and the distribution of income](http://jhr.uwpress.org/content/early/2017/07/05/jhr.53.4.1115.7494R1.abstract) by Hilary Hoynes and Ankur Patel (2018).
+
+- Reading Quiz 4 due by Monday, January 31st at 12pm (noon).
+- Non-technical sections and main figures (see quiz instructions)
+
+**Problem Set 1** due by Friday, January 28th at 11:59pm.
+
+- Office hours today 4-5pm (via Zoom or in 522 PLC).
