@@ -25,7 +25,7 @@ The HTML versions of the lecture slides allow you to view animations and interac
 
 7. **Welfare and Work Incentives** <br> [.html](https://raw.githack.com/kyleraze/EC350_Labor_Economics/master/Lectures/07-Work_Incentives/07-Work_Incentives.html) | [.pdf](https://raw.githack.com/kyleraze/EC350_Labor_Economics/master/Lectures/07-Work_Incentives/07-Work_Incentives.pdf)
 
-8. **The Employer's Dilemma** <br> [.html](https://raw.githack.com/kyleraze/EC350_Labor_Economics/master/Lectures/07-Employers/07-Employers.html) | [.pdf](https://raw.githack.com/kyleraze/EC350_Labor_Economics/master/Lectures/07-Employers/07-Employers.pdf)
+8. **The Employer's Dilemma** <br> [.html](https://raw.githack.com/kyleraze/EC350_Labor_Economics/master/Lectures/08-Employers/08-Employers.html) | [.pdf](https://raw.githack.com/kyleraze/EC350_Labor_Economics/master/Lectures/08-Employers/08-Employers.pdf)
 
 9. **Robots and Taxes** <br> [.html](https://raw.githack.com/kyleraze/EC350_Labor_Economics/master/Lectures/08-Robots_Taxes/08-Robots_Taxes.html) | [.pdf](https://raw.githack.com/kyleraze/EC350_Labor_Economics/master/Lectures/08-Robots_Taxes/08-Robots_Taxes.pdf)
 
