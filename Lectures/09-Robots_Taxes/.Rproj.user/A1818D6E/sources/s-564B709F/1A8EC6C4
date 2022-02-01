@@ -1,0 +1,26 @@
+{
+    "id": "1A8EC6C4",
+    "path": "~/GitHub/Intro_Labor_W22/Lectures/09-Robots_Taxes/make_pdf.R",
+    "project_path": "make_pdf.R",
+    "type": "r_source",
+    "hash": "0",
+    "contents": "",
+    "dirty": false,
+    "created": 1643751610693.0,
+    "source_on_save": false,
+    "relative_order": 2,
+    "properties": {
+        "source_window_id": "",
+        "Source": "Source",
+        "cursorPosition": "6,0",
+        "scrollLine": "0"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1643751617,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1643751617886,
+    "read_only": false,
+    "read_only_alternatives": []
+}

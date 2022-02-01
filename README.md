@@ -27,7 +27,7 @@ The HTML versions of the lecture slides allow you to view animations and interac
 
 8. **The Employer's Dilemma** <br> [.html](https://raw.githack.com/kyleraze/EC350_Labor_Economics/master/Lectures/08-Employers/08-Employers.html) | [.pdf](https://raw.githack.com/kyleraze/EC350_Labor_Economics/master/Lectures/08-Employers/08-Employers.pdf)
 
-9. **Robots and Taxes** <br> [.html](https://raw.githack.com/kyleraze/EC350_Labor_Economics/master/Lectures/08-Robots_Taxes/08-Robots_Taxes.html) | [.pdf](https://raw.githack.com/kyleraze/EC350_Labor_Economics/master/Lectures/08-Robots_Taxes/08-Robots_Taxes.pdf)
+9. **Robots and Taxes** <br> [.html](https://raw.githack.com/kyleraze/EC350_Labor_Economics/master/Lectures/09-Robots_Taxes/09-Robots_Taxes.html) | [.pdf](https://raw.githack.com/kyleraze/EC350_Labor_Economics/master/Lectures/09-Robots_Taxes/09-Robots_Taxes.pdf)
 
 10. **Labor Markets** <br> [.html](https://raw.githack.com/kyleraze/EC350_Labor_Economics/master/Lectures/09-Labor_Markets/09-Labor_Markets.html) | [.pdf](https://raw.githack.com/kyleraze/EC350_Labor_Economics/master/Lectures/09-Labor_Markets/09-Labor_Markets.pdf)
 

@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Robots and Taxes</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Kyle Raze" />
+    <script src="09-Robots_Taxes_files/header-attrs/header-attrs.js"></script>
+    <link href="09-Robots_Taxes_files/remark-css/default.css" rel="stylesheet" />
+    <link href="09-Robots_Taxes_files/remark-css/metropolis.css" rel="stylesheet" />
+    <link href="09-Robots_Taxes_files/remark-css/metropolis-fonts.css" rel="stylesheet" />
+    <script src="09-Robots_Taxes_files/fabric/fabric.min.js"></script>
+    <link href="09-Robots_Taxes_files/xaringanExtra-scribble/scribble.css" rel="stylesheet" />
+    <script src="09-Robots_Taxes_files/xaringanExtra-scribble/scribble.js"></script>
+    <script>document.addEventListener('DOMContentLoaded', function() { window.xeScribble = new Scribble({"pen_color":["#FF0000"],"pen_size":3,"eraser_size":30,"palette":[]}) })</script>
+    <link rel="stylesheet" href="my-css.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Robots and Taxes
+## EC 350: Labor Economics
+### <a href="https://kyleraze.com">Kyle Raze</a>
+### Winter 2022
+
+---
+
+
+
+
+# Agenda
+
+1. Factor demand
+    - Hiring in the short run (review)
+    - Hiring in the long run
+    - Labor demand curve
+3. Robot tax, featuring Bill Gates
+
+---
+class: inverse, middle
+
+# Factor demand
+
+---
+# Short run *vs.* long run
+
+## **Short run**
+
+&gt; The time span over which a business can adjust some inputs (*e.g.,* labor), but cannot adjust others (*e.g.,* capital).
+
+In the short run, we will assume that the level of employment **E** can vary, but capital **K** is fixed at an initial level **K.sub[0]**.
+
+- **Example:** A shop foreman can hire or fire workers or adjust hours, but they are unable to expand the factory by adding assembly lines, heavy machinery, or a new building.
+
+---
+# Short run *vs.* long run
+
+## **Long run**
+
+&gt; The time span over which a business can adjust all inputs.
+
+In the long-run, we will assume that both the level of employment **E** and capital **K** can vary.
+
+- **Example:** An office manager can hire or fire workers, adjust hours, buy or sell desks and computers, or lease new office space.
+
+---
+# Hiring in the short run
+
+.pull-left[
+&lt;img src="09-Robots_Taxes_files/figure-html/unnamed-chunk-1-1.svg" style="display: block; margin: auto;" /&gt;
+]
+.pull-right[
+
+## **Profit maximization**
+
+An employer maximizes profit by hiring `\(E^*\)` workers where `\(w = \text{MRP}_E\)` and `\(\text{MRP}_E\)` is decreasing.
+
+]
+
+---
+# Hiring in the short run
+
+.pull-left[
+&lt;img src="09-Robots_Taxes_files/figure-html/unnamed-chunk-2-1.svg" style="display: block; margin: auto;" /&gt;
+]
+.pull-right[
+
+## .hi-purple[Labor demand]
+
+The portion of the MRP curve below the VAP curve traces out the .hi-purple[short-run labor demand] curve.
+
+- Describes how an employer adjusts employment as the market wage changes, holding other inputs constant.
+- **Downward sloping:** An employer wants to reduce staffing as the wage increases, *all else equal*.
+
+]
+
+---
+# Hiring in the long run
+
+## **Profit maximization**
+
+In the long run, employers have the flexibility to adjust both labor and capital.
+
+**Q:** How does the intuition for long-run factor demand compare to the intuition for the short run?
+
+--
+
+**A:** Employers will still make decisions ***at the margin*!**
+
+- The underlying model is more elaborate and **our time is scarce**, so we will forgo a full derivation of the long-run profit maximization conditions.
+
+---
+# Hiring in the long run
+
+## **Profit maximization**
+
+As in the short run, an employer will choose the profit-maximizing level of employment `\(E^*\)` such that `$$\begin{align} w &amp;= \text{MRP}_E \\ &amp;= p \times \text{MP}_E \end{align}$$`
+
+--
+
+- The employer will keep hiring until the **marginal cost** of the last worker **equals** the **marginal benefit** of the last worker.
+
+
+--
+
+Likewise, an employer will choose the profit-maximizing quantity of capital `\(K^*\)` such that `$$\begin{align} r &amp;= \text{MRP}_K \\ &amp;= p \times \text{MP}_K \end{align}$$`
+
+--
+
+- The employer will keep purchasing capital until the **marginal cost** of the last unit of capital **equals** the **marginal benefit** of the last unit of capital.
+
+---
+# Hiring in the long run
+
+## **Intuition?**
+
+At the optimal, profit-maximizing bundle of labor and capital, we have `$$\begin{align} w = p \times \text{MP}_E &amp;&amp; r = p \times \text{MP}_K \end{align}$$`
+
+--
+
+Dividing by marginal product, we obtain `$$\begin{align} p = \dfrac{w}{\text{MP}_E} &amp;&amp; p = \dfrac{r}{\text{MP}_K} \end{align}$$`
+
+--
+
+Now we can equate both conditions to obtain the **long-run profit maximization condition** `$$\begin{align} \dfrac{w}{\text{MP}_E} = \dfrac{r}{\text{MP}_K} \end{align}$$`
+
+---
+# Hiring in the long run
+
+## **Intuition?**
+
+**Q:** What can we learn from the long-run profit maximization condition? `$$\begin{align} \dfrac{w}{\text{MP}_E} = \dfrac{r}{\text{MP}_K} \end{align}$$`
+
+- `\(\dfrac{w}{\text{MP}_E}\)` represents the cost of producing one more unit of output using labor.
+- `\(\dfrac{r}{\text{MP}_K}\)` represents the cost of producing one more unit of output using capital.
+
+
+--
+
+**A:** At the profit-maximizing bundle, it would **not** be **cheaper to change** the mix of inputs.
+
+- If it were cheaper to use relatively more labor than capital (or vice versa), then a **profit-maximizing employer would have already made the adjustment** (in the long run).
+
+---
+# Hiring in the long run
+
+## **Intuition?**
+
+Suppose that `\(w = 10\)`, `\(\text{MP}_E = 15\)`, `\(r = 5\)`, and `\(\text{MP}_K = 10\)`. Then `$$\dfrac{w}{\text{MP}_E} = \dfrac{r}{\text{MP}_K} \implies \dfrac{10}{15} = \dfrac{5}{10} \implies \dfrac{2}{3} \neq \dfrac{1}{2}$$`
+
+--
+
+This employer is not profit maximizing!
+
+- The cost of producing one more unit of output using labor exceeds the cost of producing one more unit using capital.
+- It would be **more profitable** to use (relatively) **more capital** or **less labor**!
+
+---
+# Hiring in the long run
+
+**Q:** How does an employer respond to an increase in the market wage?
+
+--
+
+- **A.sub[1]:** The employer will respond by hiring fewer workers.
+
+--
+
+
+- **A.sub[2]:** The employer will adjust the level of capital, but the direction is theoretically ambiguous.
+    - When the number of workers decreases, there are fewer people on each machine, which can reduce `\(\text{MP}_K\)`.
+    - The direction of the response will depends on the **scale** and **substitution** effects.
+
+---
+# Hiring in the long run
+
+## **Scale effect**
+
+Other things being equal, a **decrease** in the **price** of an input will **increase** the **quantity demanded** of that input.
+
+- If the cost of production decreases, the employer will want to "scale up" production of the output good.
+- Conversely, if the cost of production increases, the employer will "scale back" production.
+--
+
+- Analogous to the wealth effect for a worker..super[.hi-pink[&lt;span&gt;&amp;#8224;&lt;/span&gt;]]
+
+.footnote[.super[.hi-pink[&lt;span&gt;&amp;#8224;&lt;/span&gt;]] We assume that labor and capital are "normal" inputs&amp;mdash;production increases as the amount of labor and capital increase.]
+
+
+---
+# Hiring in the long run
+
+## **Substitution effect**
+
+Other things being equal, if the price of an input increases, **demand for the other input increases.**
+
+- If labor becomes **relatively more expensive** than capital, then the employer will want to **substitute away** from labor and toward capital.
+- If labor becomes **relatively cheaper** than capital, then the employer will want to **substitute toward** labor and away from capital.
+--
+
+- Analogous to the substitution effect for the worker.
+
+---
+# Hiring in the long run
+
+## **Scale and substitution effects**
+
+**Q:** How would a employer respond to an increase in the market wage?
+
+
+|                     | Scale effect | Substitution effect |
+|:-------------------:|:------------:|:-------------------:|
+| `\(\Delta\)` in labor   | `\(-\)`          | `\(-\)`                 |
+| `\(\Delta\)` in capital | `\(-\)`          | `\(+\)`                 |
+
+--
+
+**A.sub[K]:** For capital, it depends.
+
+- If the scale effect dominates the substitution effect, then capital will eventually decrease.
+
+--
+
+**A.sub[E]:** For labor, the effect is unambiguous.
+
+- The scale effect and substitution effect will move in the same direction for the input that undergoes a change in price.
+
+---
+# Hiring in the long run
+
+## **Scale and substitution effects**
+
+**Q:** What determines whether the scale or substitution effect dominates?
+
+--
+
+**A:** Whether labor and capital are .hi-pink[substitutes] or .hi-purple[complements].
+
+--
+
+- .hi-pink[Substitutes:] Inputs used in place of one another.
+    - Self-checkout kiosk *vs.* cashier
+    - Tax prep software *vs.* accountant
+    - Robot *vs.* low-skill worker?
+- .hi-purple[Complements:] Inputs used together.
+    - Carpenter and hammer
+    - Mail carrier and mail truck
+    - Robot and high-skill worker?
+
+
+---
+# Hiring in the long run
+
+### .hi-pink[Substitutes]
+
+&gt; Inputs used in place of one another.
+
+Two inputs are said to be substitutes if the price of one input changes the demand of the other input .hi-pink[in the same direction.]
+
+- Substitution effect outweighs the scale effect.
+
+--
+
+### .hi-purple[Complements]
+
+&gt; Inputs used together.
+
+Two inputs are said to be complements if the price of one input changes the demand of the other input .hi-purple[in the opposite direction.]
+
+- Scale effect outweighs the substitution effect.
+
+---
+# Hiring in the long run
+
+### **Cross-elasticity of factor demand**
+
+&gt; A unit-free measure of the responsiveness of demand for one input to a change in the price of the other. 
+
+**Labor responsiveness** to a change in the price of capital: `$$\eta = \dfrac{\%\Delta E}{\%\Delta r} = \dfrac{(E_2 - E_1) / E_1}{(r_2 - r_1) / r_1}$$`
+
+**Capital responsiveness** to a change in the price of labor: `$$\eta = \dfrac{\%\Delta K}{\%\Delta w} = \dfrac{(K_2 - K_1) / K_1}{(w_2 - w_1) / w_1}$$`
+
+--
+
+`\(\eta &gt; 0\)` .mono[--&gt;] substitutes .mono[--&gt;] substitution effect dominates. &lt;br&gt;
+`\(\eta &lt; 0\)` .mono[--&gt;] complements .mono[--&gt;] scale effect dominates.
+
+---
+# Hiring in the long run
+
+### **Cross-elasticity of factor demand**
+
+&gt; A unit-free measure of the responsiveness of demand for one input to a change in the price of the other. 
+
+**Q:** What is the cross-elasticity of factor demand implied by the data below?
+
+|  Month   | Rental rate of capital | Hourly wage | Units of capital | Hours of labor |
+|:--------:|:----------------------:|:-----------:|:----------------:|:--------------:|
+| January  | 20                     | 15          | 5                | 60             |
+| February | 25                     | 15          | 1                | 80             |
+
+--
+
+**A:** Roughly 0.42.
+
+--
+
+`$$\eta = \dfrac{\%\Delta E}{\%\Delta r} = \dfrac{(E_2 - E_1) / E_1}{(r_2 - r_1) / r_1} = \dfrac{(80-60)/60}{(5-1)/5} = \dfrac{1/3}{4/5} = \dfrac{5}{12} \approx 0.42$$`
+
+---
+# Hiring in the long run
+
+### **Cross-elasticity of factor demand**
+
+&gt; A unit-free measure of the responsiveness of demand for one input to a change in the price of the other. 
+
+**Q:** How do we interpret the cross-elasticity of factor demand we just calculated? What does 0.42 tell us?
+
+--
+
+**A.sub[1]:** A 1-percent increase in the price of capital .mono[--&gt;] 0.42-percent increase in labor demanded.
+
+--
+
+**A.sub[2]:** Labor and capital are substitutes.
+
+- Substitution effect .mono[&gt;] scale effect
+
+---
+# Market labor demand curve
+
+.pull-left[
+&lt;img src="09-Robots_Taxes_files/figure-html/unnamed-chunk-3-1.svg" style="display: block; margin: auto;" /&gt;
+]
+.pull-right[
+
+**Q:** Why is the short-run labor demand curve (.hi-purple[D.sub[SR]]) steeper than the short-run labor demand curve (.hi-purple[D.sub[LR]])?
+
+
+]
+
+---
+count: false
+# Market labor demand curve
+
+.pull-left[
+&lt;img src="09-Robots_Taxes_files/figure-html/unnamed-chunk-4-1.svg" style="display: block; margin: auto;" /&gt;
+]
+.pull-right[
+
+**Q:** Why is the short-run labor demand curve (.hi-purple[D.sub[SR]]) steeper than the short-run labor demand curve (.hi-purple[D.sub[LR]])?
+
+**A:** Firms have fewer alternatives to labor in the short run .mono[--&gt;] less responsive to changes in the wage.
+]
+
+---
+# Responsiveness
+
+### **Labor demand elasticity**
+
+&gt; A unit-free measure of the responsiveness of the quantity of labor demanded to changes in the wage. 
+
+`$$\epsilon_d = \dfrac{\%\Delta E}{\%\Delta w} = \dfrac{(E_2 - E_1) / E_1}{(w_2 - w_1) / w_1} \leq 0$$`
+
+--
+
+**Interpretation?** A 1-percent increase in wages .mono[--&gt;] `\(|\epsilon_d|\)`-percent decrease in labor demanded.
+
+---
+# Responsiveness
+
+### **Labor demand elasticity**
+
+&gt; A unit-free measure of the responsiveness of the quantity of labor demanded to changes in the wage. 
+
+**Q:** What is the labor demand elasticity implied by the data below?
+
+|  Month | Hourly wage | Hours of labor |
+|:------:|:-----------:|:--------------:|
+| June   | 15          | 120            | 
+| July   | 20          | 60             | 
+
+--
+
+**A:** -1.5.
+
+--
+
+`$$\epsilon_d = \dfrac{\%\Delta E}{\%\Delta w} = \dfrac{(E_2 - E_1) / E_1}{(w_2 - w_1) / w_1} = \dfrac{(60 - 120) / 120}{(20 - 15) / 15} = \dfrac{-1/2}{1/3} = -1.5$$`
+
+
+---
+class: inverse, middle
+
+# Robot tax, featuring Bill Gates
+
+---
+class: clear-slide
+
+&lt;iframe 
+  src="https://www.youtube.com/embed/nccryZOcrUg" frameborder="0"  allowfullscreen
+  allow="
+    accelerometer; 
+    autoplay; 
+    clipboard-write; 
+    encrypted-media; 
+    gyroscope; 
+    picture-in-picture
+  "
+  style="
+    position: fixed;
+    top: 0px;
+    bottom: 0px;
+    right: 0px;
+    width: 100%;
+    border: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    z-index: 999999;
+    height: 100%;
+  "&gt;
+  &lt;/iframe&gt;
+
+---
+# Robot tax, featuring Bill Gates
+
+## **Discussion**
+
+**Q:** How would a robot tax affect... 
+
+- The relative price of robots (capital)?
+- The employment of robots (capital) in the long run?
+- The employment of labor in the long run?
+    - Low-wage labor (*e.g.,* fast food workers, manual laborers, dishwashers, *etc.*)?
+    - High-wage labor (*e.g.,* surgeons, engineers, software developers, *etc.*)?
+- Tax revenue?
+
+
+--
+
+**Q:** Should we do it?
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="https://platform.twitter.com/widgets.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
