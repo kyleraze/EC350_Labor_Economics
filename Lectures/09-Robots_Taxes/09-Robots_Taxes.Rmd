@@ -454,11 +454,11 @@ $\eta < 0$ .mono[-->] complements .mono[-->] scale effect dominates.
 
 --
 
-**A:** Roughly 0.42.
+**A:** Roughly 1.33.
 
 --
 
-$$\eta = \dfrac{\%\Delta E}{\%\Delta r} = \dfrac{(E_2 - E_1) / E_1}{(r_2 - r_1) / r_1} = \dfrac{(80-60)/60}{(5-1)/5} = \dfrac{1/3}{4/5} = \dfrac{5}{12} \approx 0.42$$
+$$\eta = \dfrac{\%\Delta E}{\%\Delta r} = \dfrac{(E_2 - E_1) / E_1}{(r_2 - r_1) / r_1} = \dfrac{(80-60)/60}{(25-20)/20} = \dfrac{1/3}{1/4} = \dfrac{4}{3} \approx 1.33$$
 
 ---
 # Hiring in the long run
@@ -467,11 +467,11 @@ $$\eta = \dfrac{\%\Delta E}{\%\Delta r} = \dfrac{(E_2 - E_1) / E_1}{(r_2 - r_1) 
 
 > A unit-free measure of the responsiveness of demand for one input to a change in the price of the other. 
 
-**Q:** How do we interpret the cross-elasticity of factor demand we just calculated? What does 0.42 tell us?
+**Q:** How do we interpret the cross-elasticity of factor demand we just calculated? What does 1.33 tell us?
 
 --
 
-**A.sub[1]:** A 1-percent increase in the price of capital .mono[-->] 0.42-percent increase in labor demanded.
+**A.sub[1]:** A 1-percent increase in the price of capital .mono[-->] 1.33-percent increase in labor demanded.
 
 --
 
