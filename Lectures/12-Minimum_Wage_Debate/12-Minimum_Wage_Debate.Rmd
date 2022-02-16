@@ -2,7 +2,7 @@
 title: "The Great Minimum Wage Debate"
 subtitle: "EC 350: Labor Economics"
 author: "[Kyle Raze](https://kyleraze.com)"
-date: "Spring 2021"
+date: "Winter 2022"
 output:
   xaringan::moon_reader:
     css: ['default', 'metropolis', 'metropolis-fonts', 'my-css.css']
@@ -884,9 +884,9 @@ Perhaps we should expect **heterogeneous effects?**
 ---
 # Housekeeping
 
-**Assigned reading for Wednesday:** [Minimum Wage Increases, Wages, and Low-Wage Employment: Evidence from Seattle](https://www.nber.org/papers/w23532) by Ekaterina Jardim and coauthors (2017).
+**Assigned reading for Monday:** [Minimum Wage Increases, Wages, and Low-Wage Employment: Evidence from Seattle](https://www.nber.org/papers/w23532) by Ekaterina Jardim and coauthors (2017).
 
-- Reading Quiz 7 is due by **Wednesday, May 12th at 16:00**.
+- Reading Quiz 7 is due by **Monday, February 21st at 12:00pm (noon)**.
 - The quiz instructions will include a reading guide.
 
 
