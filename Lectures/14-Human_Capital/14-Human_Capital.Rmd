@@ -2,7 +2,7 @@
 title: "Human Capital"
 subtitle: "EC 350: Labor Economics"
 author: "[Kyle Raze](https://kyleraze.com)"
-date: "Spring 2021"
+date: "Winter 2022"
 output:
   xaringan::moon_reader:
     css: ['default', 'metropolis', 'metropolis-fonts', 'my-css.css']
@@ -283,7 +283,7 @@ $$\text{PV} = \dfrac{y}{(1 + r)^t}$$
 
 --
 
-**A:** 826.45 dollars and 45 cents. $$\begin{align} \text{PV} &= \dfrac{y}{(1 + r)^t} = \dfrac{1000}{(1 + 0.1)^2} = \dfrac{1000}{1.1^2} = \dfrac{1000}{1.21} = 826.45  \end{align}$$
+**A:** 826 dollars and 45 cents. $$\begin{align} \text{PV} &= \dfrac{y}{(1 + r)^t} = \dfrac{1000}{(1 + 0.1)^2} = \dfrac{1000}{1.1^2} = \dfrac{1000}{1.21} = 826.45  \end{align}$$
 
 ---
 # Education as investment
@@ -765,4 +765,4 @@ A .purple[higher-ability individual] "gets more" out of the same amount of schoo
 ---
 # Housekeeping
 
-**Problem Set 3** due Sunday, **May 23rd**  by 11:59pm PDT.
+Problem Set 3 is due by **~~Friday, February 25th~~** **Monday, February 28th at 11:59pm**.

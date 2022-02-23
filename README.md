@@ -37,7 +37,7 @@ The HTML versions of the lecture slides allow you to view animations and interac
 
 13. **Compensating Wage Differentials** <br> [.html](https://raw.githack.com/kyleraze/EC350_Labor_Economics/master/Lectures/13-Compensating_Wage_Differentials/13-Compensating_Wage_Differentials.html) | [.pdf](https://raw.githack.com/kyleraze/EC350_Labor_Economics/master/Lectures/13-Compensating_Wage_Differentials/13-Compensating_Wage_Differentials.pdf)
 
-14. **Human Capital** <br> [.html](https://raw.githack.com/kyleraze/EC350_Labor_Economics/master/Lectures/13-Human_Capital/13-Human_Capital.html) | [.pdf](https://raw.githack.com/kyleraze/EC350_Labor_Economics/master/Lectures/13-Human_Capital/13-Human_Capital.pdf)
+14. **Human Capital** <br> [.html](https://raw.githack.com/kyleraze/EC350_Labor_Economics/master/Lectures/14-Human_Capital/14-Human_Capital.html) | [.pdf](https://raw.githack.com/kyleraze/EC350_Labor_Economics/master/Lectures/14-Human_Capital/14-Human_Capital.pdf)
 
 15. **Signaling** <br> [.html](https://raw.githack.com/kyleraze/EC350_Labor_Economics/master/Lectures/14-Signaling/14-Signaling.html) | [.pdf](https://raw.githack.com/kyleraze/EC350_Labor_Economics/master/Lectures/14-Signaling/14-Signaling.pdf)
 
