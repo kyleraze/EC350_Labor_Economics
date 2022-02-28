@@ -2,7 +2,7 @@
 title: "Signaling"
 subtitle: "EC 350: Labor Economics"
 author: "[Kyle Raze](https://kyleraze.com)"
-date: "Spring 2021"
+date: "Winter 2022"
 output:
   xaringan::moon_reader:
     css: ['default', 'metropolis', 'metropolis-fonts', 'my-css.css']
@@ -79,7 +79,7 @@ xaringanExtra::use_scribble()
 
 --
 
-- They learn new skills that increase your productivity?
+- They learn new skills that increase their productivity?
 - They separate themselves from people who couldn't make it through college?
     - Getting through may correlate with productive attributes.
     
@@ -290,13 +290,13 @@ For **you?**
 
 --
 
-- Taking difficult classes set you apart, *even if you don't learn anything*.
+- Taking difficult classes can set you apart, *even if you don't learn anything*.
 --
 
 - Not all A's are created equal.
 --
 
-- Cheap talk on your résumé won't increase your odds of landing a job, at the margin. 
+- Cheap talk on your résumé might not increase your odds of landing a job, at the margin. 
    - You're a *detail-oriented, self-motivated, team player*? Sure.
 
 
@@ -308,7 +308,7 @@ The empirical relationship between earnings and years of education **isn't smoot
 - There are significant **"jumps"** in average earnings **where you'd expect them**&mdash;12 years, 16 years, *etc.*.super[.hi-pink[<span>1</span>]]
 - *Holding years of education constant*, workers with a degree earn more than those without a degree, on average..super[.hi-pink[<span>2</span>]]
 
-.footnote[.super[.hi-pink[<span>1</span>]]  Thomas Hungerford and Gary Solon (1987), [Sheepskin Effects in the Returns to Education](https://www.jstor.org/stable/1937919), *The Review of Economics and Statistics.*  <br> .super[.hi-pink[<span>2</span>]] David A. Jaeger and Marianne E. Page (1996), [Degrees Matter: New Evidence on Sheepskin Effects in the Returns to Education](https://www.jstor.org/stable/2109960), *The Review of Economics and Statistics.*]
+.footnote[.super[.hi-pink[<span>1</span>]] Thomas Hungerford and Gary Solon (1987), [Sheepskin Effects in the Returns to Education](https://www.jstor.org/stable/1937919), *The Review of Economics and Statistics.*  <br> .super[.hi-pink[<span>2</span>]] David A. Jaeger and Marianne E. Page (1996), [Degrees Matter: New Evidence on Sheepskin Effects in the Returns to Education](https://www.jstor.org/stable/2109960), *The Review of Economics and Statistics.*]
 
 --
 
@@ -336,9 +336,9 @@ That is, the simple act of having obtained that piece of paper&mdash;your degree
 ---
 # Housekeeping
 
-**Problem Set 3** due Sunday, **May 23rd**  by 11:59pm PDT.
+**Problem Set 3** is due by **Monday, February 28th at 11:59pm**.
 
-**Assigned reading for Monday:** [Are Emily and Greg More Employable Than Lakisha and Jamal? A Field Experiment on Labor Market Discrimination](https://www.aeaweb.org/articles?id=10.1257/0002828042002561) by Marianne Bertrand and Sendhil Mullainathan (2004).
+**Assigned reading for Wednesday:** [Are Emily and Greg More Employable Than Lakisha and Jamal? A Field Experiment on Labor Market Discrimination](https://www.aeaweb.org/articles?id=10.1257/0002828042002561) by Marianne Bertrand and Sendhil Mullainathan (2004).
 
-- Reading Quiz 9 is due by **Monday, May 24th at 16:00**.
+- **Reading Quiz 9** is due by **Wednesday, March 2nd at 12pm (noon)**.
 - The quiz instructions will include a reading guide.
