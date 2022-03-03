@@ -1,0 +1,1800 @@
+Samples selected:
+      IPUMS-CPS, January 2010
+            Note: 
+            Density of the full data file:  0.01%
+            Density of your extract: 1.0%
+
+      IPUMS-CPS, February 2010
+            Note: 
+            Density of the full data file:  0.01%
+            Density of your extract: 1.0%
+
+      IPUMS-CPS, March 2010
+            Note: 
+            Density of the full data file:  0.01%
+            Density of your extract: 1.0%
+
+      IPUMS-CPS, April 2010
+            Note: 
+            Density of the full data file:  0.01%
+            Density of your extract: 1.0%
+
+      IPUMS-CPS, May 2010
+            Note: 
+            Density of the full data file:  0.01%
+            Density of your extract: 1.0%
+
+      IPUMS-CPS, June 2010
+            Note: 
+            Density of the full data file:  0.01%
+            Density of your extract: 1.0%
+
+      IPUMS-CPS, July 2010
+            Note: 
+            Density of the full data file:  0.01%
+            Density of your extract: 1.0%
+
+      IPUMS-CPS, August 2010
+            Note: 
+            Density of the full data file:  0.01%
+            Density of your extract: 1.0%
+
+      IPUMS-CPS, September 2010
+            Note: 
+            Density of the full data file:  0.01%
+            Density of your extract: 1.0%
+
+      IPUMS-CPS, October 2010
+            Note: 
+            Density of the full data file:  0.01%
+            Density of your extract: 1.0%
+
+      IPUMS-CPS, November 2010
+            Note: 
+            Density of the full data file:  0.01%
+            Density of your extract: 1.0%
+
+      IPUMS-CPS, December 2010
+            Note: 
+            Density of the full data file:  0.01%
+            Density of your extract: 1.0%
+
+      IPUMS-CPS, January 2011
+            Note: 
+            Density of the full data file:  0.01%
+            Density of your extract: 1.0%
+
+      IPUMS-CPS, February 2011
+            Note: 
+            Density of the full data file:  0.01%
+            Density of your extract: 1.0%
+
+      IPUMS-CPS, March 2011
+            Note: 
+            Density of the full data file:  0.01%
+            Density of your extract: 1.0%
+
+      IPUMS-CPS, April 2011
+            Note: 
+            Density of the full data file:  0.01%
+            Density of your extract: 1.0%
+
+      IPUMS-CPS, May 2011
+            Note: 
+            Density of the full data file:  0.01%
+            Density of your extract: 1.0%
+
+      IPUMS-CPS, June 2011
+            Note: 
+            Density of the full data file:  0.01%
+            Density of your extract: 1.0%
+
+      IPUMS-CPS, July 2011
+            Note: 
+            Density of the full data file:  0.01%
+            Density of your extract: 1.0%
+
+      IPUMS-CPS, August 2011
+            Note: 
+            Density of the full data file:  0.01%
+            Density of your extract: 1.0%
+
+      IPUMS-CPS, September 2011
+            Note: 
+            Density of the full data file:  0.01%
+            Density of your extract: 1.0%
+
+      IPUMS-CPS, October 2011
+            Note: 
+            Density of the full data file:  0.01%
+            Density of your extract: 1.0%
+
+      IPUMS-CPS, November 2011
+            Note: 
+            Density of the full data file:  0.01%
+            Density of your extract: 1.0%
+
+      IPUMS-CPS, December 2011
+            Note: 
+            Density of the full data file:  0.01%
+            Density of your extract: 1.0%
+
+      IPUMS-CPS, January 2012
+            Note: 
+            Density of the full data file:  0.01%
+            Density of your extract: 1.0%
+
+      IPUMS-CPS, February 2012
+            Note: 
+            Density of the full data file:  0.01%
+            Density of your extract: 1.0%
+
+      IPUMS-CPS, March 2012
+            Note: 
+            Density of the full data file:  0.01%
+            Density of your extract: 1.0%
+
+      IPUMS-CPS, April 2012
+            Note: 
+            Density of the full data file:  0.01%
+            Density of your extract: 1.0%
+
+      IPUMS-CPS, May 2012
+            Note: 
+            Density of the full data file:  0.01%
+            Density of your extract: 1.0%
+
+      IPUMS-CPS, June 2012
+            Note: 
+            Density of the full data file:  0.01%
+            Density of your extract: 1.0%
+
+      IPUMS-CPS, July 2012
+            Note: 
+            Density of the full data file:  0.01%
+            Density of your extract: 1.0%
+
+      IPUMS-CPS, August 2012
+            Note: 
+            Density of the full data file:  0.01%
+            Density of your extract: 1.0%
+
+      IPUMS-CPS, September 2012
+            Note: 
+            Density of the full data file:  0.01%
+            Density of your extract: 1.0%
+
+      IPUMS-CPS, October 2012
+            Note: 
+            Density of the full data file:  0.01%
+            Density of your extract: 1.0%
+
+      IPUMS-CPS, November 2012
+            Note: 
+            Density of the full data file:  0.01%
+            Density of your extract: 1.0%
+
+      IPUMS-CPS, December 2012
+            Note: 
+            Density of the full data file:  0.01%
+            Density of your extract: 1.0%
+
+      IPUMS-CPS, January 2013
+            Note: 
+            Density of the full data file:  0.01%
+            Density of your extract: 1.0%
+
+      IPUMS-CPS, February 2013
+            Note: 
+            Density of the full data file:  0.01%
+            Density of your extract: 1.0%
+
+      IPUMS-CPS, March 2013
+            Note: 
+            Density of the full data file:  0.01%
+            Density of your extract: 1.0%
+
+      IPUMS-CPS, April 2013
+            Note: 
+            Density of the full data file:  0.01%
+            Density of your extract: 1.0%
+
+      IPUMS-CPS, May 2013
+            Note: 
+            Density of the full data file:  0.01%
+            Density of your extract: 1.0%
+
+      IPUMS-CPS, June 2013
+            Note: 
+            Density of the full data file:  0.01%
+            Density of your extract: 1.0%
+
+      IPUMS-CPS, July 2013
+            Note: 
+            Density of the full data file:  0.01%
+            Density of your extract: 1.0%
+
+      IPUMS-CPS, August 2013
+            Note: 
+            Density of the full data file:  0.01%
+            Density of your extract: 1.0%
+
+      IPUMS-CPS, September 2013
+            Note: 
+            Density of the full data file:  0.01%
+            Density of your extract: 1.0%
+
+      IPUMS-CPS, October 2013
+            Note: 
+            Density of the full data file:  0.01%
+            Density of your extract: 1.0%
+
+      IPUMS-CPS, November 2013
+            Note: 
+            Density of the full data file:  0.01%
+            Density of your extract: 1.0%
+
+      IPUMS-CPS, December 2013
+            Note: 
+            Density of the full data file:  0.01%
+            Density of your extract: 1.0%
+
+      IPUMS-CPS, January 2014
+            Note: 
+            Density of the full data file:  0.01%
+            Density of your extract: 1.0%
+
+      IPUMS-CPS, February 2014
+            Note: 
+            Density of the full data file:  0.01%
+            Density of your extract: 1.0%
+
+      IPUMS-CPS, March 2014
+            Note: 
+            Density of the full data file:  0.01%
+            Density of your extract: 1.0%
+
+      IPUMS-CPS, April 2014
+            Note: 
+            Density of the full data file:  0.01%
+            Density of your extract: 1.0%
+
+      IPUMS-CPS, May 2014
+            Note: 
+            Density of the full data file:  0.01%
+            Density of your extract: 1.0%
+
+      IPUMS-CPS, June 2014
+            Note: 
+            Density of the full data file:  0.01%
+            Density of your extract: 1.0%
+
+      IPUMS-CPS, July 2014
+            Note: 
+            Density of the full data file:  0.01%
+            Density of your extract: 1.0%
+
+      IPUMS-CPS, August 2014
+            Note: 
+            Density of the full data file:  0.01%
+            Density of your extract: 1.0%
+
+      IPUMS-CPS, September 2014
+            Note: 
+            Density of the full data file:  0.01%
+            Density of your extract: 1.0%
+
+      IPUMS-CPS, October 2014
+            Note: 
+            Density of the full data file:  0.01%
+            Density of your extract: 1.0%
+
+      IPUMS-CPS, November 2014
+            Note: 
+            Density of the full data file:  0.01%
+            Density of your extract: 1.0%
+
+      IPUMS-CPS, December 2014
+            Note: 
+            Density of the full data file:  0.01%
+            Density of your extract: 1.0%
+
+      IPUMS-CPS, January 2015
+            Note: 
+            Density of the full data file:  0.01%
+            Density of your extract: 1.0%
+
+      IPUMS-CPS, February 2015
+            Note: 
+            Density of the full data file:  0.01%
+            Density of your extract: 1.0%
+
+      IPUMS-CPS, March 2015
+            Note: 
+            Density of the full data file:  0.01%
+            Density of your extract: 1.0%
+
+      IPUMS-CPS, April 2015
+            Note: 
+            Density of the full data file:  0.01%
+            Density of your extract: 1.0%
+
+      IPUMS-CPS, May 2015
+            Note: 
+            Density of the full data file:  0.01%
+            Density of your extract: 1.0%
+
+      IPUMS-CPS, June 2015
+            Note: 
+            Density of the full data file:  0.01%
+            Density of your extract: 1.0%
+
+      IPUMS-CPS, July 2015
+            Note: 
+            Density of the full data file:  0.01%
+            Density of your extract: 1.0%
+
+      IPUMS-CPS, August 2015
+            Note: 
+            Density of the full data file:  0.01%
+            Density of your extract: 1.0%
+
+      IPUMS-CPS, September 2015
+            Note: 
+            Density of the full data file:  0.01%
+            Density of your extract: 1.0%
+
+      IPUMS-CPS, October 2015
+            Note: 
+            Density of the full data file:  0.01%
+            Density of your extract: 1.0%
+
+      IPUMS-CPS, November 2015
+            Note: 
+            Density of the full data file:  0.01%
+            Density of your extract: 1.0%
+
+      IPUMS-CPS, December 2015
+            Note: 
+            Density of the full data file:  0.01%
+            Density of your extract: 1.0%
+
+      IPUMS-CPS, January 2016
+            Note: 
+            Density of the full data file:  0.01%
+            Density of your extract: 1.0%
+
+      IPUMS-CPS, February 2016
+            Note: 
+            Density of the full data file:  0.01%
+            Density of your extract: 1.0%
+
+      IPUMS-CPS, March 2016
+            Note: 
+            Density of the full data file:  0.01%
+            Density of your extract: 1.0%
+
+      IPUMS-CPS, April 2016
+            Note: 
+            Density of the full data file:  0.01%
+            Density of your extract: 1.0%
+
+      IPUMS-CPS, May 2016
+            Note: 
+            Density of the full data file:  0.01%
+            Density of your extract: 1.0%
+
+      IPUMS-CPS, June 2016
+            Note: 
+            Density of the full data file:  0.01%
+            Density of your extract: 1.0%
+
+      IPUMS-CPS, July 2016
+            Note: 
+            Density of the full data file:  0.01%
+            Density of your extract: 1.0%
+
+      IPUMS-CPS, August 2016
+            Note: 
+            Density of the full data file:  0.01%
+            Density of your extract: 1.0%
+
+      IPUMS-CPS, September 2016
+            Note: 
+            Density of the full data file:  0.01%
+            Density of your extract: 1.0%
+
+      IPUMS-CPS, October 2016
+            Note: 
+            Density of the full data file:  0.01%
+            Density of your extract: 1.0%
+
+      IPUMS-CPS, November 2016
+            Note: 
+            Density of the full data file:  0.01%
+            Density of your extract: 1.0%
+
+      IPUMS-CPS, December 2016
+            Note: 
+            Density of the full data file:  0.01%
+            Density of your extract: 1.0%
+
+      IPUMS-CPS, January 2017
+            Note: 
+            Density of the full data file:  0.01%
+            Density of your extract: 1.0%
+
+      IPUMS-CPS, February 2017
+            Note: 
+            Density of the full data file:  0.01%
+            Density of your extract: 1.0%
+
+      IPUMS-CPS, March 2017
+            Note: 
+            Density of the full data file:  0.01%
+            Density of your extract: 1.0%
+
+      IPUMS-CPS, April 2017
+            Note: 
+            Density of the full data file:  0.01%
+            Density of your extract: 1.0%
+
+      IPUMS-CPS, May 2017
+            Note: 
+            Density of the full data file:  0.01%
+            Density of your extract: 1.0%
+
+      IPUMS-CPS, June 2017
+            Note: 
+            Density of the full data file:  0.01%
+            Density of your extract: 1.0%
+
+      IPUMS-CPS, July 2017
+            Note: 
+            Density of the full data file:  0.01%
+            Density of your extract: 1.0%
+
+      IPUMS-CPS, August 2017
+            Note: 
+            Density of the full data file:  0.01%
+            Density of your extract: 1.0%
+
+      IPUMS-CPS, September 2017
+            Note: 
+            Density of the full data file:  0.01%
+            Density of your extract: 1.0%
+
+      IPUMS-CPS, October 2017
+            Note: 
+            Density of the full data file:  0.01%
+            Density of your extract: 1.0%
+
+      IPUMS-CPS, November 2017
+            Note: 
+            Density of the full data file:  0.01%
+            Density of your extract: 1.0%
+
+      IPUMS-CPS, December 2017
+            Note: 
+            Density of the full data file:  0.01%
+            Density of your extract: 1.0%
+
+      IPUMS-CPS, January 2018
+            Note: 
+            Density of the full data file:  0.01%
+            Density of your extract: 1.0%
+
+      IPUMS-CPS, February 2018
+            Note: 
+            Density of the full data file:  0.01%
+            Density of your extract: 1.0%
+
+      IPUMS-CPS, March 2018
+            Note: 
+            Density of the full data file:  0.01%
+            Density of your extract: 1.0%
+
+      IPUMS-CPS, April 2018
+            Note: 
+            Density of the full data file:  0.01%
+            Density of your extract: 1.0%
+
+      IPUMS-CPS, May 2018
+            Note: 
+            Density of the full data file:  0.01%
+            Density of your extract: 1.0%
+
+      IPUMS-CPS, June 2018
+            Note: 
+            Density of the full data file:  0.01%
+            Density of your extract: 1.0%
+
+      IPUMS-CPS, July 2018
+            Note: 
+            Density of the full data file:  0.01%
+            Density of your extract: 1.0%
+
+      IPUMS-CPS, August 2018
+            Note: 
+            Density of the full data file:  0.01%
+            Density of your extract: 1.0%
+
+      IPUMS-CPS, September 2018
+            Note: 
+            Density of the full data file:  0.01%
+            Density of your extract: 1.0%
+
+      IPUMS-CPS, October 2018
+            Note: 
+            Density of the full data file:  0.01%
+            Density of your extract: 1.0%
+
+      IPUMS-CPS, November 2018
+            Note: 
+            Density of the full data file:  0.01%
+            Density of your extract: 1.0%
+
+      IPUMS-CPS, December 2018
+            Note: 
+            Density of the full data file:  0.01%
+            Density of your extract: 1.0%
+
+      IPUMS-CPS, January 2019
+            Note: 
+            Density of the full data file:  0.01%
+            Density of your extract: 1.0%
+
+      IPUMS-CPS, February 2019
+            Note: 
+            Density of the full data file:  0.01%
+            Density of your extract: 1.0%
+
+      IPUMS-CPS, March 2019
+            Note: 
+            Density of the full data file:  0.01%
+            Density of your extract: 1.0%
+
+      IPUMS-CPS, April 2019
+            Note: 
+            Density of the full data file:  0.01%
+            Density of your extract: 1.0%
+
+      IPUMS-CPS, May 2019
+            Note: 
+            Density of the full data file:  0.01%
+            Density of your extract: 1.0%
+
+      IPUMS-CPS, June 2019
+            Note: 
+            Density of the full data file:  0.01%
+            Density of your extract: 1.0%
+
+      IPUMS-CPS, July 2019
+            Note: 
+            Density of the full data file:  0.01%
+            Density of your extract: 1.0%
+
+      IPUMS-CPS, August 2019
+            Note: 
+            Density of the full data file:  0.01%
+            Density of your extract: 1.0%
+
+      IPUMS-CPS, September 2019
+            Note: 
+            Density of the full data file:  0.01%
+            Density of your extract: 1.0%
+
+      IPUMS-CPS, October 2019
+            Note: 
+            Density of the full data file:  0.01%
+            Density of your extract: 1.0%
+
+      IPUMS-CPS, November 2019
+            Note: 
+            Density of the full data file:  0.01%
+            Density of your extract: 1.0%
+
+      IPUMS-CPS, December 2019
+            Note: 
+            Density of the full data file:  0.01%
+            Density of your extract: 1.0%
+
+      IPUMS-CPS, January 2020
+            Note: 
+            Density of the full data file:  0.01%
+            Density of your extract: 1.0%
+
+      IPUMS-CPS, February 2020
+            Note: 
+            Density of the full data file:  0.01%
+            Density of your extract: 1.0%
+
+      IPUMS-CPS, March 2020
+            Note: 
+            Density of the full data file:  0.01%
+            Density of your extract: 1.0%
+
+      IPUMS-CPS, April 2020
+            Note: 
+            Density of the full data file:  0.01%
+            Density of your extract: 1.0%
+
+      IPUMS-CPS, May 2020
+            Note: 
+            Density of the full data file:  0.01%
+            Density of your extract: 1.0%
+
+      IPUMS-CPS, June 2020
+            Note: 
+            Density of the full data file:  0.01%
+            Density of your extract: 1.0%
+
+      IPUMS-CPS, July 2020
+            Note: 
+            Density of the full data file:  0.01%
+            Density of your extract: 1.0%
+
+      IPUMS-CPS, August 2020
+            Note: 
+            Density of the full data file:  0.01%
+            Density of your extract: 1.0%
+
+      IPUMS-CPS, September 2020
+            Note: 
+            Density of the full data file:  0.01%
+            Density of your extract: 1.0%
+
+      IPUMS-CPS, October 2020
+            Note: 
+            Density of the full data file:  0.01%
+            Density of your extract: 1.0%
+
+      IPUMS-CPS, November 2020
+            Note: 
+            Density of the full data file:  0.01%
+            Density of your extract: 1.0%
+
+      IPUMS-CPS, December 2020
+            Note: 
+            Density of the full data file:  0.01%
+            Density of your extract: 1.0%
+
+      IPUMS-CPS, January 2021
+            Note: 
+            Density of the full data file:  0.01%
+            Density of your extract: 1.0%
+
+      IPUMS-CPS, February 2021
+            Note: 
+            Density of the full data file:  0.01%
+            Density of your extract: 1.0%
+
+      IPUMS-CPS, March 2021
+            Note: 
+            Density of the full data file:  0.01%
+            Density of your extract: 1.0%
+
+      IPUMS-CPS, April 2021
+            Note: 
+            Density of the full data file:  0.01%
+            Density of your extract: 1.0%
+
+File Type:                    rectangular
+Case Selection:               No
+  Variable               Columns        Len   01/2010 02/2010 03/2010 04/2010 05/2010 06/2010 07/2010 08/2010 09/2010 10/2010 11/2010 12/2010 01/2011 02/2011 03/2011 04/2011 05/2011 06/2011 07/2011 08/2011 09/2011 10/2011 11/2011 12/2011 01/2012 02/2012 03/2012 04/2012 05/2012 06/2012 07/2012 08/2012 09/2012 10/2012 11/2012 12/2012 01/2013 02/2013 03/2013 04/2013 05/2013 06/2013 07/2013 08/2013 09/2013 10/2013 11/2013 12/2013 01/2014 02/2014 03/2014 04/2014 05/2014 06/2014 07/2014 08/2014 09/2014 10/2014 11/2014 12/2014 01/2015 02/2015 03/2015 04/2015 05/2015 06/2015 07/2015 08/2015 09/2015 10/2015 11/2015 12/2015 01/2016 02/2016 03/2016 04/2016 05/2016 06/2016 07/2016 08/2016 09/2016 10/2016 11/2016 12/2016 01/2017 02/2017 03/2017 04/2017 05/2017 06/2017 07/2017 08/2017 09/2017 10/2017 11/2017 12/2017 01/2018 02/2018 03/2018 04/2018 05/2018 06/2018 07/2018 08/2018 09/2018 10/2018 11/2018 12/2018 01/2019 02/2019 03/2019 04/2019 05/2019 06/2019 07/2019 08/2019 09/2019 10/2019 11/2019 12/2019 01/2020 02/2020 03/2020 04/2020 05/2020 06/2020 07/2020 08/2020 09/2020 10/2020 11/2020 12/2020 01/2021 02/2021 03/2021 04/2021 
+  YEAR               H   1-4            4     X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       
+  SERIAL             H   5-9            5     X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       
+  MONTH              H  10-11           2     X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       
+  HWTFINL            H  12-21          10     X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       
+  CPSID              H  22-35          14     X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       
+  ASECFLAG           H  36              1     .       .       X       .       .       .       .       .       .       .       .       .       .       .       X       .       .       .       .       .       .       .       .       .       .       .       X       .       .       .       .       .       .       .       .       .       .       .       X       .       .       .       .       .       .       .       .       .       .       .       X       .       .       .       .       .       .       .       .       .       .       .       X       .       .       .       .       .       .       .       .       .       .       .       X       .       .       .       .       .       .       .       .       .       .       .       X       .       .       .       .       .       .       .       .       .       .       .       X       .       .       .       .       .       .       .       .       .       .       .       X       .       .       .       .       .       .       .       .       .       .       .       X       .       .       .       .       .       .       .       .       .       .       .       X       .       
+  REGION             H  37-38           2     X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       
+  STATEFIP           H  39-40           2     X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       
+  METRO              H  41              1     X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       
+  METAREA            H  42-45           4     X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       
+  COUNTY             H  46-50           5     X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       
+  STATECENSUS        H  51-52           2     X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       
+  CBSASZ             H  53-54           2     X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       
+  METFIPS            H  55-59           5     X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       
+  INDIVIDCC          H  60              1     X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       
+  PERNUM             P  61-62           2     X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       
+  WTFINL             P  63-76          14     X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       
+  CPSIDP             P  77-90          14     X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       
+  AGE                P  91-92           2     X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       
+  SEX                P  93              1     X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       
+  RACE               P  94-96           3     X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       
+  MARST              P  97              1     X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       
+  POPSTAT            P  98              1     X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       
+  VETSTAT            P  99              1     X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       
+  CITIZEN            P 100              1     X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       
+  NATIVITY           P 101              1     X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       
+  HISPAN             P 102-104          3     X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       
+  EMPSTAT            P 105-106          2     X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       
+  LABFORCE           P 107              1     X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       
+  OCC                P 108-111          4     X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       
+  IND                P 112-115          4     X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       
+  CLASSWKR           P 116-117          2     X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       
+  UHRSWORKT          P 118-120          3     X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       
+  UHRSWORK1          P 121-123          3     X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       
+  UHRSWORK2          P 124-126          3     X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       
+  AHRSWORKT          P 127-129          3     X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       
+  AHRSWORK1          P 130-132          3     X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       
+  AHRSWORK2          P 133-135          3     X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       
+  WKSTAT             P 136-137          2     X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       
+  PROFCERT           P 138-139          2     .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       
+  STATECERT          P 140-141          2     .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       
+  EDUC               P 142-144          3     X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       
+  DIFFANY            P 145              1     X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       
+  EARNWT             P 146-155         10     X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       
+  HOURWAGE           P 156-160          5     X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       
+  PAIDHOUR           P 161              1     X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       
+  UNION              P 162              1     X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       
+  EARNWEEK           P 163-170          8     X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       
+  UHRSWORKORG        P 171-173          3     X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       
+  WKSWORKORG         P 174-175          2     X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       
+  ELIGORG            P 176              1     X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       
+  OTPAY              P 177-178          2     X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       X       
+  COVIDTELEW         P 179-180          2     .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       X       X       X       X       X       X       X       X       X       X       X       .       
+  COVIDUNAW          P 181-182          2     .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       X       X       X       X       X       X       X       X       X       X       X       .       
+  COVIDPAID          P 183-184          2     .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       X       X       X       X       X       X       X       X       X       X       X       .       
+  COVIDLOOK          P 185-186          2     .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       X       X       X       X       X       X       X       X       X       X       X       .       
+  COVIDMED           P 187-188          2     .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       .       X       X       X       X       X       X       .       .       .       .       .       .       
+
+Variable Availability Key:
+All Years X - available in this sample
+All Years . - not available in this sample
+
+RECTYPE   Record type
+1         Household
+2         Person
+
+MONTH               Month
+01                  January
+02                  February
+03                  March
+04                  April
+05                  May
+06                  June
+07                  July
+08                  August
+09                  September
+10                  October
+11                  November
+12                  December
+
+ASECFLAG            Flag for ASEC
+1                   ASEC
+2                   March Basic
+
+REGION              Region and division
+                    NORTHEAST REGION
+11                  New England Division
+12                  Middle Atlantic Division
+                    MIDWEST REGION
+21                  East North Central Division
+22                  West North Central Division
+                    SOUTH REGION
+31                  South Atlantic Division
+32                  East South Central Division
+33                  West South Central Division
+                    WEST REGION
+41                  Mountain Division
+42                  Pacific Division
+                    STATE UNKNOWN
+97                  State not identified
+
+STATEFIP            State (FIPS code)
+01                  Alabama
+02                  Alaska
+04                  Arizona
+05                  Arkansas
+06                  California
+08                  Colorado
+09                  Connecticut
+10                  Delaware
+11                  District of Columbia
+12                  Florida
+13                  Georgia
+15                  Hawaii
+16                  Idaho
+17                  Illinois
+18                  Indiana
+19                  Iowa
+20                  Kansas
+21                  Kentucky
+22                  Louisiana
+23                  Maine
+24                  Maryland
+25                  Massachusetts
+26                  Michigan
+27                  Minnesota
+28                  Mississippi
+29                  Missouri
+30                  Montana
+31                  Nebraska
+32                  Nevada
+33                  New Hampshire
+34                  New Jersey
+35                  New Mexico
+36                  New York
+37                  North Carolina
+38                  North Dakota
+39                  Ohio
+40                  Oklahoma
+41                  Oregon
+42                  Pennsylvania
+44                  Rhode Island
+45                  South Carolina
+46                  South Dakota
+47                  Tennessee
+48                  Texas
+49                  Utah
+50                  Vermont
+51                  Virginia
+53                  Washington
+54                  West Virginia
+55                  Wisconsin
+56                  Wyoming
+61                  Maine-New Hampshire-Vermont
+65                  Montana-Idaho-Wyoming
+68                  Alaska-Hawaii
+69                  Nebraska-North Dakota-South Dakota
+70                  Maine-Massachusetts-New Hampshire-Rhode Island-Vermont
+71                  Michigan-Wisconsin
+72                  Minnesota-Iowa
+73                  Nebraska-North Dakota-South Dakota-Kansas
+74                  Delaware-Virginia
+75                  North Carolina-South Carolina
+76                  Alabama-Mississippi
+77                  Arkansas-Oklahoma
+78                  Arizona-New Mexico-Colorado
+79                  Idaho-Wyoming-Utah-Montana-Nevada
+80                  Alaska-Washington-Hawaii
+81                  New Hampshire-Maine-Vermont-Rhode Island
+83                  South Carolina-Georgia
+84                  Kentucky-Tennessee
+85                  Arkansas-Louisiana-Oklahoma
+87                  Iowa-N Dakota-S Dakota-Nebraska-Kansas-Minnesota-Missouri
+88                  Washington-Oregon-Alaska-Hawaii
+89                  Montana-Wyoming-Colorado-New Mexico-Utah-Nevada-Arizona
+90                  Delaware-Maryland-Virginia-West Virginia
+99                  State not identified
+
+METRO               Metropolitan central city status
+0                   Not identifiable
+1                   Not in metro area
+                    In metro area
+2                   Central city
+3                   Outside central city
+4                   Central city status unknown
+9                   Missing/Unknown
+
+METAREA             Metropolitan area
+0060                Abilene, TX
+0080                Akron, OH
+0120                Albany, GA
+0160                Albany-Schenectady-Troy, NY
+0200                Albuquerque, NM
+0240                Allentown-Bethlehem-Easton, PA/NJ
+0280                Altoona, PA MSA
+0320                Amarillo, TX
+0380                Anchorage, AK
+0400                Anderson, IN
+0440                Ann Arbor, MI
+0450                Anniston, AL
+0451                Anniston-Oxford, AL
+0460                Appleton,Oshkosh-Neenah, WI
+0461                Appleton, WI
+0462                Oshkosh-Neenah, WI
+0480                Asheville, NC
+0500                Athens, GA
+0501                Athens-Clark County, GA
+0520                Atlanta, GA
+0521                Atlanta-Sandy Springs-Marietta, GA
+0560                Atlantic City, NJ
+0580                Auburn-Opelika, AL
+0600                Augusta-Aiken, GA-SC
+0601                Augusta-Richmond County, GA-SC
+0640                Austin, TX
+0641                Austin-Round Rock, TX
+0680                Bakersfield, CA
+0720                Baltimore, MD
+0721                Baltimore-Towson, MD
+0722                Baltimore-Towson-Columbia, MD
+0730                Bangor, ME
+0740                Barnstable-Yarmouth, MA
+0741                Barnstable Town, MA
+0760                Baton Rouge, LA
+0780                Battle Creek, MI
+0840                Beaumont-Port Arthur-Orange, TX
+0841                Beaumont-Port Arthur, TX
+0860                Bellingham, WA
+0870                Benton Harbor, MI
+0871                Niles-Benton Harbor, MI
+0880                Billings, MT
+0900                Bend, OR
+0920                Biloxi-Gulfport, MS
+0960                Binghamton, NY
+1000                Birmingham, AL
+1001                Birmingham-Hoover, AL
+1010                Blacksburg-Christiansburg-Radford, VA
+1020                Bloomington, IN
+1040                Bloomington-Normal, IL
+1041                Bloomington, IL
+1080                Boise City, ID
+1081                Boise City-Nampa, ID
+1120                Boston, MA
+1121                Lawrence-Haverhill. MA/NH
+1122                Lowell, MA/NH
+1123                Salem-Gloucester, MA
+1124                Boston-Cambridge-Quincy, MA-NH
+1125                Boston-Cambridge-Newton, MA-NH
+1130                Bowling Green, KY
+1140                Bradenton, FL
+1150                Bremerton-Silverdale, WA
+1160                Bridgeport, CT
+1161                Bridgeport-Stamford-Norwalk, CT
+1200                Brockton, MA
+1240                Brownsville-Harlingen-San Benito,TX
+1241                Brownsville-Harlingen, TX
+1280                Buffalo-Niagara Falls, NY
+1281                Niagara Falls, NY
+1300                Burlington, NC
+1310                Burlington, VT
+1311                Burlington-South Burlington, VT
+1305                California-Lexington Park, MD
+1320                Canton, OH
+1321                Canton-Massillon, OH
+1340                Carbondale-Marion, IL
+1360                Cedar Rapids, IA
+1390                Chambersburg-Waynesboro, PA
+1400                Champaign-Urbana-Rantoul, IL
+1401                Champaign-Urbana, IL
+1440                Charleston-North Charleston, SC
+1480                Charleston, WV
+1520                Charlotte-Gastonia-Rock Hill, NC/SC
+1521                Charlotte-Gastonia-Concord, NC/SC
+1530                Charlottesville, VA
+1560                Chattanooga, TN/GA
+1600                Chicago-Gary-Lake IL
+1601                Aurora-Elgin, IL
+1602                Gary-Hamond-East Chicago, IN
+1603                Joliet, IL
+1604                Lake County, IL
+1605                Chicago-Naperville-Joliet, IL-IN-WI
+1620                Chico,CA
+1640                Cincinnati-Hamilton,OH/KY/IN
+1641                Cincinnati-Middleton, OH/KY/IN
+1660                Clarksville-Hopkinsville,TN/KY
+1661                Clarksville, TN/KY, TN/KY
+1680                Cleveland, OH
+1681                Cleveland-Lorain-Mentor, OH
+1685                Cleveland, TN
+1700                Coeur d'Alene, ID
+1710                College Station-Bryan, TX
+1720                Colorado Springs, CO
+1740                Columbia, MO
+1760                Columbia, SC
+1800                Columbus, GA/AL
+1840                Columbus, OH
+1880                Corpus Christi, TX
+1920                Dallas-Fort Worth, TX
+1921                Fort Worth-Arlington, TX
+1922                Dallas-Fort Worth-Arlington, TX
+1930                Danbury, CT
+1940                Daphne-Fairhope-Foley, AL
+1960                Davenport-Rock Island-Moline, IA/IL
+2000                Dayton-Springfield, OH
+2001                Springfield, OH
+2002                Dayton, OH
+2020                Daytona Beach, FL
+2021                Deltona-Daytona Beach-Ormond Beach, FL
+2030                Decatur, AL
+2040                Decatur, IL
+2080                Denver-Boulder-Longmont, CO
+2081                Boulder-Longmont, CO
+2082                Boulder, CO
+2083                Denver-Aurora, CO
+2120                Des Moines, IA
+2160                Detroit, MI
+2161                Detroit-Warren-Livonia, MI
+2190                Dover, DE
+2240                Duluth-Superior, MN/WI
+2241                Duluth, MN/WI
+2281                Dutchess County, NY
+2285                East Stroudsburg, PA
+2290                Eau Claire, WI
+2300                El Centro, CA
+2310                El Paso, TX
+2330                Elkhart-Goshen, IN
+2360                Erie, PA
+2400                Eugene-Springfield, OR
+2440                Evansville, IN/KY
+2520                Fargo-Moorhead, ND/MN
+2521                Fargo, ND/MN
+2540                Farmington, NM
+2560                Fayetteville, NC
+2580                Fayetteville-Springdale, AR
+2581                Fayetteville-Springdale-Rogers, AR-MO
+2600                Fitchburg-Leominster, MA
+2601                Leominster-Fitchburg-Gardner, MA
+2640                Flint, MI
+2650                Florence, AL
+2651                Florence-Muscle Shoals, AL
+2660                Florence, SC
+2670                Fort Collins-Loveland, CO
+2680                Fort Lauderdale-Hollywood-Pompano Beach, FL
+2700                Fort Myers-Cape Coral, FL
+2710                Fort Pierce, FL
+2711                Port St. Lucie-Fort Pierce, FL
+2720                Fort Smith, AR/OK
+2750                Fort Walton Beach, FL
+2751                Fort Walton Beach-Crestview-Destin, FL
+2760                Fort Wayne, IN
+2840                Fresno, CA
+2880                Gadsden, AL
+2900                Gainesville, FL
+2905                Gainesville, GA
+2920                Galveston-Texas City, TX
+2940                Glens Falls, NY
+2980                Goldsboro, NC
+3000                Grand Rapids, MI
+3001                Grand Rapids-Wyoming, MI
+3002                Grand Rapids-Muskegon-Holland, MI MSA
+3003                Holland-Grand Haven, MI
+3060                Greeley, CO
+3080                Green Bay, WI
+3120                Greensboro-Winston Salem, NC
+3121                Winston-Salem, NC
+3122                Greensboro-High Point, NC
+3150                Greenville, NC
+3160                Greenville-Spartanburg-Anderson, SC
+3161                Anderson, SC
+3162                Greenville, SC
+3163                Spartanburg, SC
+3180                Hagerstown, MD
+3181                Hagerstown-Martinsburg, MD-WV
+3200                Hamilton-Middleton, OH
+3220                Hanford-Corcoran, CA
+3240                Harrisburg-Lebanon-Carlisle, PA
+3241                Harrisburg-Carlisle, PA
+3260                Harrisonburg, VA
+3280                Hartford-Bristol-Middleton- New Britain, CT
+3283                New Britain, CT
+3284                Hartford-West Hartford-East Hartford, CT
+3285                Hartford, CT
+3290                Hickory-Morganton, NC
+3291                Hickory-Morganton-Lenoir, NC
+3310                Hilton Head Island-Bluffton-Beaufort, SC
+3320                Honolulu, HI
+3350                Houma-Thibodaux, LA
+3351                Houma-Bayou Cane-Thibodaux, LA
+3360                Houston-Brazoria,TX
+3361                Brazoria, TX
+3362                Houston-Baytown-Sugar Land, TX
+3400                Huntington-Ashland,WV/KY/OH
+3440                Huntsville,AL
+3460                Idaho Falls, ID
+3480                Indianapolis, IN
+3500                Iowa City, IA
+3520                Jackson, MI
+3560                Jackson, MS
+3590                Jacksonville,FL
+3600                Jacksonville, NC
+3610                Jamestown-Dunkirk, NY
+3611                Jamestown, NY MSA
+3620                Janesville-Beloit, WI
+3621                Janvesville, WI
+3660                Johnson City-Kingsport-Bristol, TN/VA
+3661                Johnson City, TN
+3662                Kingsport-Bristol, TN-VA
+3680                Johnstown, PA
+3710                Joplin, MO
+3715                Kahului-Wailuku-Lahaina, HI
+3720                Kalamazoo-Portage, MI
+3721                Kalamazoo-Battle Creek, MI MSA
+3740                Kankakee, IL
+3741                Kankakee-Bradley, IL
+3760                Kansas City, MO/KS
+3790                Kennewick-Richland, WA
+3810                Killeen-Temple,TX
+3811                Killeen-Temple-Fort Hood, TX
+3830                Kingston, NY
+3840                Knoxville, TN
+3870                LaCrosse, WI
+3880                Lafayette, LA
+3890                Lafayette-West Lafayette, IN
+3960                Lake Charles, LA
+3980                Lakeland-Winterhaven, FL
+4000                Lancaster, PA
+4040                Lansing-East Lansing, MI
+4080                Laredo, TX
+4100                Las Cruces, NM
+4120                Las Vegas, NV
+4130                Las Vegas-Paradise, NV
+4150                Lawrence, KS
+4200                Lawton, OK
+4290                Lewiston-Auburn, ME
+4280                Lexington-Fayette, KY
+4320                Lima, OH
+4360                Lincoln, NE
+4400                Little Rock-North Little Rock, AR
+4420                Longview-Marshall, TX
+4421                Longview, TX
+4430                Longview, WA
+4440                Lorain-Elyria, OH
+4480                Los Angeles-Long Beach, CA
+4481                Anaheim-Santa Ana- Garden Grove, CA
+4482                Orange County, CA
+4483                Los Angeles-Long Beach-Santa Ana, CA
+4484                Los Angeles-Long Beach-Anaheim, CA
+4520                Louisville, KY/IN
+4600                Lubbock, TX
+4640                Lynchburg, VA
+4680                Macon-Warner Robins, GA
+4681                Macon, GA
+4682                Warner Robins, GA
+4700                Madera, CA
+4720                Madison, WI
+4760                Manchester, NH
+4761                Manchester-Nashua, NH
+4770                Manhattan, KS
+4800                Mansfield, OH
+4880                McAllen-Edinburg-Pharr-Mission, TX
+4881                McAllen-Edinburg-Pharr, TX
+4890                Medford, OR
+4900                Melbourne-Titusville-Cocoa-Palm Beach, FL
+4901                Palm Bay-Melbourne-Titusville, FL
+4920                Memphis, TN/AR/MS
+4940                Merced, CA
+5000                Miami-Hialeah, FL
+5001                Miami-Fort Lauderdale-Miami Beach, FL
+5020                Michigan City-La Porte, IN
+5080                Milwaukee, WI
+5081                Milwaukee-Waukesha-West Allis, WI
+5120                Minneapolis-St. Paul, MN
+5121                Minneapolis-St. Paul-Bloomington, MN/WI
+5160                Mobile, AL
+5170                Modesto, CA
+5190                Monmouth-Ocean, NJ
+5200                Monroe, LA
+5220                Monroe, MI
+5240                Montgomery, Al
+5260                Morgantown, WV
+5270                Mount Vernon-Anacortes, WA
+5320                Muskegon-Norton Shores-Muskegon Heights, MI
+5321                Muskegon-Norton Shores, MI
+5330                Myrtle Beach, SC
+5331                Myrtle Beach-Conway-North Myrtle Beach, SC
+5340                Naples, FL
+5341                Naples-Marco Island, FL
+5350                Nashua, NH
+5360                Nashville, TN
+5361                Nashville-Davidson-Murfreesboro, TN
+5400                New Bedford, MA
+5480                New Haven-Meriden, CT
+5481                New Haven, CT
+5482                New Haven-Milford, CT
+5520                New London-Norwich, CT/RI
+5560                New Orleans, LA
+5561                New Orleans-Metairie-Kenner, LA
+5600                New York-Northeastern NJ
+5601                Nassau-Suffolk, NY
+5602                Bergen-Passaic, NJ
+5603                Jersey City, NJ
+5604                Middlesex-Somerset-Hunterdon, NJ
+5605                Newark, NJ
+5606                New York-Northern New Jersey-Long Island, NY-NJ-PA
+5607                New York, NY
+5640                Newark, OH
+5660                Newburgh-Middletown, NY
+5720                Norfolk-Virginia Beach-Newport News, VA
+5721                Virginia Beach-Norfolk-Newport News, VA/NC
+5740                North Port-Sarasota-Bradenton, FL
+5760                Norwalk, CT
+5770                Norwich-New London, CT
+5790                Ocala, FL
+5800                Odessa, TX
+5801                Midland, TX
+5840                Ocean City, NJ
+5880                Oklahoma City, OK
+5910                Olympia, WA
+5920                Omaha, NE/IA
+5921                Omaha-Council Bluffs, NE/IA
+5950                Orange, NY
+5960                Orlando, FL
+6010                Panama City, FL
+6011                Panama City-Lynn Haven, FL
+6080                Pensacola, FL
+6081                Pensacola-Ferry Pass-Brent, FL
+6120                Peoria, IL
+6160                Philadelphia, PA/NJ
+6161                Philadelphia-Camden-Wilmington, PA/NJ/DE
+6200                Phoenix, AZ
+6201                Phoenix-Mesa-Scottsdale, AZ
+6250                Pine Bluff, AR
+6280                Pittsburg, PA
+6281                Beaver County
+6400                Portland, ME
+6401                Portland-South Portland, ME
+6440                Portland-Vancouver, OR/WA
+6441                Vancouver, WA
+6442                Portland-Vancouver-Beaverton, OR/WA
+6450                Portsmouth-Dover-Rochester, NH/ME
+6451                Portsmouth-Rochester, NH/ME MSA
+6452                Rochester-Dover, NH/ME
+6460                Poughkeepsie, NY
+6461                Poughkeepsie-Newburgh-Middletown, NY
+6470                Prescott, AZ
+6480                Providence-Fall River-Pawtucket, MA/RI
+6482                Pawtuckett-Woonsocket-Attleboro, RI/MA
+6483                Providence-Fall River-Warwick, MA-RI
+6484                Providence-Warwick, RI-MA
+6520                Provo-Orem, UT
+6560                Pueblo, CO
+6580                Punta Gorda, FL
+6600                Racine, WI
+6640                Raleigh-Durham, NC
+6641                Durham, NC
+6642                Raleigh-Carey, NC
+6680                Reading, PA
+6690                Redding, CA
+6720                Reno, NV
+6721                Reno-Sparks, NV
+6760                Richmond-Petersburg, VA
+6761                Richmond, VA
+6780                Riverside-San Bernadino, CA
+6800                Roanoke, VA
+6840                Rochester, NY
+6880                Rockford, IL
+6920                Sacramento, CA
+6921                Sacramento-Arden Arcade-Roseville, CA
+6960                Saginaw-Bay City-Midland, MI
+6961                Saginaw-Saginaw Township North, MI
+6980                St. Cloud, MN
+7000                St. George, UT
+7040                St. Louis, MO/IL
+7080                Salem, OR
+7120                Salinas-Sea Side-Monterey, CA
+7121                Salinas, CA
+7130                Salisbury, MD
+7160                Salt Lake City-Ogden, UT
+7161                Salt Lake City, UT
+7162                Ogden-Clearfield, UT
+7240                San Antonio, TX
+7320                San Diego, CA
+7321                San Diego-Carlsbad-San Marcos, CA
+7360                San Francisco-Oaklan-Vallejo, CA
+7361                Oakland, CA
+7362                Vallejo-Fairfield-Napa, CA
+7363                Vallejo-Fairfield, CA
+7364                Napa, CA
+7365                San Francisco-Oakland-Fremont, CA
+7400                San Jose, CA
+7401                San Jose-Sunnyvale-Santa Clara, CA
+7460                San Luis Obispo-Atascadero-Paso Robles, CA
+7461                San Luis Obispo-Paso Robles, CA
+7470                Santa Barbara-Santa Maria-Lompoc, CA
+7471                Santa Barbara-Santa Maria-Goleta, CA
+7472                Santa Barbara-Santa Maria, CA
+7480                Santa Cruz, CA
+7481                Santa Cruz-Watsonville, CA
+7490                Santa Fe, NM
+7500                Santa Rosa-Petaluma, CA
+7510                Sarasota, FL
+7511                Sarasota-Bradenton-Venice, FL
+7520                Savannah, GA
+7560                Scranton-Wilkes-Barre, PA
+7600                Seattle-Everett, WA
+7601                Seattle-Tacoma-Bellevue, WA
+7610                Sharon, PA
+7640                Sherman-Denison, TX
+7680                Shreveport, LA
+7681                Shreveport-Bossier City, LA
+7720                Sioux City, IA-NE
+7760                Sioux Falls, SD
+7800                South Bend-Mishawaka, IN
+7840                Spokane, WA
+7880                Springfield, IL
+7920                Springfield, MO
+8000                Springfield-Holyoke-Chicopee, MA
+8001                Springfield, MA/CT
+8040                Stamford, CT
+8120                Stockton, CA
+8160                Syracuse, NY
+8200                Tacoma, WA
+8240                Tallahassee, FL
+8280                Tampa-St. Petersburg-Clearwater, FL
+8320                Terre Haute, IN
+8400                Toledo, OH/MI
+8440                Topeka, KS
+8480                Trenton, NJ
+8481                Trenton-Ewing, NJ
+8520                Tucson, AZ
+8560                Tulsa, OK
+8600                Tuscaloosa, AL
+8620                Tyler, TX
+8640                Urban Honolulu, HI
+8680                Utica-Rome, NY
+8700                Valdosta, GA
+8730                Ventura-Oxnard-Simi Valley, CA
+8731                Oxnard-Thousand Oaks-Ventura, CA
+8740                Vero Beach, FL
+8750                Victoria, TX
+8760                Vineland-Milville-Bridgetown, NJ
+8780                Visalia-Tulare-Porterville, CA
+8781                Visalia-Porterville, CA
+8800                Waco, TX
+8840                Washington, DC/MD/VA
+8880                Waterbury, CT
+8920                Waterloo-Cedar Falls, IA
+8930                Watertown-Fort Drum, NY
+8940                Wausau, WI
+8960                West Palm Beach-Boca Raton-Delray Beach, FL
+9000                Wheeling, WV/OH
+9040                Wichita, KS
+9050                Wichita Falls, TX
+9140                Williamsport, PA
+9160                Wilmington, DE/NJ/MD
+9200                Wilmington, NC
+9220                Winchester, VA-WV
+9240                Worcester, MA
+9260                Yakima, WA
+9270                Yolo, CA
+9280                York, PA
+9281                York-Hanover, PA
+9320                Youngstown-Warren, OH/PA
+9321                Youngstown-Warren-Boardman, OH
+9340                Yuba City, CA
+9360                Yuma, AZ
+9997                Other metropolitan areas, unidentified
+9998                NIU, household not in a metropolitan area
+9999                Missing data
+
+STATECENSUS         State (Census code)
+00                  Unknown
+11                  Maine
+12                  New Hampshire
+13                  Vermont
+14                  Massachusetts
+15                  Rhode Island
+16                  Connecticut
+19                  Maine, New Hampshire, Vermont, Rhode Island
+21                  New York
+22                  New Jersey
+23                  Pennsylvania
+31                  Ohio
+32                  Indiana
+33                  Illinois
+34                  Michigan
+35                  Wisconsin
+39                  Michigan, Wisconsin
+41                  Minnesota
+42                  Iowa
+43                  Missouri
+44                  North Dakota
+45                  South Dakota
+46                  Nebraska
+47                  Kansas
+49                  Minnesota, Iowa, Missouri, North Dakota, South Dakota, Nebraska, Kansas
+50                  Delaware, Maryland, Virginia, West Virginia
+51                  Delaware
+52                  Maryland
+53                  District of Columbia
+54                  Virginia
+55                  West Virginia
+56                  North Carolina
+57                  South Carolina
+58                  Georgia
+59                  Florida
+60                  South Carolina, Georgia
+61                  Kentucky
+62                  Tennessee
+63                  Alabama
+64                  Mississippi
+67                  Kentucky, Tennessee
+69                  Alabama, Mississippi
+71                  Arkansas
+72                  Louisiana
+73                  Oklahoma
+74                  Texas
+79                  Arkansas, Louisiana, Oklahoma
+81                  Montana
+82                  Idaho
+83                  Wyoming
+84                  Colorado
+85                  New Mexico
+86                  Arizona
+87                  Utah
+88                  Nevada
+89                  Montana, Idaho, Wyoming, Colorado, New Mexico, Arizona, Utah, Nevada
+91                  Washington
+92                  Oregon
+93                  California
+94                  Alaska
+95                  Hawaii
+99                  Washington, Oregon, Alaska, Hawaii
+
+CBSASZ              Core-based statistical area size
+00                  Not identified or nonmetropolitan
+01                  100,000 - 249,999
+02                  250,000 - 499,999
+03                  500,000 - 999,999
+04                  1,000,000 - 2,499,999
+05                  2,500,000 - 4,999,999
+06                  5,000,000 or more
+
+AGE                 Age
+00                  Under 1 year
+01                  1
+02                  2
+03                  3
+04                  4
+05                  5
+06                  6
+07                  7
+08                  8
+09                  9
+10                  10
+11                  11
+12                  12
+13                  13
+14                  14
+15                  15
+16                  16
+17                  17
+18                  18
+19                  19
+20                  20
+21                  21
+22                  22
+23                  23
+24                  24
+25                  25
+26                  26
+27                  27
+28                  28
+29                  29
+30                  30
+31                  31
+32                  32
+33                  33
+34                  34
+35                  35
+36                  36
+37                  37
+38                  38
+39                  39
+40                  40
+41                  41
+42                  42
+43                  43
+44                  44
+45                  45
+46                  46
+47                  47
+48                  48
+49                  49
+50                  50
+51                  51
+52                  52
+53                  53
+54                  54
+55                  55
+56                  56
+57                  57
+58                  58
+59                  59
+60                  60
+61                  61
+62                  62
+63                  63
+64                  64
+65                  65
+66                  66
+67                  67
+68                  68
+69                  69
+70                  70
+71                  71
+72                  72
+73                  73
+74                  74
+75                  75
+76                  76
+77                  77
+78                  78
+79                  79
+80                  80
+81                  81
+82                  82
+83                  83
+84                  84
+85                  85
+86                  86
+87                  87
+88                  88
+89                  89
+90                  90 (90+, 1988-2002)
+91                  91
+92                  92
+93                  93
+94                  94
+95                  95
+96                  96
+97                  97
+98                  98
+99                  99+
+
+SEX                 Sex
+1                   Male
+2                   Female
+9                   NIU
+
+RACE                Race
+100                 White
+200                 Black/Negro
+300                 American Indian/Aleut/Eskimo
+650                 Asian or Pacific Islander
+651                 Asian only
+652                 Hawaiian/Pacific Islander only
+700                 Other (single) race, n.e.c.
+                    Two or more races
+801                 White-Black
+802                 White-American Indian
+803                 White-Asian
+804                 White-Hawaiian/Pacific Islander
+805                 Black-American Indian
+806                 Black-Asian
+807                 Black-Hawaiian/Pacific Islander
+808                 American Indian-Asian
+809                 Asian-Hawaiian/Pacific Islander
+810                 White-Black-American Indian
+811                 White-Black-Asian
+812                 White-American Indian-Asian
+813                 White-Asian-Hawaiian/Pacific Islander
+814                 White-Black-American Indian-Asian
+815                 American Indian-Hawaiian/Pacific Islander
+816                 White-Black--Hawaiian/Pacific Islander
+817                 White-American Indian-Hawaiian/Pacific Islander
+818                 Black-American Indian-Asian
+819                 White-American Indian-Asian-Hawaiian/Pacific Islander
+820                 Two or three races, unspecified
+830                 Four or five races, unspecified
+999                 Blank
+
+MARST               Marital status
+1                   Married, spouse present
+2                   Married, spouse absent
+3                   Separated
+4                   Divorced
+5                   Widowed
+6                   Never married/single
+7                   Widowed or Divorced
+9                   NIU
+
+POPSTAT             Adult civilian, armed forces, or child
+1                   Adult civilian
+2                   Armed Forces
+3                   Child
+
+VETSTAT             Veteran status
+0                   NIU
+1                   No service
+2                   Yes
+9                   Unknown
+
+CITIZEN             Citizenship status
+1                   Born in U.S
+2                   Born in U.S. outlying
+3                   Born abroad of American parents
+4                   Naturalized citizen
+5                   Not a citizen
+9                   NIU
+
+NATIVITY            Foreign birthplace or parentage
+0                   Unknown
+                    Native-Born
+1                   Both parents native-born
+2                   Father foreign, mother native
+3                   Mother foreign, father native
+4                   Both parents foreign
+5                   Foreign born
+
+HISPAN              Hispanic origin
+000                 Not Hispanic
+100                 Mexican
+102                 Mexican American
+103                 Mexicano/Mexicana
+104                 Chicano/Chicana
+108                 Mexican (Mexicano)
+109                 Mexicano/Chicano
+200                 Puerto Rican
+300                 Cuban
+400                 Dominican
+500                 Salvadoran
+                    Other Spanish:
+600                 Other Hispanic
+610                 Central/South American
+611                 Central American, (excluding Salvadoran)
+612                 South American
+901                 Do not know
+902                 N/A (and no response 1985-87)
+
+EMPSTAT             Employment status
+00                  NIU
+01                  Armed Forces
+                    In Labor Force
+                    Employed
+10                  At work
+12                  Has job, not at work last week
+20                  Unemployed
+21                  Unemployed, experienced worker
+22                  Unemployed, new worker
+30                  Not in labor force
+31                  NILF, housework
+32                  NILF, unable to work
+33                  NILF, school
+34                  NILF, other
+35                  NILF, unpaid, lt 15 hours
+36                  NILF, retired
+
+LABFORCE            Labor force status
+0                   NIU
+1                   No, not in the labor force
+2                   Yes, in the labor force
+
+CLASSWKR            Class of worker 
+00                  NIU
+10                  Self-employed
+13                  Self-employed, not incorporated
+14                  Self-employed, incorporated
+20                  Works for wages or salary
+21                  Wage/salary, private
+22                  Private, for profit
+23                  Private, nonprofit
+24                  Wage/salary, government
+25                  Federal government employee
+26                  Armed forces
+27                  State government employee
+28                  Local government employee
+29                  Unpaid family worker
+99                  Missing/Unknown
+
+UHRSWORKT           Hours usually worked per week at all jobs
+997                 Hours vary
+999                 NIU
+
+UHRSWORK1           Hours usually worked per week at main job
+000                 0 hours
+997                 Hours vary
+999                 NIU/Missing
+
+UHRSWORK2           Hours usually worked per week, other job(s)
+997                 Hours vary
+998                 Missing
+999                 NIU
+
+AHRSWORK1           Hours worked last week, main job
+999                 NIU
+
+AHRSWORK2           Hours worked last week, other job(s)
+999                 NIU
+
+WKSTAT              Full or part time status
+10                  Full-time schedules
+11                  Full-time hours (35+), usually full-time
+12                  Part-time for non-economic reasons, usually full-time
+13                  Not at work, usually full-time
+14                  Full-time hours, usually part-time for economic reasons
+15                  Full-time hours, usually part-time for non-economic reasons
+20                  Part-time for economic reasons
+21                  Part-time for economic reasons, usually full-time
+22                  Part-time hours, usually part-time for economic reasons
+40                  Part-time for non-economic reasons, usually part-time
+41                  Part-time hours, usually part-time for non-economic reasons
+42                  Not at work, usually part-time
+50                  Unemployed, seeking full-time work
+60                  Unemployed, seeking part-time work
+99                  NIU, blank, or not in labor force
+
+PROFCERT            Has active professional certification or license
+01                  No
+02                  Yes
+99                  NIU
+
+STATECERT           Has government-issued professional certification or licesnse
+01                  No
+02                  Yes
+99                  NIU
+
+EDUC                Educational attainment recode
+000                 NIU or no schooling
+001                 NIU or blank
+002                 None or preschool
+010                 Grades 1, 2, 3, or 4
+011                 Grade 1
+012                 Grade 2
+013                 Grade 3
+014                 Grade 4
+020                 Grades 5 or 6
+021                 Grade 5
+022                 Grade 6
+030                 Grades 7 or 8
+031                 Grade 7
+032                 Grade 8
+040                 Grade 9
+050                 Grade 10
+060                 Grade 11
+070                 Grade 12
+071                 12th grade, no diploma
+072                 12th grade, diploma unclear
+073                 High school diploma or equivalent
+080                 1 year of college
+081                 Some college but no degree
+090                 2 years of college
+091                 Associate's degree, occupational/vocational program
+092                 Associate's degree, academic program
+100                 3 years of college
+110                 4 years of college
+111                 Bachelor's degree
+120                 5+ years of college
+121                 5 years of college
+122                 6+ years of college
+123                 Master's degree
+124                 Professional school degree
+125                 Doctorate degree
+999                 Missing/Unknown
+
+DIFFANY             Any difficulty
+0                   NIU
+1                   No difficulty
+2                   Has difficulty
+
+PAIDHOUR            Paid by the hour
+0                   NIU
+1                   No
+2                   Yes
+6                   Refused
+7                   Don't Know
+
+UNION               Union membership
+0                   NIU
+1                   No union coverage
+2                   Member of labor union
+3                   Covered by union but not a member
+
+ELIGORG             (Earnings) eligibility flag
+0                   Not eligible
+1                   Eligible
+
+OTPAY               Usually receive overtime, tips, or commissions
+01                  No
+02                  Yes
+99                  Blank, NIU
+
+COVIDTELEW          Worked remotely for pay due to COVID-19 pandemic
+01                  No
+02                  Yes
+99                  NIU
+
+COVIDUNAW           Unable to work due to COVID-19 pandemic
+01                  No
+02                  Yes
+99                  NIU
+
+COVIDPAID           Received pay for hours not worked due to the COVID-19 pandemic
+01                  No
+02                  Yes
+99                  NIU
+
+COVIDLOOK           Prevented from looking for work due to COVID-19 pandemic
+01                  No
+02                  Yes
+99                  NIU
+
+COVIDMED            Did not get needed medical care for condition other than COVID-19 due to the COVID-19 pandemic
+01                  No
+02                  Yes
+99                  NIU
+

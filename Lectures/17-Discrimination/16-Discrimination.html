@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Discrimination</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Kyle Raze" />
+    <script src="16-Discrimination_files/header-attrs/header-attrs.js"></script>
+    <link href="16-Discrimination_files/remark-css/default.css" rel="stylesheet" />
+    <link href="16-Discrimination_files/remark-css/metropolis.css" rel="stylesheet" />
+    <link href="16-Discrimination_files/remark-css/metropolis-fonts.css" rel="stylesheet" />
+    <script src="16-Discrimination_files/fabric/fabric.min.js"></script>
+    <link href="16-Discrimination_files/xaringanExtra-scribble/scribble.css" rel="stylesheet" />
+    <script src="16-Discrimination_files/xaringanExtra-scribble/scribble.js"></script>
+    <script>document.addEventListener('DOMContentLoaded', function() { window.xeScribble = new Scribble({"pen_color":["#FF0000"],"pen_size":3,"eraser_size":30}) })</script>
+    <link rel="stylesheet" href="my-css.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Discrimination
+## EC 350: Labor Economics
+### <a href="https://kyleraze.com">Kyle Raze</a>
+### Spring 2021
+
+---
+
+
+
+
+# Bertrand and Mullainathan (2004)
+
+## **Discussion**
+
+**Q.sub[1]:** How does the study measure discrimination in the labor market? 
+
+**Q.sub[2]:** What are the strengths of the research design?
+
+**Q.sub[3]:** What are the weaknesses of the research design?
+
+**Q.sub[4]:** What are the main findings? 
+
+**Q.sub[5]:** What does the study tell us about employers?
+
+**Q.sub[6]:** What did *you* find most interesting and/or depressing?
+
+---
+# Discrimination
+
+## **Theory**
+
+Economics has a lot to say about discrimination in the labor market and other settings..super[.hi-pink[&lt;span&gt;1&lt;/span&gt;]]
+
+While they do not explain all forms of discrimination,.super[.hi-pink[&lt;span&gt;2&lt;/span&gt;]] the two most common economic models of discrimination are
+
+1. **Taste-based discrimination:** Prejudiced employers willingly sacrifice resources to avoid contact with workers from certain groups.
+
+2. **Statistical discrimination:** Unprejudiced employers use group characteristics to make inferences about an individual worker's productivity.
+
+
+
+.footnote[.super[.hi-pink[&lt;span&gt;1&lt;/span&gt;]] Kevin Lang and Ariella Kahn-Lang Spitzer (2020), [Race Discrimination: An Economic Perspective](https://pubs.aeaweb.org/doi/pdf/10.1257/jep.34.2.68), *Journal of Economic Perspectives*. &lt;br&gt; .super[.hi-pink[&lt;span&gt;2&lt;/span&gt;]] Mario L. Small and Devah Pager (2020), [Sociological Perspectives on Racial Discrimination](https://pubs.aeaweb.org/doi/pdfplus/10.1257/jep.34.2.49), *Journal of Economic Perspectives*]
+
+
+
+---
+# Taste-based discrimination
+
+Models of **taste-based discrimination**.super[.hi-pink[&lt;span&gt;&amp;#8224;&lt;/span&gt;]] posit that **prejudice** (or **animus**) causes discrimination in the labor market. 
+- **The premise?** Some economic agents would **willingly sacrifice resources to avoid contact** with certain groups of people. 
+
+.footnote[.super[.hi-pink[&lt;span&gt;&amp;#8224;&lt;/span&gt;]] Developed by Gary Becker in [The Economics of Discrimination](https://alliance-primo.hosted.exlibrisgroup.com/permalink/f/to8ro2/CP71244526180001451), *University of Chicago Press* (1957).]
+
+--
+
+### **Setup** 
+
+Two groups of equally productive workers: 
+1. **In-group** workers (*e.g.,* White workers) who receive the wage `\(w_\text{W}\)`.
+2. **Out-group** workers (*e.g.,* Black workers) who receive the wage `\(w_\text{B}\)`.
+
+---
+# Taste-based discrimination
+
+Models of **taste-based discrimination**.super[.hi-pink[&lt;span&gt;&amp;#8224;&lt;/span&gt;]] posit that **prejudice** (or **animus**) causes discrimination in the labor market. 
+- **The premise?** Some economic agents would **willingly sacrifice resources to avoid contact** with certain groups of people. 
+
+.footnote[.super[.hi-pink[&lt;span&gt;&amp;#8224;&lt;/span&gt;]] Developed by Gary Becker in [The Economics of Discrimination](https://alliance-primo.hosted.exlibrisgroup.com/permalink/f/to8ro2/CP71244526180001451), *University of Chicago Press* (1957).]
+
+### **Setup** 
+
+A **discrimination coefficient** `\(d\)` captures the **disutility of out-group contact** for three types of prejudiced economic agents:
+1. **Employers** who perceive hiring out-group workers as `\(d \times 100\)`-percent more costly than `\(w_\text{B}\)`.
+2. **Co-workers** who perceive their wage as `\(d \times 100\)`-percent lower when working with the out-group.
+3. **Customers** who perceive prices as `\(d \times 100\)`-percent when buying from an out-group seller.
+
+---
+# Taste-based discrimination
+
+## **Employer discrimination**
+
+Since both groups of workers are **equally productive**, they are **perfect substitutes**.
+
+- The level of output simply depends on the number of workers: `\(q = f(E_\text{W} + E_\text{B})\)`.
+- A firm with 25 in-group workers and 25 out-groups **produces the same output** as a firm with 50 in-group workers or a firm with 50 out-group workers.
+- `\(\text{MP}_E\)` does not depend on in-group/out-group status!
+
+
+--
+
+**Q:** How would a non-discriminatory employer maximize profit?
+
+--
+
+- **A:** By hiring from the cheaper group of workers until `\(w = \text{VMP}_E\)`.
+    - If `\(w_\text{W} &gt; w_\text{B}\)`, then hire `\(E^*_\text{B}\)` out-group workers such that `\(w_\text{B} = \text{VMP}_E\)`.
+    - If `\(w_\text{B} &gt; w_\text{W}\)`, then hire `\(E^*_\text{W}\)` in-group workers such that `\(w_\text{W} = \text{VMP}_E\)`.
+
+
+
+--
+
+Going forward, we will assume that `\(w_\text{W} &gt; w_\text{B}\)`.
+
+---
+# Taste-based discrimination
+
+.pull-left[
+&lt;img src="16-Discrimination_files/figure-html/unnamed-chunk-1-1.svg" style="display: block; margin: auto;" /&gt;
+]
+.pull-right[
+## **Employer discrimination**
+
+Non-discriminatory employers simply **hire out-group workers**.
+
+- **Why?** Both groups of workers are equally productive (*i.e.,* same `\(\text{VMP}_E\)`), but out-group labor is cheaper (*i.e.,* `\(w_\text{B} &lt; w_\text{W}\)`).
+
+]
+
+---
+# Taste-based discrimination
+
+## **Employer discrimination**
+
+Discriminatory employers perceive the cost of employing an out-group worker as `\(w_\text{B}(1 + d)\)`.
+
+- If `\(w_\text{B}=10\)` and `\(d=0.1\)`, then the employer will act as though the out-group worker costs `\(10(1 + 0.1) = 11\)`.
+- The "utility-adjusted" cost of hiring an out-group worker exceeds the actual cost!
+
+--
+
+**The result?** Segregation! A discriminatory employer will
+
+- Hire only in-group workers if `\(w_\text{B}(1 + d) &gt; w_\text{W}\)`
+- Hire only out-group workers if `\(w_\text{B}(1 + d) &lt; w_\text{W}\)`
+
+---
+# Taste-based discrimination
+
+.pull-left[
+&lt;img src="16-Discrimination_files/figure-html/unnamed-chunk-2-1.svg" style="display: block; margin: auto;" /&gt;
+]
+.pull-right[
+## **Employer discrimination**
+
+**Case 1:** Employer hires only in-group workers.
+
+- The employer **overpays for labor!**
+    - `\(w_\text{W} &gt; w_\text{B}\)`, but `\(\text{VMP}_E\)` is the same for both groups of workers.
+- Because in-group labor is relatively expensive, the employer **hires too few workers!**.
+]
+
+---
+# Taste-based discrimination
+
+.pull-left[
+&lt;img src="16-Discrimination_files/figure-html/unnamed-chunk-3-1.svg" style="display: block; margin: auto;" /&gt;
+]
+.pull-right[
+## **Employer discrimination**
+
+**Case 2:** Employer hires only out-group workers.
+
+- The employer **hires too few workers!** 
+    - Actual hiring `\(E^*_\text{B}\)` occurs where `\(w_\text{B}(1+d)= \text{VMP}_E\)`, even though the actual wage is `\(w_\text{B}\)`.
+- The employer **pays the out-group worker too little!**
+    - The marginal worker receives less than her contribution, as `\(w_\text{B} &lt; \text{VMP}_E = w_\text{B}(1+d)\)`.
+]
+
+---
+# Taste-based discrimination
+
+## **Employer discrimination**
+
+**Q:** Is discrimination profitable?
+
+--
+
+**A:** No! 
+
+- To indulge their distaste for out-group workers, **prejudiced employers sacrifice profit!**
+- By hiring too few workers, discriminatory employers fail to operate efficiently!
+
+
+--
+
+**The implication?** In a perfectly competitive market, non-discriminating employers will eventually drive discriminating employers out of business.
+
+- In-group and out-group wages will eventually equalize.
+
+
+--
+
+**Q.sub[1]:** Are wage differentials actually decreasing? &lt;br&gt; **Q.sub[2]:** Are markets actually perfectly competitive?
+
+---
+# Taste-based discrimination
+
+## **Co-worker discrimination**
+
+Suppose instead that employers are unprejudiced, but in-group workers dislike working with out-group workers.
+
+- In-group workers receive `\(w_\text{W}\)`, but act as though they're paid `\(w_\text{W}(1-d)\)`.
+
+
+--
+
+To offset the disutility of working with out-group workers, the employer would have to pay in-group workers an additional `\(w_\text{W} \times d\)` dollars.
+
+- The total wage paid for an in-group worker would rise to `\(w_\text{W}(1+d)\)`.
+- If the marginal productivity of in-group and out-group workers is the same, and there are no discriminatory employers, then `\(w_\text{W} = w_\text{B} &lt; w_\text{W}(1+d)\)`.
+
+**The result?** Segregation that persists *even with perfect competition*, but no wage differential.
+
+
+---
+# Taste-based discrimination
+
+## **Customer discrimination**
+
+Now suppose that workers and employers are unprejudiced, but customers dislike buying from the out-group.
+
+- A prejudiced customer faces the actual market price `\(p\)`, but feels as though they are paying `\(p(1+d)\)`.
+
+
+--
+
+An employer with out-group workers would have to reduce `\(p\)` to compensate prejudiced customers.
+
+- This assumes that the employer is unable to reallocate out-group workers away from customer-facing roles within the firm.
+
+
+--
+
+**The result?** The employer decreases wages for out-group workers, creating a wage differential that persists *even with perfect competition*.
+
+---
+# Statistical discrimination
+
+Models of **statistical discrimination**.super[.hi-pink[&lt;span&gt;&amp;#8224;&lt;/span&gt;]] posit that discrimination arises from employer **uncertainty** about difficult-to-observe productive attributes of workers. 
+
+.footnote[.super[.hi-pink[&lt;span&gt;&amp;#8224;&lt;/span&gt;]] Developed by Edmund Phelps in [The Statistical Theory of Racism and Sexism](https://www.jstor.org/stable/1806107), *The American Economic Review* (1972), and Kenneth Arrow in "The Theory of Discrimination" in Orley Ashenfelter and Albert Rees, eds., [Discrimination in Labor Markets](https://alliance-primo.hosted.exlibrisgroup.com/permalink/f/to8ro2/CP71344164760001451), *Princeton University Press* (1973).]
+
+**The premise?** Employers use a worker's race or gender to make inferences about the worker's productivity.
+
+--
+
+- In these models, **employers are unprejudiced**&amp;mdash;they do not have a taste for discrimination.
+- **The basis for discrimination?** Group differences in past performance (*e.g.,* achievement gaps).
+    - When considering job applicants with the same observable productive traits, but different group characteristics (*e.g.,* race), employers will often rely on the **past performance of groups** to predict **difficult-to-observe productive traits of individuals**. 
+    - Discrimination occurs when the employer systematically favors applicants from higher-productivity groups.
+
+---
+# Statistical discrimination
+
+Employers can test workers for productive traits, but it is unlikely that a test can perfectly predict productivity.
+
+To set a worker's wage, an employer uses a weighted average of the worker's test score and the average score of the group to which the worker belongs: `$$w = \alpha T + (1-\alpha)\overline{T}$$`
+
+--
+
+- `\(T\)` is the individual's test score.
+- `\(\overline{T}\)` is the group average.
+- `\(0 \leq \alpha \leq 1\)` represents how well the test measures productivity.
+    - If `\(\alpha = 1\)`, then the test provides a perfect measure of individual productivity and `\(w=T\)`.
+    - If `\(\alpha = 0\)`, then the test provides no meaningful measure of individual productivity and `\(w=\overline{T}\)`.
+
+
+---
+# Agan and Starr (2017)
+
+## **Discussion**
+
+**Q.sub[1]:** What is the research question? 
+
+**Q.sub[2]:** How does the study address the research question?
+
+**Q.sub[3]:** What are the main findings?
+
+**Q.sub[4]:** How does the study advance our understanding of racial discrimination in the labor market?
+
+**Q.sub[5]:** What are the policy implications?
+
+**Q.sub[6]:** What did *you* find most interesting?
+
+
+---
+# Housekeeping
+
+**Assigned reading for Wednesday:** [The Long-Run Effects of Teacher Collective Bargaining](https://www.aeaweb.org/articles?id=10.1257/pol.20170570) by Michael F. Lovenheim and Alexander Willén (2019).
+
+- Reading Quiz 11 is due by **Wednesday, June 2nd at 16:00**.
+- The quiz instructions will include a reading guide.
+
+**Problem Set 4** is also due by **Friday, June 4th at 23:59**.
+
+**Final Exam** scheduled for **Wednesday, June 9th from 14:45 to 16:45** on Canvas.
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="https://platform.twitter.com/widgets.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

@@ -41,9 +41,9 @@ The HTML versions of the lecture slides allow you to view animations and interac
 
 15. **Signaling** <br> [.html](https://raw.githack.com/kyleraze/EC350_Labor_Economics/master/Lectures/15-Signaling/15-Signaling.html) | [.pdf](https://raw.githack.com/kyleraze/EC350_Labor_Economics/master/Lectures/15-Signaling/15-Signaling.pdf)
 
-16. **Discrimination I** <br> [.html](https://raw.githack.com/kyleraze/EC350_Labor_Economics/master/Lectures/15-Discrimination/15-Discrimination.html) | [.pdf](https://raw.githack.com/kyleraze/EC350_Labor_Economics/master/Lectures/15-Discrimination/15-Discrimination.pdf)
+16. **Discrimination I** <br> [.html](https://raw.githack.com/kyleraze/EC350_Labor_Economics/master/Lectures/16-Discrimination/16-Discrimination.html) | [.pdf](https://raw.githack.com/kyleraze/EC350_Labor_Economics/master/Lectures/16-Discrimination/16-Discrimination.pdf)
 
-17. **Discrimination II** <br> [.html](https://raw.githack.com/kyleraze/EC350_Labor_Economics/master/Lectures/16-Discrimination/16-Discrimination.html) | [.pdf](https://raw.githack.com/kyleraze/EC350_Labor_Economics/master/Lectures/16-Discrimination/16-Discrimination.pdf)
+17. **Discrimination II** <br> [.html](https://raw.githack.com/kyleraze/EC350_Labor_Economics/master/Lectures/17-Discrimination/16-Discrimination.html) | [.pdf](https://raw.githack.com/kyleraze/EC350_Labor_Economics/master/Lectures/17-Discrimination/16-Discrimination.pdf)
 
 18. **Unions** <br> [.html](https://raw.githack.com/kyleraze/EC350_Labor_Economics/master/Lectures/17-Unions/17-Unions.html) | [.pdf](https://raw.githack.com/kyleraze/EC350_Labor_Economics/master/Lectures/17-Unions/17-Unions.pdf)
 
