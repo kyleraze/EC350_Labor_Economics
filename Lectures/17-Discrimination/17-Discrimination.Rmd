@@ -2,7 +2,7 @@
 title: "Discrimination"
 subtitle: "EC 350: Labor Economics"
 author: "[Kyle Raze](https://kyleraze.com)"
-date: "Spring 2021"
+date: "Winter 2022"
 output:
   xaringan::moon_reader:
     css: ['default', 'metropolis', 'metropolis-fonts', 'my-css.css']
@@ -96,7 +96,7 @@ xaringanExtra::use_scribble()
 
 Economics has a lot to say about discrimination in the labor market and other settings..super[.hi-pink[<span>1</span>]]
 
-While they do not explain all forms of discrimination,.super[.hi-pink[<span>2</span>]] the two most common economic models of discrimination are
+While they do not explain all forms of discrimination,.super[.hi-pink[<span>2</span>]] the two most prominent economic models of discrimination are
 
 1. **Taste-based discrimination:** Prejudiced employers willingly sacrifice resources to avoid contact with workers from certain groups.
 
@@ -422,6 +422,124 @@ To set a worker's wage, an employer uses a weighted average of the worker's test
     - If $\alpha = 1$, then the test provides a perfect measure of individual productivity and $w=T$.
     - If $\alpha = 0$, then the test provides no meaningful measure of individual productivity and $w=\overline{T}$.
 
+---
+class: inverse, middle
+
+# Ban the box
+
+---
+class: clear-slide
+
+```{r, echo = F, out.width = "95%"}
+knitr::include_graphics("box.png")
+```
+
+--
+
+**Q:** Why do employers ask about criminal history?
+
+---
+# Ban the box
+
+.more-left[
+.center[**States with ban-the-box laws (2021)**]
+```{R, echo = FALSE, fig.height = 7, dev = "svg"}
+p_load(sf, ggthemes, albersusa)
+
+state_df <- map_data("state")
+
+us_sf <- usa_sf("laea") %>% 
+  mutate(laws = case_when(
+    name %in% c(
+      "California",
+      "Colorado",
+      "Connecticut",
+      "District of Columbia",
+      "Hawaii", 
+      "Illinois",
+      "Maine",
+      "Maryland",
+      "Massachusetts",
+      "Minnesota",
+      "New Jersey",
+      "New Mexico",
+      "Oregon",
+      "Rhode Island",
+      "Vermont",
+      "Washington"
+    ) ~ "All employers",
+    name %in% c(
+      "Arizona",
+      "Delaware",
+      "Georgia",
+      "Indiana",
+      "Kansas",
+      "Kentucky",
+      "Louisiana",
+      "Michigan",
+      "Missouri",
+      "Nebraska",
+      "Nevada",
+      "New Hampshire",
+      "New York",
+      "North Carolina",
+      "North Dakota",
+      "Ohio",
+      "Oklahoma",
+      "Pennsylvania",
+      "Tennessee",
+      "Utah",
+      "Virginia",
+      "Wisconsin"
+    ) ~ "Public employers",
+    TRUE ~ "No ban-the-box law"
+  ),
+  laws = fct_relevel(as.factor(laws), "All employers", "Public employers", "No ban-the-box law"))
+ggplot() +
+  geom_sf(data = us_sf, size = 0.5, color = "white", aes(fill = laws)) +
+  scale_fill_manual(values = c(green, light_green, "grey80")) + 
+  labs(fill = "Coverage") +
+  # remove clutter
+  theme_map() + theme(text = element_text(family = "Fira Sans", size = 20, color = met_slate),
+                      legend.position = c(0.55, 0.05))
+
+```
+.footnote[*Source:* National Employment Law Project]
+]
+.less-right[
+**The policy?** Forbid employers from asking about criminal history on job applications.
+
+
+**The objective?** Expand employment opportunities for people with criminal records and **reduce racial disparities** in hiring.
+
+<!-- **The (intended) mechanism?** Removing the box allows applicants with prior convictions to get their foot in the door, increasing the odds of employment. -->
+]
+    
+---
+# Ban the box
+
+**Q:** How might an employer respond to a ban-the-box law? 
+
+--
+
+- Take a chance on candidates with criminal records?
+- Avoid candidates who are more likely to have a prior conviction? 
+
+--
+
+**Intended consequence:** Applicants with prior convictions get their foot in the door, increasing their odds of getting hired.
+
+- Other things being equal, this would increase the probability of employment for young men of color.
+
+
+--
+
+**Unintended consequence:** Employers could respond by using race as a proxy for criminal history.
+
+- Other things being equal, this would decrease the probability of employment for young men of color *without criminal records*.
+--
+
+- **Statistical discrimination!**
 
 ---
 # Agan and Starr (2017)
@@ -444,11 +562,8 @@ To set a worker's wage, an employer uses a weighted average of the worker's test
 ---
 # Housekeeping
 
-**Assigned reading for Wednesday:** [The Long-Run Effects of Teacher Collective Bargaining](https://www.aeaweb.org/articles?id=10.1257/pol.20170570) by Michael F. Lovenheim and Alexander Willén (2019).
+**Problem Set 4** is due by **Friday, March 11th at 11:59pm**.
 
-- Reading Quiz 11 is due by **Wednesday, June 2nd at 16:00**.
-- The quiz instructions will include a reading guide.
+**Final Exam** is scheduled for **Tuesday, March 15th at 2:45pm**.
 
-**Problem Set 4** is also due by **Friday, June 4th at 23:59**.
-
-**Final Exam** scheduled for **Wednesday, June 9th from 14:45 to 16:45** on Canvas.
+- In-person!

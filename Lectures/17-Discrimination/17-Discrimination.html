@@ -4,14 +4,14 @@
     <title>Discrimination</title>
     <meta charset="utf-8" />
     <meta name="author" content="Kyle Raze" />
-    <script src="16-Discrimination_files/header-attrs/header-attrs.js"></script>
-    <link href="16-Discrimination_files/remark-css/default.css" rel="stylesheet" />
-    <link href="16-Discrimination_files/remark-css/metropolis.css" rel="stylesheet" />
-    <link href="16-Discrimination_files/remark-css/metropolis-fonts.css" rel="stylesheet" />
-    <script src="16-Discrimination_files/fabric/fabric.min.js"></script>
-    <link href="16-Discrimination_files/xaringanExtra-scribble/scribble.css" rel="stylesheet" />
-    <script src="16-Discrimination_files/xaringanExtra-scribble/scribble.js"></script>
-    <script>document.addEventListener('DOMContentLoaded', function() { window.xeScribble = new Scribble({"pen_color":["#FF0000"],"pen_size":3,"eraser_size":30}) })</script>
+    <script src="17-Discrimination_files/header-attrs/header-attrs.js"></script>
+    <link href="17-Discrimination_files/remark-css/default.css" rel="stylesheet" />
+    <link href="17-Discrimination_files/remark-css/metropolis.css" rel="stylesheet" />
+    <link href="17-Discrimination_files/remark-css/metropolis-fonts.css" rel="stylesheet" />
+    <script src="17-Discrimination_files/fabric/fabric.min.js"></script>
+    <link href="17-Discrimination_files/xaringanExtra-scribble/scribble.css" rel="stylesheet" />
+    <script src="17-Discrimination_files/xaringanExtra-scribble/scribble.js"></script>
+    <script>document.addEventListener('DOMContentLoaded', function() { window.xeScribble = new Scribble({"pen_color":["#FF0000"],"pen_size":3,"eraser_size":30,"palette":[]}) })</script>
     <link rel="stylesheet" href="my-css.css" type="text/css" />
   </head>
   <body>
@@ -21,7 +21,7 @@ class: center, middle, inverse, title-slide
 # Discrimination
 ## EC 350: Labor Economics
 ### <a href="https://kyleraze.com">Kyle Raze</a>
-### Spring 2021
+### Winter 2022
 
 ---
 
@@ -51,7 +51,7 @@ class: center, middle, inverse, title-slide
 
 Economics has a lot to say about discrimination in the labor market and other settings..super[.hi-pink[&lt;span&gt;1&lt;/span&gt;]]
 
-While they do not explain all forms of discrimination,.super[.hi-pink[&lt;span&gt;2&lt;/span&gt;]] the two most common economic models of discrimination are
+While they do not explain all forms of discrimination,.super[.hi-pink[&lt;span&gt;2&lt;/span&gt;]] the two most prominent economic models of discrimination are
 
 1. **Taste-based discrimination:** Prejudiced employers willingly sacrifice resources to avoid contact with workers from certain groups.
 
@@ -126,7 +126,7 @@ Going forward, we will assume that `\(w_\text{W} &gt; w_\text{B}\)`.
 # Taste-based discrimination
 
 .pull-left[
-&lt;img src="16-Discrimination_files/figure-html/unnamed-chunk-1-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="17-Discrimination_files/figure-html/unnamed-chunk-1-1.svg" style="display: block; margin: auto;" /&gt;
 ]
 .pull-right[
 ## **Employer discrimination**
@@ -158,7 +158,7 @@ Discriminatory employers perceive the cost of employing an out-group worker as `
 # Taste-based discrimination
 
 .pull-left[
-&lt;img src="16-Discrimination_files/figure-html/unnamed-chunk-2-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="17-Discrimination_files/figure-html/unnamed-chunk-2-1.svg" style="display: block; margin: auto;" /&gt;
 ]
 .pull-right[
 ## **Employer discrimination**
@@ -174,7 +174,7 @@ Discriminatory employers perceive the cost of employing an out-group worker as `
 # Taste-based discrimination
 
 .pull-left[
-&lt;img src="16-Discrimination_files/figure-html/unnamed-chunk-3-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="17-Discrimination_files/figure-html/unnamed-chunk-3-1.svg" style="display: block; margin: auto;" /&gt;
 ]
 .pull-right[
 ## **Employer discrimination**
@@ -285,6 +285,62 @@ To set a worker's wage, an employer uses a weighted average of the worker's test
     - If `\(\alpha = 1\)`, then the test provides a perfect measure of individual productivity and `\(w=T\)`.
     - If `\(\alpha = 0\)`, then the test provides no meaningful measure of individual productivity and `\(w=\overline{T}\)`.
 
+---
+class: inverse, middle
+
+# Ban the box
+
+---
+class: clear-slide
+
+&lt;img src="box.png" width="95%" style="display: block; margin: auto;" /&gt;
+
+--
+
+**Q:** Why do employers ask about criminal history?
+
+---
+# Ban the box
+
+.more-left[
+.center[**States with ban-the-box laws (2021)**]
+&lt;img src="17-Discrimination_files/figure-html/unnamed-chunk-5-1.svg" style="display: block; margin: auto;" /&gt;
+.footnote[*Source:* National Employment Law Project]
+]
+.less-right[
+**The policy?** Forbid employers from asking about criminal history on job applications.
+
+
+**The objective?** Expand employment opportunities for people with criminal records and **reduce racial disparities** in hiring.
+
+&lt;!-- **The (intended) mechanism?** Removing the box allows applicants with prior convictions to get their foot in the door, increasing the odds of employment. --&gt;
+]
+    
+---
+# Ban the box
+
+**Q:** How might an employer respond to a ban-the-box law? 
+
+--
+
+- Take a chance on candidates with criminal records?
+- Avoid candidates who are more likely to have a prior conviction? 
+
+--
+
+**Intended consequence:** Applicants with prior convictions get their foot in the door, increasing their odds of getting hired.
+
+- Other things being equal, this would increase the probability of employment for young men of color.
+
+
+--
+
+**Unintended consequence:** Employers could respond by using race as a proxy for criminal history.
+
+- Other things being equal, this would decrease the probability of employment for young men of color *without criminal records*.
+--
+
+- **Statistical discrimination!**
 
 ---
 # Agan and Starr (2017)
@@ -307,14 +363,11 @@ To set a worker's wage, an employer uses a weighted average of the worker's test
 ---
 # Housekeeping
 
-**Assigned reading for Wednesday:** [The Long-Run Effects of Teacher Collective Bargaining](https://www.aeaweb.org/articles?id=10.1257/pol.20170570) by Michael F. Lovenheim and Alexander Willén (2019).
+**Problem Set 4** is due by **Friday, March 11th at 11:59pm**.
 
-- Reading Quiz 11 is due by **Wednesday, June 2nd at 16:00**.
-- The quiz instructions will include a reading guide.
+**Final Exam** is scheduled for **Tuesday, March 15th at 2:45pm**.
 
-**Problem Set 4** is also due by **Friday, June 4th at 23:59**.
-
-**Final Exam** scheduled for **Wednesday, June 9th from 14:45 to 16:45** on Canvas.
+- In-person!
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>

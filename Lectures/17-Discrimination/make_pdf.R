@@ -3,4 +3,4 @@
 
 library(xaringanBuilder)
 
-build_pdf("16-Discrimination.html", complex_slides = T, partial_slides = F)
+build_pdf("17-Discrimination.html", complex_slides = T, partial_slides = F)
