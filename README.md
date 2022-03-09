@@ -45,7 +45,7 @@ The HTML versions of the lecture slides allow you to view animations and interac
 
 17. **Discrimination II** <br> [.html](https://raw.githack.com/kyleraze/EC350_Labor_Economics/master/Lectures/17-Discrimination/17-Discrimination.html) | [.pdf](https://raw.githack.com/kyleraze/EC350_Labor_Economics/master/Lectures/17-Discrimination/17-Discrimination.pdf)
 
-18. **Unions** <br> [.html](https://raw.githack.com/kyleraze/EC350_Labor_Economics/master/Lectures/17-Unions/17-Unions.html) | [.pdf](https://raw.githack.com/kyleraze/EC350_Labor_Economics/master/Lectures/17-Unions/17-Unions.pdf)
+18. **Unions** <br> [.html](https://raw.githack.com/kyleraze/EC350_Labor_Economics/master/Lectures/18-Unions/18-Unions.html) | [.pdf](https://raw.githack.com/kyleraze/EC350_Labor_Economics/master/Lectures/18-Unions/18-Unions.pdf)
 
 ## Other course content
 

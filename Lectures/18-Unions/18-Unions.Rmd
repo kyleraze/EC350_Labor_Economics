@@ -2,7 +2,7 @@
 title: "Unions"
 subtitle: "EC 350: Labor Economics"
 author: "[Kyle Raze](https://kyleraze.com)"
-date: "Spring 2021"
+date: "Winter 2022"
 output:
   xaringan::moon_reader:
     css: ['default', 'metropolis', 'metropolis-fonts', 'my-css.css']
@@ -73,28 +73,6 @@ theme_gif <- theme_bw() + theme(
 xaringanExtra::use_scribble()
 ```
 
-# Agan and Starr (2017)
-
-## **Discussion**
-
-**Q.sub[1]:** What is the motivation for the research question? 
-
-**Q.sub[2]:** How does the study address the research question?
-
-**Q.sub[3]:** What are the main findings?
-
-**Q.sub[4]:** How does the study advance our understanding of racial discrimination in the labor market?
-
-**Q.sub[5]:** What are the policy implications?
-
-**Q.sub[6]:** What did *you* find most interesting?
-
----
-class: inverse, middle
-
-# Unions
-
----
 # Unions
 
 ### **What are they?**
@@ -329,7 +307,7 @@ In each example, the increase in job security comes with a **social cost!**
 - Unions can decrease income inequality, but they can also increase other forms of inequality!
 
 ---
-# The tradeoffs of unionization 
+# Which side are you on?
 
 ## **Discussion**
 
@@ -341,22 +319,24 @@ In each example, the increase in job security comes with a **social cost!**
 
 **The takeaway?** Unions can pose an equity-efficiency tradeoff, but the nature/existance of this tradeoff depends on the local context!
 
-- Possible for unions to increase equity and efficiency!
+- Possible for unions to increase equity and efficiency! (*e.g.,* in monopsonistic markets)
 - Also possible for unions to decrease equity and efficiency!
-
 
 ---
 # Housekeeping
 
-**Problem Set 4** is also due by **Sunday, June 6th at 23:59**.
+**Problem Set 4** is due by **Friday, March 11th at 11:59pm**.
 
-**Final Exam** scheduled for **Wednesday, June 9th from 14:45 to 16:45** on Canvas.
+**Final Exam** is scheduled for **Tuesday, March 15th at 2:45pm** in MCK 229.
 
-- Same format as the midterm
+- In-person, closed-note, closed book
 - Cumulative, but with more weight on post-midterm material
-
-**Extra office hours**
-
-- Saturday, June 5th from 14:00 to 15:00
-- Monday, June 7th from 10:00 to 11:00
+- Extra office hours:
+    - Saturday from 12 to 2pm on Zoom
+    - Monday from 11am to 1:30pm in PLC 522
+- Study materials (all on Canvas)
+    - **Problem Sets** (keys available)
+    - **Midterm** (key available)
+    - **Midterm Practice Problems** (key available)
+    - **Final Exam Review Guide**
 
